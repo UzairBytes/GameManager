@@ -27,11 +27,6 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
 
     /**
-     * Number of undos specified
-     */
-    private int numUndos = 3;
-
-    /**
      * Size of the board specified
      */
     private int size = 4;
@@ -131,6 +126,7 @@ public class SettingsActivity extends AppCompatActivity {
      * Sets undos from textView.
      */
     private void setUndos(){
+        int numUndos;
         String strUndos = ((EditText)findViewById(R.id.undosInput)).getText().toString();
         if(strUndos.equals("")){
             numUndos = 3;
