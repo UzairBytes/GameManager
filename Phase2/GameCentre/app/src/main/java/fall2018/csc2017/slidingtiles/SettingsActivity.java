@@ -69,25 +69,8 @@ public class SettingsActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String strSize = ((EditText)findViewById(R.id.boardSizeInput)).getText().toString();
-                if(strSize.equals("")) {
-                    size = 4;
-                }
-                else {
-                    size = Integer.parseInt(strSize);
-                }
-                boardManager = new BoardManager(size);
-                String strUndos = ((EditText)findViewById(R.id.undosInput)).getText().toString();
-                if(strUndos.equals("")){
-                    numUndos = 3;
-                }
-                else {
-                    numUndos = Integer.parseInt(strUndos);
-                }
-
-                boardManager.setMaxUndos(numUndos);
-
+                setSize();
+                setUndos();
                 if (size > 2 && size < 6) {
                     switchToGame();
                 }
@@ -128,6 +111,34 @@ public class SettingsActivity extends AppCompatActivity {
     public void onBackPressed(){
         Intent startingActivity = new Intent(this, StartingActivity.class);
         startActivity(startingActivity);
+    }
+
+    /**
+     * Sets size from textView.
+     */
+    private void setSize(){
+        String strSize = ((EditText)findViewById(R.id.boardSizeInput)).getText().toString();
+        if(strSize.equals("")) {
+            size = 4;
+        }
+        else {
+            size = Integer.parseInt(strSize);
+        }
+        boardManager = new BoardManager(size);
+    }
+
+    /**
+     * Sets undos from textView.
+     */
+    private void setUndos(){
+        String strUndos = ((EditText)findViewById(R.id.undosInput)).getText().toString();
+        if(strUndos.equals("")){
+            numUndos = 3;
+        }
+        else {
+            numUndos = Integer.parseInt(strUndos);
+        }
+        boardManager.setMaxUndos(numUndos);
     }
 }
 
