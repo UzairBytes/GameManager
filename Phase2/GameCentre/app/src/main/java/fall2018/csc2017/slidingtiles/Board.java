@@ -28,16 +28,12 @@ public class Board implements Serializable, Iterable<Tile> {
      */
     private Tile[][] tiles;
 
-    /**
-     * Stores the list of Tile objects when this Board is initialized.
-     */
-    private List<Tile> tilesList;
 
-    @NonNull
-    @Override
     /**
      * Stores the list of Tile Iterator of this Board.
      */
+    @NonNull
+    @Override
     public Iterator<Tile> iterator() {
         return new TileIterator();
     }
@@ -73,39 +69,38 @@ public class Board implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * A new board of tiles in row-major order.
-     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
-     *
-     * @param tiles the tiles for the board
+     * A board constructor which must be extended
      */
 
-    public Board(List<Tile> tiles, int rows, int cols) {
-        numRows = rows;
-        numCols = cols;
-        this.tiles = new Tile[numRows][numCols];
-        this.tilesList = tiles;
-        Iterator<Tile> iter = tiles.iterator();
-
-        for (int row = 0; row != numRows; row++) {
-            for (int col = 0; col != numCols; col++) {
-                this.tiles[row][col] = iter.next();
-            }
-        }
+    Board() {
     }
 
+    /**
+     * A board constructor which may be reused
+     */
+    Board(List<Tile> listOfTiles, int rows, int columns) {
+        numRows = rows;
+        numCols = columns;
+        for (int position = 0; position < numRows * numCols; position++) {
+            int row = position / numRows;
+            int col = position % numCols;
+            tiles[row][col] = listOfTiles.get(position);
+        }
+    }
 
     /**
      * Returns a deep-copy of this Board.
      */
     Board createDeepCopy() {
-        List<Tile> copiedTiles = new ArrayList<>(this.tilesList);
-        Board copiedBoard = new Board(copiedTiles, numRows, numCols);
+        List<Tile> copiedTiles = new ArrayList<>();
+
         Tile[][] copyTile = new Tile[numRows][numCols];
         for (int row = 0; row != numRows; row++) {
             for (int col = 0; col != numCols; col++) {
                 copyTile[row][col] = this.tiles[row][col];
             }
         }
+        Board copiedBoard = new Board(copiedTiles, numRows, numCols);
         copiedBoard.tiles = copyTile;
         return copiedBoard;
     }
