@@ -3,98 +3,36 @@ package fall2018.csc2017.slidingtiles;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
-/**
- * The game activity.
- */
-public class GameActivity extends AppCompatActivity implements Observer {
-
+abstract class GameActivity extends AppCompatActivity {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    BoardManager boardManager; //TODO make private and add getter method
 
     /**
      * The buttons to display.
      */
-    private ArrayList<Button> tileButtons;
+    ArrayList<Button> tileButtons; //TODO make private and add getter method
 
     // Grid View and calculated column height and width based on device size
-    private GestureDetectGridView gridView;
-    private static int columnWidth, columnHeight;
-
-    /**
-     * Set up the background image for each button based on the master list
-     * of positions, and then call the adapter to set the view.
-     */
-    public void display() {
-        updateTileButtons();
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-    }
-
-    /**
-     * Undo botton restores game to previous state.
-     */
-    private void addUndoButtonListener(){
-        Button undoButton = findViewById(R.id.undoButton);
-        undoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boardManager.undo();
-            }
-        });
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loadFromFile();
-        createTileButtons(this);
-        setContentView(R.layout.activity_main);
-
-        // Add View to activity
-        gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(boardManager.board.numCols);
-        gridView.setBoardManager(boardManager);
-        boardManager.addObserver(this);
-        // Observer sets up desired dimensions as well as calls our display function
-        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
-                                this);
-                        int displayWidth = gridView.getMeasuredWidth();
-                        int displayHeight = gridView.getMeasuredHeight();
-
-                        columnWidth = displayWidth / boardManager.board.numRows;
-                        columnHeight = displayHeight / boardManager.board.numCols;
-
-                        display();
-                    }
-                });
-        addUndoButtonListener();
-    }
+    GestureDetectGridView gridView; //TODO make private and add getter method
 
     /**
      * Create the buttons for displaying the tiles.
      *
      * @param context the context
      */
-    private void createTileButtons(Context context) {
+    void createTileButtons(Context context) {
         Board board = boardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != board.numRows; row++) {
@@ -109,7 +47,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
-    private void updateTileButtons() {
+    void updateTileButtons() {
         Board board = boardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
@@ -132,7 +70,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * Load the board manager from the fileName in StartingActivity.
      */
-    private void loadFromFile() {
+    void loadFromFile() {
 
         try {
             InputStream inputStream = this.openFileInput(StartingActivity.TEMP_SAVE_FILENAME);
@@ -164,11 +102,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        display();
     }
 
     /**

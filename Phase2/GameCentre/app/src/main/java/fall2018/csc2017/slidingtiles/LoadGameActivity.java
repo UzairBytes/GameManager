@@ -46,7 +46,7 @@ public class LoadGameActivity extends AppCompatActivity {
      * Switches to StartingActivity to play sliding tiles.
      */
     private void switchToGame(){
-        Intent start = new Intent(this, GameActivity.class);
+        Intent start = new Intent(this, SlidingTilesGameActivity.class);
         ListView listV = findViewById(R.id.savedFiles);
         int pos = listV.getCheckedItemPosition();
         if(pos == -1){

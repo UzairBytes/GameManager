@@ -51,7 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
      * Switches to StartingActivity to play sliding tiles.
      */
     private void switchToGame(){
-        Intent start = new Intent(this, GameActivity.class);
+        Intent start = new Intent(this, SlidingTilesGameActivity.class);
         saveToFile(SettingsActivity.TEMP_SAVE_FILENAME);
         startActivity(start);
     }
