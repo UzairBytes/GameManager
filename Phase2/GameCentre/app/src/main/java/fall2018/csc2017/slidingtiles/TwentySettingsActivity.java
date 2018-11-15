@@ -2,6 +2,8 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class TwentySettingsActivity extends SettingsActivity {
     @Override
@@ -9,4 +11,24 @@ public class TwentySettingsActivity extends SettingsActivity {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Displays that a size is not supported.
+     */
+    private void makeToastSize(){
+        Toast.makeText(this, "Please enter a size 3 to 5.", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Sets size from textView.
+     */
+    private void setSize(){
+        String strSize = ((EditText)findViewById(R.id.boardSizeInput)).getText().toString();
+        if(strSize.equals("")) {
+            size = 4;
+        }
+        else {
+            size = Integer.parseInt(strSize);
+        }
+        boardManager = new BoardManager(size);
+    }
 }

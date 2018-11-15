@@ -19,7 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+     BoardManager boardManager;
     
     /**
      * A temporary save file.
@@ -29,7 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
     /**
      * Size of the board specified
      */
-    private int size = 4;
+     int size = 4;
 
     /**
      * Shows activity_settings.xml file and starts the listener for the start button.
@@ -48,32 +48,15 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     /**
-     * Switches to StartingActivity to play sliding tiles.
+     * Switches to desired game.
      */
-    private void switchToGame(){
-        Intent start = new Intent(this, SlidingTilesGameActivity.class);
-        saveToFile(SettingsActivity.TEMP_SAVE_FILENAME);
-        startActivity(start);
+    void switchToGame(){
     }
 
     /**
      * Activate Start button.
      */
-    private void addStartButtonListener(){
-        final Button start = findViewById(R.id.Start);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSize();
-                setUndos();
-                if (size > 2 && size < 6) {
-                    switchToGame();
-                }
-                else {
-                    makeToastSize();
-                }
-            }
-        });
+    void addStartButtonListener(){
     }
 
     /**
@@ -93,13 +76,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     /**
-     * Displays that a size is not supported.
-     */
-    private void makeToastSize(){
-        Toast.makeText(this, "Please enter a size 3 to 5.", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
      * Override the functionality of the back button
      */
     @Override
@@ -109,23 +85,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     /**
-     * Sets size from textView.
-     */
-    private void setSize(){
-        String strSize = ((EditText)findViewById(R.id.boardSizeInput)).getText().toString();
-        if(strSize.equals("")) {
-            size = 4;
-        }
-        else {
-            size = Integer.parseInt(strSize);
-        }
-        boardManager = new BoardManager(size);
-    }
-
-    /**
      * Sets undos from textView.
      */
-    private void setUndos(){
+    void setUndos(){
         int numUndos;
         String strUndos = ((EditText)findViewById(R.id.undosInput)).getText().toString();
         if(strUndos.equals("")){
