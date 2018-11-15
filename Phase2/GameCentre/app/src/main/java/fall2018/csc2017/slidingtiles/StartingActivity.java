@@ -24,6 +24,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
 
+    public static String game = "sliding";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +112,18 @@ public class StartingActivity extends AppCompatActivity {
      * Switch to the SettingsActivity view to set parameters of the game.
      */
     private void switchToSettings(){
-        Intent settings = new Intent(this, SettingsActivity.class);
-        startActivity(settings);
+        if(game == "sliding") {
+            Intent settings = new Intent(this, SlidingSettingsActivity.class);
+            startActivity(settings);
+        }
+        else if(game == "checkers"){
+            Intent settings = new Intent(this, SettingsActivity.class);
+            startActivity(settings);
+        }
+        else if(game == "twenty"){
+            Intent settings = new Intent(this, SettingsActivity.class);
+            startActivity(settings);
+        }
     }
 
     /**
