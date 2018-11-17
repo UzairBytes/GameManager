@@ -72,7 +72,7 @@ public class Board implements Serializable, Iterable<Tile> {
      * A board constructor which must be extended
      */
 
-    Board() {
+    protected Board() {
     }
 
     /**

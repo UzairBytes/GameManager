@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * A Tile in any board-game
  */
-abstract class Tile implements Comparable<Tile>, Serializable {
+public abstract class Tile implements Comparable<Tile>, Serializable {
 
     /**
      * The background id to find the tile image.
@@ -39,7 +39,7 @@ abstract class Tile implements Comparable<Tile>, Serializable {
     /**
      * A tile with a background id; look up and set the id.
      */
-    Tile(){}
+    protected Tile(){}
 
 
     /**
