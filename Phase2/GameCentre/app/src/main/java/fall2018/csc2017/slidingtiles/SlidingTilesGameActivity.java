@@ -14,6 +14,9 @@ import java.util.Observer;
  */
 public class SlidingTilesGameActivity extends GameActivity implements Observer {
 
+    // Grid View and calculated column height and width based on device size
+    private SlidingGestureDetectGridView gridView;
+
     private static int columnWidth, columnHeight;
 
     /**

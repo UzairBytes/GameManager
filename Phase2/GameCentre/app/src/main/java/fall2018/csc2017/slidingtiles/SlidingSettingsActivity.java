@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 public class SlidingSettingsActivity extends SettingsActivity {
 
+
     /**
      * The board manager.
      */
