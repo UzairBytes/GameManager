@@ -8,6 +8,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class SlidingSettingsActivity extends SettingsActivity {
+
+
+    /**
+     * The board manager.
+     */
+    SlidingBoardManager boardManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +66,22 @@ public class SlidingSettingsActivity extends SettingsActivity {
         else {
             size = Integer.parseInt(strSize);
         }
-        boardManager = new BoardManager(size);
+        boardManager = new SlidingBoardManager(size);
+    }
+
+    /**
+     * Sets undos from textView.
+     */
+    void setUndos(){
+        int numUndos;
+        String strUndos = ((EditText)findViewById(R.id.undosInput)).getText().toString();
+        if(strUndos.equals("")){
+            numUndos = 3;
+        }
+        else {
+            numUndos = Integer.parseInt(strUndos);
+        }
+        boardManager.setMaxUndos(numUndos);
     }
 }
 

@@ -24,7 +24,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * The board being managed.
      */
-    protected Board board;
+    protected SlidingBoard board;
 
     /**
      * The SlidingGameFile holding the data for this board.
@@ -34,25 +34,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * Holds a stack of Boards, with each Board representing a specific game state.
      */
-    private Stack<Board> gameStates;
-
-    /**
-     * The number of undos the player has left.
-     */
-    // assigned a value from the save file
-    private int remainingUndos = 0;
-
-    /**
-     * The maximum number of undos.
-     */
-    // assigned a value from the save file
-    private int maxUndos = 3;
-
-    /**
-     * The number of moves the player has made.
-     */
-    // assigned a value from the save file
-    private int numMoves = 0; //removed static.
+    private Stack<SlidingBoard> gameStates;
 
     /**
      * Initialize the data of this game given a GameFile, containing a Stack of Boards
@@ -69,7 +51,7 @@ public class SlidingBoardManager extends BoardManager {
         this.numMoves = gameFile.numMoves;
         AccountManager.activeAccount.activeGameFile = gameFile;
         if (!gameFile.getGameStates().isEmpty()) {
-            this.board = (Board) gameFile.getGameStates().peek();
+            this.board = (SlidingBoard) gameFile.getGameStates().peek();
         }
     }
 
@@ -78,7 +60,7 @@ public class SlidingBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     SlidingBoardManager(int size) {
-        List<Tile> tiles = new ArrayList<>();
+        List<SlidingTile> tiles = new ArrayList<>();
         final int numTiles = size * size;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new SlidingTile(tileNum, numTiles));
@@ -86,7 +68,7 @@ public class SlidingBoardManager extends BoardManager {
 
         Collections.shuffle(tiles);
         // Create the board, and specify number of rows, columns
-        this.board = new Board(tiles, size, size);
+        this.board = new SlidingBoard(tiles, size, size);
 
         // Create a new GameFile, and initialize it with this shuffled board.
         SlidingGameFile gameFile = new SlidingGameFile(this.board, Instant.now().toString());
@@ -153,7 +135,7 @@ public class SlidingBoardManager extends BoardManager {
      * @param position the position
      */
     void touchMove(int position) {
-        Board newBoard = board.createDeepCopy();
+        SlidingBoard newBoard = board.createDeepCopy();
         this.board = newBoard;
 
         int row = position / board.numRows;
@@ -195,7 +177,7 @@ public class SlidingBoardManager extends BoardManager {
      * @param board a board
      */
     @SuppressWarnings("unchecked")
-    public void save(Board board) {
+    public void save(SlidingBoard board) {
         SlidingGameFile newGameFile = (SlidingGameFile) AccountManager.activeAccount.activeGameFile;
         newGameFile.getGameStates().push(board);
         AccountManager.activeAccount.addGameFile(newGameFile);
@@ -222,6 +204,7 @@ public class SlidingBoardManager extends BoardManager {
      * Returns number of move that the user took to complete the game
      * Returns zero if game is not complete
      */
+    @Override
     public int score() {
         if (puzzleSolved()) {
             return (int) (Math.pow(16, board.numCols) / ((numMoves + 1) * (maxUndos + 1)));
@@ -232,7 +215,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * Return the current board.
      */
-    Board getBoard() {
+    SlidingBoard getBoard() {
         return board;
     }
 

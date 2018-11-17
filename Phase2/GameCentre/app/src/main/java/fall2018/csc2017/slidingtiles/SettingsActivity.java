@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
@@ -84,20 +82,7 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(startingActivity);
     }
 
-    /**
-     * Sets undos from textView.
-     */
-    void setUndos(){
-        int numUndos;
-        String strUndos = ((EditText)findViewById(R.id.undosInput)).getText().toString();
-        if(strUndos.equals("")){
-            numUndos = 3;
-        }
-        else {
-            numUndos = Integer.parseInt(strUndos);
-        }
-        boardManager.setMaxUndos(numUndos);
-    }
+
 }
 
 

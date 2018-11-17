@@ -2,6 +2,7 @@ package fall2018.csc2017.slidingtiles;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -75,5 +76,24 @@ class SlidingBoard extends Board {
             }
         }
     }
+
+    /**
+     * Returns a deep-copy of this Board.
+     */
+    @Override
+    SlidingBoard createDeepCopy() {
+        List<SlidingTile> copiedTiles = new ArrayList<>();
+
+        SlidingTile[][] copyTile = new SlidingTile[numRows][numCols];
+        for (int row = 0; row != numRows; row++) {
+            for (int col = 0; col != numCols; col++) {
+                copyTile[row][col] = this.tiles[row][col];
+            }
+        }
+        SlidingBoard copiedBoard = new SlidingBoard(copiedTiles, numRows, numCols);
+        copiedBoard.tiles = copyTile;
+        return copiedBoard;
+    }
+
 
 }

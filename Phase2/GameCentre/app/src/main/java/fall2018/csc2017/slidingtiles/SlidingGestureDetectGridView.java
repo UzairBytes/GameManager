@@ -13,7 +13,6 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.GridView;
 
 public class SlidingGestureDetectGridView extends GestureDetectGridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
@@ -93,7 +92,7 @@ public class SlidingGestureDetectGridView extends GestureDetectGridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManager boardManager) {
-        mController.setBoardManager(boardManager);
+    public void setBoardManager(SlidingBoardManager slidingBoardManager) {
+        mController.setSlidingBoardManager(slidingBoardManager);
     }
 }

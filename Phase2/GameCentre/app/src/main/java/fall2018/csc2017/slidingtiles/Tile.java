@@ -23,7 +23,7 @@ public abstract class Tile implements Comparable<Tile>, Serializable {
      *
      * @return the background id
      */
-    int getBackground() {
+    protected int getBackground() {
         return background;
     }
 
@@ -32,7 +32,7 @@ public abstract class Tile implements Comparable<Tile>, Serializable {
      *
      * @return the tile id
      */
-    int getId() {
+    protected int getId() {
         return id;
     }
 
