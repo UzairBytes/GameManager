@@ -2,6 +2,7 @@ package Checkers;
 
 import java.util.ArrayList;
 
+import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.Tile;
 
 /**
@@ -26,7 +27,7 @@ public class CheckersTile extends Tile {
         super();
         this.id = id;
         canTakePiece = false;
-        /*
+
         picts.add(R.drawable.checkerstile_0);
         picts.add(R.drawable.checkerstile_1);
         picts.add(R.drawable.checkerstile_2);
@@ -38,7 +39,7 @@ public class CheckersTile extends Tile {
         picts.add(R.drawable.checkerstile_8);
         picts.add(R.drawable.checkerstile_9);
         background = picts.get(id);
-         */
+
     }
 
     /**
