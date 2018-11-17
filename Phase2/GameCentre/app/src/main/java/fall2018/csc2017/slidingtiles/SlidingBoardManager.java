@@ -19,7 +19,7 @@ import java.util.Stack;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-public class BoardManager extends Observable implements Game, Serializable {
+public class SlidingBoardManager extends Observable implements Game, Serializable {
 
     /**
      * The board being managed.
@@ -61,7 +61,7 @@ public class BoardManager extends Observable implements Game, Serializable {
      * @param gameFile: Represents a record of data for this game.
      */
     @SuppressWarnings("unchecked")
-    protected BoardManager(SlidingGameFile gameFile) {
+    protected SlidingBoardManager(SlidingGameFile gameFile) {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.remainingUndos;
@@ -84,7 +84,7 @@ public class BoardManager extends Observable implements Game, Serializable {
      * Manage a new shuffled board.
      */
     @SuppressWarnings("unchecked")
-    BoardManager(int size) {
+    SlidingBoardManager(int size) {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = size * size;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -119,7 +119,7 @@ public class BoardManager extends Observable implements Game, Serializable {
     }
 
     /**
-     * Returns the GameFile managed by this BoardManager.
+     * Returns the GameFile managed by this SlidingBoardManager.
      */
     GameFile getGameFile() {
         return this.gameFile;
