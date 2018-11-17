@@ -19,7 +19,7 @@ import java.util.Stack;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-class BoardManager extends Observable implements Game, Serializable {
+public class BoardManager extends Observable implements Game, Serializable {
 
     /**
      * The board being managed.
@@ -61,7 +61,7 @@ class BoardManager extends Observable implements Game, Serializable {
      * @param gameFile: Represents a record of data for this game.
      */
     @SuppressWarnings("unchecked")
-    BoardManager(SlidingGameFile gameFile) {
+    protected BoardManager(SlidingGameFile gameFile) {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.remainingUndos;
