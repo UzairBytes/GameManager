@@ -19,7 +19,7 @@ import java.util.Stack;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-public class SlidingBoardManager extends Observable implements Game, Serializable {
+public class SlidingBoardManager extends BoardManager {
 
     /**
      * The board being managed.
@@ -74,13 +74,6 @@ public class SlidingBoardManager extends Observable implements Game, Serializabl
     }
 
     /**
-     * Return the current board.
-     */
-    Board getBoard() {
-        return board;
-    }
-
-    /**
      * Manage a new shuffled board.
      */
     @SuppressWarnings("unchecked")
@@ -88,7 +81,7 @@ public class SlidingBoardManager extends Observable implements Game, Serializabl
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = size * size;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum, numTiles));
+            tiles.add(new SlidingTile(tileNum, numTiles));
         }
 
         Collections.shuffle(tiles);
@@ -105,17 +98,6 @@ public class SlidingBoardManager extends Observable implements Game, Serializabl
         this.numMoves = gameFile.numMoves;
         this.maxUndos = gameFile.maxUndos;
         save(this.board);
-    }
-
-    /**
-     * @param maxUndoValue: Maximum number of undo tries for this file.
-     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
-     */
-    void setMaxUndos(int maxUndoValue) {
-        this.gameFile.maxUndos = maxUndoValue;
-        this.gameFile.remainingUndos = 0;
-        this.maxUndos = maxUndoValue;
-        this.remainingUndos = 0;
     }
 
     /**
@@ -245,6 +227,24 @@ public class SlidingBoardManager extends Observable implements Game, Serializabl
             return (int) (Math.pow(16, board.numCols) / ((numMoves + 1) * (maxUndos + 1)));
         }
         return 0;
+    }
+
+    /**
+     * Return the current board.
+     */
+    Board getBoard() {
+        return board;
+    }
+
+    /**
+     * @param maxUndoValue: Maximum number of undo tries for this file.
+     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
+     */
+    void setMaxUndos(int maxUndoValue) {
+        this.gameFile.maxUndos = maxUndoValue;
+        this.gameFile.remainingUndos = 0;
+        this.maxUndos = maxUndoValue;
+        this.remainingUndos = 0;
     }
 
 }
