@@ -11,12 +11,12 @@ public abstract class Tile implements Comparable<Tile>, Serializable {
     /**
      * The background id to find the tile image.
      */
-    int background;
+    protected int background;
 
     /**
      * The id.
      */
-    int id;
+    protected int id;
 
     /**
      * Return the background id.
