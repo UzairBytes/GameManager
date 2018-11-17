@@ -17,7 +17,7 @@ public abstract class GameActivity extends AppCompatActivity {
     /**
      * The board manager.
      */
-    BoardManager boardManager; //TODO make private and add getter method
+    SlidingBoardManager boardManager; //TODO make private and add getter method
 
     /**
      * The buttons to display.
@@ -76,7 +76,7 @@ public abstract class GameActivity extends AppCompatActivity {
             InputStream inputStream = this.openFileInput(StartingActivity.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
+                boardManager = (SlidingBoardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

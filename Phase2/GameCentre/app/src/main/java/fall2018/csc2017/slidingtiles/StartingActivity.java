@@ -10,6 +10,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import Checkers.CheckersSettingActivity;
+
 /**
  * The initial activity for the sliding puzzle tile game.
  */
@@ -117,7 +119,7 @@ public class StartingActivity extends AppCompatActivity {
             startActivity(settings);
         }
         else if(game == "checkers"){
-            Intent settings = new Intent(this, SettingsActivity.class);
+            Intent settings = new Intent(this, CheckersSettingActivity.class);
             startActivity(settings);
         }
         else if(game == "twenty"){
