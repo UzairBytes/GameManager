@@ -42,7 +42,12 @@ public class CheckersTile extends Tile {
         picts.put("red_king_highlighted", R.drawable.checkers_red_king_highlighted);
         picts.put("white_pawn_highlighted", R.drawable.checkers_white_pawn_highlighted);
         picts.put("white_king_highlighted", R.drawable.checkers_white_king_highlighted);
-        background = picts.get(id);
+        if (picts.containsKey(id)){
+            background = picts.get(id);}
+        else
+            {throw new IllegalArgumentException("You're passing an invalid id to the CheckersTile Constructor");
+        }
+
 
     }
 
@@ -62,7 +67,7 @@ public class CheckersTile extends Tile {
      *
      * @param canTakePiece whether a checkerTile can take a piece
      */
-    public void setCanTakePiece(boolean canTakePiece){
+    void setCanTakePiece(boolean canTakePiece){
         this.canTakePiece = canTakePiece;
     }
 
@@ -71,16 +76,17 @@ public class CheckersTile extends Tile {
      *
      * @return canTakePiece
      */
-    public boolean isCanTakePiece() {
+    boolean isCanTakePiece() {
         return canTakePiece;
     }
     
     public void highlight() {
-        this.id += "_highlighted";
-        background = picts.get(id);
+        if (!this.id.contains("empty")) {
+            this.id += "_highlighted";
+            background = picts.get(id);}
     }
 
-    public void dehighlight() {
+   public void dehighlight() {
         String newId = this.id.replaceAll("_highlighted$","");
     }
 
@@ -89,5 +95,5 @@ public class CheckersTile extends Tile {
      *
      * @return the tile id
      */
-    protected String getId(){return id;}
+    public String getId(){return id;}
 }
