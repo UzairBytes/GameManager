@@ -1,12 +1,12 @@
 package Checkers;
 
-import java.util.Iterator;
-
 import fall2018.csc2017.slidingtiles.Board;
 
 public class CheckersBoard extends Board {
 
     private CheckersTile[][] tiles;
+
+    private boolean isP1Turn = true;
 
     CheckersBoard() {
         super();
