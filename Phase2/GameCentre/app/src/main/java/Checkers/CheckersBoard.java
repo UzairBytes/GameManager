@@ -6,15 +6,20 @@ public class CheckersBoard extends Board {
 
     private CheckersTile[][] tiles;
 
-    private boolean isP1Turn = true;
+    private boolean redsTurn;
 
-    CheckersBoard() {
+    CheckersBoard(CheckersTile[][] tiles, int size, boolean redsTurn) {
         super();
+        redsTurn = redsTurn;
+        tiles = tiles;
+        numCols = size;
+        numRows = size;
     }
 
+
     private void setCanTakePieces(){
-        for (int row = 0; row < 8; row++){
-            for (int col = 0; col < 8; col++){
+        for (int row = 0; row < numRows; row++){
+            for (int col = 0; col < numCols; col++){
                 CheckersTile curtile = tiles[row][col];
                 String id = curtile.getId();
                 if(id.equals("red_pawn")){
@@ -83,27 +88,41 @@ public class CheckersBoard extends Board {
         if (col < 2 || row < 2) {
             return false;
         }
-        return tiles[row - 2][col - 2].getId().equals("empty_black_tile");
+        return tiles[row - 2][col - 2].getId().equals("empty_white_tile");
     }
 
     private boolean emptyTopRight(int row, int col){
         if (col > 5 || row < 2) {
             return false;
         }
-        return tiles[row - 2][col + 2].getId().equals("empty_black_tile");
+        return tiles[row - 2][col + 2].getId().equals("empty_white_tile");
     }
 
     private boolean emptyBottomLeft(int row, int col){
         if (col < 2 || row > 5) {
             return false;
         }
-        return tiles[row + 2][col - 2].getId().equals("empty_black_tile");
+        return tiles[row + 2][col - 2].getId().equals("empty_white_tile");
     }
 
     private boolean emptyBottomRight(int row, int col){
         if (col > 5 || row > 5) {
             return false;
         }
-        return tiles[row + 2][col + 2].getId().equals("empty_black_tile");
+        return tiles[row + 2][col + 2].getId().equals("empty_white_tile");
+    }
+
+    /**
+     * Highlight Tile is if the selected tile belongs to the right player
+     * @param position position of the tile
+     */
+    void selectTile(int position){
+        int row = position / numRows;
+        int column = position % numCols;
+        CheckersTile selectedTile = tiles[row][column];
+
+        if (redsTurn && selectedTile.getId().contains("red")){
+            selectedTile.highlight();
+        }
     }
 }
