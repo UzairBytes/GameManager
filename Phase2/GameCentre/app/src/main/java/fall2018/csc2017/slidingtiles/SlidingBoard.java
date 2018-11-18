@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * The sliding tiles board.
  */
-class SlidingBoard extends Board {
+class SlidingBoard extends Board implements Iterable<SlidingTile>{
 
     /**
      * The tiles on the board in row-major order.
@@ -22,14 +22,14 @@ class SlidingBoard extends Board {
      */
     @NonNull
     @Override
-    public Iterator<Tile> iterator() {
+    public Iterator<SlidingTile> iterator() {
         return new SlidingTileIterator();
     }
 
     /**
      * The tile iterator, iterates through the tiles on the board.
      */
-    class SlidingTileIterator implements Iterator<Tile> {
+    class SlidingTileIterator implements Iterator<SlidingTile> {
         /**
          * The column of the next Tile.
          */
@@ -40,8 +40,8 @@ class SlidingBoard extends Board {
         private int nextRow = 0;
 
         @Override
-        public Tile next() {
-            Tile nextTile = tiles[nextRow][nextColumn];
+        public SlidingTile next() {
+            SlidingTile nextTile = tiles[nextRow][nextColumn];
             nextColumn += 1;
             if (nextColumn == numCols) {
                 nextColumn = 0;
@@ -93,6 +93,17 @@ class SlidingBoard extends Board {
         SlidingBoard copiedBoard = new SlidingBoard(copiedTiles, numRows, numCols);
         copiedBoard.tiles = copyTile;
         return copiedBoard;
+    }
+
+    /**
+     * Return the tile at (row, col)
+     *
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
+    SlidingTile getSlidingTile(int row, int col) {
+        return tiles[row][col];
     }
 
 
