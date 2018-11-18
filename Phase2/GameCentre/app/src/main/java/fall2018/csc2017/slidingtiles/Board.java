@@ -11,7 +11,9 @@ import java.util.List;
 /**
  * The sliding tiles board.
  */
-public class Board implements Serializable, Iterable<Tile> {
+
+//Iterable<Tile>
+public class Board implements Serializable {
 
     /**
      * The number of rows.
@@ -32,41 +34,41 @@ public class Board implements Serializable, Iterable<Tile> {
     /**
      * Stores the list of Tile Iterator of this Board.
      */
-    @NonNull
-    @Override
-    public Iterator<Tile> iterator() {
-        return new TileIterator();
-    }
+    //@NonNull
+    //@Override
+    //public Iterator<Tile> iterator() {
+    //    return new TileIterator();
+    //}
 
     /**
      * The tile iterator, iterates through the tiles on the board.
      */
-    class TileIterator implements Iterator<Tile> {
+    //class TileIterator implements Iterator<Tile> {
         /**
          * The column of the next Tile.
          */
-        private int nextColumn = 0;
+     //   private int nextColumn = 0;
         /**
          * The row of the next Tile.
          */
-        private int nextRow = 0;
+     //   private int nextRow = 0;
 
-        @Override
-        public Tile next() {
-            Tile nextTile = tiles[nextRow][nextColumn];
-            nextColumn += 1;
-            if (nextColumn == numCols) {
-                nextColumn = 0;
-                nextRow += 1;
-            }
-            return nextTile;
-        }
+      //  @Override
+      //  public Tile next() {
+      //      Tile nextTile = tiles[nextRow][nextColumn];
+      //      nextColumn += 1;
+      //      if (nextColumn == numCols) {
+      //          nextColumn = 0;
+      //          nextRow += 1;
+      //      }
+      //      return nextTile;
+      //  }
 
-        @Override
-        public boolean hasNext() {
-            return (nextRow < numRows);
-        }
-    }
+      //  @Override
+      //  public boolean hasNext() {
+      //      return (nextRow < numRows);
+      //  }
+    //}
 
     /**
      * A board constructor which must be extended
@@ -111,16 +113,18 @@ public class Board implements Serializable, Iterable<Tile> {
      *
      * @return the number of tiles on the board
      */
-    int numTiles() {
-        Iterator<Tile> iter = this.iterator();
-        int cont = 0;
-        while (iter.hasNext()) {
-            iter.next();
-            cont += 1;
-        }
-        return cont;
-
+    public int numTiles() {
+        return numRows * numCols;
     }
+    //    Iterator<Tile> iter = this.iterator();
+    //    int cont = 0;
+    //    while (iter.hasNext()) {
+    //        iter.next();
+    //        cont += 1;
+    //    }
+    //    return cont;
+
+    //}
 
     /**
      * Return the tile at (row, col)

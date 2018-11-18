@@ -24,7 +24,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * The board being managed.
      */
-    protected SlidingBoard board;
+    protected SlidingBoard Slidingboard;
 
     /**
      * The SlidingGameFile holding the data for this board.
@@ -51,7 +51,7 @@ public class SlidingBoardManager extends BoardManager {
         this.numMoves = gameFile.numMoves;
         AccountManager.activeAccount.activeGameFile = gameFile;
         if (!gameFile.getGameStates().isEmpty()) {
-            this.board = (SlidingBoard) gameFile.getGameStates().peek();
+            this.Slidingboard = (SlidingBoard) gameFile.getGameStates().peek();
         }
     }
 
@@ -68,10 +68,10 @@ public class SlidingBoardManager extends BoardManager {
 
         Collections.shuffle(tiles);
         // Create the board, and specify number of rows, columns
-        this.board = new SlidingBoard(tiles, size, size);
+        this.Slidingboard = new SlidingBoard(tiles, size, size);
 
         // Create a new GameFile, and initialize it with this shuffled board.
-        SlidingGameFile gameFile = new SlidingGameFile(this.board, Instant.now().toString());
+        SlidingGameFile gameFile = new SlidingGameFile(this.Slidingboard, Instant.now().toString());
 
         // Add this new GameFile to the current active account's list of GameFiles.
         AccountManager.activeAccount.addGameFile(gameFile);
@@ -79,7 +79,7 @@ public class SlidingBoardManager extends BoardManager {
         this.gameStates = this.gameFile.getGameStates();
         this.numMoves = gameFile.numMoves;
         this.maxUndos = gameFile.maxUndos;
-        save(this.board);
+        save(this.Slidingboard);
     }
 
     /**
@@ -95,7 +95,7 @@ public class SlidingBoardManager extends BoardManager {
      * @return whether the tiles are in row-major order
      */
     boolean puzzleSolved() {
-        Iterator<Tile> iter = board.iterator();
+        Iterator<SlidingTile> iter = Slidingboard.iterator();
         int id = iter.next().getId();
         while (iter.hasNext()) {
             int nextId = iter.next().getId();
@@ -115,14 +115,14 @@ public class SlidingBoardManager extends BoardManager {
      */
     boolean isValidTap(int position) {
 
-        int row = position / board.numRows;
-        int col = position % board.numCols;
-        int blankId = board.numTiles();
+        int row = position / Slidingboard.numRows;
+        int col = position % Slidingboard.numCols;
+        int blankId = Slidingboard.numTiles();
         // Are any of the 4 the blank tile?
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == board.numRows - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == board.numCols - 1 ? null : board.getTile(row, col + 1);
+        SlidingTile above = row == 0 ? null : Slidingboard.getSlidingTile(row - 1, col);
+        SlidingTile below = row == Slidingboard.numRows - 1 ? null : Slidingboard.getSlidingTile(row + 1, col);
+        SlidingTile left = col == 0 ? null : Slidingboard.getSlidingTile(row, col - 1);
+        SlidingTile right = col == Slidingboard.numCols - 1 ? null : Slidingboard.getSlidingTile(row, col + 1);
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
@@ -135,27 +135,27 @@ public class SlidingBoardManager extends BoardManager {
      * @param position the position
      */
     void touchMove(int position) {
-        SlidingBoard newBoard = board.createDeepCopy();
-        this.board = newBoard;
+        SlidingBoard newBoard = Slidingboard.createDeepCopy();
+        this.Slidingboard = newBoard;
 
-        int row = position / board.numRows;
-        int col = position % board.numCols;
-        int blankId = board.numTiles();
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == board.numRows - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == board.numCols - 1 ? null : board.getTile(row, col + 1);
+        int row = position / Slidingboard.numRows;
+        int col = position % Slidingboard.numCols;
+        int blankId = Slidingboard.numTiles();
+        SlidingTile above = row == 0 ? null : Slidingboard.getSlidingTile(row - 1, col);
+        SlidingTile below = row == Slidingboard.numRows - 1 ? null : Slidingboard.getSlidingTile(row + 1, col);
+        SlidingTile left = col == 0 ? null : Slidingboard.getSlidingTile(row, col - 1);
+        SlidingTile right = col == Slidingboard.numCols - 1 ? null : Slidingboard.getSlidingTile(row, col + 1);
         addUndos();
         numMoves++;
         gameFile.increaseNumMoves();
         if (below != null && below.getId() == blankId) {
-            board.swapTiles(row, col, row + 1, col);
+            Slidingboard.swapTiles(row, col, row + 1, col);
         } else if (above != null && above.getId() == blankId) {
-            board.swapTiles(row, col, row - 1, col);
+            Slidingboard.swapTiles(row, col, row - 1, col);
         } else if (left != null && left.getId() == blankId) {
-            board.swapTiles(row, col, row, col - 1);
+            Slidingboard.swapTiles(row, col, row, col - 1);
         } else if (right != null && right.getId() == blankId) {
-            board.swapTiles(row, col, row, col + 1);
+            Slidingboard.swapTiles(row, col, row, col + 1);
         }
         save(newBoard);
         setChanged();
@@ -184,7 +184,7 @@ public class SlidingBoardManager extends BoardManager {
         AccountManager.activeAccount.saveAllGameFiles();
         this.gameFile = newGameFile;
         this.gameStates = newGameFile.getGameStates();
-        this.board = board;
+        this.Slidingboard = board;
     }
 
     /**
@@ -194,7 +194,7 @@ public class SlidingBoardManager extends BoardManager {
         if (this.remainingUndos > 0) {
             this.remainingUndos--;
             this.gameStates.pop();
-            this.board = this.gameStates.peek();
+            this.Slidingboard = this.gameStates.peek();
             setChanged();
             notifyObservers();
         }
@@ -207,7 +207,7 @@ public class SlidingBoardManager extends BoardManager {
     @Override
     public int score() {
         if (puzzleSolved()) {
-            return (int) (Math.pow(16, board.numCols) / ((numMoves + 1) * (maxUndos + 1)));
+            return (int) (Math.pow(16, Slidingboard.numCols) / ((numMoves + 1) * (maxUndos + 1)));
         }
         return 0;
     }
@@ -216,7 +216,7 @@ public class SlidingBoardManager extends BoardManager {
      * Return the current board.
      */
     SlidingBoard getBoard() {
-        return board;
+        return this.Slidingboard;
     }
 
     /**
