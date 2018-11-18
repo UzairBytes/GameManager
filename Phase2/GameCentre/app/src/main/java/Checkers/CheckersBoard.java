@@ -125,4 +125,30 @@ public class CheckersBoard extends Board {
             selectedTile.highlight();
         }
     }
+
+    /**
+     * Swap the tiles at (row1, col1) and (row2, col2). Remove any jumped piece and maybe make king
+     *
+     * @param row1 row of the initial position
+     * @param col1 column of the initial position
+     * @param row2 row of the end position
+     * @param col2 column of the end position
+     */
+    protected void swapTiles(int row1, int col1, int row2, int col2) {
+        super.swapTiles(row1, col1, row2, col2);
+        //jumps tile to the top left
+        if (row1-row2==-2 && col1-col2==2){
+            tiles[row1+1][col1-1].changeTile(CheckersTile.emptyWhiteTile);
+
+        }
+
+    }
+
+    /**
+     * Return a tile at the requested position
+     * @param row
+     * @param col
+     * @return the tile at row, col
+     */
+    CheckersTile getTile (int row, int col){return tiles[row][col];}
 }

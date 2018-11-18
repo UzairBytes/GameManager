@@ -14,8 +14,8 @@ public class CheckersTile extends Tile {
      * Overwrite id to be a String
      */
     private String id;
-
     /**
+
      * Where it can take a piece
      */
     private boolean canTakePiece;
@@ -24,6 +24,8 @@ public class CheckersTile extends Tile {
      * Arraylist of images
      */
     private HashMap<String, Integer> picts = new HashMap<>();
+
+    static final String emptyWhiteTile = "empty_white_tile";
 
     /**
      * A checker tile with a background id
@@ -52,9 +54,10 @@ public class CheckersTile extends Tile {
     }
 
     /**
-     * Makes the piece a king
+     * Makes the piece a king if appropriate
      */
-    protected void makeKing(){
+    protected void maybeMakeKing(){
+
         if (this.id.contains("white")){
             this.id = "white_king";
         }
@@ -87,7 +90,8 @@ public class CheckersTile extends Tile {
     }
 
    public void dehighlight() {
-        String newId = this.id.replaceAll("_highlighted$","");
+        id.replaceAll("_highlighted$","");
+        background = picts.get(id);
     }
 
     /**
@@ -96,4 +100,9 @@ public class CheckersTile extends Tile {
      * @return the tile id
      */
     public String getId(){return id;}
+
+    public void changeTile(String newId){
+        id = newId;
+        background = picts.get(id);
+    }
 }
