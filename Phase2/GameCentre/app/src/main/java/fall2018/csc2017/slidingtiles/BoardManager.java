@@ -7,7 +7,7 @@ import java.util.Stack;
 import phase1.Game;
 import phase1.SlidingGameFile;
 
-class BoardManager extends Observable implements Game, Serializable {
+public class BoardManager extends Observable implements Game, Serializable {
     /**
      * The board being managed.
      */
