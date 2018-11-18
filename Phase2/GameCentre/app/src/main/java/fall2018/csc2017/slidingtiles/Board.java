@@ -1,11 +1,8 @@
 package fall2018.csc2017.slidingtiles;
 
-import android.support.annotation.NonNull;
-
-import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,12 +15,12 @@ public class Board implements Serializable {
     /**
      * The number of rows.
      */
-    int numRows;
+    protected int numRows;
 
     /**
      * The number of rows.
      */
-    int numCols;
+    protected int numCols;
 
     /**
      * The tiles on the board in row-major order.
@@ -146,7 +143,7 @@ public class Board implements Serializable {
      * @param row2 the second tile row
      * @param col2 the second tile col
      */
-    void swapTiles(int row1, int col1, int row2, int col2) {
+    protected void swapTiles(int row1, int col1, int row2, int col2) {
 
         Tile[][] holdTile = new Tile[1][2];
         holdTile[0][0] = getTile(row1, col1);
