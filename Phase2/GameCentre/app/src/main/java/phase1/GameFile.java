@@ -17,7 +17,7 @@ public abstract class GameFile<T> implements Serializable {
     /**
      * gameStates is a stack of boards, in the case of sliding tiles.
      */
-    Stack<T> gameStates = new Stack<>();
+    protected Stack<T> gameStates = new Stack<>();
 
     /**
      * @return Returns the Stack of game states for this file.
