@@ -15,12 +15,12 @@ public class Board implements Serializable {
     /**
      * The number of rows.
      */
-    protected int numRows;
+    public int numRows;
 
     /**
      * The number of rows.
      */
-    protected int numCols;
+    public int numCols;
 
     /**
      * The tiles on the board in row-major order.
