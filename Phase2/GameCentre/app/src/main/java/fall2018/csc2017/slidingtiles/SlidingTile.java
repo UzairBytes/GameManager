@@ -14,7 +14,7 @@ class SlidingTile extends Tile {
      */
 
 
-    public SlidingTile(int backgroundId, int boardSize) {
+    SlidingTile(int backgroundId, int boardSize) {
         super();
         ArrayList<Integer> picts = new ArrayList<>();
         picts.add(R.drawable.slidingtile_1);
@@ -64,4 +64,11 @@ class SlidingTile extends Tile {
         }
 
     }
+
+    /**
+     * Return the tile id.
+     *
+     * @return the tile id
+     */
+    protected int getId(){return id;}
 }

@@ -28,15 +28,6 @@ public abstract class Tile implements Comparable<Tile>, Serializable {
     }
 
     /**
-     * Return the tile id.
-     *
-     * @return the tile id
-     */
-    protected int getId() {
-        return id;
-    }
-
-    /**
      * A tile with a background id; look up and set the id.
      */
     protected Tile(){}

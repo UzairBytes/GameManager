@@ -79,8 +79,15 @@ public class CheckersTile extends Tile {
         this.id += "_highlighted";
         background = picts.get(id);
     }
-    
+
     public void dehighlight() {
         String newId = this.id.replaceAll("_highlighted$","");
     }
+
+    /**
+     * Return the tile id.
+     *
+     * @return the tile id
+     */
+    protected String getId(){return id;}
 }
