@@ -1,11 +1,9 @@
 package phase1;
 
-import android.content.Context;
 import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.Iterator;
 import java.util.Map;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,7 +13,7 @@ import java.util.HashMap;
 /**
  * AccountManager class saves and retrieves accounts and sets active accounts.
  */
-public class AccountManager {
+public class AccountManager{
 
     /**
      * The application's context, which will store the location where game data will be saved.
