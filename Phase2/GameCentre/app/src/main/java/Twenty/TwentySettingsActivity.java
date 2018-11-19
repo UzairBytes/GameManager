@@ -1,8 +1,11 @@
-package fall2018.csc2017.slidingtiles;
+package Twenty;
 
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import fall2018.csc2017.CoreClasses.R;
+import fall2018.csc2017.CoreClasses.SettingsActivity;
 
 public class TwentySettingsActivity extends SettingsActivity {
     @Override
@@ -28,6 +31,6 @@ public class TwentySettingsActivity extends SettingsActivity {
         else {
             size = Integer.parseInt(strSize);
         }
-        boardManager = new SlidingBoardManager(size);
+//        boardManager = new TwentyBoardManager(size);
     }
 }

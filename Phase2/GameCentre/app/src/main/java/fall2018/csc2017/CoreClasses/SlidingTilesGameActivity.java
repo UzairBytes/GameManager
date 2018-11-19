@@ -1,7 +1,6 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.CoreClasses;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;

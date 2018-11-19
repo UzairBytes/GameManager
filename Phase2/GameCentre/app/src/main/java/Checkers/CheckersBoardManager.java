@@ -3,7 +3,7 @@ package Checkers;
 import java.time.Instant;
 import java.util.Stack;
 
-import fall2018.csc2017.slidingtiles.BoardManager;
+import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
 
 public class CheckersBoardManager extends BoardManager {

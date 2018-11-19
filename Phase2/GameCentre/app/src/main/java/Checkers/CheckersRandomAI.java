@@ -1,0 +1,4 @@
+package Checkers;
+
+class CheckersRandomAI {
+}

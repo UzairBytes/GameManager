@@ -2,7 +2,7 @@ package phase1;
 
 import java.io.Serializable;
 
-import fall2018.csc2017.slidingtiles.Board;
+import fall2018.csc2017.CoreClasses.Board;
 
 public class SlidingGameFile extends GameFile implements Serializable {
 

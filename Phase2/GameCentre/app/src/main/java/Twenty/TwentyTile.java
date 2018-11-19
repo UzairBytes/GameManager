@@ -1,6 +1,8 @@
-package fall2018.csc2017.slidingtiles;
+package Twenty;
 
 import android.support.annotation.NonNull;
+
+import fall2018.csc2017.CoreClasses.Tile;
 
 public class TwentyTile extends Tile {
 

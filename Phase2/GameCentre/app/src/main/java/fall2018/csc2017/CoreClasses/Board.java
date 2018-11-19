@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.CoreClasses;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -70,7 +70,6 @@ public class Board implements Serializable {
     /**
      * A board constructor which must be extended
      */
-
     protected Board() {
     }
 
