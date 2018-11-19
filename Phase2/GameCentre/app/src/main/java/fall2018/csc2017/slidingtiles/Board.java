@@ -70,7 +70,6 @@ public class Board implements Serializable {
     /**
      * A board constructor which must be extended
      */
-
     protected Board() {
     }
 

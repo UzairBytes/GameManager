@@ -8,6 +8,8 @@ import phase1.Game;
 import phase1.SlidingGameFile;
 
 public class BoardManager extends Observable implements Game, Serializable {
+
+
     /**
      * The board being managed.
      */
