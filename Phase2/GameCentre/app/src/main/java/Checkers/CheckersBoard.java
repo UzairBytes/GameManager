@@ -8,6 +8,8 @@ public class CheckersBoard extends Board {
 
     private boolean redsTurn;
 
+    private CheckersTile highLightedTile;
+
     CheckersBoard(CheckersTile[][] tiles, int size, boolean redsTurn) {
         super();
         redsTurn = redsTurn;
@@ -142,9 +144,18 @@ public class CheckersBoard extends Board {
         }
 
         maybeMakeKing(row2,col2);
+        highLightedTile.dehighlight();
+        highLightedTile = null;
         }
 
+        void setHighLightedTile (CheckersTile tile){
+            tile.highlight();
+            highLightedTile = tile;
+        }
 
+        CheckersTile getHighLightedTile (){
+            return highLightedTile;
+        }
 
     /**
      * Return a tile at the requested position
