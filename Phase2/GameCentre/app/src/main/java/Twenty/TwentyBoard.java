@@ -1,11 +1,13 @@
-package fall2018.csc2017.slidingtiles;
+package Twenty;
 import java.util.ArrayList;
 import java.util.List;
+
+import fall2018.csc2017.slidingtiles.Board;
 
 public class TwentyBoard extends Board {
 
     /**
-     * A board constructor which must be extended
+     * Initializes the TwentyBoard with a list of tiles.
      */
     public TwentyBoard(List<TwentyTile> tiles, int numRows, int numCols) {
         this.numRows = numRows;

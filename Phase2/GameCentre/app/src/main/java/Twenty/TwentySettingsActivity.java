@@ -1,8 +1,12 @@
-package fall2018.csc2017.slidingtiles;
+package Twenty;
 
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.slidingtiles.SettingsActivity;
+import fall2018.csc2017.slidingtiles.SlidingBoardManager;
 
 public class TwentySettingsActivity extends SettingsActivity {
     @Override
