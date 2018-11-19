@@ -1,7 +1,9 @@
-package fall2018.csc2017.CoreClasses;
+package Twenty;
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+
+import fall2018.csc2017.CoreClasses.GestureDetectGridView;
 
 public class TwentyGestureDetectGridView extends GestureDetectGridView {
     private static final int SWIPE_MIN_DISTANCE = 100;
