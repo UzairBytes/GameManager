@@ -1,7 +1,7 @@
-package GameCentre;
+package Checkers;
 
 import org.junit.Test;
-import Checkers.CheckersTile;
+
 import static org.junit.Assert.assertEquals;
 
 public class CheckersTileTest {
