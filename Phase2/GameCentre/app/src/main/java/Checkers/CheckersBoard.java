@@ -1,5 +1,8 @@
 package Checkers;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import fall2018.csc2017.CoreClasses.Board;
 
 public class CheckersBoard extends Board {
@@ -9,6 +12,8 @@ public class CheckersBoard extends Board {
     private boolean redsTurn;
 
     private CheckersTile highLightedTile;
+
+    private int[] highLightedTilePosition;
 
     CheckersBoard(CheckersTile[][] tiles, int size, boolean redsTurn) {
         super();
@@ -24,72 +29,69 @@ public class CheckersBoard extends Board {
             for (int col = 0; col < numCols; col++){
                 CheckersTile curtile = tiles[row][col];
                 String id = curtile.getId();
+                int[][] canTakePiece = new int[4][2];
                 if(id.equals("red_pawn")){
-                    curtile.setCanTakePiece(redPawnCanTake(row, col));
+                    curtile.setCanTakePiece(redPawnCanTake(row, col, canTakePiece));
                 }
 
                 if(id.equals("red_king")){
-                    curtile.setCanTakePiece(redKingCanTake(row, col));
+                    curtile.setCanTakePiece(redKingCanTake(row, col, canTakePiece));
                 }
 
                 if(id.equals("white_pawn")){
-                    curtile.setCanTakePiece(whitePawnCanTake(row, col));
+                    curtile.setCanTakePiece(whitePawnCanTake(row, col, canTakePiece));
                 }
                 if(id.equals("white_king")){
-                    curtile.setCanTakePiece(whiteKingCanTake(row, col));
+                    curtile.setCanTakePiece(whiteKingCanTake(row, col, canTakePiece));
                 }
             }
         }
     }
 
-    private int[][] redPawnCanTake(int row, int col){
-        int[][] canTakePiece = new int[4][2];
+    private int[][] redPawnCanTake(int row, int col, int[][] canTakePiece){
         if (emptyTopRight(row, col) && tiles[row - 1][col + 1].getId().contains("white")){
-            canTakePiece[0][0] = row - 1;
-            canTakePiece[0][1] = col + 1;
+            canTakePiece[0][0] = row - 2;
+            canTakePiece[0][1] = col + 2;
         }
         if (emptyTopLeft(row, col) && tiles[row - 1][col - 1].getId().contains("white")){
-            canTakePiece[1][0] = row - 1;
-            canTakePiece[1][1] = col - 1;
+            canTakePiece[1][0] = row - 2;
+            canTakePiece[1][1] = col - 2;
         }
         return canTakePiece;
     }
 
-    private int[][] whitePawnCanTake(int row, int col){
-        int[][] canTakePiece = new int[4][2];
+    private int[][] whitePawnCanTake(int row, int col, int[][] canTakePiece){
         if (emptyBottomRight(row, col)&& tiles[row + 1][col + 1].getId().contains("red")){
-            canTakePiece[0][0] = row + 1;
-            canTakePiece[0][1] = col + 1;
+            canTakePiece[2][0] = row + 2;
+            canTakePiece[2][1] = col + 2;
         }
         if (emptyBottomLeft(row, col) && tiles[row + 1][col - 1].getId().contains("red")){
-            canTakePiece[1][0] = row + 1;
-            canTakePiece[1][1] = col - 1;
+            canTakePiece[3][0] = row + 2;
+            canTakePiece[3][1] = col - 2;
         }
         return canTakePiece;
     }
 
-    private int[][] redKingCanTake(int row, int col){
-        int[][] canTakePiece = redPawnCanTake(row, col);
+    private int[][] redKingCanTake(int row, int col, int[][] canTakePiece){
         if (emptyBottomRight(row, col) && tiles[row + 1][col + 1].getId().contains("white")){
-            canTakePiece[2][0] = row + 1;
-            canTakePiece[2][1] = col + 1;
+            canTakePiece[2][0] = row + 2;
+            canTakePiece[2][1] = col + 2;
         }
         if (emptyBottomLeft(row, col) && tiles[row + 1][col - 1].getId().contains("white")){
-            canTakePiece[3][0] = row + 1;
-            canTakePiece[3][1] = col - 1;
+            canTakePiece[3][0] = row + 2;
+            canTakePiece[3][1] = col - 2;
         }
         return canTakePiece;
     }
 
-    private int[][] whiteKingCanTake(int row, int col){
-        int[][] canTakePiece = whitePawnCanTake(row, col);
+    private int[][] whiteKingCanTake(int row, int col, int[][] canTakePiece){
         if (emptyTopRight(row, col) && tiles[row - 1][col + 1].getId().contains("red")){
-            canTakePiece[2][0] = row - 1;
-            canTakePiece[2][1] = col + 1;
+            canTakePiece[0][0] = row - 2;
+            canTakePiece[0][1] = col + 2;
         }
         if (emptyTopLeft(row, col) && tiles[row - 1][col - 1].getId().contains("red")){
-            canTakePiece[3][0] = row - 1;
-            canTakePiece[3][1] = col - 1;
+            canTakePiece[1][0] = row - 2;
+            canTakePiece[1][1] = col - 2;
         }
         return canTakePiece;
     }
@@ -154,15 +156,23 @@ public class CheckersBoard extends Board {
         maybeMakeKing(row2,col2);
         highLightedTile.dehighlight();
         highLightedTile = null;
+        highLightedTilePosition = new int[2];
         }
 
-        void setHighLightedTile (CheckersTile tile){
+        void setHighLightedTile (int row, int col){
+            CheckersTile tile = getTile(row, col);
             tile.highlight();
             highLightedTile = tile;
+            highLightedTilePosition[0] = row;
+            highLightedTilePosition[1] = col;
         }
 
         CheckersTile getHighLightedTile (){
             return highLightedTile;
+        }
+
+        int[] getHighLightedTilePosition(){
+            return highLightedTilePosition;
         }
 
     /**

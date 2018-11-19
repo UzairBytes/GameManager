@@ -83,7 +83,7 @@ public class CheckersBoardManager extends BoardManager {
         CheckersTile selectedTile = Checkersboard.getTile(row, col);
         String tileId = selectedTile.getId();
         if (redsTurn && tileId.contains("red") || tileId.contains("white")){
-            Checkersboard.setHighLightedTile(selectedTile);
+            Checkersboard.setHighLightedTile(row, col);
             return true;
         }
         return false;
@@ -91,8 +91,29 @@ public class CheckersBoardManager extends BoardManager {
 
     boolean isValidMove (int position){
         CheckersTile highLightedTile = Checkersboard.getHighLightedTile();
-        if (highLightedTile != null){
-
+        String highId = highLightedTile.getId();
+        int highRow = Checkersboard.getHighLightedTilePosition()[0];
+        int highCol = Checkersboard.getHighLightedTilePosition()[1];
+        int row = position / Checkersboard.numRows;
+        int col = position % Checkersboard.numCols;
+        CheckersTile moveTile = Checkersboard.getTile(row, col);
+        if (!moveTile.getId().equals(CheckersTile.EMPTYWHITETILE)){
+            return false;
+        }
+        int[][] canTakePiece = highLightedTile.isCanTakePiece();
+        for (int i = 0; i < 4; i++){
+            if (canTakePiece[i][0] == row && canTakePiece[i][1] == col){
+                return true;
+            }
+        }
+        if (col != highCol + 1 && col != highCol -1){
+            return false;
+        }
+        if ((highId.contains("red") || highId.contains("king")) && row == row - 1){
+            return true;
+        }
+        else if ((highId.contains("white") || highId.contains("king")) && row == row + 1){
+            return true;
         }
         return false;
     }
