@@ -27,7 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
     /**
      * Size of the board specified
      */
-     int size = 4;
+    protected int size = 4;
 
     /**
      * Shows activity_settings.xml file and starts the listener for the start button.

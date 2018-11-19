@@ -32,6 +32,6 @@ public class TwentySettingsActivity extends SettingsActivity {
         else {
             size = Integer.parseInt(strSize);
         }
-        boardManager = new SlidingBoardManager(size);
+//        boardManager = new TwentyBoardManager(size);
     }
 }
