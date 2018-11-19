@@ -3,6 +3,18 @@ import java.util.ArrayList;
 
 public class TwentyBoard extends Board {
 
+    //TODO: use this.numRows, this.numCols
+
+    /*
+     * Replace a tile at (row, col) with a new specified tile.
+     * @param row the tile row
+     * @param col the tile col
+     * @param insertTile the tile to insert at (row, col)
+     */
+    public void insertTile(TwentyTile newTile, int row, int col){
+        this.tiles[row][col] = newTile;
+    }
+
     /*
      * @param row1 the first tile row
      * @param col1 the first tile col
@@ -71,16 +83,6 @@ public class TwentyBoard extends Board {
         return emptyPositions;
     }
 
-    /*
-     * Replace a tile at (row, col) with a new specified tile.
-     * @param row the tile row
-     * @param col the tile col
-     * @param insertTile the tile to insert at (row, col)
-     */
-    public void insertTile(TwentyTile newTile, int row, int col){
-        this.tiles[row][col] = newTile;
-    }
-
     public boolean isCollapsable(char dir){
         // Left to right if horizontal, and top to bottom if vertical,
         // see if there are two adjacent tiles that are of the same id.
@@ -102,5 +104,6 @@ public class TwentyBoard extends Board {
         }
         return false;
     }
+
 
 }
