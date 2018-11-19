@@ -25,7 +25,7 @@ public abstract class GameActivity extends AppCompatActivity {
     ArrayList<Button> tileButtons; //TODO make private and add getter method
 
     // Grid View and calculated column height and width based on device size
-    GestureDetectGridView gridView; //TODO make private and add getter method
+    //GestureDetectGridView gridView; //TODO make private and add getter method
 
     /**
      * Create the buttons for displaying the tiles.
@@ -33,28 +33,14 @@ public abstract class GameActivity extends AppCompatActivity {
      * @param context the context
      */
     void createTileButtons(Context context) {
-        Board board = boardManager.getBoard();
+        SlidingBoard board = boardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != board.numRows; row++) {
             for (int col = 0; col != board.numCols; col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                tmp.setBackgroundResource(board.getSlidingTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
             }
-        }
-    }
-
-    /**
-     * Update the backgrounds on the buttons to match the tiles.
-     */
-    void updateTileButtons() {
-        Board board = boardManager.getBoard();
-        int nextPos = 0;
-        for (Button b : tileButtons) {
-            int row = nextPos / board.numRows;
-            int col = nextPos % board.numCols;
-            b.setBackgroundResource(board.getTile(row, col).getBackground());
-            nextPos++;
         }
     }
 

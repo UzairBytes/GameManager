@@ -17,7 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
     /**
      * The board manager.
      */
-     BoardManager boardManager;
+     protected SlidingBoardManager boardManager;
     
     /**
      * A temporary save file.
