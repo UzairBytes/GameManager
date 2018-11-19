@@ -25,7 +25,7 @@ public class Board implements Serializable {
     /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles;
+    protected Tile[][] tiles;
 
 
     /**

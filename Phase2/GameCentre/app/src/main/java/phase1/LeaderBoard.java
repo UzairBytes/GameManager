@@ -137,8 +137,6 @@ public abstract class LeaderBoard {
             objectOutputStream.close();
         } catch (IOException e) {
             Log.e("LeaderBoardActivities", "scores.ser not found");
-
         }
-
     }
 }
