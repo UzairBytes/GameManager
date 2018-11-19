@@ -1,5 +1,6 @@
 package Checkers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import fall2018.csc2017.CoreClasses.R;
@@ -18,7 +19,7 @@ public class CheckersTile extends Tile {
 
      * Where it can take a piece
      */
-    private boolean canTakePiece;
+    private int[][] canTakePiece;
 
     /**
      * HashMap of images
@@ -37,7 +38,7 @@ public class CheckersTile extends Tile {
     public CheckersTile(String id) {
         super();
         this.id = id;
-        canTakePiece = false;
+        canTakePiece = new int[4][2];
         picts.put("empty_tile", R.drawable.checkers_empty_white_tile);
         picts.put("empty_black_tile", R.drawable.checkers_empty_black_tile);
         picts.put("red_pawn", R.drawable.checkers_red_pawn);
@@ -63,7 +64,7 @@ public class CheckersTile extends Tile {
      *
      * @param canTakePiece whether a checkerTile can take a piece
      */
-    void setCanTakePiece(boolean canTakePiece){
+    void setCanTakePiece(int[][] canTakePiece){
         this.canTakePiece = canTakePiece;
     }
 
@@ -72,7 +73,7 @@ public class CheckersTile extends Tile {
      *
      * @return canTakePiece
      */
-    boolean isCanTakePiece() {
+    int[][] isCanTakePiece() {
         return canTakePiece;
     }
     
