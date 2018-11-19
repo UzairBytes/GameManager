@@ -1,4 +1,5 @@
 package fall2018.csc2017.slidingtiles;
+import java.util.ArrayList;
 
 public class TwentyBoard extends Board {
 
@@ -22,26 +23,35 @@ public class TwentyBoard extends Board {
 
     }
 
-    /* Get the position of an empty tile in this board. */
-    public int[] getEmptyTilePos(){
-        // Iterate through this TwentyBoard to find & retrieve the position of an empty tile;
+    /* Get the positions of a random empty tile in this Board. */
+    public int[] getRanEmptyPos(){
+        int[] ranEmptyPos = new int[2];
+        ArrayList<int[]> emptyPositions = getAllEmptyPos();
+        if(emptyPositions.isEmpty()){
+            // There are no empty tiles. Having a position of '-1' will denote that no empty tile exists.
+            ranEmptyPos[0] = -1;
+        }else{
+            int ranIndex = (int)(Math.random() * emptyPositions.size());
+            ranEmptyPos = emptyPositions.get(ranIndex);
+        }
+        return ranEmptyPos;
+
+    }
+
+    /* Get the positions of all the empty tiles in this Board. */
+    public ArrayList<int[]> getAllEmptyPos(){
+        ArrayList<int[]> emptyPositions = new ArrayList<>();
+        // Iterate through this TwentyBoard to find & retrieve the position of all the empty tiles
         TwentyTile currentTile;
-        int emptyPosition[] = new int[2];
-        boolean emptyFound = false;
         for(int row = 0; row<this.tiles.length; row++){
             for(int col = 0; col<this.tiles.length; col++){
                 currentTile = (TwentyTile)this.tiles[row][col];
                 if(currentTile.isBlank()){
-                    emptyPosition[0] = row;
-                    emptyPosition[1] = col;
-                    emptyFound = true;
+                    int emptyPosition[] = {row, col};
+                    emptyPositions.add(emptyPosition);
                 }
             }
         }
-        // Having a position of '-1' will denote that no such empty tile exists.
-        if(!emptyFound){
-            emptyPosition[0] = -1;
-        }
-        return emptyPosition;
+        return emptyPositions;
     }
 }
