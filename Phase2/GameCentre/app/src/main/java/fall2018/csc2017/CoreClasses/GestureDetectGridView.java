@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.CoreClasses;
 
 import android.content.Context;
 import android.util.AttributeSet;

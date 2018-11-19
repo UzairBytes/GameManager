@@ -1,6 +1,6 @@
 package phase1;
 
-import fall2018.csc2017.slidingtiles.Board;
+import fall2018.csc2017.CoreClasses.Board;
 
 public interface Game {
 

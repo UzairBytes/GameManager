@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.CoreClasses;
 
 
 import java.util.ArrayList;
@@ -70,5 +70,5 @@ class SlidingTile extends Tile {
      *
      * @return the tile id
      */
-    protected int getId(){return id;}
+    public int getId(){return id;}
 }

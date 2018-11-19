@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.slidingtiles.BoardManager;
+import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
 import phase1.SlidingGameFile;
 

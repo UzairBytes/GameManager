@@ -1,11 +1,10 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.CoreClasses;
 
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Stack;
 
 import phase1.Game;
-import phase1.SlidingGameFile;
 
 public class BoardManager extends Observable implements Game, Serializable {
 

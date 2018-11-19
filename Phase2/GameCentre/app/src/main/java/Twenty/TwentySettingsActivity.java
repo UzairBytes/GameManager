@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.slidingtiles.SettingsActivity;
-import fall2018.csc2017.slidingtiles.SlidingBoardManager;
+import fall2018.csc2017.CoreClasses.R;
+import fall2018.csc2017.CoreClasses.SettingsActivity;
 
 public class TwentySettingsActivity extends SettingsActivity {
     @Override

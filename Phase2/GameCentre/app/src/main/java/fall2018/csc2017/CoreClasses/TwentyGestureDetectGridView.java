@@ -1,8 +1,5 @@
-package fall2018.csc2017.slidingtiles;
-import android.annotation.TargetApi;
+package fall2018.csc2017.CoreClasses;
 import android.content.Context;
-import android.os.Build;
-import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 

@@ -2,7 +2,7 @@ package Twenty;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.slidingtiles.Board;
+import fall2018.csc2017.CoreClasses.Board;
 
 public class TwentyBoard extends Board {
 

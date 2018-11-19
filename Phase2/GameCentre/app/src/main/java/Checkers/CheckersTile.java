@@ -2,8 +2,8 @@ package Checkers;
 
 import java.util.HashMap;
 
-import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.slidingtiles.Tile;
+import fall2018.csc2017.CoreClasses.R;
+import fall2018.csc2017.CoreClasses.Tile;
 
 /**
  * A Tile in checkers Game
@@ -76,7 +76,7 @@ public class CheckersTile extends Tile {
         return canTakePiece;
     }
     
-    public void highlight() {
+    void highlight() {
         if (!this.id.contains("empty")) {
             this.id += "_highlighted";
             background = picts.get(id);}
