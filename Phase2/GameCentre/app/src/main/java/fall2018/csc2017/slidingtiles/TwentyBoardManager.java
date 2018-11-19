@@ -29,4 +29,8 @@ public class TwentyBoardManager extends BoardManager {
 
     }
 
+    public boolean isValidMove(char dir){
+        return twentyBoard.isCollapsable(dir);
+    }
+
 }
