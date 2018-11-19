@@ -23,6 +23,20 @@ public class CheckersBoardManager extends BoardManager {
      */
     private Stack<CheckersBoard> gameStates;
 
+    private boolean redsTurn;
+
+    protected CheckersBoardManager(CheckersGameFile gameFile) {
+        this.gameFile = gameFile;
+        this.gameStates = gameFile.getGameStates();
+        this.remainingUndos = gameFile.remainingUndos;
+        this.remainingUndos = gameFile.maxUndos;
+        this.numMoves = gameFile.numMoves;
+        AccountManager.activeAccount.activeGameFile = gameFile;
+        if (!gameFile.getGameStates().isEmpty()) {
+            this.Checkersboard = (CheckersBoard) gameFile.getGameStates().peek();
+        }
+    }
+
     CheckersBoardManager(int size, boolean redsTurn) {
         super();
         CheckersTile[][] tiles = new CheckersTile[size][size];
@@ -44,6 +58,7 @@ public class CheckersBoardManager extends BoardManager {
                 tiles[row][col] = new CheckersTile(id);
             }
         }
+        this.redsTurn = redsTurn;
         this.Checkersboard = new CheckersBoard(tiles, size, redsTurn);
 
         // Create a new GameFile, and initialize it with this shuffled board.
@@ -56,5 +71,17 @@ public class CheckersBoardManager extends BoardManager {
         this.numMoves = gameFile.numMoves;
         this.maxUndos = gameFile.maxUndos;
         save(this.board);
+    }
+
+    boolean isValidSelect (int position){
+        int row = position / Checkersboard.numRows;
+        int col = position % Checkersboard.numCols;
+        CheckersTile selectedTile = Checkersboard.getTile(row, col);
+        String tileId = selectedTile.getId();
+        if (redsTurn && tileId.contains("red") || tileId.contains("white")){
+            selectedTile.highlight();
+            return true;
+        }
+        return false;
     }
 }
