@@ -73,14 +73,26 @@ public class CheckersBoardManager extends BoardManager {
         save(this.board);
     }
 
+    /**
+     * Highlights Tile is if the selected tile belongs to the right player
+     * @param position position of the tile
+     */
     boolean isValidSelect (int position){
         int row = position / Checkersboard.numRows;
         int col = position % Checkersboard.numCols;
         CheckersTile selectedTile = Checkersboard.getTile(row, col);
         String tileId = selectedTile.getId();
         if (redsTurn && tileId.contains("red") || tileId.contains("white")){
-            selectedTile.highlight();
+            Checkersboard.setHighLightedTile(selectedTile);
             return true;
+        }
+        return false;
+    }
+
+    boolean isValidMove (int position){
+        CheckersTile highLightedTile = Checkersboard.getHighLightedTile();
+        if (highLightedTile != null){
+
         }
         return false;
     }

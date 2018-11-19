@@ -42,48 +42,56 @@ public class CheckersBoard extends Board {
         }
     }
 
-    private boolean redPawnCanTake(int row, int col){
-        boolean canTake = false;
-        if (emptyTopRight(row, col)){
-            canTake = canTake || tiles[row - 1][col - 1].getId().equals("white_pawn") || tiles[row - 1][col - 1].getId().equals("white_king");
+    private int[][] redPawnCanTake(int row, int col){
+        int[][] canTakePiece = new int[4][2];
+        if (emptyTopRight(row, col) && tiles[row - 1][col + 1].getId().contains("white")){
+            canTakePiece[0][0] = row - 1;
+            canTakePiece[0][1] = col + 1;
         }
-        if (emptyTopLeft(row, col)){
-            canTake = canTake || tiles[row - 1][col + 1].getId().equals("white_pawn") || tiles[row - 1][col + 1].getId().equals("white_king");
+        if (emptyTopLeft(row, col) && tiles[row - 1][col - 1].getId().contains("white")){
+            canTakePiece[1][0] = row - 1;
+            canTakePiece[1][1] = col - 1;
         }
-        return canTake;
+        return canTakePiece;
     }
 
-    private boolean whitePawnCanTake(int row, int col){
-        boolean canTake = false;
-        if (emptyBottomRight(row, col)){
-            canTake = canTake || tiles[row + 1][col - 1].getId().equals("red_pawn") || tiles[row + 1][col - 1].getId().equals("red_king");
+    private int[][] whitePawnCanTake(int row, int col){
+        int[][] canTakePiece = new int[4][2];
+        if (emptyBottomRight(row, col)&& tiles[row + 1][col + 1].getId().contains("red")){
+            canTakePiece[0][0] = row + 1;
+            canTakePiece[0][1] = col + 1;
         }
-        if (emptyBottomLeft(row, col)){
-            canTake = canTake || tiles[row + 1][col + 1].getId().equals("red_pawn") || tiles[row + 1][col + 1].getId().equals("red_king");
+        if (emptyBottomLeft(row, col) && tiles[row + 1][col - 1].getId().contains("red")){
+            canTakePiece[1][0] = row + 1;
+            canTakePiece[1][1] = col - 1;
         }
-        return canTake;
+        return canTakePiece;
     }
 
-    private boolean redKingCanTake(int row, int col){
-        boolean canTake = redPawnCanTake(row, col);
-        if (emptyBottomRight(row, col)){
-            canTake = canTake || tiles[row + 1][col - 1].getId().equals("white_pawn") || tiles[row + 1][col - 1].getId().equals("white_king");
+    private int[][] redKingCanTake(int row, int col){
+        int[][] canTakePiece = redPawnCanTake(row, col);
+        if (emptyBottomRight(row, col) && tiles[row + 1][col + 1].getId().contains("white")){
+            canTakePiece[2][0] = row + 1;
+            canTakePiece[2][1] = col + 1;
         }
-        if (emptyBottomLeft(row, col)){
-            canTake = canTake || tiles[row + 1][col + 1].getId().equals("white_pawn") || tiles[row + 1][col + 1].getId().equals("white_king");
+        if (emptyBottomLeft(row, col) && tiles[row + 1][col - 1].getId().contains("white")){
+            canTakePiece[3][0] = row + 1;
+            canTakePiece[3][1] = col - 1;
         }
-        return canTake;
+        return canTakePiece;
     }
 
-    private boolean whiteKingCanTake(int row, int col){
-        boolean canTake = whitePawnCanTake(row, col);
-        if (emptyTopRight(row, col)){
-            canTake = canTake || tiles[row - 1][col - 1].getId().equals("red_pawn") || tiles[row - 1][col - 1].getId().equals("red_king");
+    private int[][] whiteKingCanTake(int row, int col){
+        int[][] canTakePiece = whitePawnCanTake(row, col);
+        if (emptyTopRight(row, col) && tiles[row - 1][col + 1].getId().contains("red")){
+            canTakePiece[2][0] = row - 1;
+            canTakePiece[2][1] = col + 1;
         }
-        if (emptyTopLeft(row, col)){
-            canTake = canTake || tiles[row - 1][col + 1].getId().equals("red_pawn") || tiles[row - 1][col + 1].getId().equals("red_king");
+        if (emptyTopLeft(row, col) && tiles[row - 1][col - 1].getId().contains("red")){
+            canTakePiece[3][0] = row - 1;
+            canTakePiece[3][1] = col - 1;
         }
-        return canTake;
+        return canTakePiece;
     }
 
     private boolean emptyTopLeft(int row, int col){
