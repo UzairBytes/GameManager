@@ -70,4 +70,15 @@ public class TwentyBoard extends Board {
         }
         return emptyPositions;
     }
+
+    /*
+     * Replace a tile at (row, col) with a new specified tile.
+     * @param row the tile row
+     * @param col the tile col
+     * @param insertTile the tile to insert at (row, col)
+     */
+    public void insertTile(TwentyTile newTile, int row, int col){
+        this.tiles[row][col] = newTile;
+    }
+
 }
