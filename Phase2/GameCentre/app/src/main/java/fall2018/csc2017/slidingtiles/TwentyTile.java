@@ -20,6 +20,13 @@ public class TwentyTile extends Tile {
     }
 
     /**
+     * Boolean method which tells you if this tile is a blank one.
+     */
+    public boolean isBlank(){
+        return this.id == 0;
+    }
+
+    /**
      * Compares two Tiles by id for order.
      * -1 denotes not equal, 0 denotes that Tile <other> is a blank tile,
      * and 1 denotes two tiles are equal
