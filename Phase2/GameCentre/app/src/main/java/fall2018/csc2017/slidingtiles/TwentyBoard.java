@@ -1,7 +1,22 @@
 package fall2018.csc2017.slidingtiles;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TwentyBoard extends Board {
+
+    /**
+     * A board constructor which must be extended
+     */
+    public TwentyBoard(List<TwentyTile> tiles, int numRows, int numCols) {
+        this.numRows = numRows;
+        this.numCols = numCols;
+        for(int row = 0; row<numRows; row++){
+            for(int col = 0; col<numCols; col++){
+                this.tiles[row][col] = tiles.get(row + col);
+            }
+        }
+    }
+
 
     //TODO: use this.numRows, this.numCols
 
