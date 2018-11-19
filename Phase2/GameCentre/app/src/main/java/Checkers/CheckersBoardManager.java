@@ -96,8 +96,8 @@ public class CheckersBoardManager extends BoardManager {
         int highCol = Checkersboard.getHighLightedTilePosition()[1];
         int row = position / Checkersboard.numRows;
         int col = position % Checkersboard.numCols;
-        CheckersTile moveTile = Checkersboard.getTile(row, col);
-        if (!moveTile.getId().equals(CheckersTile.EMPTYWHITETILE)){
+        CheckersTile targetTile = Checkersboard.getTile(row, col);
+        if (!targetTile.getId().equals(CheckersTile.EMPTYWHITETILE)){
             return false;
         }
         int[][] canTakePiece = highLightedTile.isCanTakePiece();
@@ -106,13 +106,13 @@ public class CheckersBoardManager extends BoardManager {
                 return true;
             }
         }
-        if (col != highCol + 1 && col != highCol -1){
+        if (col != highCol + 1 && col != highCol - 1){
             return false;
         }
-        if ((highId.contains("red") || highId.contains("king")) && row == row - 1){
+        if ((highId.contains("red") || highId.contains("king")) && row == highRow - 1){
             return true;
         }
-        else if ((highId.contains("white") || highId.contains("king")) && row == row + 1){
+        else if ((highId.contains("white") || highId.contains("king")) && row == highRow + 1){
             return true;
         }
         return false;
