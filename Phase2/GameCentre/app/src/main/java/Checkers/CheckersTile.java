@@ -25,7 +25,7 @@ public class CheckersTile extends Tile {
      */
     private HashMap<String, Integer> picts = new HashMap<>();
 
-    static final String EMPTYWHITETILE = "empty_tile";
+    public static final String EMPTYWHITETILE = "empty_tile";
 
     static final String REDKING = "red_king";
 
@@ -83,7 +83,8 @@ public class CheckersTile extends Tile {
     }
 
    public void dehighlight() {
-        id.replaceAll("_highlighted$","");
+        String newId = id.replaceAll("_highlighted","");
+        id = newId;
         background = picts.get(id);
     }
 
