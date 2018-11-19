@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.GridView;
 
-class GestureDetectGridView extends GridView {
+public class GestureDetectGridView extends GridView {
     public GestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
