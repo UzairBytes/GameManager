@@ -88,28 +88,28 @@ public class CheckersBoard extends Board {
         if (col < 2 || row < 2) {
             return false;
         }
-        return tiles[row - 2][col - 2].getId().equals("empty_white_tile");
+        return tiles[row - 2][col - 2].getId().equals(CheckersTile.EMPTYWHITETILE);
     }
 
     private boolean emptyTopRight(int row, int col){
         if (col > 5 || row < 2) {
             return false;
         }
-        return tiles[row - 2][col + 2].getId().equals("empty_white_tile");
+        return tiles[row - 2][col + 2].getId().equals(CheckersTile.EMPTYWHITETILE);
     }
 
     private boolean emptyBottomLeft(int row, int col){
         if (col < 2 || row > 5) {
             return false;
         }
-        return tiles[row + 2][col - 2].getId().equals("empty_white_tile");
+        return tiles[row + 2][col - 2].getId().equals(CheckersTile.EMPTYWHITETILE);
     }
 
     private boolean emptyBottomRight(int row, int col){
         if (col > 5 || row > 5) {
             return false;
         }
-        return tiles[row + 2][col + 2].getId().equals("empty_white_tile");
+        return tiles[row + 2][col + 2].getId().equals(CheckersTile.EMPTYWHITETILE);
     }
 
     /**

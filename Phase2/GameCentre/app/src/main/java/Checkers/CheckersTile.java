@@ -25,7 +25,7 @@ public class CheckersTile extends Tile {
      */
     private HashMap<String, Integer> picts = new HashMap<>();
 
-    static final String EMPTYWHITETILE = "empty_white_tile";
+    static final String EMPTYWHITETILE = "empty_tile";
 
     static final String REDKING = "red_king";
 
@@ -38,7 +38,7 @@ public class CheckersTile extends Tile {
         super();
         this.id = id;
         canTakePiece = false;
-        picts.put("empty_white_tile", R.drawable.checkers_empty_white_tile);
+        picts.put("empty_tile", R.drawable.checkers_empty_white_tile);
         picts.put("empty_black_tile", R.drawable.checkers_empty_black_tile);
         picts.put("red_pawn", R.drawable.checkers_red_pawn);
         picts.put("red_king", R.drawable.checkers_red_king);
