@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * The sliding tiles board.
  */
-class SlidingBoard extends Board implements Iterable<SlidingTile>{
+public class SlidingBoard extends Board implements Iterable<SlidingTile>{
 
     /**
      * The tiles on the board in row-major order.
@@ -64,7 +64,6 @@ class SlidingBoard extends Board implements Iterable<SlidingTile>{
      */
 
     public SlidingBoard(List<SlidingTile> tiles, int rows, int cols) {
-        super();
         numRows = rows;
         numCols = cols;
         this.tiles = new SlidingTile[numRows][numCols];

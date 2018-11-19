@@ -9,12 +9,6 @@ import android.widget.Toast;
 
 public class SlidingSettingsActivity extends SettingsActivity {
 
-
-    /**
-     * The board manager.
-     */
-    SlidingBoardManager boardManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

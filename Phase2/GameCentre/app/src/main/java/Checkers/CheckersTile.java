@@ -21,11 +21,15 @@ public class CheckersTile extends Tile {
     private boolean canTakePiece;
 
     /**
-     * Arraylist of images
+     * HashMap of images
      */
     private HashMap<String, Integer> picts = new HashMap<>();
 
-    static final String emptyWhiteTile = "empty_white_tile";
+    public static final String EMPTYWHITETILE = "empty_tile";
+
+    static final String REDKING = "red_king";
+
+    static final String WHITEKING = "white_king";
 
     /**
      * A checker tile with a background id
@@ -34,7 +38,7 @@ public class CheckersTile extends Tile {
         super();
         this.id = id;
         canTakePiece = false;
-        picts.put("empty_white_tile", R.drawable.checkers_empty_white_tile);
+        picts.put("empty_tile", R.drawable.checkers_empty_white_tile);
         picts.put("empty_black_tile", R.drawable.checkers_empty_black_tile);
         picts.put("red_pawn", R.drawable.checkers_red_pawn);
         picts.put("red_king", R.drawable.checkers_red_king);
@@ -53,17 +57,6 @@ public class CheckersTile extends Tile {
 
     }
 
-    /**
-     * Makes the piece a king if appropriate
-     */
-    protected void maybeMakeKing(){
-
-        if (this.id.contains("white")){
-            this.id = "white_king";
-        }
-        else {this.id = "red_king";}
-        background = picts.get(id);
-    }
 
     /**
      * Sets whether a checkerTile can take a piece
@@ -90,7 +83,8 @@ public class CheckersTile extends Tile {
     }
 
    public void dehighlight() {
-        id.replaceAll("_highlighted$","");
+        String newId = id.replaceAll("_highlighted","");
+        id = newId;
         background = picts.get(id);
     }
 
