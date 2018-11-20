@@ -6,18 +6,30 @@ import fall2018.csc2017.CoreClasses.GameAI;
 
 abstract class CheckersRandomAI extends GameAI {
 
-    static ArrayList<int[]> getAllPossibleMoves(CheckersBoardManager checkersBoardManager){
+    static ArrayList<int[]> getAllPossibleMoves(CheckersBoardManager checkersBoardManager) {
         String activeColor;
         CheckersBoard board = checkersBoardManager.board;
-        if (checkersBoardManager.isRedsTurn()){activeColor = "red";}
-        else {activeColor="white";}
-        for (int row = 0; row < board.getNumRows(); row++){
-            for (int column = 0; column < board.getNumCols(); column++){
-                if (board.getTile(row,column).getId().contains(activeColor)){}
-            }
+        int size = board.getNumCols();
+        if (checkersBoardManager.isRedsTurn()) {
+            activeColor = "red";
+        } else {
+            activeColor = "white";
         }
+        for (int row = 0; row < board.getNumRows(); row++) {
+            int start = 0;
+            if (row % 2 == 0) {
+                start = 1;
+            }
+            for (int column = start; column < board.getNumCols(); ) {
+                if (board.getTile(row, column).getId().contains(activeColor)) {
+                    //TODO finish this
+                    column += 2;
+                }
+            }
 
 
+
+        }
         return new ArrayList<>();
     }
 
