@@ -11,7 +11,7 @@ public class CheckersBoardManager extends BoardManager {
     /**
      * The board being managed.
      */
-    protected CheckersBoard Checkersboard;
+    protected CheckersBoard board;
 
     /**
      * The SlidingGameFile holding the data for this board.
@@ -33,7 +33,7 @@ public class CheckersBoardManager extends BoardManager {
         this.numMoves = gameFile.numMoves;
         AccountManager.activeAccount.activeGameFile = gameFile;
         if (!gameFile.getGameStates().isEmpty()) {
-            this.Checkersboard = (CheckersBoard) gameFile.getGameStates().peek();
+            this.board = (CheckersBoard) gameFile.getGameStates().peek();
         }
     }
 
@@ -59,10 +59,10 @@ public class CheckersBoardManager extends BoardManager {
             }
         }
         this.redsTurn = redsTurn;
-        this.Checkersboard = new CheckersBoard(tiles, size, redsTurn);
+        this.board = new CheckersBoard(tiles, size, redsTurn);
 
         // Create a new GameFile, and initialize it with this shuffled board.
-        CheckersGameFile gameFile = new CheckersGameFile(this.Checkersboard, Instant.now().toString());
+        CheckersGameFile gameFile = new CheckersGameFile(this.board, Instant.now().toString());
 
         // Add this new GameFile to the current active account's list of GameFiles.
         AccountManager.activeAccount.addGameFile(gameFile);
@@ -78,25 +78,25 @@ public class CheckersBoardManager extends BoardManager {
      * @param position position of the tile
      */
     boolean isValidSelect (int position){
-        int row = position / Checkersboard.numRows;
-        int col = position % Checkersboard.numCols;
-        CheckersTile selectedTile = Checkersboard.getTile(row, col);
+        int row = position / board.numRows;
+        int col = position % board.numCols;
+        CheckersTile selectedTile = board.getTile(row, col);
         String tileId = selectedTile.getId();
         if (redsTurn && tileId.contains("red") || tileId.contains("white")){
-            Checkersboard.setHighLightedTile(row, col);
+            board.setHighLightedTile(row, col);
             return true;
         }
         return false;
     }
 
     boolean isValidMove (int position){
-        CheckersTile highLightedTile = Checkersboard.getHighLightedTile();
+        CheckersTile highLightedTile = board.getHighLightedTile();
         String highId = highLightedTile.getId();
-        int highRow = Checkersboard.getHighLightedTilePosition()[0];
-        int highCol = Checkersboard.getHighLightedTilePosition()[1];
-        int row = position / Checkersboard.numRows;
-        int col = position % Checkersboard.numCols;
-        CheckersTile targetTile = Checkersboard.getTile(row, col);
+        int highRow = board.getHighLightedTilePosition()[0];
+        int highCol = board.getHighLightedTilePosition()[1];
+        int row = position / board.numRows;
+        int col = position % board.numCols;
+        CheckersTile targetTile = board.getTile(row, col);
         if (!targetTile.getId().equals(CheckersTile.EMPTYWHITETILE)){
             return false;
         }
@@ -117,4 +117,6 @@ public class CheckersBoardManager extends BoardManager {
         }
         return false;
     }
+
+    boolean isRedsTurn(){return redsTurn;}
 }

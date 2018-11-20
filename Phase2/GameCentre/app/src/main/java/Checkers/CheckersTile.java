@@ -1,6 +1,5 @@
 package Checkers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import fall2018.csc2017.CoreClasses.R;

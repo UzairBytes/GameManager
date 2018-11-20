@@ -158,4 +158,7 @@ public class Board implements Serializable {
                 '}';
     }
 
+    public int getNumRows(){return numRows;}
+    public int getNumCols(){return numCols;}
+
 }
