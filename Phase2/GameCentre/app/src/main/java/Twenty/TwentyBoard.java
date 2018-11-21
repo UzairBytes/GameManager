@@ -97,14 +97,14 @@ public class TwentyBoard extends Board {
         return emptyPositions;
     }
 
-    public boolean isCollapsable(char dir){
+    public boolean isCollapsable(boolean horizDir){
         // Left to right if horizontal, and top to bottom if vertical,
         // see if there are two adjacent tiles that are of the same id.
         int tile1Id = 0, tile2Id = 0;
         int row, col;
         for(int i = 0; i < this.numRows; i++){
             for(int j = 0; j < this.numCols - 1; j++){
-                if(dir == 'H'){
+                if(horizDir){
                     row = i;
                     col = j;
                     tile1Id = this.tiles[row][col].getId();

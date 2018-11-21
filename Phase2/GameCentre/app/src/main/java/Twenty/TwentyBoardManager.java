@@ -28,6 +28,11 @@ public class TwentyBoardManager extends BoardManager {
      */
     private Stack<TwentyBoard> gameStates;
 
+
+    /**
+     * Manage a new blank board.
+     * @param size: the size of this new board.
+     */
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(int size) {
 
@@ -52,11 +57,34 @@ public class TwentyBoardManager extends BoardManager {
         this.maxUndos = gameFile.maxUndos;
     }
 
-    public void touchMove(){
+    /**
+     * Changes the board based off of a 'swipe' in a direction.
+     * @param dir: character which indicated the direction of the swipe
+     * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
+     * Postconditions: The board will be altered so all tiles are moved as much as possible in
+     *      the direction dir. Also all tiles of equal id will collapse into one tile.
+     */
+    public void touchMove(char dir){
+        if(dir == 'U' && isValidMove(false)){
+//            for(int row = 0; row < this.twentyBoard.getNumRows(); row++){
+//                for(int col = this.twentyBoard.getNumCols() - 1; col > 0; col--){
+//                    if(this.twentyBoard.getTile)
+//                }
+//            }
+        }else if(dir == 'D' && isValidMove(false)){
 
+        }else if(dir == 'L' && isValidMove(true)){
+
+        }else if(dir == 'R' && isValidMove(true)){
+
+        }
     }
 
-    public boolean isValidMove(char dir){
-        return this.twentyBoard.isCollapsable(dir);
+    /* Checks if a swipe results in a change in this TwentyBoard
+     * @param horizDir boolean determining if the swipe is in the horizonal direction.
+     *         If not, that implies that the swipe is in the vertical direction.
+     */
+    public boolean isValidMove(boolean horizDir){
+        return this.twentyBoard.isCollapsable(horizDir);
     }
 }
