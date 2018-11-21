@@ -58,30 +58,71 @@ public class TwentyBoardManager extends BoardManager {
     }
 
     /**
-     * Changes the board based off of a 'swipe' in a direction.
+     * Checks if a move is valid, and alters the board in a swipe of a specified direction.
      * @param dir: character which indicated the direction of the swipe
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
      * Postconditions: The board will be altered so all tiles are moved as much as possible in
      *      the direction dir. Also all tiles of equal id will collapse into one tile.
      */
     public void touchMove(char dir){
+        TwentyTile tile1, tile2;
         if(dir == 'U' && isValidMove(false)){
-//            for(int row = 0; row < this.twentyBoard.getNumRows(); row++){
-//                for(int col = this.twentyBoard.getNumCols() - 1; col > 0; col--){
-//                    if(this.twentyBoard.getTile)
-//                }
-//            }
+            mergeTilesInDir('U');
         }else if(dir == 'D' && isValidMove(false)){
-
+            mergeTilesInDir('D');
         }else if(dir == 'L' && isValidMove(true)){
-
+            mergeTilesInDir('L');
         }else if(dir == 'R' && isValidMove(true)){
+            mergeTilesInDir('R');
+        }
+    }
 
+    /**
+     * Given a direction, move the tiles in the board in that direction as much as possible.
+     * @param dir: character which indicated the direction of the swipe
+     * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
+     */
+    private void mergeTilesInDir(char dir){
+        TwentyTile tile1, tile2;
+        int tile1Row = 0, tile2Row = 0, tile1Col = 0, tile2Col = 0;
+        for(int i = 0; i<3; i++){
+            for(int j = 0; j < this.twentyBoard.getNumRows(); j++){
+                for(int k = this.twentyBoard.getNumCols() - 1; k > 0; k--){
+                    if(dir == 'U'){
+                        tile1Row = k-1;
+                        tile1Col = j;
+                        tile2Row = k;
+                        tile2Col = j;
+                    }else if(dir == 'D'){
+                        tile1Row = k;
+                        tile1Col = j;
+                        tile2Row = k-1;
+                        tile2Col = j;
+                    }else if(dir == 'L'){
+                        tile1Row = j-1;
+                        tile1Col = k;
+                        tile2Row = j;
+                        tile2Col = k;
+                    }else{
+                        tile1Row = j;
+                        tile1Col = k;
+                        tile2Row = j-1;
+                        tile2Col = k;
+                    }
+                    tile1 = (TwentyTile)this.twentyBoard.getTile(tile1Row, tile1Col);
+                    tile2 = (TwentyTile)this.twentyBoard.getTile(tile2Row, tile2Col);
+                    if(tile1.getId() == tile2.getId()){
+                        this.twentyBoard.mergeTiles(tile1Row, tile1Col, tile2Row, tile2Col);
+                    }else if(tile1.getId() == 0){
+                        this.twentyBoard.swapTiles(tile1Row, tile1Col, tile2Row, tile2Col);
+                    }
+                }
+            }
         }
     }
 
     /* Checks if a swipe results in a change in this TwentyBoard
-     * @param horizDir boolean determining if the swipe is in the horizonal direction.
+     * @param horizDir boolean determining if the swipe is in the horizontal direction.
      *         If not, that implies that the swipe is in the vertical direction.
      */
     public boolean isValidMove(boolean horizDir){

@@ -25,16 +25,19 @@ public class TwentyBoard extends Board {
      * @param row2 the second tile row
      * @param col2 the second tile col
      * Preconditions: The tile at row1, col1 has the same id as the tile at row2, col2
-     * Postconditions: The tile at row1, col1 will be replaced with the merged tile.
+     * Postconditions: The tile at row1, col1 will be replaced with the merged tile, and the
+     *                  tile at row2, col2 will be replaced with a blank tile.
      */
     public void mergeTiles(int row1, int col1, int row2, int col2){
         int tile1Id = this.tiles[row1][col1].getId(), tile2Id = this.tiles[row1][col1].getId();
-        TwentyTile mergedTile;
+        TwentyTile mergedTile, blankTile;
         // Verify preconditions.
         if(tile1Id == tile2Id){
             // TODO: Insert a real background image
             mergedTile =  new TwentyTile(tile1Id*tile2Id, tile1Id*tile2Id);
+            blankTile = new TwentyTile(0, 0);
             this.tiles[row1][col1] = mergedTile;
+            this.tiles[row2][col2] = blankTile;
         }
     }
 

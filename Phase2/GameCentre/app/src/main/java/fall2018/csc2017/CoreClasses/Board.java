@@ -142,7 +142,7 @@ public class Board implements Serializable {
      * @param row2 the second tile row
      * @param col2 the second tile col
      */
-    protected void swapTiles(int row1, int col1, int row2, int col2) {
+    public void swapTiles(int row1, int col1, int row2, int col2) {
 
         Tile[][] holdTile = new Tile[1][2];
         holdTile[0][0] = getTile(row1, col1);
