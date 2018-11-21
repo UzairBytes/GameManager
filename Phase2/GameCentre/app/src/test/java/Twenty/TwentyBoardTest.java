@@ -20,6 +20,9 @@ public class TwentyBoardTest {
             tiles.add(new TwentyTile(0, 0));
         }
         TwentyBoard twentyBoard = new TwentyBoard(tiles, 3, 3);
+
+
+
         TwentyTile tile1, tile2, tile3, tile4;
 
         /* First test suite: to see if collapasble vertically. */

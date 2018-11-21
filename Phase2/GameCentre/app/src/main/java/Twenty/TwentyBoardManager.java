@@ -124,12 +124,15 @@ public class TwentyBoardManager extends BoardManager {
         }
     }
 
+    /* Getter for the GameFile that this board manager exists in.
+     * @return the game file this board manager exists in.
+     */
     public TwentyGameFile getGameFile(){
         return this.gameFile;
     }
 
+    /* Gauges whether or not the game is complete, i.e, no more possible moves can be made. */
     public boolean gameComplete(){
-        boolean complete = false;
         return !isValidMove(false) && !isValidMove(true);
     }
 
