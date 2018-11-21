@@ -12,7 +12,6 @@ import phase1.SlidingGameFile;
 
 public class TwentyBoardManager extends BoardManager {
 
-
     /**
      * The board being managed.
      */
@@ -58,11 +57,10 @@ public class TwentyBoardManager extends BoardManager {
     }
 
     /**
-     * Checks if a move is valid, and alters the board in a swipe of a specified direction.
+     * Checks if a move is valid, and if so moves & merges the tiles in that direction
+     * as much as possible
      * @param dir: character which indicated the direction of the swipe
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
-     * Postconditions: The board will be altered so all tiles are moved as much as possible in
-     *      the direction dir. Also all tiles of equal id will collapse into one tile.
      */
     public void touchMove(char dir){
         TwentyTile tile1, tile2;
@@ -74,6 +72,8 @@ public class TwentyBoardManager extends BoardManager {
             mergeTilesInDir('L');
         }else if(dir == 'R' && isValidMove(true)){
             mergeTilesInDir('R');
+        }else{
+            // Not a valid move, game is finished here.
         }
     }
 
@@ -81,10 +81,13 @@ public class TwentyBoardManager extends BoardManager {
      * Given a direction, move the tiles in the board in that direction as much as possible.
      * @param dir: character which indicated the direction of the swipe
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
+     * Postconditions: The board will be altered so all tiles are moved as much as possible in
+     *      the direction dir. Also all tiles of equal id will collapse into one tile.
      */
     private void mergeTilesInDir(char dir){
         TwentyTile tile1, tile2;
         int tile1Row = 0, tile2Row = 0, tile1Col = 0, tile2Col = 0;
+        // This algorithm must be done three times for correctness.
         for(int i = 0; i<3; i++){
             for(int j = 0; j < this.twentyBoard.getNumRows(); j++){
                 for(int k = this.twentyBoard.getNumCols() - 1; k > 0; k--){

@@ -19,6 +19,14 @@ public class TwentyBoard extends Board {
         }
     }
 
+    /**
+     * Replaces the tile at row, col with the given TwentyTile.
+     */
+    public void insertTile(int row, int col, TwentyTile tile) {
+        this.tiles[row][col] = tile;
+    }
+
+
     /*
      * @param row1 the first tile row
      * @param col1 the first tile col

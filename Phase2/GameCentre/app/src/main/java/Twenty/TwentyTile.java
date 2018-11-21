@@ -29,6 +29,7 @@ public class TwentyTile extends Tile {
     }
 
     /**
+     * TODO: This is never used.
      * Compares two Tiles by id for order.
      * -1 denotes not equal, 0 denotes that Tile <other> is a blank tile,
      * and 1 denotes two tiles are equal
