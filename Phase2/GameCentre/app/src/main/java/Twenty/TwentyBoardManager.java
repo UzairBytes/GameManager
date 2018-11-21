@@ -124,6 +124,15 @@ public class TwentyBoardManager extends BoardManager {
         }
     }
 
+    public TwentyGameFile getGameFile(){
+        return this.gameFile;
+    }
+
+    public boolean gameComplete(){
+        boolean complete = false;
+        return !isValidMove(false) && !isValidMove(true);
+    }
+
     /* Checks if a swipe results in a change in this TwentyBoard
      * @param horizDir boolean determining if the swipe is in the horizontal direction.
      *         If not, that implies that the swipe is in the vertical direction.

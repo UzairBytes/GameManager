@@ -1,5 +1,6 @@
 package Twenty;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import fall2018.csc2017.CoreClasses.Board;
@@ -10,11 +11,15 @@ public class TwentyBoard extends Board {
      * Initializes the TwentyBoard with a list of tiles.
      */
     public TwentyBoard(List<TwentyTile> tiles, int numRows, int numCols) {
+        System.out.println(tiles);
         this.numRows = numRows;
         this.numCols = numCols;
+        Iterator<TwentyTile> iter = tiles.iterator();
+
         for(int row = 0; row<numRows; row++){
             for(int col = 0; col<numCols; col++){
-                this.tiles[row][col] = tiles.get(row + col);
+                System.out.println(iter.next().getId());
+                this.tiles[row][col] = iter.next();
             }
         }
     }
