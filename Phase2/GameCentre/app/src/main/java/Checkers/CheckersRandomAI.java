@@ -24,20 +24,22 @@ abstract class CheckersRandomAI extends GameAI {
     private static ArrayList<int[][]> getAllPossibleMoves(CheckersBoardManager checkersBoardManager) {
         ArrayList<int[][]> output = new ArrayList<>();
         CheckersBoard board = checkersBoardManager.board;
+        int checkedPieces = 0;
+        int allAPlayersPieces = (board.getNumCols() * board.getNumRows() / 4) - (board.getNumCols() / 2);
         for (int row = 0; row < board.getNumRows(); row++) {
             int start = 0;
             if (row % 2 == 0) {
                 start = 1;
             }
             for (int column = start; column < board.getNumCols(); ) {
-
                 if (checkersBoardManager.isValidSelect(row * board.getNumRows() + column)) {
                     output.addAll(getAllPossibleMoves(checkersBoardManager, row, column));
+                    if (checkedPieces == allAPlayersPieces) {
+                        return output;
+                    }
                     column += 2;
                 }
             }
-
-
         }
         return output;
     }
@@ -75,7 +77,6 @@ abstract class CheckersRandomAI extends GameAI {
         } else {
             output.addAll(getMovesUp(checkersBoardManager, row, column));
             output.addAll(getMovesDown(checkersBoardManager, row, column));
-
         }
 
         return output;
@@ -100,8 +101,6 @@ abstract class CheckersRandomAI extends GameAI {
                 int[][] possibleMove = {{row, column}, movesUp[i]};
                 output.add(possibleMove);
             }
-
-
         }
         return output;
     }
@@ -125,8 +124,6 @@ abstract class CheckersRandomAI extends GameAI {
                 int[][] possibleMove = {{row, column}, movesDown[i]};
                 output.add(possibleMove);
             }
-
-
         }
         return output;
     }
