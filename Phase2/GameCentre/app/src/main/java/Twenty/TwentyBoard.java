@@ -20,32 +20,21 @@ public class TwentyBoard extends Board {
     }
 
     /*
-     * Replace a tile at (row, col) with a new specified tile.
-     * @param row the tile row
-     * @param col the tile col
-     * @param insertTile the tile to insert at (row, col)
-     */
-    public void insertTile(TwentyTile newTile, int row, int col){
-        this.tiles[row][col] = newTile;
-    }
-
-    /*
      * @param row1 the first tile row
      * @param col1 the first tile col
      * @param row2 the second tile row
      * @param col2 the second tile col
-     * preconditions: the tile at row1, col1 has the same id as the tile at row2, col2
+     * Preconditions: The tile at row1, col1 has the same id as the tile at row2, col2
+     * Postconditions: The tile at row1, col1 will be replaced with the merged tile.
      */
-    public TwentyTile mergeTiles(int row1, int col1, int row2, int col2){
+    public void mergeTiles(int row1, int col1, int row2, int col2){
         int tile1Id = this.tiles[row1][col1].getId(), tile2Id = this.tiles[row1][col1].getId();
-
+        TwentyTile mergedTile;
         // Verify preconditions.
         if(tile1Id == tile2Id){
             // TODO: Insert a real background image
-            return new TwentyTile(tile1Id*tile2Id, tile1Id*tile2Id);
-        }else{
-            // Return null if preconditions are not met.
-            return null;
+            mergedTile =  new TwentyTile(tile1Id*tile2Id, tile1Id*tile2Id);
+            this.tiles[row1][col1] = mergedTile;
         }
     }
 
