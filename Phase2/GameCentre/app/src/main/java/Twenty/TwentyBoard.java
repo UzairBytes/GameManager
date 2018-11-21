@@ -104,14 +104,19 @@ public class TwentyBoard extends Board {
         // Left to right if horizontal, and top to bottom if vertical,
         // see if there are two adjacent tiles that are of the same id.
         int tile1Id = 0, tile2Id = 0;
-        for(int row = 0; row < this.tiles.length; row++){
-            for(int col = 0; col < this.tiles[row].length - 1; col++){
+        int row, col;
+        for(int i = 0; i < this.tiles.length; i++){
+            for(int j = 0; j < this.tiles[i].length - 1; j++){
                 if(dir == 'H'){
+                    row = i;
+                    col = j;
                     tile1Id = this.tiles[row][col].getId();
                     tile2Id = this.tiles[row][col+1].getId();
                 }else{
-                    tile1Id = this.tiles[col][row].getId();
-                    tile2Id = this.tiles[col+1][row].getId();
+                    col = i;
+                    row = j;
+                    tile1Id = this.tiles[row][col].getId();
+                    tile2Id = this.tiles[row+1][col].getId();
                 }
                 // Check that the two tiles are equal value, and also aren't blank (aka of id=0)
                 if(tile1Id == tile2Id && tile1Id != 0){

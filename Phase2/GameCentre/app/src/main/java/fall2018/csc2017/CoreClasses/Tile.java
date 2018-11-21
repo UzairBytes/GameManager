@@ -53,7 +53,6 @@ public abstract class Tile implements Comparable<Tile>, Serializable {
      */
     public Tile(){}
 
-
     /**
      * Compares two Tiles by id for order.
      */
@@ -61,4 +60,5 @@ public abstract class Tile implements Comparable<Tile>, Serializable {
     public int compareTo(@NonNull Tile other) {
         return other.id - this.id;
     }
+
 }
