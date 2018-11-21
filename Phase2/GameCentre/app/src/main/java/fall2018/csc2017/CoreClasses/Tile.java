@@ -11,26 +11,47 @@ public abstract class Tile implements Comparable<Tile>, Serializable {
     /**
      * The background id to find the tile image.
      */
-    protected int background;
+    private int background;
 
     /**
      * The id.
      */
-    protected int id;
+    private int id;
 
     /**
      * Return the background id.
      *
      * @return the background id
      */
-    protected int getBackground() {
+    public int getBackground() {
         return background;
     }
 
     /**
+     * Set background id.
+     *
+     * @param newBackground an int.
+     */
+    public void setBackground(int newBackground) {
+        this.background = newBackground;
+    }
+
+    /**
+     * Set id.
+     *
+     * @param newId an int.
+     */
+    public void setId(int newId) {this.id = newId;}
+
+    /**
+     * Get id.
+     */
+    public int getId() {return id;}
+
+    /**
      * A tile with a background id; look up and set the id.
      */
-    protected Tile(){}
+    public Tile(){}
 
 
     /**
