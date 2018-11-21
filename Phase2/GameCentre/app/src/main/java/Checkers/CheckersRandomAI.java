@@ -2,8 +2,7 @@ package Checkers;
 
 
 import java.util.ArrayList;
-import java.util.Random;
-
+import java.util.Collections;
 
 import fall2018.csc2017.CoreClasses.GameAI;
 
@@ -15,14 +14,39 @@ import fall2018.csc2017.CoreClasses.GameAI;
 abstract class CheckersRandomAI extends GameAI {
 
     /**
-     * Return a complete list of all the moves a player can make
+     * This is the default move when the active player has no legal move
+     */
+    private static final int[][] NOLEGALMOVE = {{-1,-1},{-1,-1}};
+
+    /**
+     * Choose and return a move based allPossibleSelectableTiles
      *
      * @param checkersBoardManager the boardManager for the current game
-     * @return ArrayList of values [[row1, column1],[row2, column2]],
-     * where row1, column1 is the position of a selectable tile and row2, column2 is where it can go
+     * @return array of four ints representing [row of selected tile, column of selected, row of target, column of target]
      */
-    private static ArrayList<int[][]> getAllPossibleMoves(CheckersBoardManager checkersBoardManager) {
-        ArrayList<int[][]> output = new ArrayList<>();
+    static int[][] getMove(CheckersBoardManager checkersBoardManager) {
+        ArrayList<Integer> selectableTiles = getAllSelectableTiles(checkersBoardManager);
+        Collections.shuffle(selectableTiles);
+        for (Integer tilePosition: selectableTiles){
+            int row = tilePosition / checkersBoardManager.board.getNumRows();
+            int column = tilePosition % checkersBoardManager.board.getNumCols();
+            ArrayList<int[][]> possibleMoves = getAllPossibleMoves(checkersBoardManager,row, column);
+            if (!possibleMoves.isEmpty()){
+                Collections.shuffle(possibleMoves);
+                return possibleMoves.get(0);
+            }
+        }
+        return NOLEGALMOVE;
+    }
+
+    /**
+     * Return a complete list of tiles the active player can select
+     *
+     * @param checkersBoardManager the boardManager for the current game
+     * @return ArrayList of integers representing the position of selectable tiles
+     */
+    private static ArrayList<Integer> getAllSelectableTiles(CheckersBoardManager checkersBoardManager){
+        ArrayList<Integer> output = new ArrayList<>();
         CheckersBoard board = checkersBoardManager.board;
         int checkedPieces = 0;
         int allAPlayersPieces = (board.getNumCols() * board.getNumRows() / 4) - (board.getNumCols() / 2);
@@ -33,7 +57,7 @@ abstract class CheckersRandomAI extends GameAI {
             }
             for (int column = start; column < board.getNumCols(); ) {
                 if (checkersBoardManager.isValidSelect(row * board.getNumRows() + column)) {
-                    output.addAll(getAllPossibleMoves(checkersBoardManager, row, column));
+                    output.add(row * board.getNumRows() + column);
                     if (checkedPieces == allAPlayersPieces) {
                         return output;
                     }
@@ -44,17 +68,6 @@ abstract class CheckersRandomAI extends GameAI {
         return output;
     }
 
-    /**
-     * Choose and return a move based allPossibleMoves
-     *
-     * @param checkersBoardManager the boardManager for the current game
-     * @return array of four ints representing [row of selected tile, column of selected, row of target, column of target]
-     */
-    static int[][] getMove(CheckersBoardManager checkersBoardManager) {
-        ArrayList<int[][]> possibleMoves = getAllPossibleMoves(checkersBoardManager);
-        Random random = new Random();
-        return possibleMoves.get(random.nextInt(possibleMoves.size()));
-    }
 
     /**
      * Return a list of all the moves a specific piece can make
