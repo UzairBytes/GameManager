@@ -81,7 +81,7 @@ public class CheckersBoardManager extends BoardManager {
         int row = position / board.numRows;
         int col = position % board.numCols;
         CheckersTile selectedTile = board.getTile(row, col);
-        String tileId = selectedTile.getId();
+        String tileId = selectedTile.getCheckersId();
         if (redsTurn && tileId.contains("red") || tileId.contains("white")){
             board.setHighLightedTile(row, col);
             return true;
@@ -91,13 +91,13 @@ public class CheckersBoardManager extends BoardManager {
 
     boolean isValidMove (int position){
         CheckersTile highLightedTile = board.getHighLightedTile();
-        String highId = highLightedTile.getId();
+        String highId = highLightedTile.getCheckersId();
         int highRow = board.getHighLightedTilePosition()[0];
         int highCol = board.getHighLightedTilePosition()[1];
         int row = position / board.numRows;
         int col = position % board.numCols;
         CheckersTile targetTile = board.getTile(row, col);
-        if (!targetTile.getId().equals(CheckersTile.EMPTYWHITETILE)){
+        if (!targetTile.getCheckersId().equals(CheckersTile.EMPTYWHITETILE)){
             return false;
         }
         int[][] canTakePiece = highLightedTile.isCanTakePiece();

@@ -49,7 +49,7 @@ public class CheckersTile extends Tile {
         picts.put("white_pawn_highlighted", R.drawable.checkers_white_pawn_highlighted);
         picts.put("white_king_highlighted", R.drawable.checkers_white_king_highlighted);
         if (picts.containsKey(id)){
-            background = picts.get(id);}
+            setBackground(picts.get(id));}
         else
             {throw new IllegalArgumentException("You're passing an invalid id to the CheckersTile Constructor");
         }
@@ -79,13 +79,13 @@ public class CheckersTile extends Tile {
     void highlight() {
         if (!this.id.contains("empty")) {
             this.id += "_highlighted";
-            background = picts.get(id);}
+            setBackground(picts.get(id));}
     }
 
    public void dehighlight() {
         String newId = id.replaceAll("_highlighted","");
         id = newId;
-        background = picts.get(id);
+        setBackground(picts.get(id));
     }
 
     /**
@@ -93,10 +93,10 @@ public class CheckersTile extends Tile {
      *
      * @return the tile id
      */
-    public String getId(){return id;}
+    public String getCheckersId(){return id;}
 
     public void changeTile(String newId){
         id = newId;
-        background = picts.get(id);
+        setBackground(picts.get(id));
     }
 }

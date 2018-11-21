@@ -1,5 +1,6 @@
 package Twenty;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import fall2018.csc2017.CoreClasses.Board;
@@ -10,45 +11,46 @@ public class TwentyBoard extends Board {
      * Initializes the TwentyBoard with a list of tiles.
      */
     public TwentyBoard(List<TwentyTile> tiles, int numRows, int numCols) {
+        System.out.println(tiles);
         this.numRows = numRows;
         this.numCols = numCols;
+        Iterator<TwentyTile> iter = tiles.iterator();
+
         for(int row = 0; row<numRows; row++){
             for(int col = 0; col<numCols; col++){
-                this.tiles[row][col] = tiles.get(row + col);
+                System.out.println(iter.next().getId());
+                this.tiles[row][col] = iter.next();
             }
         }
     }
 
-
-    //TODO: use this.numRows, this.numCols
-
-    /*
-     * Replace a tile at (row, col) with a new specified tile.
-     * @param row the tile row
-     * @param col the tile col
-     * @param insertTile the tile to insert at (row, col)
+    /**
+     * Replaces the tile at row, col with the given TwentyTile.
      */
-    public void insertTile(TwentyTile newTile, int row, int col){
-        this.tiles[row][col] = newTile;
+    public void insertTile(int row, int col, TwentyTile tile) {
+        this.tiles[row][col] = tile;
     }
+
 
     /*
      * @param row1 the first tile row
      * @param col1 the first tile col
      * @param row2 the second tile row
      * @param col2 the second tile col
-     * preconditions: the tile at row1, col1 has the same id as the tile at row2, col2
+     * Preconditions: The tile at row1, col1 has the same id as the tile at row2, col2
+     * Postconditions: The tile at row1, col1 will be replaced with the merged tile, and the
+     *                  tile at row2, col2 will be replaced with a blank tile.
      */
-    public TwentyTile mergeTiles(int row1, int col1, int row2, int col2){
-        int tile1Id = this.tiles[row1][col1].id, tile2Id = this.tiles[row1][col1].id;
-
+    public void mergeTiles(int row1, int col1, int row2, int col2){
+        int tile1Id = this.tiles[row1][col1].getId(), tile2Id = this.tiles[row1][col1].getId();
+        TwentyTile mergedTile, blankTile;
         // Verify preconditions.
         if(tile1Id == tile2Id){
             // TODO: Insert a real background image
-            return new TwentyTile(tile1Id*tile2Id, tile1Id*tile2Id);
-        }else{
-            // Return null if preconditions are not met.
-            return null;
+            mergedTile =  new TwentyTile(tile1Id*tile2Id, tile1Id*tile2Id);
+            blankTile = new TwentyTile(0, 0);
+            this.tiles[row1][col1] = mergedTile;
+            this.tiles[row2][col2] = blankTile;
         }
     }
 
@@ -88,8 +90,8 @@ public class TwentyBoard extends Board {
         ArrayList<int[]> emptyPositions = new ArrayList<>();
         // Iterate through this TwentyBoard to find & retrieve the position of all the empty tiles
         TwentyTile currentTile;
-        for(int row = 0; row<this.tiles.length; row++){
-            for(int col = 0; col<this.tiles.length; col++){
+        for(int row = 0; row<this.numRows; row++){
+            for(int col = 0; col<this.numCols; col++){
                 currentTile = (TwentyTile)this.tiles[row][col];
                 if(currentTile.isBlank()){
                     int emptyPosition[] = {row, col};
@@ -100,21 +102,26 @@ public class TwentyBoard extends Board {
         return emptyPositions;
     }
 
-    public boolean isCollapsable(char dir){
+    public boolean isCollapsable(boolean horizDir){
         // Left to right if horizontal, and top to bottom if vertical,
         // see if there are two adjacent tiles that are of the same id.
         int tile1Id = 0, tile2Id = 0;
-        for(int row = 0; row < this.tiles.length; row++){
-            for(int col = 0; col < this.tiles[row].length - 1; col++){
-                if(dir == 'H'){
-                    tile1Id = this.tiles[row][col].id;
-                    tile2Id = this.tiles[row][col+1].id;
+        int row, col;
+        for(int i = 0; i < this.numRows; i++){
+            for(int j = 0; j < this.numCols - 1; j++){
+                if(horizDir){
+                    row = i;
+                    col = j;
+                    tile1Id = this.tiles[row][col].getId();
+                    tile2Id = this.tiles[row][col+1].getId();
                 }else{
-                    tile1Id = this.tiles[col][row].id;
-                    tile2Id = this.tiles[col+1][row].id;
+                    col = i;
+                    row = j;
+                    tile1Id = this.tiles[row][col].getId();
+                    tile2Id = this.tiles[row+1][col].getId();
                 }
-                // Check that the two tiles are equal value, and also aren't blank (aka of id=0)
-                if(tile1Id == tile2Id && tile1Id != 0){
+                // Check that the two tiles are equal value, or if one is a blank tile (aka of id=0)
+                if(tile1Id == tile2Id || tile1Id != 0){
                     return true;
                 }
             }

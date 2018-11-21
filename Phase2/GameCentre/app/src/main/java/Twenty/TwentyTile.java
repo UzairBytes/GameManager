@@ -13,11 +13,11 @@ public class TwentyTile extends Tile {
     public TwentyTile(int id, int background){
         // Validate preconditions
         if(Math.log(id) % 1 == 0){
-            this.id = id;
-            this.background = background;
+            setId(id);
+            setBackground(background);
         }else{
             // Set to a blank tile otherwise.
-            this.id = 0;
+            setId(0);
         }
     }
 
@@ -25,22 +25,25 @@ public class TwentyTile extends Tile {
      * Boolean method which tells you if this tile is a blank one.
      */
     public boolean isBlank(){
-        return this.id == 0;
+        return getId() == 0;
     }
 
     /**
+     * TODO: This is never used.
      * Compares two Tiles by id for order.
      * -1 denotes not equal, 0 denotes that Tile <other> is a blank tile,
      * and 1 denotes two tiles are equal
      */
     public int compareTo(@NonNull TwentyTile other) {
-        if(other.id == 0){
+        if(other.getId() == 0){
             return 0;
-        }else if(other.id != this.id){
+        }else if(other.getId() != this.getId()){
             return -1;
         }else{
             return 1;
         }
     }
+
+
 
 }

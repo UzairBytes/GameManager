@@ -43,24 +43,24 @@ class SlidingTile extends Tile {
         picts.add(R.drawable.slidingtile_24);
         picts.add(R.drawable.slidingtile_empty);
 
-        this.id = backgroundId + 1;
+        setId(backgroundId + 1);
         if (boardSize == 9) {
             if (backgroundId == 8){
-                background = picts.get(24);
+                setBackground(picts.get(24));
             }
             else{
-                background = picts.get(backgroundId);
+                setBackground(picts.get(backgroundId));
             }
         }
         else if (boardSize == 16) {
             if (backgroundId == 15){
-                background = picts.get(24);
+                setBackground(picts.get(24));
             }
             else{
-                background = picts.get(backgroundId);
+                setBackground(picts.get(backgroundId));
             }
         } else if (boardSize == 25) {
-            background = picts.get(backgroundId);
+            setBackground(picts.get(backgroundId));
         }
 
     }
@@ -70,5 +70,5 @@ class SlidingTile extends Tile {
      *
      * @return the tile id
      */
-    public int getId(){return id;}
+    //public int getId(){return id;}
 }

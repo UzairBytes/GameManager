@@ -16,6 +16,11 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
      */
     private SlidingTile[][] tiles;
 
+    /**
+     * Stores the list of SlidingTile objects when this Board is initialized.
+     */
+    private List<SlidingTile> tilesList;
+
 
     /**
      * Stores the list of SlidingTile Iterator of this Board.
@@ -67,6 +72,7 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
         numRows = rows;
         numCols = cols;
         this.tiles = new SlidingTile[numRows][numCols];
+        this.tilesList = tiles;
         Iterator<SlidingTile> iter = tiles.iterator();
 
         for (int row = 0; row != numRows; row++) {
@@ -81,7 +87,7 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
      */
     @Override
     SlidingBoard createDeepCopy() {
-        List<SlidingTile> copiedTiles = new ArrayList<>();
+        List<SlidingTile> copiedTiles = new ArrayList<>(this.tilesList);
 
         SlidingTile[][] copyTile = new SlidingTile[numRows][numCols];
         for (int row = 0; row != numRows; row++) {
