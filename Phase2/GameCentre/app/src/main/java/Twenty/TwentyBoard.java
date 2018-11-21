@@ -40,7 +40,7 @@ public class TwentyBoard extends Board {
      * preconditions: the tile at row1, col1 has the same id as the tile at row2, col2
      */
     public TwentyTile mergeTiles(int row1, int col1, int row2, int col2){
-        int tile1Id = this.tiles[row1][col1].id, tile2Id = this.tiles[row1][col1].id;
+        int tile1Id = this.tiles[row1][col1].getId(), tile2Id = this.tiles[row1][col1].getId();
 
         // Verify preconditions.
         if(tile1Id == tile2Id){
@@ -107,11 +107,11 @@ public class TwentyBoard extends Board {
         for(int row = 0; row < this.tiles.length; row++){
             for(int col = 0; col < this.tiles[row].length - 1; col++){
                 if(dir == 'H'){
-                    tile1Id = this.tiles[row][col].id;
-                    tile2Id = this.tiles[row][col+1].id;
+                    tile1Id = this.tiles[row][col].getId();
+                    tile2Id = this.tiles[row][col+1].getId();
                 }else{
-                    tile1Id = this.tiles[col][row].id;
-                    tile2Id = this.tiles[col+1][row].id;
+                    tile1Id = this.tiles[col][row].getId();
+                    tile2Id = this.tiles[col+1][row].getId();
                 }
                 // Check that the two tiles are equal value, and also aren't blank (aka of id=0)
                 if(tile1Id == tile2Id && tile1Id != 0){
