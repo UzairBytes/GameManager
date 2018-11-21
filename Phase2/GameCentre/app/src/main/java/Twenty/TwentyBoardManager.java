@@ -3,8 +3,10 @@ package Twenty;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import fall2018.csc2017.CoreClasses.BoardManager;
+import fall2018.csc2017.CoreClasses.SlidingBoard;
 import phase1.AccountManager;
 import phase1.SlidingGameFile;
 
@@ -19,8 +21,14 @@ public class TwentyBoardManager extends BoardManager {
     /**
      * The 2048 Game File holding the data for this board.
      */
-    private SlidingGameFile gameFile;
+    private TwentyGameFile gameFile;
 
+    /**
+     * Holds a stack of Boards, with each Board representing a specific game state.
+     */
+    private Stack<TwentyBoard> gameStates;
+
+    @SuppressWarnings("unchecked")
     public TwentyBoardManager(int size) {
 
         // Initialize the board as all blank tiles.
@@ -33,8 +41,8 @@ public class TwentyBoardManager extends BoardManager {
         // Create the board, and specify number of rows, columns
         this.twentyBoard = new TwentyBoard(tiles, size, size);
 
-        // Create a new GameFile, and initialize it with this shuffled board.
-        SlidingGameFile gameFile = new SlidingGameFile(this.twentyBoard, Instant.now().toString());
+        // Create a new GameFile, and initialize it with this blank board.
+        TwentyGameFile gameFile = new TwentyGameFile(this.twentyBoard, Instant.now().toString());
 
         // Add this new GameFile to the current active account's list of GameFiles.
         AccountManager.activeAccount.addGameFile(gameFile);
@@ -49,6 +57,6 @@ public class TwentyBoardManager extends BoardManager {
     }
 
     public boolean isValidMove(char dir){
-        return (TwentyBoard)(this.board).isCollapsable(dir);
+        return this.twentyBoard.isCollapsable(dir);
     }
 }

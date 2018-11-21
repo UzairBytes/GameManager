@@ -19,9 +19,6 @@ public class TwentyBoard extends Board {
         }
     }
 
-
-    //TODO: use this.numRows, this.numCols
-
     /*
      * Replace a tile at (row, col) with a new specified tile.
      * @param row the tile row
@@ -88,8 +85,8 @@ public class TwentyBoard extends Board {
         ArrayList<int[]> emptyPositions = new ArrayList<>();
         // Iterate through this TwentyBoard to find & retrieve the position of all the empty tiles
         TwentyTile currentTile;
-        for(int row = 0; row<this.tiles.length; row++){
-            for(int col = 0; col<this.tiles.length; col++){
+        for(int row = 0; row<this.numRows; row++){
+            for(int col = 0; col<this.numCols; col++){
                 currentTile = (TwentyTile)this.tiles[row][col];
                 if(currentTile.isBlank()){
                     int emptyPosition[] = {row, col};
@@ -105,8 +102,8 @@ public class TwentyBoard extends Board {
         // see if there are two adjacent tiles that are of the same id.
         int tile1Id = 0, tile2Id = 0;
         int row, col;
-        for(int i = 0; i < this.tiles.length; i++){
-            for(int j = 0; j < this.tiles[i].length - 1; j++){
+        for(int i = 0; i < this.numRows; i++){
+            for(int j = 0; j < this.numCols - 1; j++){
                 if(dir == 'H'){
                     row = i;
                     col = j;
@@ -118,8 +115,8 @@ public class TwentyBoard extends Board {
                     tile1Id = this.tiles[row][col].getId();
                     tile2Id = this.tiles[row+1][col].getId();
                 }
-                // Check that the two tiles are equal value, and also aren't blank (aka of id=0)
-                if(tile1Id == tile2Id && tile1Id != 0){
+                // Check that the two tiles are equal value, or if one is a blank tile (aka of id=0)
+                if(tile1Id == tile2Id || tile1Id != 0){
                     return true;
                 }
             }

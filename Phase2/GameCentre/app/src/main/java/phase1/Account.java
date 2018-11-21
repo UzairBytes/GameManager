@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 import Checkers.CheckersGameFile;
+import Twenty.TwentyGameFile;
 
 /**
  * Account class manages user accounts.
@@ -94,6 +95,14 @@ public class Account implements Serializable {
      * Adds a CheckersgameFile to the <games> hashmap, and re-serializes the map.
      */
     public void addGameFile(CheckersGameFile gameFile) {
+        this.games.put(gameFile.getName(), gameFile);
+        this.activeGameFile = gameFile;
+    }
+
+    /**
+     * Adds a TwentyGameFile to the <games> hashmap, and re-serializes the map.
+     */
+    public void addGameFile(TwentyGameFile gameFile) {
         this.games.put(gameFile.getName(), gameFile);
         this.activeGameFile = gameFile;
     }
