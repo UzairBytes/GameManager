@@ -9,23 +9,22 @@ import java.util.List;
  * The sliding tiles board.
  */
 
-//Iterable<Tile>
-public class Board implements Serializable {
+public abstract class Board implements Serializable {
 
     /**
      * The number of rows.
      */
-    public int numRows;
+    private int numRows;
 
     /**
      * The number of rows.
      */
-    public int numCols;
+    private int numCols;
 
     /**
      * The tiles on the board in row-major order.
      */
-    protected Tile[][] tiles;
+    public Tile[][] tiles;
 
 
     /**
@@ -67,41 +66,41 @@ public class Board implements Serializable {
       //  }
     //}
 
-    /**
-     * A board constructor which must be extended
-     */
-    protected Board() {
-    }
+    ///**
+    // * A board constructor which must be extended
+    // */
+    //protected Board() {
+    //}
 
-    /**
-     * A board constructor which may be reused
-     */
-    Board(List<Tile> listOfTiles, int rows, int columns) {
-        numRows = rows;
-        numCols = columns;
-        for (int position = 0; position < numRows * numCols; position++) {
-            int row = position / numRows;
-            int col = position % numCols;
-            tiles[row][col] = listOfTiles.get(position);
-        }
-    }
+//    /**
+//     * A board constructor which may be reused
+//     */
+//    Board(List<Tile> listOfTiles, int rows, int columns) {
+//        numRows = rows;
+//        numCols = columns;
+//        for (int position = 0; position < numRows * numCols; position++) {
+//            int row = position / numRows;
+//            int col = position % numCols;
+//            tiles[row][col] = listOfTiles.get(position);
+//        }
+//    }
 
-    /**
-     * Returns a deep-copy of this Board.
-     */
-    Board createDeepCopy() {
-        List<Tile> copiedTiles = new ArrayList<>();
-
-        Tile[][] copyTile = new Tile[numRows][numCols];
-        for (int row = 0; row != numRows; row++) {
-            for (int col = 0; col != numCols; col++) {
-                copyTile[row][col] = this.tiles[row][col];
-            }
-        }
-        Board copiedBoard = new Board(copiedTiles, numRows, numCols);
-        copiedBoard.tiles = copyTile;
-        return copiedBoard;
-    }
+//    /**
+//     * Returns a deep-copy of this Board.
+//     */
+//    Board createDeepCopy() {
+//        List<Tile> copiedTiles = new ArrayList<>();
+//
+//        Tile[][] copyTile = new Tile[numRows][numCols];
+//        for (int row = 0; row != numRows; row++) {
+//            for (int col = 0; col != numCols; col++) {
+//                copyTile[row][col] = this.tiles[row][col];
+//            }
+//        }
+//        Board copiedBoard = new Board(copiedTiles, numRows, numCols);
+//        copiedBoard.tiles = copyTile;
+//        return copiedBoard;
+//    }
 
 
     /**
@@ -122,17 +121,22 @@ public class Board implements Serializable {
 
     //}
 
-    ///**
-    // * Return the tile at (row, col)
-    // *
-    // * @param row the tile row
-    // * @param col the tile column
-    // * @return the tile at (row, col)
-    // */
+    /**
+     * Return the tile at (row, col)
+     *
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
     public Tile getTile(int row, int col) {
         return tiles[row][col];
     }
 
+    /**
+     * Returns the string representation of board.
+     *
+     * @return string of Board.
+     */
     @Override
     public String toString() {
         return "Board{" +
@@ -140,8 +144,33 @@ public class Board implements Serializable {
                 '}';
     }
 
+    /**
+     * Returns the numebr of rows in a board.
+     *
+     * @return rows in board.
+     */
     public int getNumRows(){return numRows;}
+
+    /**
+     * Sets number of rows in a board.
+     *
+     * @param newNumRows int
+     */
+    public void setNumRows(int newNumRows){ this.numRows = newNumRows;}
+
+    /**
+     * Returns the number of columns in a board.
+     *
+     * @return columns in board.
+     */
     public int getNumCols(){return numCols;}
+
+    /**
+     * Sets number of columns in a board.
+     *
+     * @param newNumCols int
+     */
+    public void setNumCols(int newNumCols) { this.numCols = newNumCols;}
 
     /**
      * Swap the tiles at (row1, col1) and (row2, col2)

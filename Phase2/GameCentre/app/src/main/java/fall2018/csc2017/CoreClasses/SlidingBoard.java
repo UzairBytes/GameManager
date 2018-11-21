@@ -48,7 +48,7 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
         public SlidingTile next() {
             SlidingTile nextTile = tiles[nextRow][nextColumn];
             nextColumn += 1;
-            if (nextColumn == numCols) {
+            if (nextColumn == getNumCols()) {
                 nextColumn = 0;
                 nextRow += 1;
             }
@@ -57,7 +57,7 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
 
         @Override
         public boolean hasNext() {
-            return (nextRow < numRows);
+            return (nextRow < getNumRows());
         }
     }
 
@@ -69,14 +69,14 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
      */
 
     public SlidingBoard(List<SlidingTile> tiles, int rows, int cols) {
-        numRows = rows;
-        numCols = cols;
-        this.tiles = new SlidingTile[numRows][numCols];
+        setNumRows(rows);
+        setNumCols(cols);
+        this.tiles = new SlidingTile[getNumRows()][getNumCols()];
         this.tilesList = tiles;
         Iterator<SlidingTile> iter = tiles.iterator();
 
-        for (int row = 0; row != numRows; row++) {
-            for (int col = 0; col != numCols; col++) {
+        for (int row = 0; row != getNumRows(); row++) {
+            for (int col = 0; col != getNumCols(); col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -85,17 +85,16 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
     /**
      * Returns a deep-copy of this Board.
      */
-    @Override
     SlidingBoard createDeepCopy() {
         List<SlidingTile> copiedTiles = new ArrayList<>(this.tilesList);
 
-        SlidingTile[][] copyTile = new SlidingTile[numRows][numCols];
-        for (int row = 0; row != numRows; row++) {
-            for (int col = 0; col != numCols; col++) {
+        SlidingTile[][] copyTile = new SlidingTile[getNumRows()][getNumCols()];
+        for (int row = 0; row != getNumRows(); row++) {
+            for (int col = 0; col != getNumCols(); col++) {
                 copyTile[row][col] = this.tiles[row][col];
             }
         }
-        SlidingBoard copiedBoard = new SlidingBoard(copiedTiles, numRows, numCols);
+        SlidingBoard copiedBoard = new SlidingBoard(copiedTiles, getNumRows(), getNumCols());
         copiedBoard.tiles = copyTile;
         return copiedBoard;
     }

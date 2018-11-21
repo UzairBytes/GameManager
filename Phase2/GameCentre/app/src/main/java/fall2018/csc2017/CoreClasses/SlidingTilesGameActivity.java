@@ -49,7 +49,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(boardManager.Slidingboard.numCols);
+        gridView.setNumColumns(boardManager.Slidingboard.getNumCols());
         gridView.setBoardManager(boardManager);
         boardManager.addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
@@ -62,8 +62,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / boardManager.Slidingboard.numRows;
-                        columnHeight = displayHeight / boardManager.Slidingboard.numCols;
+                        columnWidth = displayWidth / boardManager.Slidingboard.getNumCols();
+                        columnHeight = displayHeight / boardManager.Slidingboard.getNumCols();
 
                         display();
                     }
@@ -83,8 +83,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         SlidingBoard board = boardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / board.numRows;
-            int col = nextPos % board.numCols;
+            int row = nextPos / board.getNumCols();
+            int col = nextPos % board.getNumCols();
             b.setBackgroundResource(board.getSlidingTile(row, col).getBackground());
             nextPos++;
         }

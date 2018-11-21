@@ -35,8 +35,8 @@ public abstract class GameActivity extends AppCompatActivity {
     void createTileButtons(Context context) {
         SlidingBoard board = boardManager.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != board.numRows; row++) {
-            for (int col = 0; col != board.numCols; col++) {
+        for (int row = 0; row != board.getNumRows(); row++) {
+            for (int col = 0; col != board.getNumCols(); col++) {
                 Button tmp = new Button(context);
                 tmp.setBackgroundResource(board.getSlidingTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
