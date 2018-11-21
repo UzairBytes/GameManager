@@ -146,13 +146,13 @@ public class SlidingBoardManager extends BoardManager {
         numMoves++;
         gameFile.increaseNumMoves();
         if (below != null && below.getId() == blankId) {
-            Slidingboard.swapTiles(row, col, row + 1, col);
+            Slidingboard.swapSlidingTiles(row, col, row + 1, col);
         } else if (above != null && above.getId() == blankId) {
-            Slidingboard.swapTiles(row, col, row - 1, col);
+            Slidingboard.swapSlidingTiles(row, col, row - 1, col);
         } else if (left != null && left.getId() == blankId) {
-            Slidingboard.swapTiles(row, col, row, col - 1);
+            Slidingboard.swapSlidingTiles(row, col, row, col - 1);
         } else if (right != null && right.getId() == blankId) {
-            Slidingboard.swapTiles(row, col, row, col + 1);
+            Slidingboard.swapSlidingTiles(row, col, row, col + 1);
         }
         save(newBoard);
         setChanged();

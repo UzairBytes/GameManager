@@ -122,17 +122,26 @@ public class Board implements Serializable {
 
     //}
 
-    /**
-     * Return the tile at (row, col)
-     *
-     * @param row the tile row
-     * @param col the tile column
-     * @return the tile at (row, col)
-     */
+    ///**
+    // * Return the tile at (row, col)
+    // *
+    // * @param row the tile row
+    // * @param col the tile column
+    // * @return the tile at (row, col)
+    // */
     public Tile getTile(int row, int col) {
         return tiles[row][col];
     }
 
+    @Override
+    public String toString() {
+        return "Board{" +
+                "tiles=" + Arrays.toString(tiles) +
+                '}';
+    }
+
+    public int getNumRows(){return numRows;}
+    public int getNumCols(){return numCols;}
 
     /**
      * Swap the tiles at (row1, col1) and (row2, col2)
@@ -150,15 +159,5 @@ public class Board implements Serializable {
         this.tiles[row2][col2] = holdTile[0][0];
         this.tiles[row1][col1] = holdTile[0][1];
     }
-
-    @Override
-    public String toString() {
-        return "Board{" +
-                "tiles=" + Arrays.toString(tiles) +
-                '}';
-    }
-
-    public int getNumRows(){return numRows;}
-    public int getNumCols(){return numCols;}
 
 }
