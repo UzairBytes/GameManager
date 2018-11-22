@@ -39,7 +39,7 @@ public abstract class GameActivity extends AppCompatActivity {
     /**
      * Load the board manager from the fileName in StartingActivity.
      */
-    protected  void loadFromFile() {
+    protected void loadFromFile() {
 
         try {
             InputStream inputStream = this.openFileInput(StartingActivity.TEMP_SAVE_FILENAME);
