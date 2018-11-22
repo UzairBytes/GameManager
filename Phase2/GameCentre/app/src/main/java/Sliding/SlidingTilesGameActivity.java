@@ -1,4 +1,4 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import java.util.Observable;
 import java.util.Observer;
+
+import fall2018.csc2017.CoreClasses.CustomAdapter;
+import fall2018.csc2017.CoreClasses.GameActivity;
+import fall2018.csc2017.CoreClasses.R;
 
 /**
  * The game activity.

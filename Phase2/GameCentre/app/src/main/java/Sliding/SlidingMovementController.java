@@ -1,7 +1,9 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 import android.content.Context;
 import android.widget.Toast;
+
+import fall2018.csc2017.CoreClasses.MovementController;
 import phase1.AccountManager;
 import phase1.GameScore;
 import phase1.LeaderBoard;
