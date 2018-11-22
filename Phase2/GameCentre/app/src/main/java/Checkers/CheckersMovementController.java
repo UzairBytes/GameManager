@@ -15,7 +15,7 @@ public class CheckersMovementController extends MovementController {
     public CheckersMovementController() {
     }
 
-    public void setSlidingBoardManager(CheckersBoardManager checkersBoardManager) {
+    public void setCheckersBoardManager(CheckersBoardManager checkersBoardManager) {
 
         this.checkersBoardManager = checkersBoardManager;
     }
