@@ -154,4 +154,11 @@ public class TwentyBoardManager extends BoardManager {
     public int getSize() {
         return size;
     }
+
+    /**
+     * Accesses the protected Board
+     */
+    public TwentyBoard getBoard(){
+        return this.twentyBoard;
+    }
 }
