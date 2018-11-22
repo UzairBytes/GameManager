@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import phase1.AccountManager;
+import phase1.Game;
 import phase1.GameFile;
 import phase1.SlidingGameFile;
 
