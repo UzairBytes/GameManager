@@ -24,11 +24,11 @@ public class CheckersMovementController extends MovementController {
         if (checkersBoardManager.isValidMove(position)) {
 
             checkersBoardManager.touchMove(position);
-            if (checkersBoardManager.puzzleSolved()) {
+            if (checkersBoardManager.gameComplete()){
                 LeaderBoard.updateScores(context, new GameScore(
-                        "SlidingTiles", checkersBoardManager.getGameFile().getName(),
+                        "CheckersTile", checkersBoardManager.getGameFile().getName(),
                         AccountManager.activeAccount.getUsername(), checkersBoardManager.score()));
-                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, checkersBoardManager.getWinner() + " wins!", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();

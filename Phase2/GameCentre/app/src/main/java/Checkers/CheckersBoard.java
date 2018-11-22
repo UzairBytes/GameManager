@@ -7,7 +7,7 @@ import fall2018.csc2017.CoreClasses.Board;
 
 public class CheckersBoard extends Board {
 
-    private CheckersTile[][] tiles;
+    CheckersTile[][] tiles;
 
     private boolean redsTurn;
 

@@ -23,6 +23,11 @@ public class CheckersBoardManager extends BoardManager {
      */
     private Stack<CheckersBoard> gameStates;
 
+    /**
+     * Color of the player who won the game.
+     */
+    private String winner;
+
     private boolean redsTurn;
 
     protected CheckersBoardManager(CheckersGameFile gameFile) {
@@ -116,6 +121,42 @@ public class CheckersBoardManager extends BoardManager {
             return true;
         }
         return false;
+    }
+
+    void touchMove(int position){
+        CheckersTile highLightedTile = board.getHighLightedTile();
+        String highId = highLightedTile.getCheckersId();
+        int highRow = board.getHighLightedTilePosition()[0];
+        int highCol = board.getHighLightedTilePosition()[1];
+        int row = position / board.numRows;
+        int col = position % board.numCols;
+        board.swapTiles(highRow, highCol, row, col);
+    }
+
+    //should use an iterator
+    boolean gameComplete(){
+        boolean redWins = true;
+        boolean whiteWins = true;
+        for (CheckersTile[] row: board.tiles){
+            for (CheckersTile tile: row){
+                redWins = redWins && !tile.getCheckersId().contains("white");
+                whiteWins = whiteWins && !tile.getCheckersId().contains("red");
+                if (!redWins && !whiteWins){
+                    return false;
+                }
+            }
+        }
+        if (redWins){
+            winner = "Red";
+        }
+        else {
+            winner = "White";
+        }
+        return true;
+    }
+
+    String getWinner() {
+        return winner;
     }
 
     boolean isRedsTurn(){return redsTurn;}
