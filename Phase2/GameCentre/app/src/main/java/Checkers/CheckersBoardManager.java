@@ -83,9 +83,9 @@ public class CheckersBoardManager extends BoardManager {
      * @param position position of the tile
      */
     boolean isValidSelect (int position){
-        int row = position / board.numRows;
-        int col = position % board.numCols;
-        CheckersTile selectedTile = board.getTile(row, col);
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
+        CheckersTile selectedTile = board.getCheckersTile(row, col);
         String tileId = selectedTile.getCheckersId();
         if (redsTurn && tileId.contains("red") || tileId.contains("white")){
             board.setHighLightedTile(row, col);
@@ -99,9 +99,9 @@ public class CheckersBoardManager extends BoardManager {
         String highId = highLightedTile.getCheckersId();
         int highRow = board.getHighLightedTilePosition()[0];
         int highCol = board.getHighLightedTilePosition()[1];
-        int row = position / board.numRows;
-        int col = position % board.numCols;
-        CheckersTile targetTile = board.getTile(row, col);
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
+        CheckersTile targetTile = board.getCheckersTile(row, col);
         if (!targetTile.getCheckersId().equals(CheckersTile.EMPTYWHITETILE)){
             return false;
         }
@@ -128,8 +128,8 @@ public class CheckersBoardManager extends BoardManager {
         String highId = highLightedTile.getCheckersId();
         int highRow = board.getHighLightedTilePosition()[0];
         int highCol = board.getHighLightedTilePosition()[1];
-        int row = position / board.numRows;
-        int col = position % board.numCols;
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
         board.swapTiles(highRow, highCol, row, col);
     }
 
