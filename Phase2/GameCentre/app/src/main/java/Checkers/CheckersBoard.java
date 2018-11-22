@@ -19,14 +19,14 @@ public class CheckersBoard extends Board {
         super();
         redsTurn = redsTurn;
         tiles = tiles;
-        numCols = size;
-        numRows = size;
+        setNumCols(size);
+        setNumRows(size);
     }
 
 
     private void setCanTakePieces(){
-        for (int row = 0; row < numRows; row++){
-            for (int col = 0; col < numCols; col++){
+        for (int row = 0; row < getNumRows(); row++){
+            for (int col = 0; col < getNumCols(); col++){
                 CheckersTile curtile = tiles[row][col];
                 String id = curtile.getCheckersId();
                 int[][] canTakePiece = new int[4][2];
@@ -189,7 +189,7 @@ public class CheckersBoard extends Board {
      * @param col column of the tile
      */
     private void maybeMakeKing(int row, int col){
-        if (tiles[row][col].getCheckersId().contains("white") && row == numRows -1){
+        if (tiles[row][col].getCheckersId().contains("white") && row == getNumRows() -1){
             tiles[row][col].changeTile(CheckersTile.REDKING);
         }
         else if (tiles[row][col].getCheckersId().contains("white") && row == 0){
