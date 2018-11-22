@@ -1,8 +1,11 @@
 package fall2018.csc2017.CoreClasses;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,44 +30,43 @@ public abstract class Board implements Serializable {
     public Tile[][] tiles;
 
 
-    /**
-     * Stores the list of Tile Iterator of this Board.
-     */
-    //@NonNull
-    //@Override
-    //public Iterator<Tile> iterator() {
-    //    return new TileIterator();
-    //}
-
-    /**
-     * The tile iterator, iterates through the tiles on the board.
-     */
-    //class TileIterator implements Iterator<Tile> {
-        /**
-         * The column of the next Tile.
-         */
-     //   private int nextColumn = 0;
-        /**
-         * The row of the next Tile.
-         */
-     //   private int nextRow = 0;
-
-      //  @Override
-      //  public Tile next() {
-      //      Tile nextTile = tiles[nextRow][nextColumn];
-      //      nextColumn += 1;
-      //      if (nextColumn == numCols) {
-      //          nextColumn = 0;
-      //          nextRow += 1;
-      //      }
-      //      return nextTile;
-      //  }
-
-      //  @Override
-      //  public boolean hasNext() {
-      //      return (nextRow < numRows);
-      //  }
-    //}
+//    /**
+//     * Stores the list of Tile Iterator of this Board.
+//     */
+//    @NonNull
+//    public Iterator<Tile> iterator() {
+//        return new TileIterator();
+//    }
+//
+//    /**
+//     * The tile iterator, iterates through the tiles on the board.
+//     */
+//    class TileIterator implements Iterator<Tile> {
+//        /**
+//         * The column of the next Tile.
+//         */
+//        private int nextColumn = 0;
+//        /**
+//         * The row of the next Tile.
+//         */
+//        private int nextRow = 0;
+//
+//        @Override
+//        public Tile next() {
+//            Tile nextTile = tiles[nextRow][nextColumn];
+//            nextColumn += 1;
+//            if (nextColumn == numCols) {
+//                nextColumn = 0;
+//                nextRow += 1;
+//            }
+//            return nextTile;
+//        }
+//
+//        @Override
+//        public boolean hasNext() {
+//            return (nextRow < numRows);
+//        }
+//    }
 
     ///**
     // * A board constructor which must be extended

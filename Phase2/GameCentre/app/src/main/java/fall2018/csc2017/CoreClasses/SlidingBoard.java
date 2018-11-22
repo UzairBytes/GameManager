@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * The sliding tiles board.
  */
-public class SlidingBoard extends Board implements Iterable<SlidingTile>{
+public class SlidingBoard extends Board implements Iterable<SlidingTile> {
 
     /**
      * The tiles on the board in row-major order.
