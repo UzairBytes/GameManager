@@ -18,6 +18,10 @@ import Sliding.SlidingBoardManager;
 
 public abstract class GameActivity extends AppCompatActivity {
 
+    /**
+     * The board manager.
+     */
+    BoardManager boardManager; //TODO make private and add getter method
 
     // Grid View and calculated column height and width based on device size
     //GestureDetectGridView gridView; //TODO make private and add getter method
@@ -35,13 +39,13 @@ public abstract class GameActivity extends AppCompatActivity {
     /**
      * Load the board manager from the fileName in StartingActivity.
      */
-    void loadFromFile() {
+    protected  void loadFromFile() {
 
         try {
             InputStream inputStream = this.openFileInput(StartingActivity.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (SlidingBoardManager) input.readObject();
+                boardManager = (BoardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
