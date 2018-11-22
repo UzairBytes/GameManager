@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import phase1.AccountManager;
+
 /**
  * The activity for select the game the user wishes to play.
  */
@@ -42,7 +44,7 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void slidingTilesButtonListener(){
         Button slidingTitles = findViewById(R.id.button5);
-        game = "sliding";
+        AccountManager.activeAccount.game = "sliding";
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +58,7 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void checkersButtonListener() {
         Button slidingTitles = findViewById(R.id.button2);
-        game = "checkers";
+        AccountManager.activeAccount.game = "checkers";
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +72,7 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void twentyButtonListener() {
         Button slidingTitles = findViewById(R.id.button);
-        game = "twenty";
+        AccountManager.activeAccount.game = "twenty";
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

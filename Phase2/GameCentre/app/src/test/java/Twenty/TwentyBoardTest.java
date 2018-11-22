@@ -10,19 +10,18 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class TwentyBoardTest {
+    @Before
+    public void setup(){
+    }
 
     @Test
     public void testIsCollapsable(){
-        // Initialize the board as all blank tiles.
         List<TwentyTile> tiles = new ArrayList<>();
         final int numTiles = 3 * 3;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new TwentyTile(0, 0));
         }
         TwentyBoard twentyBoard = new TwentyBoard(tiles, 3, 3);
-
-
-
         TwentyTile tile1, tile2, tile3, tile4;
 
         /* First test suite: to see if collapasble vertically. */
@@ -34,7 +33,6 @@ public class TwentyBoardTest {
         twentyBoard.insertTile(0,0, tile1);
         twentyBoard.insertTile(0,1, tile2);
         twentyBoard.insertTile(0,2, tile3);
-        twentyBoard.insertTile(0,3, tile4);
 
         assertEquals("twentyBoard.isCollapsable() failed horizontal test 1.", true, twentyBoard.isCollapsable(true));
 
@@ -59,7 +57,6 @@ public class TwentyBoardTest {
         twentyBoard.insertTile(0,0, tile1);
         twentyBoard.insertTile(0,1, tile2);
         twentyBoard.insertTile(0,2, tile3);
-        twentyBoard.insertTile(0,3, tile4);
         assertEquals("twentyBoard.isCollapsable() failed horizontal test 4.", true, twentyBoard.isCollapsable(true));
 
         twentyBoard = new TwentyBoard(tiles, 3, 3);
@@ -67,11 +64,10 @@ public class TwentyBoardTest {
         tile2 = new TwentyTile(4, 2);
         tile3 = new TwentyTile(6, 2);
         tile4 = new TwentyTile(8, 2);
-        for(int row = 0; row < 4; row++){
+        for(int row = 0; row < 3; row++){
             twentyBoard.insertTile(row,0, tile1);
             twentyBoard.insertTile(row,1, tile2);
             twentyBoard.insertTile(row,2, tile3);
-            twentyBoard.insertTile(row,3, tile4);
         }
         assertEquals("twentyBoard.isCollapsable() failed horizontal test 5.", false, twentyBoard.isCollapsable(true));
     }
@@ -85,7 +81,7 @@ public class TwentyBoardTest {
             tiles.add(new TwentyTile(0, 0));
         }
         TwentyBoard twentyBoard = new TwentyBoard(tiles, 3, 3);
-        TwentyTile tile1, tile2, tile3, tile4;
+        TwentyTile tile1, tile2;
 
         /* First test suite: to see if collapasble vertically. */
         tile1 = new TwentyTile(2, 2);
@@ -96,8 +92,8 @@ public class TwentyBoardTest {
 
         twentyBoard.mergeTiles(0, 0, 0, 1);
 
-        assertEquals("twentyBoard.mergeTiles failed test 1.", 4, twentyBoard.getTile(0,0).getId());
-        assertEquals("twentyBoard.mergeTiles failed test 2.", 0, twentyBoard.getTile(0,1).getId());
+        assertEquals("twentyBoard.mergeTiles failed test 1.", 4, ((TwentyTile)(twentyBoard.getTile(0,0))).getId());
+        assertEquals("twentyBoard.mergeTiles failed test 2.", 0, ((TwentyTile)(twentyBoard.getTile(0,1))).getId());
 
     }
 
@@ -115,7 +111,7 @@ public class TwentyBoardTest {
         boolean ranTileExists = false;
         for(int row = 0; row < 3; row++){
             for(int col = 0; col < 3; col++){
-                if(twentyBoard.getTile(row, col).getId() != 0){
+                if(((TwentyTile)twentyBoard.getTile(row, col)).getId() != 0){
                     ranTileExists = true;
                 }
             }
@@ -125,7 +121,7 @@ public class TwentyBoardTest {
     }
 
 
-    // ?
+//     ?
 //    public void testGetRandomEmptyPos(){
 //        // Initialize the board as all tiles with id 1.
 //        List<TwentyTile> tiles = new ArrayList<>();

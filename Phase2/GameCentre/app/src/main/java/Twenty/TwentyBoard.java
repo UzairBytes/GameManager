@@ -8,20 +8,25 @@ import fall2018.csc2017.CoreClasses.Board;
 public class TwentyBoard extends Board {
 
     /**
+     * The tiles on the board in row-major order.
+     */
+    private TwentyTile[][] tiles;
+
+    /**
      * Initializes the TwentyBoard with a list of tiles.
      */
     public TwentyBoard(List<TwentyTile> tiles, int numRows, int numCols) {
-        System.out.println(tiles);
         this.numRows = numRows;
         this.numCols = numCols;
         Iterator<TwentyTile> iter = tiles.iterator();
-
+        this.tiles = new TwentyTile[numRows][numCols];
         for(int row = 0; row<numRows; row++){
             for(int col = 0; col<numCols; col++){
-                System.out.println(iter.next().getId());
                 this.tiles[row][col] = iter.next();
             }
         }
+
+        this.getTile(0,0);
     }
 
     /**

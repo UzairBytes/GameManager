@@ -20,6 +20,21 @@ import phase1.SlidingGameFile;
 
 public class LoadGameActivity extends AppCompatActivity {
 
+    /**  TODO: Find a place for these constants?
+     * Name of SlidingTiles -- a type of Game in this GameCenter.
+     */
+    private final String SLIDING_NAME = "sliding";
+
+    /**
+     * Name of Twenty -- a type of Game in this GameCenter.
+     */
+    private final String TWENTY_NAME = "checkers";
+
+    /**
+     * Name of Checkers -- a type of Game in this GameCenter.
+     */
+    private final String CHECKERS_NAME = "twenty";
+
     public final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
 
     private BoardManager boardManager;
@@ -33,7 +48,9 @@ public class LoadGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_game);
-        files = new ArrayList<>(AccountManager.activeAccount.getGames().keySet());
+        //TODO
+        String gameType = AccountManager.activeAccount.game;
+        files = new ArrayList<>(AccountManager.activeAccount.getGames(gameType).keySet());
         System.out.println("files:" + files);
         ListAdapter fileAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, files);
         ListView listV = findViewById(R.id.savedFiles);
@@ -46,7 +63,16 @@ public class LoadGameActivity extends AppCompatActivity {
      * Switches to StartingActivity to play sliding tiles.
      */
     private void switchToGame(){
-        Intent start = new Intent(this, SlidingTilesGameActivity.class);
+        //TODO
+        String gameType = AccountManager.activeAccount.game;
+        Intent start = null;
+        if(gameType.equals(SLIDING_NAME)){
+             start = new Intent(this, SlidingTilesGameActivity.class);
+        }else if(gameType.equals(TWENTY_NAME)){
+            start = new Intent(this, SlidingTilesGameActivity.class);
+        }else if(gameType.equals(CHECKERS_NAME)){
+            start = new Intent(this, SlidingTilesGameActivity.class);
+        }
         ListView listV = findViewById(R.id.savedFiles);
         int pos = listV.getCheckedItemPosition();
         if(pos == -1){
