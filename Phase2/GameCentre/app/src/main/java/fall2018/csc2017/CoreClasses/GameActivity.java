@@ -13,6 +13,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import Sliding.SlidingBoard;
+import Sliding.SlidingBoardManager;
+
 public abstract class GameActivity extends AppCompatActivity {
     /**
      * The board manager.

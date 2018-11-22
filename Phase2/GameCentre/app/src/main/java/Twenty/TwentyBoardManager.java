@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Stack;
 
 import fall2018.csc2017.CoreClasses.BoardManager;
-import fall2018.csc2017.CoreClasses.SlidingBoard;
 import phase1.AccountManager;
-import phase1.SlidingGameFile;
 
 public class TwentyBoardManager extends BoardManager {
 

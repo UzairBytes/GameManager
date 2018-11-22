@@ -1,4 +1,4 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
-import phase1.Game;
 import phase1.GameFile;
 import phase1.SlidingGameFile;
 

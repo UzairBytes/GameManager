@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import Checkers.CheckersSettingActivity;
+import Sliding.SlidingSettingsActivity;
 
 import static fall2018.csc2017.CoreClasses.GameSelectActivity.game;
 
