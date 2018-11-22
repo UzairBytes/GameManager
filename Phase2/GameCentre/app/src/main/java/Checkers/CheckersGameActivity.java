@@ -1,10 +1,12 @@
 package Checkers;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 import fall2018.csc2017.CoreClasses.CustomAdapter;
@@ -14,8 +16,19 @@ import Sliding.SlidingGestureDetectGridView;
 
 public class CheckersGameActivity extends GameActivity {
 
+
+    /**
+     * The board manager.
+     */
+    CheckersBoardManager boardManager; //TODO make private and add getter method
+
+    /**
+     * The buttons to display.
+     */
+    ArrayList<Button> tileButtons; //TODO make private and add getter method
+
     // Grid View and calculated column height and width based on device size
-    private SlidingGestureDetectGridView gridView;
+    private CheckersGestureDetectGridView gridView;
 
     private static int columnWidth, columnHeight;
 
@@ -39,6 +52,23 @@ public class CheckersGameActivity extends GameActivity {
                 boardManager.undo();
             }
         });
+    }
+
+    /**
+     * Create the buttons for displaying the tiles.
+     *
+     * @param context the context
+     */
+    void createTileButtons(Context context) {
+        CheckersBoard board = boardManager.getBoard();
+        tileButtons = new ArrayList<>();
+        for (int row = 0; row != board.getNumRows(); row++) {
+            for (int col = 0; col != board.getNumCols(); col++) {
+                Button tmp = new Button(context);
+                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                this.tileButtons.add(tmp);
+            }
+        }
     }
 
     @Override

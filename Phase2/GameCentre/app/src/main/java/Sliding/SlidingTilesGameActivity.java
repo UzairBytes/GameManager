@@ -1,10 +1,13 @@
 package Sliding;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,6 +19,16 @@ import fall2018.csc2017.CoreClasses.R;
  * The game activity.
  */
 public class SlidingTilesGameActivity extends GameActivity implements Observer {
+    
+    /**
+     * The board manager.
+     */
+    SlidingBoardManager boardManager; //TODO make private and add getter method
+
+    /**
+     * The buttons to display.
+     */
+    ArrayList<Button> tileButtons; //TODO make private and add getter method
 
     // Grid View and calculated column height and width based on device size
     private SlidingGestureDetectGridView gridView;
@@ -42,6 +55,23 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
                 boardManager.undo();
             }
         });
+    }
+
+    /**
+     * Create the buttons for displaying the tiles.
+     *
+     * @param context the context
+     */
+    void createTileButtons(Context context) {
+        SlidingBoard board = boardManager.getBoard();
+        tileButtons = new ArrayList<>();
+        for (int row = 0; row != board.getNumRows(); row++) {
+            for (int col = 0; col != board.getNumCols(); col++) {
+                Button tmp = new Button(context);
+                tmp.setBackgroundResource(board.getSlidingTile(row, col).getBackground());
+                this.tileButtons.add(tmp);
+            }
+        }
     }
 
     @Override

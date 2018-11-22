@@ -11,7 +11,7 @@ public class CheckersBoardManager extends BoardManager {
     /**
      * The board being managed.
      */
-    protected CheckersBoard board;
+    protected static CheckersBoard board;
 
     /**
      * The SlidingGameFile holding the data for this board.
@@ -160,4 +160,8 @@ public class CheckersBoardManager extends BoardManager {
     }
 
     boolean isRedsTurn(){return redsTurn;}
+
+    static CheckersBoard getBoard() {
+        return board;
+    }
 }
