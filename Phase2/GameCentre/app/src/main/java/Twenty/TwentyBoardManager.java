@@ -25,6 +25,11 @@ public class TwentyBoardManager extends BoardManager {
      */
     private Stack<TwentyBoard> gameStates;
 
+    /**
+     * Keeps track of board size
+     */
+    private int size;
+
 
     /**
      * Manage a new blank board.
@@ -34,6 +39,7 @@ public class TwentyBoardManager extends BoardManager {
     public TwentyBoardManager(int size) {
 
         // Initialize the board as all blank tiles.
+        this.size = size;
         List<TwentyTile> tiles = new ArrayList<>();
         final int numTiles = size * size;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -140,5 +146,12 @@ public class TwentyBoardManager extends BoardManager {
      */
     public boolean isValidMove(boolean horizDir){
         return this.twentyBoard.isCollapsable(horizDir);
+    }
+
+    /**
+     * Accesses the private value size.
+     */
+    public int getSize() {
+        return size;
     }
 }
