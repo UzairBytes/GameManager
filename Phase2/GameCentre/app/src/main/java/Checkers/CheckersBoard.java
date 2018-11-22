@@ -160,7 +160,7 @@ public class CheckersBoard extends Board {
         }
 
         void setHighLightedTile (int row, int col){
-            CheckersTile tile = getTile(row, col);
+            CheckersTile tile = getCheckersTile(row, col);
             tile.highlight();
             highLightedTile = tile;
             highLightedTilePosition[0] = row;
@@ -181,7 +181,7 @@ public class CheckersBoard extends Board {
      * @param col column of the requested tile
      * @return the tile at row, col
      */
-    CheckersTile getTile(int row, int col){return tiles[row][col];}
+    CheckersTile getCheckersTile(int row, int col){return tiles[row][col];}
 
     /**
      * Makes the piece a king if appropriate
