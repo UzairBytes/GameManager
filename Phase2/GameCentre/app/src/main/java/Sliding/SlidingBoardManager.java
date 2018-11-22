@@ -161,15 +161,6 @@ public class SlidingBoardManager extends BoardManager {
     }
 
     /**
-     * Add the number of undos to this board.
-     */
-    private void addUndos() {
-        if (this.remainingUndos < this.maxUndos) {
-            this.remainingUndos++;
-        }
-    }
-
-    /**
      * Saves a new state of board to game.
      *
      * @param board a board
