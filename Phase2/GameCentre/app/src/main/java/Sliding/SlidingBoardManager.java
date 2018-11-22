@@ -41,7 +41,7 @@ public class SlidingBoardManager extends BoardManager {
      * @param gameFile: Represents a record of data for this game.
      */
     @SuppressWarnings("unchecked")
-    protected SlidingBoardManager(SlidingGameFile gameFile) {
+    public SlidingBoardManager(SlidingGameFile gameFile) {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.remainingUndos;

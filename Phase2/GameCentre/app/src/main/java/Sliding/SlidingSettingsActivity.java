@@ -17,7 +17,6 @@ public class SlidingSettingsActivity extends SettingsActivity {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
      void switchToGame(){
         Intent start = new Intent(this, SlidingTilesGameActivity.class);
         saveToFile(SettingsActivity.TEMP_SAVE_FILENAME);
@@ -27,7 +26,6 @@ public class SlidingSettingsActivity extends SettingsActivity {
     /**
      * Activate Start button.
      */
-    @Override
      void addStartButtonListener(){
         final Button start = findViewById(R.id.Start);
         start.setOnClickListener(new View.OnClickListener() {
