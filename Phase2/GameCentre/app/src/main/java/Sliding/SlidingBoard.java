@@ -1,10 +1,12 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import fall2018.csc2017.CoreClasses.Board;
 
 /**
  * The sliding tiles board.

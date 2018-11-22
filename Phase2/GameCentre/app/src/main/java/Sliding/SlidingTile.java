@@ -1,7 +1,10 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 
 import java.util.ArrayList;
+
+import fall2018.csc2017.CoreClasses.R;
+import fall2018.csc2017.CoreClasses.Tile;
 
 /**
  * A Tile in a sliding tiles puzzle.

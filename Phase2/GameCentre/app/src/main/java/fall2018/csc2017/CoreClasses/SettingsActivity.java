@@ -9,6 +9,8 @@ import android.widget.EditText;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import Sliding.SlidingBoardManager;
+
 /**
  * The activity for determining settings for a new game.
  */
