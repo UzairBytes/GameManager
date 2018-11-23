@@ -124,6 +124,8 @@ public class CheckersBoardManager extends BoardManager {
     }
 
     void touchMove(int position){
+        CheckersBoard newBoard = board.createDeepCopy();
+        this.board = newBoard;
         CheckersTile highLightedTile = board.getHighLightedTile();
         String highId = highLightedTile.getCheckersId();
         int highRow = board.getHighLightedTilePosition()[0];
@@ -131,6 +133,9 @@ public class CheckersBoardManager extends BoardManager {
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         board.swapTiles(highRow, highCol, row, col);
+        save(newBoard);
+        setChanged();
+        notifyObservers();
     }
 
     //should use an iterator
@@ -163,5 +168,34 @@ public class CheckersBoardManager extends BoardManager {
 
     static CheckersBoard getBoard() {
         return board;
+    }
+
+    /**
+     * Saves a new state of board to game.
+     *
+     * @param board a board
+     */
+    @SuppressWarnings("unchecked")
+    public void save(CheckersBoard board) {
+        CheckersGameFile newGameFile = (CheckersGameFile) AccountManager.activeAccount.activeGameFile;
+        newGameFile.getGameStates().push(board);
+        AccountManager.activeAccount.addGameFile(newGameFile);
+        AccountManager.activeAccount.saveAllGameFiles();
+        this.gameFile = newGameFile;
+        this.gameStates = newGameFile.getGameStates();
+        this.board = board;
+    }
+
+    /**
+     * Switches the board back one move, if the user has undos left
+     */
+    public void undo() {
+        if (this.remainingUndos > 0) {
+            this.remainingUndos--;
+            this.gameStates.pop();
+            this.board = this.gameStates.peek();
+            setChanged();
+            notifyObservers();
+        }
     }
 }
