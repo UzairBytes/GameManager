@@ -31,7 +31,7 @@ public class TwentyTile extends Tile {
         picts.add(R.drawable.twentytile_8192);
 
         // Validate preconditions
-        if(Math.log(id) % 1 == 0){
+        if((Math.log(id) / Math.log(2)) % 1 == 0){
             setId(id);
             setBackground(background);
         }else{

@@ -3,7 +3,6 @@ package Checkers;
 import java.time.Instant;
 import java.util.Stack;
 
-import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
 
@@ -18,11 +17,6 @@ public class CheckersBoardManager extends BoardManager {
      * The SlidingGameFile holding the data for this board.
      */
     private CheckersGameFile gameFile;
-
-    /**
-     * Holds a stack of CheckersBoards, with each Board representing a specific game state.
-     */
-    private Stack<CheckersBoard> gameStates;
 
     /**
      * Color of the player who won the game.
@@ -127,8 +121,6 @@ public class CheckersBoardManager extends BoardManager {
     void touchMove(int position){
 //        CheckersBoard newBoard = board.createDeepCopy();
 //        this.board = newBoard;
-//        CheckersTile highLightedTile = board.getHighLightedTile();
-//        String highId = highLightedTile.getCheckersId();
 //        int highRow = board.getHighLightedTilePosition()[0];
 //        int highCol = board.getHighLightedTilePosition()[1];
 //        int row = position / board.getNumRows();
@@ -167,6 +159,8 @@ public class CheckersBoardManager extends BoardManager {
 
     boolean isRedsTurn(){return redsTurn;}
 
+    void swapRedsTurn(){ redsTurn = !redsTurn;}
+
     static CheckersBoard getBoard() {
         return board;
     }
@@ -194,7 +188,7 @@ public class CheckersBoardManager extends BoardManager {
         if (this.remainingUndos > 0) {
             this.remainingUndos--;
             this.gameStates.pop();
-            this.board = this.gameStates.peek();
+            this.board = (CheckersBoard)this.gameStates.peek();
             setChanged();
             notifyObservers();
         }
