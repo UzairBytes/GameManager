@@ -6,6 +6,7 @@ import java.util.Stack;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
+import phase1.GameFile;
 
 public class CheckersBoardManager extends BoardManager {
 
@@ -167,6 +168,13 @@ public class CheckersBoardManager extends BoardManager {
     }
 
     /**
+     * Returns the GameFile managed by this SlidingBoardManager.
+     */
+    GameFile getGameFile() {
+        return this.gameFile;
+    }
+
+    /**
      * Saves a new state of board to game.
      *
      * @param board a board
@@ -187,7 +195,6 @@ public class CheckersBoardManager extends BoardManager {
      */
     @Override
     public Board undo () {
-        // TODO: Use the return value of this fn.
         if (this.remainingUndos > 0) {
             this.board = (CheckersBoard) super.undo();
         }
