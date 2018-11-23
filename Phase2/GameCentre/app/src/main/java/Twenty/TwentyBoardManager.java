@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import Sliding.SlidingBoard;
+import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
+import phase1.SlidingGameFile;
 
 public class TwentyBoardManager extends BoardManager {
 
@@ -165,4 +168,29 @@ public class TwentyBoardManager extends BoardManager {
     public TwentyBoard getBoard(){
         return this.twentyBoard;
     }
+
+    /**
+     * Saves a new state of board to game.
+     *
+     * @param board a board
+     */
+    @SuppressWarnings("unchecked")
+    public void save(TwentyBoard board) {
+        super.save(board);
+        this.gameFile = (TwentyGameFile) AccountManager.activeAccount.getActiveGameFile();
+        this.gameStates = this.gameFile.getGameStates();
+        this.twentyBoard = board;
+    }
+
+    /**
+     * Switches the board back one move, if the user has undos left
+     */
+    @Override
+    public Board undo() {
+        if (this.remainingUndos > 0) {
+            this.twentyBoard = (TwentyBoard) super.undo();
+        }
+        return this.twentyBoard;
+    }
+
 }
