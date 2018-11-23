@@ -76,7 +76,7 @@ public class CheckersGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         loadFromFile();
         createTileButtons(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_starting_);
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
