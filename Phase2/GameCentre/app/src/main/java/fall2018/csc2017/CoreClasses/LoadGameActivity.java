@@ -14,26 +14,13 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import phase1.AccountManager;
+import phase1.Game;
 import phase1.GameFile;
 import phase1.SlidingGameFile;
 
 
 public class LoadGameActivity extends AppCompatActivity {
 
-    /**  TODO: Maybe rethink how the game names are stored
-     * Name of SlidingTiles -- a type of Game in this GameCenter.
-     */
-    private final String SLIDING_NAME = "sliding";
-
-    /**
-     * Name of Twenty -- a type of Game in this GameCenter.
-     */
-    private final String TWENTY_NAME = "checkers";
-
-    /**
-     * Name of Checkers -- a type of Game in this GameCenter.
-     */
-    private final String CHECKERS_NAME = "twenty";
 
     public final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
 
@@ -65,11 +52,11 @@ public class LoadGameActivity extends AppCompatActivity {
         //TODO
         String gameType = AccountManager.activeAccount.getActiveGameName();
         Intent start = null;
-        if(gameType.equals(SLIDING_NAME)){
+        if(gameType.equals(Game.SLIDING_NAME)){
              start = new Intent(this, SlidingTilesGameActivity.class);
-        }else if(gameType.equals(TWENTY_NAME)){
+        }else if(gameType.equals(Game.TWENTY_NAME)){
             start = new Intent(this, SlidingTilesGameActivity.class);
-        }else if(gameType.equals(CHECKERS_NAME)){
+        }else if(gameType.equals(Game.CHECKERS_NAME)){
             start = new Intent(this, SlidingTilesGameActivity.class);
         }
         ListView listV = findViewById(R.id.savedFiles);

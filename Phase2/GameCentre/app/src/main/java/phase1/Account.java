@@ -19,22 +19,6 @@ import Twenty.TwentyGameFile;
  */
 public class Account implements Serializable {
 
-    //TODO: Maybe rethink how the game names are stored
-    /**
-     * Name of SlidingTiles -- a type of Game in this GameCenter.
-     */
-    private final String SLIDING_NAME = "sliding";
-
-    /**
-     * Name of Twenty -- a type of Game in this GameCenter.
-     */
-    private final String TWENTY_NAME = "checkers";
-
-    /**
-     * Name of Checkers -- a type of Game in this GameCenter.
-     */
-    private final String CHECKERS_NAME = "twenty";
-
     /**
      * This Account's username
      */
@@ -83,9 +67,9 @@ public class Account implements Serializable {
         HashMap<String, GameFile> slidingMap = new HashMap<String, GameFile>();
         HashMap<String, GameFile> twentyMap = new HashMap<String, GameFile>();
         HashMap<String, GameFile> checkersMap = new HashMap<String, GameFile>();
-        this.allGameFiles.put(this.SLIDING_NAME, slidingMap);
-        this.allGameFiles.put(this.TWENTY_NAME, twentyMap);
-        this.allGameFiles.put(this.CHECKERS_NAME, checkersMap);
+        this.allGameFiles.put(Game.SLIDING_NAME, slidingMap);
+        this.allGameFiles.put(Game.TWENTY_NAME, twentyMap);
+        this.allGameFiles.put(Game.CHECKERS_NAME, checkersMap);
     }
 
 
@@ -124,7 +108,7 @@ public class Account implements Serializable {
      * Afterwards re-serialize the <allGameFiles> map.
      */
     public void addGameFile(SlidingGameFile gameFile) {
-        HashMap<String, GameFile> slidingFiles = this.allGameFiles.get(SLIDING_NAME);
+        HashMap<String, GameFile> slidingFiles = this.allGameFiles.get(Game.SLIDING_NAME);
         slidingFiles.put(gameFile.getName(), gameFile);
         this.activeGameFile = gameFile;
     }
@@ -134,7 +118,7 @@ public class Account implements Serializable {
      * Afterwards re-serialize the <allGameFiles> map.
      */
     public void addGameFile(CheckersGameFile gameFile) {
-        HashMap<String, GameFile> checkersFiles = this.allGameFiles.get(CHECKERS_NAME);
+        HashMap<String, GameFile> checkersFiles = this.allGameFiles.get(Game.CHECKERS_NAME);
         checkersFiles.put(gameFile.getName(), gameFile);
         this.activeGameFile = gameFile;
     }
@@ -144,7 +128,7 @@ public class Account implements Serializable {
      * Afterwards re-serialize the <allGameFiles> map.
      */
     public void addGameFile(TwentyGameFile gameFile) {
-        HashMap<String, GameFile> twentyFiles = this.allGameFiles.get(TWENTY_NAME);
+        HashMap<String, GameFile> twentyFiles = this.allGameFiles.get(Game.TWENTY_NAME);
         twentyFiles.put(gameFile.getName(), gameFile);
         this.activeGameFile = gameFile;
     }
