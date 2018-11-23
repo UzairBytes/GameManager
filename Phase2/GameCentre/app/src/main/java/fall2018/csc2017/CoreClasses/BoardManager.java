@@ -8,17 +8,6 @@ import phase1.Game;
 
 public abstract class BoardManager extends Observable implements Serializable, Game {
 
-
-    /**
-     * The board being managed.
-     */
-    //protected Board board;
-
-    /**
-     * Holds a stack of Boards, with each Board representing a specific game state.
-     */
-    //protected Stack<Board> gameStates;
-
     /**
      * The number of undos the player has left.
      */
@@ -54,5 +43,14 @@ public abstract class BoardManager extends Observable implements Serializable, G
      * Returns the score of a game.
      */
     public int score() {return 0;}
+
+    /**
+     * Add the number of undos to this board.
+     */
+    public void addUndos() {
+        if (this.remainingUndos < this.maxUndos) {
+            this.remainingUndos++;
+        }
+    }
 
 }

@@ -1,10 +1,12 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import fall2018.csc2017.CoreClasses.Board;
 
 /**
  * The sliding tiles board.
@@ -125,6 +127,15 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile> {
         holdTile[0][1] = getSlidingTile(row2, col2);
         this.tiles[row2][col2] = holdTile[0][0];
         this.tiles[row1][col1] = holdTile[0][1];
+    }
+
+    /**
+     * Returns tilesList.
+     *
+     * @return list of tiles.
+     */
+    public List<SlidingTile> getTilesList(){
+        return this.tilesList;
     }
 
 

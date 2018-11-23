@@ -1,4 +1,4 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
-import phase1.Game;
 import phase1.GameFile;
 import phase1.SlidingGameFile;
 
@@ -41,7 +41,7 @@ public class SlidingBoardManager extends BoardManager {
      * @param gameFile: Represents a record of data for this game.
      */
     @SuppressWarnings("unchecked")
-    protected SlidingBoardManager(SlidingGameFile gameFile) {
+    public SlidingBoardManager(SlidingGameFile gameFile) {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.remainingUndos;
@@ -158,15 +158,6 @@ public class SlidingBoardManager extends BoardManager {
         save(newBoard);
         setChanged();
         notifyObservers();
-    }
-
-    /**
-     * Add the number of undos to this board.
-     */
-    private void addUndos() {
-        if (this.remainingUndos < this.maxUndos) {
-            this.remainingUndos++;
-        }
     }
 
     /**

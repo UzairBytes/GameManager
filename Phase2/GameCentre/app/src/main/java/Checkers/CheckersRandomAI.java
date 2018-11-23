@@ -10,13 +10,14 @@ import fall2018.csc2017.CoreClasses.GameAI;
  * This class exists to provide random moves for a computer playing Checkers
  * <p>
  * Use CheckersRandomAI.getMove(checkersBoardManager) to get a random move
+ * Every other method in the class is just a helper method for getMove
  */
 abstract class CheckersRandomAI extends GameAI {
 
     /**
      * This is the default move when the active player has no legal move
      */
-    private static final int[][] NOLEGALMOVE = {{-1,-1},{-1,-1}};
+    private static final int[][] NO_LEGAL_MOVE = {{-1,-1},{-1,-1}};
 
     /**
      * Choose and return a move based allPossibleSelectableTiles
@@ -36,7 +37,7 @@ abstract class CheckersRandomAI extends GameAI {
                 return possibleMoves.get(0);
             }
         }
-        return NOLEGALMOVE;
+        return NO_LEGAL_MOVE;
     }
 
     /**

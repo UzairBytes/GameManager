@@ -1,4 +1,4 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import fall2018.csc2017.CoreClasses.R;
+import fall2018.csc2017.CoreClasses.SettingsActivity;
+
 public class SlidingSettingsActivity extends SettingsActivity {
 
     @Override
@@ -14,7 +17,6 @@ public class SlidingSettingsActivity extends SettingsActivity {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
      void switchToGame(){
         Intent start = new Intent(this, SlidingTilesGameActivity.class);
         saveToFile(SettingsActivity.TEMP_SAVE_FILENAME);
@@ -24,7 +26,6 @@ public class SlidingSettingsActivity extends SettingsActivity {
     /**
      * Activate Start button.
      */
-    @Override
      void addStartButtonListener(){
         final Button start = findViewById(R.id.Start);
         start.setOnClickListener(new View.OnClickListener() {

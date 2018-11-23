@@ -20,4 +20,6 @@
     <string name="loadbutton">Load</string>
     <string name="undoButton">Undo</string>
     <string name="newGame">New Game</string>
+    <string name="button">Checkers</string>
+    <string name="button2">2048</string>
 </resources>

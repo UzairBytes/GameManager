@@ -13,6 +13,9 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+import Sliding.SlidingBoardManager;
+import Sliding.SlidingTilesGameActivity;
 import phase1.AccountManager;
 import phase1.Game;
 import phase1.GameFile;

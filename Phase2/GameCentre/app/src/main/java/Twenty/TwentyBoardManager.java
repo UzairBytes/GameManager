@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Stack;
 
 import fall2018.csc2017.CoreClasses.BoardManager;
-import fall2018.csc2017.CoreClasses.SlidingBoard;
 import phase1.AccountManager;
-import phase1.SlidingGameFile;
 
 public class TwentyBoardManager extends BoardManager {
 
@@ -27,6 +25,11 @@ public class TwentyBoardManager extends BoardManager {
      */
     private Stack<TwentyBoard> gameStates;
 
+    /**
+     * Keeps track of board size
+     */
+    private int size;
+
 
     /**
      * Manage a new blank board.
@@ -36,6 +39,7 @@ public class TwentyBoardManager extends BoardManager {
     public TwentyBoardManager(int size) {
 
         // Initialize the board as all blank tiles.
+        this.size = size;
         List<TwentyTile> tiles = new ArrayList<>();
         final int numTiles = size * size;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -66,12 +70,16 @@ public class TwentyBoardManager extends BoardManager {
         TwentyTile tile1, tile2;
         if(dir == 'U' && isValidMove(false)){
             mergeTilesInDir('U');
+            twentyBoard.generateRandomTile();
         }else if(dir == 'D' && isValidMove(false)){
             mergeTilesInDir('D');
+            twentyBoard.generateRandomTile();
         }else if(dir == 'L' && isValidMove(true)){
             mergeTilesInDir('L');
+            twentyBoard.generateRandomTile();
         }else if(dir == 'R' && isValidMove(true)){
             mergeTilesInDir('R');
+            twentyBoard.generateRandomTile();
         }else{
             // Not a valid move, game is finished here.
         }
@@ -142,5 +150,19 @@ public class TwentyBoardManager extends BoardManager {
      */
     public boolean isValidMove(boolean horizDir){
         return this.twentyBoard.isCollapsable(horizDir);
+    }
+
+    /**
+     * Accesses the private value size.
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * Accesses the protected Board
+     */
+    public TwentyBoard getBoard(){
+        return this.twentyBoard;
     }
 }
