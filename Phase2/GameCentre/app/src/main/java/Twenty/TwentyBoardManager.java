@@ -70,16 +70,16 @@ public class TwentyBoardManager extends BoardManager {
         TwentyTile tile1, tile2;
         if(dir == 'U' && isValidMove(false)){
             mergeTilesInDir('U');
-            twentyBoard.generateRandomTile();
+            this.twentyBoard.generateRandomTile();
         }else if(dir == 'D' && isValidMove(false)){
             mergeTilesInDir('D');
-            twentyBoard.generateRandomTile();
+            this.twentyBoard.generateRandomTile();
         }else if(dir == 'L' && isValidMove(true)){
             mergeTilesInDir('L');
-            twentyBoard.generateRandomTile();
+            this.twentyBoard.generateRandomTile();
         }else if(dir == 'R' && isValidMove(true)){
             mergeTilesInDir('R');
-            twentyBoard.generateRandomTile();
+            this.twentyBoard.generateRandomTile();
         }else{
             // Not a valid move, game is finished here.
         }
