@@ -1,8 +1,10 @@
 package Twenty;
 
 import android.support.annotation.NonNull;
-
+import java.util.ArrayList;
 import fall2018.csc2017.CoreClasses.Tile;
+import fall2018.csc2017.CoreClasses.R;
+
 
 public class TwentyTile extends Tile {
 
@@ -11,6 +13,23 @@ public class TwentyTile extends Tile {
      * Preconditions: <id> is a power of 2
      */
     public TwentyTile(int id, int background){
+        super();
+        ArrayList<Integer> picts = new ArrayList<>();
+        picts.add(R.drawable.twentytile_blank);
+        picts.add(R.drawable.twentytile_2);
+        picts.add(R.drawable.twentytile_4);
+        picts.add(R.drawable.twentytile_8);
+        picts.add(R.drawable.twentytile_16);
+        picts.add(R.drawable.twentytile_32);
+        picts.add(R.drawable.twentytile_64);
+        picts.add(R.drawable.twentytile_128);
+        picts.add(R.drawable.twentytile_256);
+        picts.add(R.drawable.twentytile_512);
+        picts.add(R.drawable.twentytile_1024);
+        picts.add(R.drawable.twentytile_2048);
+        picts.add(R.drawable.twentytile_4096);
+        picts.add(R.drawable.twentytile_8192);
+
         // Validate preconditions
         if(Math.log(id) % 1 == 0){
             setId(id);
