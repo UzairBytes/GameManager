@@ -3,7 +3,6 @@ package Checkers;
 import java.time.Instant;
 import java.util.Stack;
 
-import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
 
@@ -122,8 +121,6 @@ public class CheckersBoardManager extends BoardManager {
     void touchMove(int position){
 //        CheckersBoard newBoard = board.createDeepCopy();
 //        this.board = newBoard;
-//        CheckersTile highLightedTile = board.getHighLightedTile();
-//        String highId = highLightedTile.getCheckersId();
 //        int highRow = board.getHighLightedTilePosition()[0];
 //        int highCol = board.getHighLightedTilePosition()[1];
 //        int row = position / board.getNumRows();
@@ -161,6 +158,8 @@ public class CheckersBoardManager extends BoardManager {
     }
 
     boolean isRedsTurn(){return redsTurn;}
+
+    void swapRedsTurn(){ redsTurn = !redsTurn;}
 
     static CheckersBoard getBoard() {
         return board;
