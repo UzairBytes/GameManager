@@ -8,13 +8,13 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
-import Sliding.SlidingGestureDetectGridView;
 
-public class CheckersGameActivity extends GameActivity {
+public class CheckersGameActivity extends GameActivity implements Observer {
 
 
     /**
@@ -80,7 +80,7 @@ public class CheckersGameActivity extends GameActivity {
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(boardManager.Slidingboard.getNumCols());
+        gridView.setNumColumns(boardManager.getBoard().getNumCols());
         gridView.setBoardManager(boardManager);
         boardManager.addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
@@ -93,8 +93,8 @@ public class CheckersGameActivity extends GameActivity {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / boardManager.Slidingboard.getNumCols();
-                        columnHeight = displayHeight / boardManager.Slidingboard.getNumCols();
+                        columnWidth = displayWidth / boardManager.getBoard().getNumCols();
+                        columnHeight = displayHeight / boardManager.getBoard().getNumCols();
 
                         display();
                     }
@@ -102,7 +102,6 @@ public class CheckersGameActivity extends GameActivity {
         addUndoButtonListener();
     }
 
-    @Override
     public void update(Observable o, Object arg) {
         display();
     }
