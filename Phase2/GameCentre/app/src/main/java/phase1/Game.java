@@ -9,7 +9,7 @@ public interface Game {
      *
      * @param board is a board.
      */
-    GameFile save(Board board);
+    void save(Board board);
 
     /**
      * Switches the gameState back one move, if the user has undos left

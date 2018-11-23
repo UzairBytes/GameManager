@@ -15,6 +15,7 @@ import java.util.HashMap;
  */
 public class AccountManager{
 
+    //TODO: Should these variables be private?
     /**
      * The application's context, which will store the location where game data will be saved.
      */

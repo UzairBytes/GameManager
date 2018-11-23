@@ -69,7 +69,7 @@ public class LoadGameActivity extends AppCompatActivity {
         }
         else {
             String fileName = files.get(pos);
-            AccountManager.activeAccount.loadGameFiles();
+            AccountManager.activeAccount.loadAccountGameData();
             GameFile desiredFile = AccountManager.activeAccount.getGames(gameType).get(fileName);
             boardManager = new SlidingBoardManager((SlidingGameFile)desiredFile);
             saveToFile(TEMP_SAVE_FILENAME);

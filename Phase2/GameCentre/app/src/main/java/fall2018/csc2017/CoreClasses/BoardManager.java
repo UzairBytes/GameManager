@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Stack;
 
+import Sliding.SlidingBoard;
+import phase1.AccountManager;
 import phase1.Game;
+import phase1.GameFile;
+import phase1.SlidingGameFile;
 
 public abstract class BoardManager extends Observable implements Serializable, Game {
 
@@ -26,15 +30,6 @@ public abstract class BoardManager extends Observable implements Serializable, G
     protected int numMoves = 0;
 
     /**
-     * Save a board to the stack of game files.
-     *
-     * @param board is a board.
-     */
-    public void save(Board board) {
-
-    }
-
-    /**
      * Switches the gameState back one move, if the user has undos left
      */
     public void undo() {}
@@ -53,4 +48,16 @@ public abstract class BoardManager extends Observable implements Serializable, G
         }
     }
 
+    /**
+     * Saves a new state of board to game.
+     *
+     * @param board a board
+     */
+    @SuppressWarnings("unchecked")
+    public void save(Board board) {
+        GameFile newGameFile = AccountManager.activeAccount.getActiveGameFile();
+        newGameFile.getGameStates().push(board);
+        AccountManager.activeAccount.addGameFile(newGameFile);
+        AccountManager.activeAccount.saveAccountGameData();
+    }
 }
