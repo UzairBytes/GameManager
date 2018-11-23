@@ -3,6 +3,7 @@ package Checkers;
 import java.time.Instant;
 import java.util.Stack;
 
+import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
 
@@ -184,13 +185,13 @@ public class CheckersBoardManager extends BoardManager {
     /**
      * Switches the board back one move, if the user has undos left
      */
-    public void undo() {
+    @Override
+    public Board undo () {
+        // TODO: Use the return value of this fn.
         if (this.remainingUndos > 0) {
-            this.remainingUndos--;
-            this.gameStates.pop();
-            this.board = (CheckersBoard)this.gameStates.peek();
-            setChanged();
-            notifyObservers();
+            this.board = (CheckersBoard) super.undo();
         }
+            return this.board;
     }
+
 }
