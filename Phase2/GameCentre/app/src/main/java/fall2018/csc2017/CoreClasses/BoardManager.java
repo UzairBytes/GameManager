@@ -6,18 +6,7 @@ import java.util.Stack;
 
 import phase1.Game;
 
-public class BoardManager extends Observable implements Game, Serializable {
-
-
-    /**
-     * The board being managed.
-     */
-    protected Board board;
-
-    /**
-     * Holds a stack of Boards, with each Board representing a specific game state.
-     */
-    protected Stack<Board> gameStates;
+public abstract class BoardManager extends Observable implements Serializable, Game {
 
     /**
      * The number of undos the player has left.
@@ -34,32 +23,34 @@ public class BoardManager extends Observable implements Game, Serializable {
     /**
      * The number of moves the player has made.
      */
-    // assigned a value from the save file
-    protected int numMoves = 0; //removed static.
+    protected int numMoves = 0;
 
     /**
-     * Returns number of move that the user took to complete the game
-     * To be overridden in subclass.
-     */
-    public int score(){
-        return 0;
-    }
-
-    /**
-     * Saves a new state of board to game.
-     * To be overridden in subclass.
+     * Save a board to the stack of game files.
      *
-     * @param board a board
+     * @param board is a board.
      */
     public void save(Board board) {
-        this.board = board;
+
     }
 
     /**
-     * Switches the board back one move, if the user has undos left
-     * To be overridden in subclass.
+     * Switches the gameState back one move, if the user has undos left
      */
-    public void undo() {
+    public void undo() {}
+
+    /**
+     * Returns the score of a game.
+     */
+    public int score() {return 0;}
+
+    /**
+     * Add the number of undos to this board.
+     */
+    public void addUndos() {
+        if (this.remainingUndos < this.maxUndos) {
+            this.remainingUndos++;
+        }
     }
 
 }

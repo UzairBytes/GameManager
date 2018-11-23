@@ -1,4 +1,4 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
 import phase1.GameFile;
 import phase1.SlidingGameFile;
@@ -40,7 +41,7 @@ public class SlidingBoardManager extends BoardManager {
      * @param gameFile: Represents a record of data for this game.
      */
     @SuppressWarnings("unchecked")
-    protected SlidingBoardManager(SlidingGameFile gameFile) {
+    public SlidingBoardManager(SlidingGameFile gameFile) {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.remainingUndos;
@@ -112,14 +113,14 @@ public class SlidingBoardManager extends BoardManager {
      */
     boolean isValidTap(int position) {
 
-        int row = position / Slidingboard.numRows;
-        int col = position % Slidingboard.numCols;
+        int row = position / Slidingboard.getNumRows();
+        int col = position % Slidingboard.getNumCols();
         int blankId = Slidingboard.numTiles();
         // Are any of the 4 the blank tile?
         SlidingTile above = row == 0 ? null : Slidingboard.getSlidingTile(row - 1, col);
-        SlidingTile below = row == Slidingboard.numRows - 1 ? null : Slidingboard.getSlidingTile(row + 1, col);
+        SlidingTile below = row == Slidingboard.getNumRows() - 1 ? null : Slidingboard.getSlidingTile(row + 1, col);
         SlidingTile left = col == 0 ? null : Slidingboard.getSlidingTile(row, col - 1);
-        SlidingTile right = col == Slidingboard.numCols - 1 ? null : Slidingboard.getSlidingTile(row, col + 1);
+        SlidingTile right = col == Slidingboard.getNumCols() - 1 ? null : Slidingboard.getSlidingTile(row, col + 1);
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
@@ -135,37 +136,28 @@ public class SlidingBoardManager extends BoardManager {
         SlidingBoard newBoard = Slidingboard.createDeepCopy();
         this.Slidingboard = newBoard;
 
-        int row = position / Slidingboard.numRows;
-        int col = position % Slidingboard.numCols;
+        int row = position / Slidingboard.getNumRows();
+        int col = position % Slidingboard.getNumCols();
         int blankId = Slidingboard.numTiles();
         SlidingTile above = row == 0 ? null : Slidingboard.getSlidingTile(row - 1, col);
-        SlidingTile below = row == Slidingboard.numRows - 1 ? null : Slidingboard.getSlidingTile(row + 1, col);
+        SlidingTile below = row == Slidingboard.getNumRows() - 1 ? null : Slidingboard.getSlidingTile(row + 1, col);
         SlidingTile left = col == 0 ? null : Slidingboard.getSlidingTile(row, col - 1);
-        SlidingTile right = col == Slidingboard.numCols - 1 ? null : Slidingboard.getSlidingTile(row, col + 1);
+        SlidingTile right = col == Slidingboard.getNumCols() - 1 ? null : Slidingboard.getSlidingTile(row, col + 1);
         addUndos();
         numMoves++;
         gameFile.increaseNumMoves();
         if (below != null && below.getId() == blankId) {
-            Slidingboard.swapTiles(row, col, row + 1, col);
+            Slidingboard.swapSlidingTiles(row, col, row + 1, col);
         } else if (above != null && above.getId() == blankId) {
-            Slidingboard.swapTiles(row, col, row - 1, col);
+            Slidingboard.swapSlidingTiles(row, col, row - 1, col);
         } else if (left != null && left.getId() == blankId) {
-            Slidingboard.swapTiles(row, col, row, col - 1);
+            Slidingboard.swapSlidingTiles(row, col, row, col - 1);
         } else if (right != null && right.getId() == blankId) {
-            Slidingboard.swapTiles(row, col, row, col + 1);
+            Slidingboard.swapSlidingTiles(row, col, row, col + 1);
         }
         save(newBoard);
         setChanged();
         notifyObservers();
-    }
-
-    /**
-     * Add the number of undos to this board.
-     */
-    private void addUndos() {
-        if (this.remainingUndos < this.maxUndos) {
-            this.remainingUndos++;
-        }
     }
 
     /**
@@ -204,7 +196,7 @@ public class SlidingBoardManager extends BoardManager {
     @Override
     public int score() {
         if (puzzleSolved()) {
-            return (int) (Math.pow(16, Slidingboard.numCols) / ((numMoves + 1) * (maxUndos + 1)));
+            return (int) (Math.pow(16, Slidingboard.getNumCols()) / ((numMoves + 1) * (maxUndos + 1)));
         }
         return 0;
     }

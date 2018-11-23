@@ -11,7 +11,7 @@ public class CheckersBoardManager extends BoardManager {
     /**
      * The board being managed.
      */
-    protected CheckersBoard board;
+    protected static CheckersBoard board;
 
     /**
      * The SlidingGameFile holding the data for this board.
@@ -22,6 +22,11 @@ public class CheckersBoardManager extends BoardManager {
      * Holds a stack of CheckersBoards, with each Board representing a specific game state.
      */
     private Stack<CheckersBoard> gameStates;
+
+    /**
+     * Color of the player who won the game.
+     */
+    private String winner;
 
     private boolean redsTurn;
 
@@ -78,10 +83,10 @@ public class CheckersBoardManager extends BoardManager {
      * @param position position of the tile
      */
     boolean isValidSelect (int position){
-        int row = position / board.numRows;
-        int col = position % board.numCols;
-        CheckersTile selectedTile = board.getTile(row, col);
-        String tileId = selectedTile.getId();
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
+        CheckersTile selectedTile = board.getCheckersTile(row, col);
+        String tileId = selectedTile.getCheckersId();
         if (redsTurn && tileId.contains("red") || tileId.contains("white")){
             board.setHighLightedTile(row, col);
             return true;
@@ -91,13 +96,13 @@ public class CheckersBoardManager extends BoardManager {
 
     boolean isValidMove (int position){
         CheckersTile highLightedTile = board.getHighLightedTile();
-        String highId = highLightedTile.getId();
+        String highId = highLightedTile.getCheckersId();
         int highRow = board.getHighLightedTilePosition()[0];
         int highCol = board.getHighLightedTilePosition()[1];
-        int row = position / board.numRows;
-        int col = position % board.numCols;
-        CheckersTile targetTile = board.getTile(row, col);
-        if (!targetTile.getId().equals(CheckersTile.EMPTYWHITETILE)){
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
+        CheckersTile targetTile = board.getCheckersTile(row, col);
+        if (!targetTile.getCheckersId().equals(CheckersTile.EMPTYWHITETILE)){
             return false;
         }
         int[][] canTakePiece = highLightedTile.isCanTakePiece();
@@ -118,5 +123,45 @@ public class CheckersBoardManager extends BoardManager {
         return false;
     }
 
+    void touchMove(int position){
+        CheckersTile highLightedTile = board.getHighLightedTile();
+        String highId = highLightedTile.getCheckersId();
+        int highRow = board.getHighLightedTilePosition()[0];
+        int highCol = board.getHighLightedTilePosition()[1];
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
+        board.swapTiles(highRow, highCol, row, col);
+    }
+
+    //should use an iterator
+    boolean gameComplete(){
+        boolean redWins = true;
+        boolean whiteWins = true;
+        for (CheckersTile[] row: board.tiles){
+            for (CheckersTile tile: row){
+                redWins = redWins && !tile.getCheckersId().contains("white");
+                whiteWins = whiteWins && !tile.getCheckersId().contains("red");
+                if (!redWins && !whiteWins){
+                    return false;
+                }
+            }
+        }
+        if (redWins){
+            winner = "Red";
+        }
+        else {
+            winner = "White";
+        }
+        return true;
+    }
+
+    String getWinner() {
+        return winner;
+    }
+
     boolean isRedsTurn(){return redsTurn;}
+
+    static CheckersBoard getBoard() {
+        return board;
+    }
 }

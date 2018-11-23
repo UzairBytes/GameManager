@@ -1,4 +1,4 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 /*
 Adapted from:
@@ -13,6 +13,8 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+
+import fall2018.csc2017.CoreClasses.GestureDetectGridView;
 
 public class SlidingGestureDetectGridView extends GestureDetectGridView {
     public static final int SWIPE_MIN_DISTANCE = 100;

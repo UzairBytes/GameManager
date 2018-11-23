@@ -1,0 +1,35 @@
+# GAMECENTRE PHASE 1
+
+## Project description
+Game centre phase 1 is a project created by Joshua Cernigilia, Julian Cheng, Uzair Chudhary,
+Jonathan Gabe and Sid Gupta for CSC207 fall 2018 software design. The game centre allows users to sign up
+and log in to their accounts to play the sliding tiles game. Users are able to track their high
+scores and the high scores across accounts on personal and global leaderboards. Additionally,
+users can customize new games based on the number of redos they want and the board size, including
+3x3, 4x4 and 5x5. Users can save games and load previously saved games to resume play at a later time.
+
+## Setup instructions
+Clone the repository in Android studio using the following link https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0543
+Once the project finishes cloning, close the project. In Android Studio, open project at GameCentre level in file explorer. As the project builds, a window, "unregistered VCS root detected",
+may appear. Click add root. The project should be ready to run at this point. Please run emulator with Pixel 2 API 27 (Android 8.1).
+When you run the app, it might ask you whether you want to allow USB debugging. If it does, click OK and wait for the "Welcome to GameCentre!" screen to appear.
+
+## Project structure
+The Fall2018.csc.2017.slidingtiles package contains the code from A2 and the activity classes created by our team, which
+include GameSelectActivity, GlobalLeaderBoardActivity, LoadGameActivity, LogInActivity, PersonalLeaderBoardActivity
+and Settings Activity. The phase 1 package contains the classes and interfaces created to manage accounts,
+create the leaderboard based on high scores.
+
+## Standard and Bonus functionality
+Users can bypass logging in or signing up for an account by selecting guest.
+The app checks that new users do not select existing usernames and requires usernames of greater
+than 5 characters to sign up. The password is hidden when signing up or logging in to an account.
+Users can log out of an account and create a new account or sign in to another account using the log 
+out button. 
+
+Users can customize the board size of a new game and the amount of undos that a user
+can select during game play. If the undo editText field is left blank, undos default to 3, However,
+any number of undos can be entered. Game boards save after every move and are automatically stored as game files that can be selected by selecting
+load games. Leader boards track top scores in user accounts and across user accounts in personal leader boards and global 
+leader boards. High scores are added to leader boards as games are completed.    
+

@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import Checkers.CheckersSettingActivity;
+import Sliding.SlidingSettingsActivity;
+
+import static fall2018.csc2017.CoreClasses.GameSelectActivity.game;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -25,8 +28,6 @@ public class StartingActivity extends AppCompatActivity {
      * A temporary save file.
      */
     public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
-
-    public static String game = "sliding";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

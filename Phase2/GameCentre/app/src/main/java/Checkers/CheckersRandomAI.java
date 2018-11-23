@@ -83,7 +83,7 @@ abstract class CheckersRandomAI extends GameAI {
     private static ArrayList<int[][]> getAllPossibleMoves(CheckersBoardManager checkersBoardManager, int row, int column) {
         ArrayList<int[][]> output = new ArrayList<>();
         CheckersBoard board = checkersBoardManager.board;
-        String selectedTileId = board.getTile(row, column).getId();
+        String selectedTileId = board.getTile(row, column).getCheckersId();
         if (selectedTileId.contains("red") && selectedTileId.contains("pawn")) {
             output.addAll(getMovesUp(checkersBoardManager, row, column));
         } else if (selectedTileId.contains("white") && selectedTileId.contains("pawn")) {

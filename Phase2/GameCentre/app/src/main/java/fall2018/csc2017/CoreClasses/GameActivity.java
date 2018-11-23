@@ -13,36 +13,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import Sliding.SlidingBoard;
+import Sliding.SlidingBoardManager;
+
 public abstract class GameActivity extends AppCompatActivity {
+
     /**
      * The board manager.
      */
-    SlidingBoardManager boardManager; //TODO make private and add getter method
-
-    /**
-     * The buttons to display.
-     */
-    ArrayList<Button> tileButtons; //TODO make private and add getter method
+    BoardManager boardManager; //TODO make private and add getter method
 
     // Grid View and calculated column height and width based on device size
     //GestureDetectGridView gridView; //TODO make private and add getter method
 
-    /**
-     * Create the buttons for displaying the tiles.
-     *
-     * @param context the context
-     */
-    void createTileButtons(Context context) {
-        SlidingBoard board = boardManager.getBoard();
-        tileButtons = new ArrayList<>();
-        for (int row = 0; row != board.numRows; row++) {
-            for (int col = 0; col != board.numCols; col++) {
-                Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getSlidingTile(row, col).getBackground());
-                this.tileButtons.add(tmp);
-            }
-        }
-    }
 
     /**
      * Dispatch onPause() to fragments.
@@ -56,13 +39,13 @@ public abstract class GameActivity extends AppCompatActivity {
     /**
      * Load the board manager from the fileName in StartingActivity.
      */
-    void loadFromFile() {
+    protected void loadFromFile() {
 
         try {
             InputStream inputStream = this.openFileInput(StartingActivity.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (SlidingBoardManager) input.readObject();
+                boardManager = (BoardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

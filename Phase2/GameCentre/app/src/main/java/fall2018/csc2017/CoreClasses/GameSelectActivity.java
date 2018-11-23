@@ -12,6 +12,11 @@ import android.widget.Button;
 public class GameSelectActivity extends AppCompatActivity {
 
     /**
+     * game denotes the game selected by user.
+     */
+    public static String game = "";
+
+    /**
      * Shows the activity_game_select.xml file and starts the listener for the games corresponding button.
      */
     @Override
@@ -20,6 +25,8 @@ public class GameSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_select);
 
         slidingTilesButtonListener();
+        checkersButtonListener();
+        twentyButtonListener();
     }
 
     /**
@@ -35,6 +42,7 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void slidingTilesButtonListener(){
         Button slidingTitles = findViewById(R.id.button5);
+        game = "sliding";
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +50,35 @@ public class GameSelectActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Activate Checkers button.
+     */
+    private void checkersButtonListener() {
+        Button slidingTitles = findViewById(R.id.button2);
+        game = "checkers";
+        slidingTitles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToStartingActivity();
+            }
+        });
+    }
+
+    /**
+     * Activate Checkers button.
+     */
+    private void twentyButtonListener() {
+        Button slidingTitles = findViewById(R.id.button);
+        game = "twenty";
+        slidingTitles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToStartingActivity();
+            }
+        });
+    }
+
     /**
      * Override the functionality of the back button
      */

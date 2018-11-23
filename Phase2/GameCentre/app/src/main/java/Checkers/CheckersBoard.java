@@ -7,7 +7,7 @@ import fall2018.csc2017.CoreClasses.Board;
 
 public class CheckersBoard extends Board {
 
-    private CheckersTile[][] tiles;
+    CheckersTile[][] tiles;
 
     private boolean redsTurn;
 
@@ -19,16 +19,16 @@ public class CheckersBoard extends Board {
         super();
         redsTurn = redsTurn;
         tiles = tiles;
-        numCols = size;
-        numRows = size;
+        setNumCols(size);
+        setNumRows(size);
     }
 
 
     private void setCanTakePieces(){
-        for (int row = 0; row < numRows; row++){
-            for (int col = 0; col < numCols; col++){
+        for (int row = 0; row < getNumRows(); row++){
+            for (int col = 0; col < getNumCols(); col++){
                 CheckersTile curtile = tiles[row][col];
-                String id = curtile.getId();
+                String id = curtile.getCheckersId();
                 int[][] canTakePiece = new int[4][2];
                 if(id.equals("red_pawn")){
                     curtile.setCanTakePiece(redPawnCanTake(row, col, canTakePiece));
@@ -49,11 +49,11 @@ public class CheckersBoard extends Board {
     }
 
     private int[][] redPawnCanTake(int row, int col, int[][] canTakePiece){
-        if (emptyTopRight(row, col) && tiles[row - 1][col + 1].getId().contains("white")){
+        if (emptyTopRight(row, col) && tiles[row - 1][col + 1].getCheckersId().contains("white")){
             canTakePiece[0][0] = row - 2;
             canTakePiece[0][1] = col + 2;
         }
-        if (emptyTopLeft(row, col) && tiles[row - 1][col - 1].getId().contains("white")){
+        if (emptyTopLeft(row, col) && tiles[row - 1][col - 1].getCheckersId().contains("white")){
             canTakePiece[1][0] = row - 2;
             canTakePiece[1][1] = col - 2;
         }
@@ -61,11 +61,11 @@ public class CheckersBoard extends Board {
     }
 
     private int[][] whitePawnCanTake(int row, int col, int[][] canTakePiece){
-        if (emptyBottomRight(row, col)&& tiles[row + 1][col + 1].getId().contains("red")){
+        if (emptyBottomRight(row, col)&& tiles[row + 1][col + 1].getCheckersId().contains("red")){
             canTakePiece[2][0] = row + 2;
             canTakePiece[2][1] = col + 2;
         }
-        if (emptyBottomLeft(row, col) && tiles[row + 1][col - 1].getId().contains("red")){
+        if (emptyBottomLeft(row, col) && tiles[row + 1][col - 1].getCheckersId().contains("red")){
             canTakePiece[3][0] = row + 2;
             canTakePiece[3][1] = col - 2;
         }
@@ -73,11 +73,11 @@ public class CheckersBoard extends Board {
     }
 
     private int[][] redKingCanTake(int row, int col, int[][] canTakePiece){
-        if (emptyBottomRight(row, col) && tiles[row + 1][col + 1].getId().contains("white")){
+        if (emptyBottomRight(row, col) && tiles[row + 1][col + 1].getCheckersId().contains("white")){
             canTakePiece[2][0] = row + 2;
             canTakePiece[2][1] = col + 2;
         }
-        if (emptyBottomLeft(row, col) && tiles[row + 1][col - 1].getId().contains("white")){
+        if (emptyBottomLeft(row, col) && tiles[row + 1][col - 1].getCheckersId().contains("white")){
             canTakePiece[3][0] = row + 2;
             canTakePiece[3][1] = col - 2;
         }
@@ -85,11 +85,11 @@ public class CheckersBoard extends Board {
     }
 
     private int[][] whiteKingCanTake(int row, int col, int[][] canTakePiece){
-        if (emptyTopRight(row, col) && tiles[row - 1][col + 1].getId().contains("red")){
+        if (emptyTopRight(row, col) && tiles[row - 1][col + 1].getCheckersId().contains("red")){
             canTakePiece[0][0] = row - 2;
             canTakePiece[0][1] = col + 2;
         }
-        if (emptyTopLeft(row, col) && tiles[row - 1][col - 1].getId().contains("red")){
+        if (emptyTopLeft(row, col) && tiles[row - 1][col - 1].getCheckersId().contains("red")){
             canTakePiece[1][0] = row - 2;
             canTakePiece[1][1] = col - 2;
         }
@@ -100,28 +100,28 @@ public class CheckersBoard extends Board {
         if (col < 2 || row < 2) {
             return false;
         }
-        return tiles[row - 2][col - 2].getId().equals(CheckersTile.EMPTYWHITETILE);
+        return tiles[row - 2][col - 2].getCheckersId().equals(CheckersTile.EMPTYWHITETILE);
     }
 
     private boolean emptyTopRight(int row, int col){
         if (col > 5 || row < 2) {
             return false;
         }
-        return tiles[row - 2][col + 2].getId().equals(CheckersTile.EMPTYWHITETILE);
+        return tiles[row - 2][col + 2].getCheckersId().equals(CheckersTile.EMPTYWHITETILE);
     }
 
     private boolean emptyBottomLeft(int row, int col){
         if (col < 2 || row > 5) {
             return false;
         }
-        return tiles[row + 2][col - 2].getId().equals(CheckersTile.EMPTYWHITETILE);
+        return tiles[row + 2][col - 2].getCheckersId().equals(CheckersTile.EMPTYWHITETILE);
     }
 
     private boolean emptyBottomRight(int row, int col){
         if (col > 5 || row > 5) {
             return false;
         }
-        return tiles[row + 2][col + 2].getId().equals(CheckersTile.EMPTYWHITETILE);
+        return tiles[row + 2][col + 2].getCheckersId().equals(CheckersTile.EMPTYWHITETILE);
     }
 
     /**
@@ -160,7 +160,7 @@ public class CheckersBoard extends Board {
         }
 
         void setHighLightedTile (int row, int col){
-            CheckersTile tile = getTile(row, col);
+            CheckersTile tile = getCheckersTile(row, col);
             tile.highlight();
             highLightedTile = tile;
             highLightedTilePosition[0] = row;
@@ -181,7 +181,7 @@ public class CheckersBoard extends Board {
      * @param col column of the requested tile
      * @return the tile at row, col
      */
-    CheckersTile getTile(int row, int col){return tiles[row][col];}
+    CheckersTile getCheckersTile(int row, int col){return tiles[row][col];}
 
     /**
      * Makes the piece a king if appropriate
@@ -189,10 +189,10 @@ public class CheckersBoard extends Board {
      * @param col column of the tile
      */
     private void maybeMakeKing(int row, int col){
-        if (tiles[row][col].getId().contains("white") && row == numRows -1){
+        if (tiles[row][col].getCheckersId().contains("white") && row == getNumRows() -1){
             tiles[row][col].changeTile(CheckersTile.REDKING);
         }
-        else if (tiles[row][col].getId().contains("white") && row == 0){
+        else if (tiles[row][col].getCheckersId().contains("white") && row == 0){
             tiles[row][col].changeTile(CheckersTile.WHITEKING);
         }
     }

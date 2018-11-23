@@ -1,4 +1,4 @@
-package fall2018.csc2017.CoreClasses;
+package Sliding;
 
 import android.support.annotation.NonNull;
 
@@ -6,15 +6,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import fall2018.csc2017.CoreClasses.Board;
+
 /**
  * The sliding tiles board.
  */
-public class SlidingBoard extends Board implements Iterable<SlidingTile>{
+public class SlidingBoard extends Board implements Iterable<SlidingTile> {
 
     /**
      * The tiles on the board in row-major order.
      */
     private SlidingTile[][] tiles;
+
+    /**
+     * Stores the list of SlidingTile objects when this Board is initialized.
+     */
+    private List<SlidingTile> tilesList;
 
 
     /**
@@ -43,7 +50,7 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
         public SlidingTile next() {
             SlidingTile nextTile = tiles[nextRow][nextColumn];
             nextColumn += 1;
-            if (nextColumn == numCols) {
+            if (nextColumn == getNumCols()) {
                 nextColumn = 0;
                 nextRow += 1;
             }
@@ -52,7 +59,7 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
 
         @Override
         public boolean hasNext() {
-            return (nextRow < numRows);
+            return (nextRow < getNumRows());
         }
     }
 
@@ -64,13 +71,14 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
      */
 
     public SlidingBoard(List<SlidingTile> tiles, int rows, int cols) {
-        numRows = rows;
-        numCols = cols;
-        this.tiles = new SlidingTile[numRows][numCols];
+        setNumRows(rows);
+        setNumCols(cols);
+        this.tiles = new SlidingTile[getNumRows()][getNumCols()];
+        this.tilesList = tiles;
         Iterator<SlidingTile> iter = tiles.iterator();
 
-        for (int row = 0; row != numRows; row++) {
-            for (int col = 0; col != numCols; col++) {
+        for (int row = 0; row != getNumRows(); row++) {
+            for (int col = 0; col != getNumCols(); col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -79,17 +87,16 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
     /**
      * Returns a deep-copy of this Board.
      */
-    @Override
     SlidingBoard createDeepCopy() {
-        List<SlidingTile> copiedTiles = new ArrayList<>();
+        List<SlidingTile> copiedTiles = new ArrayList<>(this.tilesList);
 
-        SlidingTile[][] copyTile = new SlidingTile[numRows][numCols];
-        for (int row = 0; row != numRows; row++) {
-            for (int col = 0; col != numCols; col++) {
+        SlidingTile[][] copyTile = new SlidingTile[getNumRows()][getNumCols()];
+        for (int row = 0; row != getNumRows(); row++) {
+            for (int col = 0; col != getNumCols(); col++) {
                 copyTile[row][col] = this.tiles[row][col];
             }
         }
-        SlidingBoard copiedBoard = new SlidingBoard(copiedTiles, numRows, numCols);
+        SlidingBoard copiedBoard = new SlidingBoard(copiedTiles, getNumRows(), getNumCols());
         copiedBoard.tiles = copyTile;
         return copiedBoard;
     }
@@ -104,6 +111,33 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile>{
     SlidingTile getSlidingTile(int row, int col) {
         return tiles[row][col];
     }
+
+    /**
+     * Swap the tiles at (row1, col1) and (row2, col2)
+     *
+     * @param row1 the first tile row
+     * @param col1 the first tile col
+     * @param row2 the second tile row
+     * @param col2 the second tile col
+     */
+    public void swapSlidingTiles(int row1, int col1, int row2, int col2) {
+
+        SlidingTile[][] holdTile = new SlidingTile[1][2];
+        holdTile[0][0] = getSlidingTile(row1, col1);
+        holdTile[0][1] = getSlidingTile(row2, col2);
+        this.tiles[row2][col2] = holdTile[0][0];
+        this.tiles[row1][col1] = holdTile[0][1];
+    }
+
+    /**
+     * Returns tilesList.
+     *
+     * @return list of tiles.
+     */
+    public List<SlidingTile> getTilesList(){
+        return this.tilesList;
+    }
+
 
 
 }
