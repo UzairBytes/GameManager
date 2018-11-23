@@ -79,7 +79,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         super.onCreate(savedInstanceState);
         loadFromFile();
         createTileButtons(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sliding_tiles_game);
 
         // Add View to activity
         gridView = findViewById(R.id.grid);

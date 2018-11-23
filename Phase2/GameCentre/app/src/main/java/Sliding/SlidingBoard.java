@@ -129,6 +129,15 @@ public class SlidingBoard extends Board implements Iterable<SlidingTile> {
         this.tiles[row1][col1] = holdTile[0][1];
     }
 
+    /**
+     * Returns tilesList.
+     *
+     * @return list of tiles.
+     */
+    public List<SlidingTile> getTilesList(){
+        return this.tilesList;
+    }
+
 
 
 }
