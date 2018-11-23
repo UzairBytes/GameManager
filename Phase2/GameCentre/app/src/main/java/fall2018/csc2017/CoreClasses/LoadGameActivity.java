@@ -20,7 +20,7 @@ import phase1.SlidingGameFile;
 
 public class LoadGameActivity extends AppCompatActivity {
 
-    /**  TODO: Find a place for these constants?
+    /**  TODO: Maybe rethink how the game names are stored
      * Name of SlidingTiles -- a type of Game in this GameCenter.
      */
     private final String SLIDING_NAME = "sliding";
@@ -46,10 +46,9 @@ public class LoadGameActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String gameType = AccountManager.activeAccount.getActiveGameName();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_game);
-        //TODO
-        String gameType = AccountManager.activeAccount.game;
         files = new ArrayList<>(AccountManager.activeAccount.getGames(gameType).keySet());
         System.out.println("files:" + files);
         ListAdapter fileAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, files);
@@ -64,7 +63,7 @@ public class LoadGameActivity extends AppCompatActivity {
      */
     private void switchToGame(){
         //TODO
-        String gameType = AccountManager.activeAccount.game;
+        String gameType = AccountManager.activeAccount.getActiveGameName();
         Intent start = null;
         if(gameType.equals(SLIDING_NAME)){
              start = new Intent(this, SlidingTilesGameActivity.class);
@@ -81,7 +80,7 @@ public class LoadGameActivity extends AppCompatActivity {
         else {
             String fileName = files.get(pos);
             AccountManager.activeAccount.loadGameFiles();
-            GameFile desiredFile = AccountManager.activeAccount.getGames().get(fileName);
+            GameFile desiredFile = AccountManager.activeAccount.getGames(gameType).get(fileName);
             boardManager = new SlidingBoardManager((SlidingGameFile)desiredFile);
             saveToFile(TEMP_SAVE_FILENAME);
             startActivity(start);

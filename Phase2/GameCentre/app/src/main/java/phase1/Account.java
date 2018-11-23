@@ -19,6 +19,7 @@ import Twenty.TwentyGameFile;
  */
 public class Account implements Serializable {
 
+    //TODO: Maybe rethink how the game names are stored
     /**
      * Name of SlidingTiles -- a type of Game in this GameCenter.
      */
@@ -63,7 +64,7 @@ public class Account implements Serializable {
     /**
      * Name of the game that is currently active in this account.
      */
-    private String currentActiveGame = "";
+    private String activeGameName = "";
 
     public Account(String user, String pass) {
         this.username = user;
@@ -146,6 +147,14 @@ public class Account implements Serializable {
         HashMap<String, GameFile> twentyFiles = this.allGameFiles.get(TWENTY_NAME);
         twentyFiles.put(gameFile.getName(), gameFile);
         this.activeGameFile = gameFile;
+    }
+
+    public String getActiveGameName(){
+        return this.activeGameName;
+    }
+
+    public void setActiveGameName(String activeGameName){
+        this.activeGameName = activeGameName;
     }
 
     /**
