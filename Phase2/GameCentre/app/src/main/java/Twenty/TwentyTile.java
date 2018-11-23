@@ -33,10 +33,11 @@ public class TwentyTile extends Tile {
         // Validate preconditions
         if((Math.log(id) / Math.log(2)) % 1 == 0){
             setId(id);
-            setBackground(background);
+            setBackground(picts.get(id));
         }else{
             // Set to a blank tile otherwise.
             setId(0);
+            setBackground(picts.get(0));
         }
     }
 
