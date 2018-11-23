@@ -17,12 +17,12 @@ public abstract class Board implements Serializable {
     /**
      * The number of rows.
      */
-    private int numRows;
+    protected int numRows;
 
     /**
      * The number of rows.
      */
-    private int numCols;
+    protected int numCols;
 
     /**
      * The tiles on the board in row-major order.

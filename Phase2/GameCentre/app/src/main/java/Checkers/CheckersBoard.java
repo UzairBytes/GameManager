@@ -132,7 +132,7 @@ public class CheckersBoard extends Board {
      * @param row2 row of the end position
      * @param col2 column of the end position
      */
-    protected void swapTiles(int row1, int col1, int row2, int col2) {
+    public void swapTiles(int row1, int col1, int row2, int col2) {
         super.swapTiles(row1, col1, row2, col2);
         //check if jumps tile to the top left
         if (row2-row1==-2 && col2-col1==-2){

@@ -17,11 +17,13 @@ import java.util.ArrayList;
 import Sliding.SlidingBoardManager;
 import Sliding.SlidingTilesGameActivity;
 import phase1.AccountManager;
+import phase1.Game;
 import phase1.GameFile;
 import phase1.SlidingGameFile;
 
 
 public class LoadGameActivity extends AppCompatActivity {
+
 
     public final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
 
@@ -34,9 +36,10 @@ public class LoadGameActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String gameType = AccountManager.activeAccount.getActiveGameName();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_game);
-        files = new ArrayList<>(AccountManager.activeAccount.getGames().keySet());
+        files = new ArrayList<>(AccountManager.activeAccount.getGames(gameType).keySet());
         System.out.println("files:" + files);
         ListAdapter fileAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, files);
         ListView listV = findViewById(R.id.savedFiles);
@@ -49,7 +52,16 @@ public class LoadGameActivity extends AppCompatActivity {
      * Switches to StartingActivity to play sliding tiles.
      */
     private void switchToGame(){
-        Intent start = new Intent(this, SlidingTilesGameActivity.class);
+        //TODO
+        String gameType = AccountManager.activeAccount.getActiveGameName();
+        Intent start = null;
+        if(gameType.equals(Game.SLIDING_NAME)){
+             start = new Intent(this, SlidingTilesGameActivity.class);
+        }else if(gameType.equals(Game.TWENTY_NAME)){
+            start = new Intent(this, SlidingTilesGameActivity.class);
+        }else if(gameType.equals(Game.CHECKERS_NAME)){
+            start = new Intent(this, SlidingTilesGameActivity.class);
+        }
         ListView listV = findViewById(R.id.savedFiles);
         int pos = listV.getCheckedItemPosition();
         if(pos == -1){
@@ -57,8 +69,8 @@ public class LoadGameActivity extends AppCompatActivity {
         }
         else {
             String fileName = files.get(pos);
-            AccountManager.activeAccount.loadGameFiles();
-            GameFile desiredFile = AccountManager.activeAccount.getGames().get(fileName);
+            AccountManager.activeAccount.loadAccountGameData();
+            GameFile desiredFile = AccountManager.activeAccount.getGames(gameType).get(fileName);
             boardManager = new SlidingBoardManager((SlidingGameFile)desiredFile);
             saveToFile(TEMP_SAVE_FILENAME);
             startActivity(start);

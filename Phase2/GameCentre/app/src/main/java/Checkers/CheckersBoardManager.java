@@ -3,6 +3,7 @@ package Checkers;
 import java.time.Instant;
 import java.util.Stack;
 
+import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
 
@@ -36,7 +37,7 @@ public class CheckersBoardManager extends BoardManager {
         this.remainingUndos = gameFile.remainingUndos;
         this.remainingUndos = gameFile.maxUndos;
         this.numMoves = gameFile.numMoves;
-        AccountManager.activeAccount.activeGameFile = gameFile;
+        AccountManager.activeAccount.setActiveGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.board = (CheckersBoard) gameFile.getGameStates().peek();
         }
@@ -124,18 +125,18 @@ public class CheckersBoardManager extends BoardManager {
     }
 
     void touchMove(int position){
-        CheckersBoard newBoard = board.createDeepCopy();
-        this.board = newBoard;
-        CheckersTile highLightedTile = board.getHighLightedTile();
-        String highId = highLightedTile.getCheckersId();
-        int highRow = board.getHighLightedTilePosition()[0];
-        int highCol = board.getHighLightedTilePosition()[1];
-        int row = position / board.getNumRows();
-        int col = position % board.getNumCols();
-        board.swapTiles(highRow, highCol, row, col);
-        save(newBoard);
-        setChanged();
-        notifyObservers();
+//        CheckersBoard newBoard = board.createDeepCopy();
+//        this.board = newBoard;
+//        CheckersTile highLightedTile = board.getHighLightedTile();
+//        String highId = highLightedTile.getCheckersId();
+//        int highRow = board.getHighLightedTilePosition()[0];
+//        int highCol = board.getHighLightedTilePosition()[1];
+//        int row = position / board.getNumRows();
+//        int col = position % board.getNumCols();
+//        board.swapTiles(highRow, highCol, row, col);
+//        save(newBoard);
+//        setChanged();
+//        notifyObservers();
     }
 
     //should use an iterator
@@ -177,10 +178,10 @@ public class CheckersBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     public void save(CheckersBoard board) {
-        CheckersGameFile newGameFile = (CheckersGameFile) AccountManager.activeAccount.activeGameFile;
+        CheckersGameFile newGameFile = (CheckersGameFile) AccountManager.activeAccount.getActiveGameFile();
         newGameFile.getGameStates().push(board);
         AccountManager.activeAccount.addGameFile(newGameFile);
-        AccountManager.activeAccount.saveAllGameFiles();
+        AccountManager.activeAccount.saveAccountGameData();
         this.gameFile = newGameFile;
         this.gameStates = newGameFile.getGameStates();
         this.board = board;
