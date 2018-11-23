@@ -12,7 +12,7 @@ public class TwentyTile extends Tile {
      */
     public TwentyTile(int id, int background){
         // Validate preconditions
-        if(Math.log(id) % 1 == 0){
+        if((Math.log(id) / Math.log(2)) % 1 == 0){
             setId(id);
             setBackground(background);
         }else{

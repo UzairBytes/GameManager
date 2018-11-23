@@ -62,7 +62,6 @@ public abstract class BoardManager extends Observable implements Serializable, G
         AccountManager.activeAccount.saveAccountGameData();
     }
 
-
     /**
      * Switches the gameState back one move, if the user has undos left
      */
