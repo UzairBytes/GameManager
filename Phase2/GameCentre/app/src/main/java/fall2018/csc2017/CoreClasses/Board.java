@@ -8,11 +8,14 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import Checkers.CheckersBoard;
+import Checkers.CheckersTile;
+
 /**
  * The sliding tiles board.
  */
 
-public abstract class Board implements Serializable {
+public class Board implements Serializable {
 
     /**
      * The number of rows.
@@ -30,43 +33,43 @@ public abstract class Board implements Serializable {
     public Tile[][] tiles;
 
 
-//    /**
-//     * Stores the list of Tile Iterator of this Board.
-//     */
-//    @NonNull
-//    public Iterator<Tile> iterator() {
-//        return new TileIterator();
-//    }
-//
-//    /**
-//     * The tile iterator, iterates through the tiles on the board.
-//     */
-//    class TileIterator implements Iterator<Tile> {
-//        /**
-//         * The column of the next Tile.
-//         */
-//        private int nextColumn = 0;
-//        /**
-//         * The row of the next Tile.
-//         */
-//        private int nextRow = 0;
-//
-//        @Override
-//        public Tile next() {
-//            Tile nextTile = tiles[nextRow][nextColumn];
-//            nextColumn += 1;
-//            if (nextColumn == numCols) {
-//                nextColumn = 0;
-//                nextRow += 1;
-//            }
-//            return nextTile;
-//        }
-//
-//        @Override
-//        public boolean hasNext() {
-//            return (nextRow < numRows);
-//        }
-//    }
+    /**
+     * Stores the list of Tile Iterator of this Board.
+     */
+    @NonNull
+    public Iterator<Tile> iterator() {
+        return new TileIterator();
+    }
+
+    /**
+     * The tile iterator, iterates through the tiles on the board.
+     */
+    class TileIterator implements Iterator<Tile> {
+        /**
+         * The column of the next Tile.
+         */
+        private int nextColumn = 0;
+        /**
+         * The row of the next Tile.
+         */
+        private int nextRow = 0;
+
+        @Override
+        public Tile next() {
+            Tile nextTile = tiles[nextRow][nextColumn];
+            nextColumn += 1;
+            if (nextColumn == numCols) {
+                nextColumn = 0;
+                nextRow += 1;
+            }
+            return nextTile;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return (nextRow < numRows);
+        }
+    }
 
     ///**
     // * A board constructor which must be extended
@@ -74,19 +77,33 @@ public abstract class Board implements Serializable {
     //protected Board() {
     //}
 
-//    /**
-//     * A board constructor which may be reused
-//     */
-//    Board(List<Tile> listOfTiles, int rows, int columns) {
-//        numRows = rows;
-//        numCols = columns;
-//        for (int position = 0; position < numRows * numCols; position++) {
-//            int row = position / numRows;
-//            int col = position % numCols;
-//            tiles[row][col] = listOfTiles.get(position);
-//        }
-//    }
+    /**
+     * A board constructor which may be reused
+     */
+    Board(Tile[][] listOfTiles, int rows, int columns) {
+        numRows = rows;
+        numCols = columns;
+        for (int position = 0; position < numRows * numCols; position++) {
+            int row = position / numRows;
+            int col = position % numCols;
+            tiles[row][col] = listOfTiles[row][col];
+        }
+    }
 
+    /**
+     * Returns a deep-copy of this Board.
+     */
+    Board createDeepCopy() {
+        Tile[][] copyTile = new Tile[getNumRows()][getNumCols()];
+        for (int row = 0; row != getNumRows(); row++) {
+            for (int col = 0; col != getNumCols(); col++) {
+                copyTile[row][col] = this.tiles[row][col];
+            }
+        }
+        Board copiedBoard = new Board(copyTile, getNumRows(), getNumCols());
+        copiedBoard.tiles = copyTile;
+        return copiedBoard;
+    }
 //    /**
 //     * Returns a deep-copy of this Board.
 //     */
