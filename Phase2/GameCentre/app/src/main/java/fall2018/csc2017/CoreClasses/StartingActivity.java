@@ -12,10 +12,9 @@ import java.io.ObjectOutputStream;
 
 import Checkers.CheckersSettingActivity;
 import Sliding.SlidingSettingsActivity;
-
-import static fall2018.csc2017.CoreClasses.GameSelectActivity.game;
-
 import Twenty.TwentySettingsActivity;
+import phase1.AccountManager;
+import phase1.Game;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -117,15 +116,15 @@ public class StartingActivity extends AppCompatActivity {
      * Switch to the SettingsActivity view to set parameters of the game.
      */
     private void switchToSettings(){
-        if(game == "sliding") {
+        if(AccountManager.activeAccount.getActiveGameName().equals(Game.SLIDING_NAME)) {
             Intent settings = new Intent(this, SlidingSettingsActivity.class);
             startActivity(settings);
         }
-        else if(game == "checkers"){
+        else if(AccountManager.activeAccount.getActiveGameName().equals(Game.CHECKERS_NAME)){
             Intent settings = new Intent(this, CheckersSettingActivity.class);
             startActivity(settings);
         }
-        else if(game == "twenty"){
+        else if(AccountManager.activeAccount.getActiveGameName().equals(Game.TWENTY_NAME)){
             Intent settings = new Intent(this, TwentySettingsActivity.class);
             startActivity(settings);
         }
