@@ -24,21 +24,21 @@ public interface Game {
     /*
      * Name of SlidingTiles -- a type of Game in this GameCenter.
      */
-    static final String SLIDING_NAME = "Sliding Tiles";
+    String SLIDING_NAME = "Sliding Tiles";
 
     /**
      * Name of Twenty -- a type of Game in this GameCenter.
      */
-    static final String TWENTY_NAME = "2048";
+    String TWENTY_NAME = "2048";
 
     /**
      * Name of Checkers -- a type of Game in this GameCenter.
      */
-    static final String CHECKERS_NAME = "Checkers";
+    String CHECKERS_NAME = "Checkers";
 
     /**
      * Games to have listed in scores
      */
-    static final String[] GAMES = {CHECKERS_NAME, SLIDING_NAME, TWENTY_NAME};
+    String[] GAME_NAMES = {CHECKERS_NAME, SLIDING_NAME, TWENTY_NAME};
 
 }
