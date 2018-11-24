@@ -19,6 +19,7 @@ public class SlidingSettingsActivity extends SettingsActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sliding_settings);
         Savable.saveToFile(TEMP_SAVE_FILENAME, slidingBoardManager); //TODO Might be redundant - see savable below.
         addStartButtonListener();
     }
