@@ -39,6 +39,6 @@ public interface Game {
     /**
      * Games to have listed in scores
      */
-    static final String[] GAMES = {CHECKERS_NAME, SLIDING_NAME, TWENTY_NAME};
+    static final String[] GAME_NAMES = {CHECKERS_NAME, SLIDING_NAME, TWENTY_NAME};
 
 }
