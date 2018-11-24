@@ -69,7 +69,7 @@ public class TwentySettingsActivity extends SettingsActivity {
         int numUndos;
         String strUndos = ((EditText)findViewById(R.id.undosInput)).getText().toString();
         if (strUndos.equals("")){
-            numUndos = 3
+            numUndos = 3;
         }
         else {
             numUndos = Integer.parseInt(strUndos);
