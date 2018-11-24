@@ -15,7 +15,7 @@ import Checkers.CheckersTile;
  * The sliding tiles board.
  */
 
-public class Board implements Serializable {
+public class Board implements Serializable, Iterable<Tile> {
 
     /**
      * The number of rows.
