@@ -42,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        saveToFile(TEMP_SAVE_FILENAME);
-        setContentView(R.layout.activity_settings);
+//        setContentView(R.layout.activity_settings);
         EditText undosInput = findViewById(R.id.undosInput);
         undosInput.setText("3");
         EditText boardSizeInput = findViewById(R.id.boardSizeInput);
