@@ -6,10 +6,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import Checkers.CheckersBoard;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
-import phase1.Account;
 import phase1.AccountManager;
 import phase1.GameFile;
 import phase1.SlidingGameFile;
@@ -67,7 +65,12 @@ public class SlidingBoardManager extends BoardManager {
             tiles.add(new SlidingTile(tileNum, numTiles));
         }
 
-        Collections.shuffle(tiles);
+        //Checks tiles if there are in a solvable formation.
+        SlidingBoardSolvable checkSolvableBoard = new SlidingBoardSolvable(tiles);
+        while (!checkSolvableBoard.isBoardSolvable()){
+            Collections.shuffle(tiles);
+            checkSolvableBoard.setTiles(tiles);
+        }
         // Create the board, and specify number of rows, columns
         this.slidingBoard = new SlidingBoard(tiles, size, size);
 

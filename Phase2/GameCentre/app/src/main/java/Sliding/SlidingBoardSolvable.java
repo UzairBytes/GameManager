@@ -1,6 +1,7 @@
 package Sliding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SlidingBoardSolvable checks a SlidingBoard to determine if it is solvable.
@@ -9,11 +10,6 @@ import java.util.ArrayList;
  * https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
  */
 public class SlidingBoardSolvable {
-
-    /**
-     * The board to be checked
-     */
-    private SlidingBoard Board;
 
     /**
      * size of the board.
@@ -38,13 +34,13 @@ public class SlidingBoardSolvable {
     /**
      * Constructor for SlidingBoardSolvable
      *
-     * @param BoardToBeChecked is a SlidingBoard.
+     * @param TilesToBeChecked is a SlidingBoard.
      */
-    protected SlidingBoardSolvable(SlidingBoard BoardToBeChecked){
-        this.Board = BoardToBeChecked;
-        this.BoardSize = Board.numTiles();
+    protected SlidingBoardSolvable(List<SlidingTile> TilesToBeChecked){
+        this.BoardSize = TilesToBeChecked.size();
         this.inversions = 0;
-        this.tiles = new ArrayList<>(Board.getTilesList());
+        this.tiles = new ArrayList<>(TilesToBeChecked);
+        this.position = 0;
     }
 
     /**
@@ -53,17 +49,17 @@ public class SlidingBoardSolvable {
      * tile with a lower number on it assuming the tiles are arranged
      * in a row.
      *
-     * @return int number of inversions.
      */
-    private int calculateInversions(){
-        for (int i = 0; i < tiles.size(); i++){
-            for (int j = 0; j < tiles.size(); j++){
-                if (tiles.get(i).getId() > tiles.get(j).getId()){
-                    inversions++;
-
+    private void calculateInversions(){
+        for (int i = 0; i < tiles.size() - 1; i++){
+            if (tiles.get(i).getId() != tiles.size()) {
+                for (int j = i + 1; j < tiles.size(); j++) {
+                    if (tiles.get(j).getId() != tiles.size()){
+                        inversions++;
+                    }
                 }
             }
-        } return inversions;
+        }
     }
 
     /**
@@ -71,7 +67,8 @@ public class SlidingBoardSolvable {
      *
      * @return boolean true or false.
      */
-    private boolean isInversionsEven(){
+    private boolean AreInversionsEven(){
+        calculateInversions();
         return (inversions % 2 == 0);
     }
 
@@ -87,15 +84,13 @@ public class SlidingBoardSolvable {
     /**
      * Returns position of Blank tile in board.
      *
-     * @return int position.
      */
-    private int positionOfBlankTile(){
-
+    private void positionOfBlankTile(){
         for (int i = 0; i < tiles.size(); i++){
-            if (tiles.get(i).getId() == (tiles.size() - 1)){
-                position = i;
+            if (tiles.get(i).getId() == (tiles.size())){
+                position = i+1;
             }
-        } return position;
+        }
     }
 
     /**
@@ -105,6 +100,7 @@ public class SlidingBoardSolvable {
      */
     // TODO Implement this algorithmically. This works for board size 3-5, but it is shitty.
     private boolean isBlankTileOnOddRow(){
+        positionOfBlankTile();
         if (BoardSize == 9){
             return (position > 2 && position < 6);
         }
@@ -120,17 +116,24 @@ public class SlidingBoardSolvable {
      *
      * @return boolean true or false.
      */
-    public boolean isBoardSolvable(){
+    protected boolean isBoardSolvable(){
         if (!isBoardSizeEven()){
-            return isInversionsEven();
+            return AreInversionsEven();
         } else{
             if (!isBlankTileOnOddRow()){
-                return !isInversionsEven();
+                return !AreInversionsEven();
             } else{
-                return isInversionsEven();
+                return AreInversionsEven();
             }
         }
     }
 
-
+    /**
+     * Set list of sliding tiles to newTiles.
+     *
+     * @param newTiles List of sliding tiles
+     */
+    protected void setTiles(List<SlidingTile> newTiles){
+        this.tiles = new ArrayList<>(newTiles);
+    }
 }
