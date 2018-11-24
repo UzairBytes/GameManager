@@ -9,7 +9,11 @@ import android.widget.EditText;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import Checkers.CheckersBoardManager;
 import Sliding.SlidingBoardManager;
+import Twenty.TwentyBoardManager;
+import phase1.AccountManager;
+import phase1.Game;
 
 /**
  * The activity for determining settings for a new game.
@@ -19,8 +23,8 @@ public class SettingsActivity extends AppCompatActivity {
     /**
      * The board manager.
      */
-     protected SlidingBoardManager boardManager;
-    
+     protected BoardManager boardManager;
+
     /**
      * A temporary save file.
      */
