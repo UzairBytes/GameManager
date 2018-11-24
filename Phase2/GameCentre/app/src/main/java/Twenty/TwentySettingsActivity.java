@@ -18,6 +18,7 @@ public class TwentySettingsActivity extends SettingsActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_twenty_settings);
         Savable.saveToFile(TEMP_SAVE_FILENAME,twentyBoardManager);
         addStartButtonListener();
     }
