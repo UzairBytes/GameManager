@@ -193,4 +193,10 @@ public class TwentyBoardManager extends BoardManager {
         return this.twentyBoard;
     }
 
+    public void setMaxUndos(int maxUndoValue) {
+        this.gameFile.setMaxUndos(maxUndoValue);
+        this.gameFile.setRemainingUndos(0);
+        this.maxUndos = maxUndoValue;
+        this.remainingUndos = 0;
+    }
 }
