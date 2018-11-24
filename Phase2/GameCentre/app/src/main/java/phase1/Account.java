@@ -19,6 +19,8 @@ import Twenty.TwentyGameFile;
  */
 public class Account implements Serializable {
 
+    private LeaderBoard scores;
+
     /**
      * This Account's username
      */
@@ -57,7 +59,8 @@ public class Account implements Serializable {
         this.initializeGameFiles();
         // Set the 'save' file name based off of this username.
         this.saveFileName = "/" + this.username + ".ser";
-        this.saveAccountGameData();
+//        this.scores = new LeaderBoard();
+//        this.saveAccountGameData(); //TODO: For tests
     }
 
     /**
@@ -150,7 +153,11 @@ public class Account implements Serializable {
             FileInputStream input = new FileInputStream(file);
             ObjectInputStream inputStream = new ObjectInputStream(input);
             this.accountGameData = (HashMap<String, HashMap<String, GameFile>>) inputStream.readObject();
-        } catch (IOException | ClassNotFoundException e1) {
+            // TODO: I removed the line in Account constructor that saves the account data at the start,
+            // TODO: in place of this checker in the load, but make sure that this method works.
+        }catch (IOException e1){
+            this.saveAccountGameData(); //TODO: For tests
+        }catch (ClassNotFoundException e1 ) {
             System.out.println(e1);
         }
     }
