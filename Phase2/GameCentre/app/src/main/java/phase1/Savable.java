@@ -13,9 +13,9 @@ public abstract class Savable  {
     /**
      * Save data to a .ser file.
      */
-    public static void saveToFile(String fileName, Object dataToSave, String contextPath) {
+    public static void saveToFile(String fileName, Object dataToSave) {
         try {
-            File file = new File(contextPath + fileName);
+            File file = new File(AccountManager.contextPath + fileName);
             FileOutputStream output = new FileOutputStream(file);
             ObjectOutputStream outputStream = new ObjectOutputStream(output);
             outputStream.writeObject(dataToSave);
@@ -29,10 +29,9 @@ public abstract class Savable  {
      * Retrieve data from a .ser file.
      */
     @SuppressWarnings("unchecked")
-    public static Object loadFromFile(String contextPath, String saveFileName) {
+    public static Object loadFromFile(String saveFileName) {
         try {
-            File file = new File(contextPath + saveFileName);
-            System.out.println("path:" + contextPath + saveFileName);
+            File file = new File(AccountManager.contextPath  + saveFileName);
             FileInputStream input = new FileInputStream(file);
             ObjectInputStream inputStream = new ObjectInputStream(input);
             return inputStream.readObject();
