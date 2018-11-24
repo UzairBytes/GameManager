@@ -54,20 +54,26 @@ public class Board implements Serializable, Iterable<Tile> {
          */
         private int nextRow = 0;
 
+        /**
+         * @return the next checkers tile on the board
+         */
         @Override
-        public Tile next() {
+        public Tile next(){
             Tile nextTile = tiles[nextRow][nextColumn];
-            nextColumn += 1;
-            if (nextColumn == numCols) {
+            nextColumn++;
+            if (nextColumn >= tiles[0].length){
                 nextColumn = 0;
-                nextRow += 1;
+                nextRow++;
             }
             return nextTile;
         }
 
+        /**
+         * @return true if and only if there is a next tile on the board
+         */
         @Override
         public boolean hasNext() {
-            return (nextRow < numRows);
+            return nextRow < tiles.length;
         }
     }
 
@@ -80,14 +86,16 @@ public class Board implements Serializable, Iterable<Tile> {
     /**
      * A board constructor which may be reused
      */
-    Board(Tile[][] listOfTiles, int rows, int columns) {
+    public Board(Tile[][] listOfTiles, int rows, int columns) {
         numRows = rows;
         numCols = columns;
-        for (int position = 0; position < numRows * numCols; position++) {
-            int row = position / numRows;
-            int col = position % numCols;
-            tiles[row][col] = listOfTiles[row][col];
-        }
+        this.tiles = listOfTiles;
+//        Iterator<Tile> iter = new TileIterator();
+//        for (int row = 0; row != numRows; row++) {
+//            for (int col = 0; col != numCols; col++) {
+//                this.tiles[row][col] = iter.next();
+//            }
+//        }
     }
 
     /**
