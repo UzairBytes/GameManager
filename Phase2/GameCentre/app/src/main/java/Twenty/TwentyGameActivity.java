@@ -40,7 +40,7 @@ public class TwentyGameActivity extends GameActivity {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //boardManager.undo();
+                boardManager.undo();
             }
         });
     }

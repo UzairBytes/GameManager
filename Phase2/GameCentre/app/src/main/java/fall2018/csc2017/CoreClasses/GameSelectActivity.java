@@ -15,11 +15,6 @@ import phase1.Game;
 public class GameSelectActivity extends AppCompatActivity {
 
     /**
-     * game denotes the game selected by user.
-     */
-    public static String game = "";
-
-    /**
      * Shows the activity_game_select.xml file and starts the listener for the games corresponding button.
      */
     @Override
@@ -45,7 +40,6 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void slidingTilesButtonListener(){
         Button slidingTitles = findViewById(R.id.button5);
-        game = "sliding";
         AccountManager.activeAccount.setActiveGameName(Game.SLIDING_NAME);
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +54,6 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void checkersButtonListener() {
         Button slidingTitles = findViewById(R.id.button2);
-        game = "checkers";
         AccountManager.activeAccount.setActiveGameName(Game.CHECKERS_NAME);
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +68,6 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void twentyButtonListener() {
         Button slidingTitles = findViewById(R.id.button);
-        game = "twenty";
         AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
