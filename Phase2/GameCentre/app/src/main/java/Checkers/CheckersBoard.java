@@ -1,11 +1,12 @@
 package Checkers;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import android.support.annotation.NonNull;
+
+import java.util.Iterator;
 
 import fall2018.csc2017.CoreClasses.Board;
 
-public class CheckersBoard extends Board {
+public class CheckersBoard extends Board implements Iterable<CheckersTile>{
 
     CheckersTile[][] tiles;
 
@@ -14,6 +15,54 @@ public class CheckersBoard extends Board {
     private CheckersTile highLightedTile;
 
     private int[] highLightedTilePosition;
+
+
+    /**
+     * @return an iterator for the board which iterates over every tile.
+     */
+    @Override
+    @NonNull
+    public Iterator<CheckersTile> iterator(){
+        return new CheckersTileIterator();
+    }
+
+    /**
+     * An iterator class that iterates through every tile on the board,
+     * including the back tiles where no piece can land
+     */
+    class CheckersTileIterator implements Iterator<CheckersTile>{
+        /**
+         * The column of the next Tile.
+         */
+        private int nextColumn = 0;
+        /**
+         * The row of the next Tile.
+         */
+        private int nextRow = 0;
+
+        /**
+         * @return the next checkers tile on the board
+         */
+        @Override
+        public CheckersTile next(){
+            CheckersTile nextTile = tiles[nextRow][nextColumn];
+            nextColumn++;
+            if (nextColumn >= tiles[0].length){
+                nextColumn = 0;
+                nextRow++;
+                }
+            return nextTile;
+            }
+
+        /**
+         * @return true if and only if there is a next tile on the board
+         */
+        @Override
+        public boolean hasNext() {
+            return nextRow < tiles.length;
+        }
+    }
+
 
     CheckersBoard(CheckersTile[][] tiles, int size, boolean redsTurn) {
         super();
