@@ -14,7 +14,7 @@ public interface Game {
     /**
      * Switches the gameState back one move, if the user has undos left
      */
-    void undo();
+    Board undo();
 
     /**
      * Returns the score of a game.

@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
-import phase1.Account;
 import phase1.AccountManager;
 import phase1.GameFile;
 import phase1.SlidingGameFile;
@@ -65,7 +65,12 @@ public class SlidingBoardManager extends BoardManager {
             tiles.add(new SlidingTile(tileNum, numTiles));
         }
 
-        Collections.shuffle(tiles);
+        //Checks tiles if there are in a solvable formation.
+        SlidingBoardSolvable checkSolvableBoard = new SlidingBoardSolvable(tiles);
+        while (!checkSolvableBoard.isBoardSolvable()){
+            Collections.shuffle(tiles);
+            checkSolvableBoard.setTiles(tiles);
+        }
         // Create the board, and specify number of rows, columns
         this.slidingBoard = new SlidingBoard(tiles, size, size);
 
@@ -177,14 +182,13 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * Switches the board back one move, if the user has undos left
      */
-    public void undo() {
+    @Override
+    public Board undo() {
+        // TODO: Use the return value of this fn.
         if (this.remainingUndos > 0) {
-            this.remainingUndos--;
-            this.gameStates.pop();
-            this.slidingBoard = this.gameStates.peek();
-            setChanged();
-            notifyObservers();
+            this.slidingBoard = (SlidingBoard) super.undo();
         }
+        return this.slidingBoard;
     }
 
     /**

@@ -32,7 +32,6 @@ public class TwentyGameActivity extends GameActivity {
         gridView = findViewById(R.id.gridTwenty);
         gridView.setNumColumns(boardManager.getSize());
         gridView.setBoardManager(boardManager);
-
         addUndoButtonListener();
     }
 
@@ -41,7 +40,7 @@ public class TwentyGameActivity extends GameActivity {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager.undo();
+                //boardManager.undo();
             }
         });
     }

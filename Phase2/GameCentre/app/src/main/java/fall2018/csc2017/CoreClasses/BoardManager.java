@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Stack;
 
+import Checkers.CheckersBoard;
 import Sliding.SlidingBoard;
 import phase1.AccountManager;
 import phase1.Game;
@@ -11,6 +12,11 @@ import phase1.GameFile;
 import phase1.SlidingGameFile;
 
 public abstract class BoardManager extends Observable implements Serializable, Game {
+
+    /**
+     * Holds a stack of boards, with each Board representing a specific game state.
+     */
+    protected Stack<Board> gameStates;
 
     /**
      * The number of undos the player has left.
@@ -28,11 +34,6 @@ public abstract class BoardManager extends Observable implements Serializable, G
      * The number of moves the player has made.
      */
     protected int numMoves = 0;
-
-    /**
-     * Switches the gameState back one move, if the user has undos left
-     */
-    public void undo() {}
 
     /**
      * Returns the score of a game.
@@ -59,5 +60,17 @@ public abstract class BoardManager extends Observable implements Serializable, G
         newGameFile.getGameStates().push(board);
         AccountManager.activeAccount.addGameFile(newGameFile);
         AccountManager.activeAccount.saveAccountGameData();
+    }
+
+    /**
+     * Switches the gameState back one move, if the user has undos left
+     */
+    public Board undo(){
+        this.remainingUndos--;
+        this.gameStates.pop();
+        Board lastBoard = this.gameStates.peek();
+        setChanged();
+        notifyObservers();
+        return lastBoard;
     }
 }
