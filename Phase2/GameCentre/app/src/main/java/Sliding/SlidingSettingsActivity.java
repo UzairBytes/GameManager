@@ -27,7 +27,7 @@ public class SlidingSettingsActivity extends SettingsActivity {
      * Activate Start button.
      */
      void addStartButtonListener(){
-        final Button start = findViewById(R.id.Start);
+        final Button start = findViewById(R.id.SlidingStart);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,7 @@ public class SlidingSettingsActivity extends SettingsActivity {
      * Sets size from textView.
      */
     private void setSize(){
-        String strSize = ((EditText)findViewById(R.id.boardSizeInput)).getText().toString();
+        String strSize = ((EditText)findViewById(R.id.SlidingBoardSizeInput)).getText().toString();
         if(strSize.equals("")) {
             size = 4;
         }
@@ -69,7 +69,7 @@ public class SlidingSettingsActivity extends SettingsActivity {
      */
     void setUndos(){
         int numUndos;
-        String strUndos = ((EditText)findViewById(R.id.undosInput)).getText().toString();
+        String strUndos = ((EditText)findViewById(R.id.SlidingUndosInput)).getText().toString();
         if(strUndos.equals("")){
             numUndos = 3;
         }
