@@ -2,7 +2,6 @@ package Checkers;
 
 import java.time.Instant;
 import java.util.Stack;
-
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
@@ -121,16 +120,17 @@ public class CheckersBoardManager extends BoardManager {
     }
 
     void touchMove(int position){
-//        CheckersBoard newBoard = board.createDeepCopy();
-//        this.board = newBoard;
-//        int highRow = board.getHighLightedTilePosition()[0];
-//        int highCol = board.getHighLightedTilePosition()[1];
-//        int row = position / board.getNumRows();
-//        int col = position % board.getNumCols();
-//        board.swapTiles(highRow, highCol, row, col);
-//        save(newBoard);
-//        setChanged();
-//        notifyObservers();
+        CheckersBoard newBoard = board.createDeepCopy();
+        this.board = newBoard;
+        int highRow = board.getHighLightedTilePosition()[0];
+        int highCol = board.getHighLightedTilePosition()[1];
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
+        board.swapTiles(highRow, highCol, row, col);
+        save(newBoard);
+        setChanged();
+        notifyObservers();
+        board.setCanTakePieces();
     }
 
     //should use an iterator
@@ -199,6 +199,17 @@ public class CheckersBoardManager extends BoardManager {
             this.board = (CheckersBoard) super.undo();
         }
             return this.board;
+    }
+
+    /**
+     * @param maxUndoValue: Maximum number of undo tries for this file.
+     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
+     */
+    void setMaxUndos(int maxUndoValue) {
+        this.gameFile.setMaxUndos(maxUndoValue);
+        this.gameFile.setRemainingUndos(0);
+        this.maxUndos = maxUndoValue;
+        this.remainingUndos = 0;
     }
 
 }

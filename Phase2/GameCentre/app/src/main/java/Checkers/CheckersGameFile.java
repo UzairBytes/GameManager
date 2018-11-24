@@ -15,7 +15,7 @@ public class CheckersGameFile extends GameFile {
     public int numMoves;
 
     /**
-     * Undos remaining for a set of SlidingGameFile.
+     * Undos remaining for a set of CheckersGameFile.
      */
     public int remainingUndos;
 

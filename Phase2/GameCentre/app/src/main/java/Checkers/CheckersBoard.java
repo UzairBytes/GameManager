@@ -16,6 +16,7 @@ public class CheckersBoard extends Board implements Iterable<CheckersTile>{
 
     private int[] highLightedTilePosition;
 
+    private int size;
 
     /**
      * @return an iterator for the board which iterates over every tile.
@@ -66,14 +67,15 @@ public class CheckersBoard extends Board implements Iterable<CheckersTile>{
 
     CheckersBoard(CheckersTile[][] tiles, int size, boolean redsTurn) {
         super();
-        redsTurn = redsTurn;
-        tiles = tiles;
+        this.redsTurn = redsTurn;
+        this.tiles = tiles;
+        this.size = size;
         setNumCols(size);
         setNumRows(size);
     }
 
 
-    private void setCanTakePieces(){
+    void setCanTakePieces(){
         for (int row = 0; row < getNumRows(); row++){
             for (int col = 0; col < getNumCols(); col++){
                 CheckersTile curtile = tiles[row][col];
@@ -244,5 +246,20 @@ public class CheckersBoard extends Board implements Iterable<CheckersTile>{
         else if (tiles[row][col].getCheckersId().contains("white") && row == 0){
             tiles[row][col].changeTile(CheckersTile.WHITEKING);
         }
+    }
+
+    /**
+     * Returns a deep-copy of this Board.
+     */
+    CheckersBoard createDeepCopy() {
+        CheckersTile[][] copyTile = new CheckersTile[getNumRows()][getNumCols()];
+        for (int row = 0; row != getNumRows(); row++) {
+            for (int col = 0; col != getNumCols(); col++) {
+                copyTile[row][col] = new CheckersTile(this.tiles[row][col].getCheckersId());
+            }
+        }
+        CheckersBoard copiedBoard = new CheckersBoard(copyTile, this.size, redsTurn);
+        copiedBoard.tiles = copyTile;
+        return copiedBoard;
     }
 }
