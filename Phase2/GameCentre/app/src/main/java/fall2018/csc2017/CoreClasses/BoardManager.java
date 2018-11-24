@@ -4,12 +4,9 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Stack;
 
-import Checkers.CheckersBoard;
-import Sliding.SlidingBoard;
 import phase1.AccountManager;
 import phase1.Game;
 import phase1.GameFile;
-import phase1.SlidingGameFile;
 
 public abstract class BoardManager extends Observable implements Serializable, Game {
 

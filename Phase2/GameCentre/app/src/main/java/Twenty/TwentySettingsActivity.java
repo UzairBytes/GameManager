@@ -18,7 +18,7 @@ public class TwentySettingsActivity extends SettingsActivity {
 
     public void switchToGame() {
         Intent start = new Intent(this, TwentyGameActivity.class);
-        saveToFile(SettingsActivity.TEMP_SAVE_FILENAME);
+//        saveToFile(SettingsActivity.TEMP_SAVE_FILENAME);
         startActivity(start);
     }
     /**
@@ -59,7 +59,7 @@ public class TwentySettingsActivity extends SettingsActivity {
         else {
             size = Integer.parseInt(strSize);
         }
-        boardManager = new TwentyBoardManager(size);
+//        boardManager = new TwentyBoardManager(size);
     }
 
     /**
@@ -74,6 +74,6 @@ public class TwentySettingsActivity extends SettingsActivity {
         else {
             numUndos = Integer.parseInt(strUndos);
         }
-        boardManager.setMaxUndos(numUndos);
+//        boardManager.setMaxUndos(numUndos);
     }
 }
