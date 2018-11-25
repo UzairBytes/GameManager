@@ -53,7 +53,6 @@ public class GameScore implements Serializable, Comparable<GameScore> {
     }
 
 
-
     /**
      * Comapare two GameScores based on which one has the higher score
      *

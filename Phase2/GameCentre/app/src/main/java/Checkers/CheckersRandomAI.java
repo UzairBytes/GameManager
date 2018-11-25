@@ -14,10 +14,7 @@ import fall2018.csc2017.CoreClasses.GameAI;
  */
 abstract class CheckersRandomAI extends GameAI {
 
-    /**
-     * This is the default move when the active player has no legal move
-     */
-    private static final int[][] NO_LEGAL_MOVE = {{-1,-1},{-1,-1}};
+
 
     /**
      * Choose and return a move based allPossibleSelectableTiles
