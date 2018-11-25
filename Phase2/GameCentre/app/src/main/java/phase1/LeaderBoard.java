@@ -147,29 +147,32 @@ public class LeaderBoard {
 
 
     /**
-     * Load scores from globalScoresMap.ser
+     * Load ArrayList of GameScores for the specified type of LeaderBoard
+     * @param context the current context
+     * @param type GLOBAL or PERSONAL LeaderBoard
      */
     @SuppressWarnings("unchecked")
     private static void loadScoresFromFile(Context context, String type) {
         try {
             String path = context.getFilesDir().getAbsolutePath();
             String pathAndFileName;
-            if (type.equals(PERSONAL)){
+            if (type.equals(PERSONAL)) {
                 pathAndFileName = path + "/" + AccountManager.activeAccount.getUsername()
                         + "/" + AccountManager.activeAccount.getActiveGameName() + SCORES_DOT_SER;
-            }
-            else {
+            } else {
                 pathAndFileName = path + "/" + GLOBAL
                         + "/" + AccountManager.activeAccount.getActiveGameName() + SCORES_DOT_SER;
             }
             File file = new File(pathAndFileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
+            ArrayList<GameScore> listFromFile = (ArrayList<GameScore>) objectInputStream.readObject();
             if (type.equals(PERSONAL)) {
-                AccountManager.activeAccount.getLeaderBoard().personalScoresMap = (HashMap<String, ArrayList<GameScore>>) objectInputStream.readObject();
                 validateKeys(AccountManager.activeAccount.getLeaderBoard().personalScoresMap);
+                AccountManager.activeAccount.getLeaderBoard().personalScoresMap.replace(AccountManager.activeAccount.getActiveGameName(), listFromFile);
             } else {
-                globalScoresMap = (HashMap<String, ArrayList<GameScore>>) objectInputStream.readObject();
                 validateKeys(globalScoresMap);
+                globalScoresMap.replace(AccountManager.activeAccount.getActiveGameName(), listFromFile);
+
             }
 
             objectInputStream.close();
@@ -182,28 +185,32 @@ public class LeaderBoard {
 
 
     /**
-     * Save scores to globalScoresMap.ser
+     * Save ArrayList of GameScores to file
+     * @param context the current context
+     * @param type GLOBAL or PERSONAL LeaderBoard
      */
     private static void saveScoresToFile(Context context, String type) {
         try {
             String path = context.getFilesDir().getAbsolutePath();
 
             String pathAndFileName;
-            if (type.equals(PERSONAL)){
+            if (type.equals(PERSONAL)) {
                 pathAndFileName = path + "/" + AccountManager.activeAccount.getUsername()
                         + "/" + AccountManager.activeAccount.getActiveGameName() + SCORES_DOT_SER;
-            }
-            else {
+            } else {
                 pathAndFileName = path + "/" + GLOBAL
                         + "/" + AccountManager.activeAccount.getActiveGameName() + SCORES_DOT_SER;
             }
 
             File file = new File(pathAndFileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
+            Account activeAccount = AccountManager.activeAccount;
             if (type.equals(PERSONAL)) {
-                objectOutputStream.writeObject(AccountManager.activeAccount.getLeaderBoard().personalScoresMap);
+                validateKeys(activeAccount.getLeaderBoard().personalScoresMap);
+                objectOutputStream.writeObject(activeAccount.getLeaderBoard().personalScoresMap.get(activeAccount.getActiveGameName()));
             } else {
-                objectOutputStream.writeObject(LeaderBoard.globalScoresMap);
+                validateKeys(globalScoresMap);
+                objectOutputStream.writeObject(LeaderBoard.globalScoresMap.get(activeAccount.getActiveGameName()));
             }
 
             objectOutputStream.close();
