@@ -1,12 +1,7 @@
 package Twenty;
 
-import android.support.v7.app.AppCompatActivity;
-
+import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import phase1.Account;
 import phase1.AccountManager;
 import phase1.Game;
@@ -16,18 +11,26 @@ import static org.junit.Assert.assertEquals;
 public class TwentyBoardManagerTest {
 
     private TwentyBoardManager twentyBoardManager;
-    private TwentyTile tile1, tile2, tile3, tile4;
+    private TwentyTile tile1, tile2, tile3;
 
-    @Test
-    public void testIsValidMove(){
+    @Before
+    public void setup(){
         AccountManager.activeAccount = new Account("sid", "1234");
         AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
-
-//         Initialize the board as all blank tiles.
         twentyBoardManager = new TwentyBoardManager(3);
+    }
+
+    @Test
+    public void testIsValidMoveBlank(){
+        //  Initialize the board as all blank tiles, and test if a valid move can be made.
         assertEquals("twentyBoardManager.isValidMove() failed test 1.", true, twentyBoardManager.isValidMove(true));
         assertEquals("twentyBoardManager.isValidMove() failed test 2.", true, twentyBoardManager.isValidMove(false));
+    }
 
+    @Test
+    public void testIsValidMoveFilled(){
+        // Fill the board such that it's 'complete' in the horizontal direction, and check
+        // the value of isValidMove.
         TwentyBoard twentyBoard = twentyBoardManager.twentyBoard;
         tile1 = new TwentyTile(2, 2);
         tile2 = new TwentyTile(4, 2);
@@ -41,13 +44,9 @@ public class TwentyBoardManagerTest {
     }
 
     @Test
-    public void testTouchMove(){
-        AccountManager.activeAccount = new Account("sid", "1234");
-        AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
-
-        // Initialize the board as all blank tiles.
-        TwentyBoardManager twentyBoardManager = new TwentyBoardManager(3);
-        TwentyTile tile1, tile2, tile3;
+    public void testTouchMoveInvalid(){
+        // Fill the board such that it's 'complete' in the horizontal direction, and check
+        // if a move is made by touchMove
         TwentyBoard twentyBoard = twentyBoardManager.twentyBoard;
         tile1 = new TwentyTile(2, 2);
         tile2 = new TwentyTile(4, 2);
@@ -59,8 +58,52 @@ public class TwentyBoardManagerTest {
         }
 
         twentyBoardManager.touchMove('L');
-        assertEquals("twentyBoard.touchMove() failed test 1.", false, twentyBoard.isCollapsable(true));
+        // Check if the altered board is equal to the previous one.
+        boolean notEqual = false;
+        for(int row = 0; row < 3; row++){
+            notEqual = twentyBoard.getTile(row, 0).getId() != tile1.getId() ||
+                    twentyBoard.getTile(row, 1).getId() != tile2.getId() ||
+                    twentyBoard.getTile(row, 2).getId() != tile3.getId();
+            assertEquals("twentyBoard.touchMove() failed test 1.", false, notEqual);
+        }
     }
+
+    @Test
+    public void testTouchMove(){
+        // TODO: Perhaps write this in a cleaner way.
+        // Fill the board such that a tile can be shifted leftwards, and see if it does get
+        // shifted leftwards after touchMove()
+        TwentyBoard twentyBoard = twentyBoardManager.twentyBoard;
+        tile1 = new TwentyTile(2, 2);
+        twentyBoard.insertTile(0,2,tile1);
+        twentyBoardManager.touchMove('L');
+        assertEquals("twentyBoard.touchMove() failed test 1.", 2, twentyBoard.getTile(0,0).getId());
+
+        // Test on a rightwards movement
+        twentyBoardManager = new TwentyBoardManager(3);
+        twentyBoard = twentyBoardManager.twentyBoard;
+        tile1 = new TwentyTile(2, 2);
+        twentyBoard.insertTile(0,0,tile1);
+        twentyBoardManager.touchMove('R');
+        assertEquals("twentyBoard.touchMove() failed test 2.", 2, twentyBoard.getTile(0,2).getId());
+
+        // Test on a downwards movement
+        twentyBoardManager = new TwentyBoardManager(3);
+        twentyBoard = twentyBoardManager.twentyBoard;
+        tile1 = new TwentyTile(2, 2);
+        twentyBoard.insertTile(0,2,tile1);
+        twentyBoardManager.touchMove('D');
+        assertEquals("twentyBoard.touchMove() failed test 3.", 2, twentyBoard.getTile(2,2).getId());
+
+        // Test on an upwards movement
+        twentyBoardManager = new TwentyBoardManager(3);
+        twentyBoard = twentyBoardManager.twentyBoard;
+        tile1 = new TwentyTile(2, 2);
+        twentyBoard.insertTile(2,0,tile1);
+        twentyBoardManager.touchMove('U');
+        assertEquals("twentyBoard.touchMove() failed test 4.", 2, twentyBoard.getTile(0,0).getId());
+    }
+
 
 
 }

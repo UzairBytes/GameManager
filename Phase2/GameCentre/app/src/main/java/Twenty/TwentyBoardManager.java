@@ -70,7 +70,6 @@ public class TwentyBoardManager extends BoardManager {
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
      */
     public void touchMove(char dir){
-        TwentyTile tile1, tile2;
         if(dir == 'U' && isValidMove(false)){
             mergeTilesInDir('U');
             this.twentyBoard.generateRandomTile();
@@ -98,29 +97,30 @@ public class TwentyBoardManager extends BoardManager {
     private void mergeTilesInDir(char dir){
         TwentyTile tile1, tile2;
         int tile1Row = 0, tile2Row = 0, tile1Col = 0, tile2Col = 0;
+        int sqBoardSize = this.twentyBoard.getNumRows();
         // This algorithm must be done three times for correctness.
         for(int i = 0; i<3; i++){
-            for(int j = 0; j < this.twentyBoard.getNumRows(); j++){
-                for(int k = this.twentyBoard.getNumCols() - 1; k > 0; k--){
+            for(int j = 0; j < sqBoardSize; j++){
+                for(int k = 0; k < sqBoardSize - 1; k++){
                     if(dir == 'U'){
-                        tile1Row = k-1;
+                        tile1Row = k;
+                        tile1Col = j;
+                        tile2Row = k+1;
+                        tile2Col = j;
+                    }else if(dir == 'D'){
+                        tile1Row = k+1;
                         tile1Col = j;
                         tile2Row = k;
                         tile2Col = j;
-                    }else if(dir == 'D'){
-                        tile1Row = k;
-                        tile1Col = j;
-                        tile2Row = k-1;
-                        tile2Col = j;
                     }else if(dir == 'L'){
-                        tile1Row = j-1;
-                        tile1Col = k;
-                        tile2Row = j;
-                        tile2Col = k;
-                    }else{
                         tile1Row = j;
                         tile1Col = k;
-                        tile2Row = j-1;
+                        tile2Row = j;
+                        tile2Col = k+1;
+                    }else if(dir == 'R'){
+                        tile1Row = j;
+                        tile1Col = k+1;
+                        tile2Row = j;
                         tile2Col = k;
                     }
                     tile1 = (TwentyTile)this.twentyBoard.getTile(tile1Row, tile1Col);

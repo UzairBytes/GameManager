@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import fall2018.csc2017.CoreClasses.Board;
 
-public class CheckersBoard extends Board implements Iterable<CheckersTile>{
+public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
 
     CheckersTile[][] tiles;
 
@@ -21,11 +21,11 @@ public class CheckersBoard extends Board implements Iterable<CheckersTile>{
     /**
      * @return an iterator for the board which iterates over every tile.
      */
-    @Override
-    @NonNull
-    public Iterator<CheckersTile> iterator(){
-        return new CheckersTileIterator();
-    }
+//    @Override
+//    @NonNull
+//    public Iterator<CheckersTile> iterator(){
+//        return new CheckersTileIterator();
+//    }
 
     /**
      * An iterator class that iterates through every tile on the board,
@@ -63,7 +63,6 @@ public class CheckersBoard extends Board implements Iterable<CheckersTile>{
             return nextRow < tiles.length;
         }
     }
-
 
     CheckersBoard(CheckersTile[][] tiles, int size, boolean redsTurn) {
         super();
@@ -251,7 +250,7 @@ public class CheckersBoard extends Board implements Iterable<CheckersTile>{
     /**
      * Returns a deep-copy of this Board.
      */
-    CheckersBoard createDeepCopy() {
+    public CheckersBoard createDeepCopy() {
         CheckersTile[][] copyTile = new CheckersTile[getNumRows()][getNumCols()];
         for (int row = 0; row != getNumRows(); row++) {
             for (int col = 0; col != getNumCols(); col++) {

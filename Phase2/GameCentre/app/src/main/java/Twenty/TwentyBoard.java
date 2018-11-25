@@ -8,11 +8,6 @@ import fall2018.csc2017.CoreClasses.Board;
 public class TwentyBoard extends Board {
 
     /**
-     * The tiles on the board in row-major order.
-     */
-    private TwentyTile[][] tiles;
-
-    /**
      * Initializes the TwentyBoard with a list of tiles.
      */
     public TwentyBoard(List<TwentyTile> tiles, int numRows, int numCols) {
@@ -126,8 +121,6 @@ public class TwentyBoard extends Board {
                 }
                 // Check that the two tiles are equal value, or if one is a blank tile (aka of id=0)
                 if(tile1Id == tile2Id || tile1Id == 0 || tile2Id == 0){
-                    System.out.println(tile1Id);
-                    System.out.println(tile2Id);
                     return true;
                 }
             }
