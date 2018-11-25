@@ -9,17 +9,24 @@ import android.widget.Toast;
 
 import fall2018.csc2017.CoreClasses.R;
 import fall2018.csc2017.CoreClasses.SettingsActivity;
+import phase1.Savable;
 
 public class SlidingSettingsActivity extends SettingsActivity {
+
+    protected SlidingBoardManager slidingBoardManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sliding_settings);
+        Savable.saveToFile(TEMP_SAVE_FILENAME, slidingBoardManager); //TODO Might be redundant - see savable below.
+        addStartButtonListener();
     }
 
      void switchToGame(){
         Intent start = new Intent(this, SlidingTilesGameActivity.class);
-        saveToFile(SettingsActivity.TEMP_SAVE_FILENAME);
+        Savable.saveToFile(SettingsActivity.TEMP_SAVE_FILENAME, slidingBoardManager);
         startActivity(start);
     }
 
@@ -61,7 +68,7 @@ public class SlidingSettingsActivity extends SettingsActivity {
         else {
             size = Integer.parseInt(strSize);
         }
-        boardManager = new SlidingBoardManager(size);
+        slidingBoardManager = new SlidingBoardManager(size);
     }
 
     /**
@@ -76,7 +83,7 @@ public class SlidingSettingsActivity extends SettingsActivity {
         else {
             numUndos = Integer.parseInt(strUndos);
         }
-        boardManager.setMaxUndos(numUndos);
+        slidingBoardManager.setMaxUndos(numUndos);
     }
 }
 

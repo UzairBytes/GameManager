@@ -26,7 +26,6 @@ public class TwentyBoard extends Board {
             }
         }
 
-        this.getTile(0,0);
     }
 
     /**
@@ -126,7 +125,9 @@ public class TwentyBoard extends Board {
                     tile2Id = this.tiles[row+1][col].getId();
                 }
                 // Check that the two tiles are equal value, or if one is a blank tile (aka of id=0)
-                if(tile1Id == tile2Id || tile1Id != 0){
+                if(tile1Id == tile2Id || tile1Id == 0 || tile2Id == 0){
+                    System.out.println(tile1Id);
+                    System.out.println(tile2Id);
                     return true;
                 }
             }

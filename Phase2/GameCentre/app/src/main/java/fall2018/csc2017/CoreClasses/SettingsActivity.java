@@ -20,10 +20,10 @@ import phase1.Game;
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    /**
-     * The board manager.
-     */
-     protected BoardManager boardManager;
+//    /**
+//     * The board manager.
+//     */
+//     protected BoardManager boardManager;
 
     /**
      * A temporary save file.
@@ -41,8 +41,8 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        saveToFile(TEMP_SAVE_FILENAME);
-        setContentView(R.layout.activity_settings);
+//        saveToFile(TEMP_SAVE_FILENAME);
+//        setContentView(R.layout.activity_settings);
         EditText undosInput = findViewById(R.id.undosInput);
         undosInput.setText("3");
         EditText boardSizeInput = findViewById(R.id.boardSizeInput);
@@ -63,21 +63,21 @@ public class SettingsActivity extends AppCompatActivity {
     void addStartButtonListener(){
     }
 
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
+//    /**
+//     * Save the board manager to fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void saveToFile(String fileName) {
+//        try {
+//            ObjectOutputStream outputStream = new ObjectOutputStream(
+//                    this.openFileOutput(fileName, MODE_PRIVATE));
+//            outputStream.writeObject(boardManager);
+//            outputStream.close();
+//        } catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
 
     /**
      * Override the functionality of the back button

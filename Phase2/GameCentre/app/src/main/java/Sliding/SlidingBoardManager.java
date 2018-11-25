@@ -2,12 +2,14 @@ package Sliding;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
+import fall2018.csc2017.CoreClasses.Tile;
 import phase1.AccountManager;
 import phase1.GameFile;
 import phase1.SlidingGameFile;
@@ -59,16 +61,18 @@ public class SlidingBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     SlidingBoardManager(int size) {
-        List<SlidingTile> tiles = new ArrayList<>();
+        Tile[][] tiles = new Tile[size][size];
         final int numTiles = size * size;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new SlidingTile(tileNum, numTiles));
+        for (int row = 0; row < size; row++){
+            for (int col = 0; col < size; col++){
+                tiles[row][col] = new SlidingTile(row, col);
+            }
         }
 
         //Checks tiles if there are in a solvable formation.
         SlidingBoardSolvable checkSolvableBoard = new SlidingBoardSolvable(tiles);
         while (!checkSolvableBoard.isBoardSolvable()){
-            Collections.shuffle(tiles);
+            Collections.shuffle(Arrays.asList(tiles));
             checkSolvableBoard.setTiles(tiles);
         }
         // Create the board, and specify number of rows, columns
@@ -99,7 +103,7 @@ public class SlidingBoardManager extends BoardManager {
      * @return whether the tiles are in row-major order
      */
     boolean puzzleSolved() {
-        Iterator<SlidingTile> iter = slidingBoard.iterator();
+        Iterator<Tile> iter = slidingBoard.iterator();
         int id = iter.next().getId();
         while (iter.hasNext()) {
             int nextId = iter.next().getId();
@@ -123,10 +127,10 @@ public class SlidingBoardManager extends BoardManager {
         int col = position % slidingBoard.getNumCols();
         int blankId = slidingBoard.numTiles();
         // Are any of the 4 the blank tile?
-        SlidingTile above = row == 0 ? null : slidingBoard.getSlidingTile(row - 1, col);
-        SlidingTile below = row == slidingBoard.getNumRows() - 1 ? null : slidingBoard.getSlidingTile(row + 1, col);
-        SlidingTile left = col == 0 ? null : slidingBoard.getSlidingTile(row, col - 1);
-        SlidingTile right = col == slidingBoard.getNumCols() - 1 ? null : slidingBoard.getSlidingTile(row, col + 1);
+        SlidingTile above = row == 0 ? null : (SlidingTile) slidingBoard.getTile(row - 1, col);
+        SlidingTile below = row == slidingBoard.getNumRows() - 1 ? null : (SlidingTile) slidingBoard.getTile(row + 1, col);
+        SlidingTile left = col == 0 ? null : (SlidingTile) slidingBoard.getTile(row, col - 1);
+        SlidingTile right = col == slidingBoard.getNumCols() - 1 ? null : (SlidingTile) slidingBoard.getTile(row, col + 1);
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
@@ -145,21 +149,21 @@ public class SlidingBoardManager extends BoardManager {
         int row = position / slidingBoard.getNumRows();
         int col = position % slidingBoard.getNumCols();
         int blankId = slidingBoard.numTiles();
-        SlidingTile above = row == 0 ? null : slidingBoard.getSlidingTile(row - 1, col);
-        SlidingTile below = row == slidingBoard.getNumRows() - 1 ? null : slidingBoard.getSlidingTile(row + 1, col);
-        SlidingTile left = col == 0 ? null : slidingBoard.getSlidingTile(row, col - 1);
-        SlidingTile right = col == slidingBoard.getNumCols() - 1 ? null : slidingBoard.getSlidingTile(row, col + 1);
+        SlidingTile above = row == 0 ? null : (SlidingTile) slidingBoard.getTile(row - 1, col);
+        SlidingTile below = row == slidingBoard.getNumRows() - 1 ? null : (SlidingTile) slidingBoard.getTile(row + 1, col);
+        SlidingTile left = col == 0 ? null : (SlidingTile)slidingBoard.getTile(row, col - 1);
+        SlidingTile right = col == slidingBoard.getNumCols() - 1 ? null : (SlidingTile) slidingBoard.getTile(row, col + 1);
         addUndos();
         numMoves++;
         gameFile.increaseNumMoves();
         if (below != null && below.getId() == blankId) {
-            slidingBoard.swapSlidingTiles(row, col, row + 1, col);
+            slidingBoard.swapTiles(row, col, row + 1, col);
         } else if (above != null && above.getId() == blankId) {
-            slidingBoard.swapSlidingTiles(row, col, row - 1, col);
+            slidingBoard.swapTiles(row, col, row - 1, col);
         } else if (left != null && left.getId() == blankId) {
-            slidingBoard.swapSlidingTiles(row, col, row, col - 1);
+            slidingBoard.swapTiles(row, col, row, col - 1);
         } else if (right != null && right.getId() == blankId) {
-            slidingBoard.swapSlidingTiles(row, col, row, col + 1);
+            slidingBoard.swapTiles(row, col, row, col + 1);
         }
         save(newBoard);
         setChanged();
