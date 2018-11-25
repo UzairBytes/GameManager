@@ -80,8 +80,8 @@ public class Board implements Serializable, Iterable<Tile> {
     ///**
     // * A board constructor which must be extended
     // */
-    //protected Board() {
-    //}
+    protected Board() {
+    }
 
     /**
      * A board constructor which may be reused
