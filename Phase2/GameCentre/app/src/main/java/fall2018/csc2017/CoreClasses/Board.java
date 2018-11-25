@@ -87,8 +87,8 @@ public class Board implements Serializable, Iterable<Tile> {
      * A board constructor which may be reused
      */
     public Board(Tile[][] listOfTiles, int rows, int columns) {
-        numRows = rows;
-        numCols = columns;
+        this.numRows = rows;
+        this.numCols = columns;
         this.tiles = listOfTiles;
 //        Iterator<Tile> iter = new TileIterator();
 //        for (int row = 0; row != numRows; row++) {
@@ -101,7 +101,7 @@ public class Board implements Serializable, Iterable<Tile> {
     /**
      * Returns a deep-copy of this Board.
      */
-    Board createDeepCopy() {
+    public Board createDeepCopy() {
         Tile[][] copyTile = new Tile[getNumRows()][getNumCols()];
         for (int row = 0; row != getNumRows(); row++) {
             for (int col = 0; col != getNumCols(); col++) {
