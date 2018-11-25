@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import fall2018.csc2017.CoreClasses.Tile;
 import phase1.Account;
 import phase1.AccountManager;
 
@@ -33,14 +34,17 @@ public class SlidingBoardTest {
      * Make a set of tiles that are in order.
      * @return a set of tiles that are in order
      */
-    private List<SlidingTile> makeTiles() {
-        List<SlidingTile> tiles = new ArrayList<>();
+    private Tile[][] makeTiles() {
         final int numTiles = size * size;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new SlidingTile(tileNum, numTiles));
+        Tile[][] newTile = new Tile[size][size];
+        int tileNum = 0;
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                newTile[row][col] = new SlidingTile(tileNum, numTiles);
+                tileNum++;
+            }
         }
-
-        return tiles;
+        return newTile;
     }
 
     /** The board manager for testing. */
@@ -60,7 +64,7 @@ public class SlidingBoardTest {
      * Set up a correct board.
      */
     private void setUpCorrect() {
-        List<SlidingTile> tiles = makeTiles();
+        Tile[][] tiles = makeTiles();
         slidingBoard = new SlidingBoard(tiles, size, size);
     }
 
@@ -89,11 +93,11 @@ public class SlidingBoardTest {
     @Test
     public void testSwapFirstTwo() {
         setUpCorrect();
-        assertEquals(1, slidingBoard.getSlidingTile(0, 0).getId());
-        assertEquals(2, slidingBoard.getSlidingTile(0, 1).getId());
+        assertEquals(1, slidingBoard.getTile(0, 0).getId());
+        assertEquals(2, slidingBoard.getTile(0, 1).getId());
         slidingBoard.swapTiles(0, 0, 0, 1);
-        assertEquals(2, slidingBoard.getSlidingTile(0, 0).getId());
-        assertEquals(1, slidingBoard.getSlidingTile(0, 1).getId());
+        assertEquals(2, slidingBoard.getTile(0, 0).getId());
+        assertEquals(1, slidingBoard.getTile(0, 1).getId());
     }
 
     /**
@@ -102,11 +106,11 @@ public class SlidingBoardTest {
     @Test
     public void testSwapLastTwo() {
         setUpCorrect();
-        assertEquals(15, slidingBoard.getSlidingTile(3, 2).getId());
-        assertEquals(16, slidingBoard.getSlidingTile(3, 3).getId());
+        assertEquals(15, slidingBoard.getTile(3, 2).getId());
+        assertEquals(16, slidingBoard.getTile(3, 3).getId());
         slidingBoard.swapTiles(3, 3, 3, 2);
-        assertEquals(16, slidingBoard.getSlidingTile(3, 2).getId());
-        assertEquals(15, slidingBoard.getSlidingTile(3, 3).getId());
+        assertEquals(16, slidingBoard.getTile(3, 2).getId());
+        assertEquals(15, slidingBoard.getTile(3, 3).getId());
     }
 
     /**
