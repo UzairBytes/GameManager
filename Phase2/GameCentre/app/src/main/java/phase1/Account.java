@@ -11,9 +11,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import Checkers.CheckersGameFile;
-import Twenty.TwentyGameFile;
-
 /**
  * Account class manages user accounts.
  */
@@ -30,8 +27,13 @@ public class Account implements Serializable {
     private String password;
 
     /**
-     * A 2-D hashmap of GameFiles that belong to this Account. Each entry is a type of game,
-     * and each hashmap inside contains the game files for said game.
+     * The log of this accounts top scores for each game
+     */
+    private LeaderBoard leaderBoard;
+
+    /**
+     * A 2-D hashMap of GameFiles that belong to this Account. Each entry is a type of game,
+     * and each hashMap inside contains the game files for said game.
      */
     private HashMap<String, HashMap<String, GameFile>> accountGameData;
 
@@ -55,6 +57,7 @@ public class Account implements Serializable {
         this.password = pass;
         this.accountGameData = new HashMap<>();
         this.initializeGameFiles();
+        this.leaderBoard = new LeaderBoard();
         // Set the 'save' file name based off of this username.
         this.saveFileName = "/" + this.username + ".ser";
         this.saveAccountGameData();
@@ -64,9 +67,9 @@ public class Account implements Serializable {
      * Initializes the <accountGameData> attribute in this class.
      */
     private void initializeGameFiles(){
-        HashMap<String, GameFile> slidingMap = new HashMap<String, GameFile>();
-        HashMap<String, GameFile> twentyMap = new HashMap<String, GameFile>();
-        HashMap<String, GameFile> checkersMap = new HashMap<String, GameFile>();
+        HashMap<String, GameFile> slidingMap = new HashMap<>();
+        HashMap<String, GameFile> twentyMap = new HashMap<>();
+        HashMap<String, GameFile> checkersMap = new HashMap<>();
         this.accountGameData.put(Game.SLIDING_NAME, slidingMap);
         this.accountGameData.put(Game.TWENTY_NAME, twentyMap);
         this.accountGameData.put(Game.CHECKERS_NAME, checkersMap);
@@ -92,9 +95,9 @@ public class Account implements Serializable {
     }
 
     /**
-     * Returns hashmap that contains all the account's games and corresponding gamefiles.
+     * Returns hashMap that contains all the account's games and corresponding gameFiles.
      *
-     * @return said hashmap
+     * @return said hashMap
      */
     public HashMap<String, GameFile> getGames(String gameType) {
         System.out.println("ran!");
@@ -122,7 +125,7 @@ public class Account implements Serializable {
     }
 
     /**
-     * Overwrite and save the <games> hashmap in a serializable file.
+     * Overwrite and save the <games> hashMap in a serializable file.
      */
     public void saveAccountGameData() {
         try {
@@ -139,7 +142,7 @@ public class Account implements Serializable {
     }
 
     /**
-     * Retrieve the <games> hashmap from the .ser file.
+     * Retrieve the <games> hashMap from the .ser file.
      */
     @SuppressWarnings("unchecked")
     public void loadAccountGameData() {
@@ -172,5 +175,11 @@ public class Account implements Serializable {
         this.activeGameFile = gameFile;
     }
 
-
+    /**
+     * A getter for leaderBoard
+     * @return leaderBoard
+     */
+    LeaderBoard getLeaderBoard(){
+        return leaderBoard;
+    }
 }
