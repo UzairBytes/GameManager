@@ -2,8 +2,8 @@ package fall2018.csc2017.CoreClasses;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,8 +27,7 @@ public class PersonalLeaderBoardActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         setContentView(R.layout.activity_personal_leader_board);
 
-        ArrayList<GameScore> scores = LeaderBoard.getTopScores(context, "SlidingTiles",
-                AccountManager.activeAccount.getUsername(), 20);
+        ArrayList<GameScore> scores = LeaderBoard.getTopScores(context, AccountManager.activeAccount.getActiveGameName(), LeaderBoard.PERSONAL);
         ListAdapter scoreAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, scores);
         ListView listV = findViewById(R.id.topScores);
         listV.setAdapter(scoreAdapter);
