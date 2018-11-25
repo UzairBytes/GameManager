@@ -16,6 +16,9 @@ import java.util.Set;
 
 /**
  * A class for registering and retrieving the scores of completed games
+ * Every account should create its own LeaderBoard when created.
+ * Every game should call updateScores when completed.
+ * Everything else here is auxiliary.
  */
 public class LeaderBoard {
 
