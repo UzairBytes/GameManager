@@ -58,7 +58,14 @@ public class TwentyBoardManagerTest {
         }
 
         twentyBoardManager.touchMove('L');
-        assertEquals("twentyBoard.touchMove() failed test 1.", false, twentyBoard.isCollapsable(true));
+        // Check if the altered board is equal to the previous one.
+        boolean notEqual = false;
+        for(int row = 0; row < 3; row++){
+            notEqual = twentyBoard.getTile(row, 0).getId() != tile1.getId() ||
+                    twentyBoard.getTile(row, 1).getId() != tile2.getId() ||
+                    twentyBoard.getTile(row, 2).getId() != tile3.getId();
+            assertEquals("twentyBoard.touchMove() failed test 1.", false, notEqual);
+        }
     }
 
     @Test
