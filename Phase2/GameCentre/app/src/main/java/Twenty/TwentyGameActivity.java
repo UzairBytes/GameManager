@@ -19,13 +19,13 @@ import fall2018.csc2017.CoreClasses.R;
 
 public class TwentyGameActivity extends GameActivity implements Observer {
 
-    private TwentyBoardManager boardManager;
+    TwentyBoardManager boardManager;
 
     private TwentyGestureDetectGridView gridView;
 
     private static int columnWidth, columnHeight;
 
-    private ArrayList<Button> tileButtons;
+    ArrayList<Button> tileButtons;
 
     public void display() {
         updateTileButtons();
