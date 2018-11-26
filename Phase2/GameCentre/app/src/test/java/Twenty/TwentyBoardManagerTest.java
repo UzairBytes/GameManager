@@ -15,6 +15,7 @@ public class TwentyBoardManagerTest {
 
     @Before
     public void setup(){
+        AccountManager.contextPath = "/data/user/0/fall2018.csc2017.slidingtiles/files";
         AccountManager.activeAccount = new Account("twentytest", "1234");
         AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
         twentyBoardManager = new TwentyBoardManager(3);

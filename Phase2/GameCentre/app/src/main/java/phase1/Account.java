@@ -63,7 +63,7 @@ public class Account implements Serializable {
         // Set the 'save' file name based off of this username.
         this.saveFileName = "/" + this.username + ".ser";
 //        this.scores = new LeaderBoard();
-        this.saveAccountGameData(); //TODO: Comment for tests. Implementation should not require this line. For tests
+//        this.saveAccountGameData(); //TODO: Ensure that the implementation works without this line.
     }
 
     /**
@@ -140,12 +140,15 @@ public class Account implements Serializable {
             outputStream.writeObject(this.accountGameData);
             outputStream.close();
         } catch (IOException e) {
+            System.out.println(e);
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 
     /**
-     * Retrieve the <games> hashMap from the .ser file.
+     * Retrieve the <games> hashmap from the .ser file, if it exists. If it doesn't, that means
+     * that the user has not yet made a game file. In this case, save the existing empty map of
+     * game files to the .ser file.
      */
     @SuppressWarnings("unchecked")
     public void loadAccountGameData() {
@@ -156,10 +159,8 @@ public class Account implements Serializable {
             FileInputStream input = new FileInputStream(file);
             ObjectInputStream inputStream = new ObjectInputStream(input);
             this.accountGameData = (HashMap<String, HashMap<String, GameFile>>) inputStream.readObject();
-            // TODO: I removed the line in Account constructor that saves the account data at the start,
-            // TODO: in place of this checker in the load, but make sure that this method works.
         }catch (IOException e1){
-            this.saveAccountGameData(); //TODO: For tests
+            this.saveAccountGameData();
         }catch (ClassNotFoundException e1 ) {
             System.out.println(e1);
         }
