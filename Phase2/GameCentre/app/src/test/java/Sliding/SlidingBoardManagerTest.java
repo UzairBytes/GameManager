@@ -56,14 +56,27 @@ public class SlidingBoardManagerTest {
                 numIt++;
             }
         }
-
-        //  Initialize the board as all blank tiles, and test if a valid move can be made
-        // at various position
+        //  Test if a valid move can be made at various position
         assertEquals("slidingBoardManager.isValidTap() failed test 1.", true, slidingBoardManager.isValidTap(7));
         assertEquals("slidingBoardManager.isValidTap() failed test 2.", true, slidingBoardManager.isValidTap(5));
         assertEquals("slidingBoardManager.isValidTap() failed test 3.", false, slidingBoardManager.isValidTap(2));
-
-
     }
+
+    @Test
+    public void testProcessMove(){
+        // Create a sample board, & test when we make a move
+        int numIt = 0;
+        for(int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                SlidingTile tile = new SlidingTile(numIt, 9);
+                slidingBoard.insertTile(i,j,tile);
+                numIt++;
+            }
+        }
+        slidingBoardManager.processMove(7);
+        assertEquals("slidingBoardManager.isValidTap() failed test 1.", 9, slidingBoard.getTile(2,1).getId());
+        assertEquals("slidingBoardManager.isValidTap() failed test 2.", 8, slidingBoard.getTile(2,2).getId());
+    }
+
 
 }
