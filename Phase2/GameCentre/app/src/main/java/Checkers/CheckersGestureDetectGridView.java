@@ -20,14 +20,17 @@ public class CheckersGestureDetectGridView extends GestureDetectGridView {
 
     public CheckersGestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public CheckersGestureDetectGridView(Context context) {
         super(context);
+        init(context);
     }
 
     public CheckersGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
