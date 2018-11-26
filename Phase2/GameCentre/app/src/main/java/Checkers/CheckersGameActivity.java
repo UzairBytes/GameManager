@@ -13,6 +13,9 @@ import java.util.Observer;
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
+import phase1.Savable;
+
+import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
 
 public class CheckersGameActivity extends GameActivity implements Observer {
 
@@ -45,7 +48,7 @@ public class CheckersGameActivity extends GameActivity implements Observer {
      * Undo botton restores game to previous state.
      */
     private void addUndoButtonListener(){
-        Button undoButton = findViewById(R.id.undoButton);
+        Button undoButton = findViewById(R.id.CheckersUndoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +68,7 @@ public class CheckersGameActivity extends GameActivity implements Observer {
         for (int row = 0; row != board.getNumRows(); row++) {
             for (int col = 0; col != board.getNumCols(); col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                tmp.setBackgroundResource(board.getCheckersTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -74,12 +77,12 @@ public class CheckersGameActivity extends GameActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile();
+        boardManager = (CheckersBoardManager) Savable.loadFromFile(TEMP_SAVE_FILENAME);
         createTileButtons(this);
-        setContentView(R.layout.activity_starting_);
+        setContentView(R.layout.activity_checkers_game);
 
         // Add View to activity
-        gridView = findViewById(R.id.grid);
+        gridView = findViewById(R.id.CheckersGrid);
         gridView.setNumColumns(boardManager.getBoard().getNumCols());
         gridView.setBoardManager(boardManager);
         boardManager.addObserver(this);
@@ -102,6 +105,7 @@ public class CheckersGameActivity extends GameActivity implements Observer {
         addUndoButtonListener();
     }
 
+    @Override
     public void update(Observable o, Object arg) {
         display();
     }
@@ -115,7 +119,7 @@ public class CheckersGameActivity extends GameActivity implements Observer {
         for (Button b : tileButtons) {
             int row = nextPos / board.getNumCols();
             int col = nextPos % board.getNumCols();
-            b.setBackgroundResource(board.getTile(row, col).getBackground());
+            b.setBackgroundResource(board.getCheckersTile(row, col).getBackground());
             nextPos++;
         }
     }

@@ -10,7 +10,7 @@ import phase1.LeaderBoard;
 
 public class CheckersMovementController extends MovementController {
 
-    private CheckersBoardManager checkersBoardManager = null;
+    private CheckersBoardManager checkersBoardManager;
 
     public CheckersMovementController() {
     }
