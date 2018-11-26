@@ -15,16 +15,15 @@ import phase1.Game;
 
 public class TwentyBoardTest {
 
-    TwentyBoardManager twentyBoardManager;
-    TwentyBoard twentyBoard;
-    TwentyTile tile1, tile2, tile3, tile4;
+    private TwentyBoard twentyBoard;
+    private TwentyTile tile1, tile2, tile3;
 
     @Before
     public void setup(){
         AccountManager.activeAccount = new Account("sid", "1234");
         AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
         // Initialize an empty TwentyBoard, a process done when initializing a new TwentyBoardManager
-        twentyBoardManager = new TwentyBoardManager(3);
+        TwentyBoardManager twentyBoardManager = new TwentyBoardManager(3);
         twentyBoard = twentyBoardManager.twentyBoard;
     }
 
