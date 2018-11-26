@@ -27,7 +27,7 @@ public class PersonalLeaderBoardActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         setContentView(R.layout.activity_personal_leader_board);
 
-        ArrayList<GameScore> scores = LeaderBoard.getTopScores(context, AccountManager.activeAccount.getActiveGameName(), LeaderBoard.PERSONAL);
+        ArrayList<GameScore> scores = LeaderBoard.getTopScores(AccountManager.activeAccount.getActiveGameName(), LeaderBoard.PERSONAL);
         ListAdapter scoreAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, scores);
         ListView listV = findViewById(R.id.topScores);
         listV.setAdapter(scoreAdapter);
