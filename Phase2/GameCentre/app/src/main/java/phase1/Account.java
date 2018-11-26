@@ -63,7 +63,7 @@ public class Account implements Serializable {
         // Set the 'save' file name based off of this username.
         this.saveFileName = "/" + this.username + ".ser";
 //        this.scores = new LeaderBoard();
-//        this.saveAccountGameData(); //TODO: For tests
+        this.saveAccountGameData(); //TODO: Comment for tests. Implementation should not require this line. For tests
     }
 
     /**

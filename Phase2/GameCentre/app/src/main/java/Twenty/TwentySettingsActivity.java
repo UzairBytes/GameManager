@@ -19,6 +19,10 @@ public class TwentySettingsActivity extends SettingsActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_twenty_settings);
+        EditText undosInput = findViewById(R.id.twentyUndosInput);
+        undosInput.setText("3");
+        EditText boardSizeInput = findViewById(R.id.twentyBoardSizeInput);
+        boardSizeInput.setText("4");
         Savable.saveToFile(TEMP_SAVE_FILENAME,twentyBoardManager);
         addStartButtonListener();
     }

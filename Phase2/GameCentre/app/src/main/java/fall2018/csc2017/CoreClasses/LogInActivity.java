@@ -98,8 +98,7 @@ public class LogInActivity extends AppCompatActivity {
 
                 else if (!usernameExists) {
                     makeToastSignUp();
-                }
-                     else if (!passwordVerified) {
+                }else if (!passwordVerified) {
                     makeToastPassword();
                 } else {
                     // Set this user's account as the Active Account, and
