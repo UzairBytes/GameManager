@@ -78,7 +78,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="112dp"
         android:layout_marginTop="16dp"
-        android:text="@string/app_name"
+        android:text="Sliding Tiles Settings"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
