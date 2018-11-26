@@ -3,7 +3,6 @@ package phase1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * A class for registering and retrieving the scores of completed games
@@ -48,12 +47,9 @@ public class LeaderBoard {
     /**
      * Check if all games are listed in scores, and put a Key-Value pair in if not.
      */
-    private static void validateKeys(HashMap<String, ArrayList<GameScore>> leaderBoard) {
-        Set<String> keys = leaderBoard.keySet();
-        for (String key : Game.GAME_NAMES) {
-            if (!keys.contains(key)) {
-                leaderBoard.put(key, new ArrayList<GameScore>());
-            }
+    private static void validateKey(HashMap<String, ArrayList<GameScore>> leaderBoard, String key) {
+        if (!leaderBoard.containsKey(key)) {
+            leaderBoard.put(key, new ArrayList<GameScore>());
         }
     }
 
@@ -150,12 +146,12 @@ public class LeaderBoard {
         if (type.equals(PERSONAL)) {
             fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
             loadedData = (ArrayList<GameScore>) Savable.loadFromFile(fileName);
-            validateKeys(AccountManager.activeAccount.getLeaderBoard().personalScoresMap);
+            validateKey(AccountManager.activeAccount.getLeaderBoard().personalScoresMap, gameName);
             AccountManager.activeAccount.getLeaderBoard().personalScoresMap.replace(AccountManager.activeAccount.getActiveGameName(), loadedData);
         } else {
             fileName = "/" + GLOBAL + "/" + gameName + SCORES_DOT_SER;
             loadedData = (ArrayList<GameScore>) Savable.loadFromFile(fileName);
-            validateKeys(globalScoresMap);
+            validateKey(globalScoresMap, gameName);
             globalScoresMap.replace(gameName, loadedData);
         }
 
@@ -175,11 +171,11 @@ public class LeaderBoard {
         String fileName;
         if (type.equals(PERSONAL)) {
             fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
-            validateKeys(activeAccount.getLeaderBoard().personalScoresMap);
+            validateKey(activeAccount.getLeaderBoard().personalScoresMap, gameName);
             Savable.saveToFile(fileName, activeAccount.getLeaderBoard().personalScoresMap.get(gameName));
         } else {
             fileName = "/" + GLOBAL + "/" + gameName + SCORES_DOT_SER;
-            validateKeys(globalScoresMap);
+            validateKey(globalScoresMap, gameName);
             Savable.saveToFile(fileName, globalScoresMap.get(gameName));
         }
     }
