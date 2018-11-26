@@ -18,10 +18,20 @@ public class CheckersSettingActivity extends SettingsActivity {
      */
     protected CheckersBoardManager checkersBoardManager;
 
+    /**
+     * The oppenentType.
+     */
+    private String oppenentType = new String("human");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_checkers_settings);
         Savable.saveToFile(TEMP_SAVE_FILENAME, checkersBoardManager); //TODO Might be redundant - see savable below.
+        EditText undosInput = findViewById(R.id.CheckersUndosInput);
+        undosInput.setText("0");
+        EditText boardSizeInput = findViewById(R.id.CheckersBoardSizeInput);
+        boardSizeInput.setText("8");
         addStartButtonListener();
         addEasyButtonListener();
         addHardButtonListener();
@@ -44,6 +54,7 @@ public class CheckersSettingActivity extends SettingsActivity {
             public void onClick(View v) {
                 setSize();
                 setUndos();
+                checkersBoardManager.setOpponentType(oppenentType);
                 if (size > 7 && size < 13) {
                     switchToGame();
                 }
@@ -58,11 +69,11 @@ public class CheckersSettingActivity extends SettingsActivity {
      * Activate Human button.
      */
     void addHumanButtonListener(){
-        final Button start = findViewById(R.id.CheckersHuman);
-        start.setOnClickListener(new View.OnClickListener() {
+        final Button human = findViewById(R.id.CheckersHuman);
+        human.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkersBoardManager.setOpponentType("human");
+                oppenentType = "human";
             }
         });
     }
@@ -71,11 +82,11 @@ public class CheckersSettingActivity extends SettingsActivity {
      * Activate Easy button.
      */
     void addEasyButtonListener(){
-        final Button start = findViewById(R.id.CheckersEasy);
-        start.setOnClickListener(new View.OnClickListener() {
+        final Button easy = findViewById(R.id.CheckersEasy);
+        easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkersBoardManager.setOpponentType("easy");
+                oppenentType = "easy";
             }
         });
     }
@@ -84,11 +95,11 @@ public class CheckersSettingActivity extends SettingsActivity {
      * Activate Hard button.
      */
     void addHardButtonListener(){
-        final Button start = findViewById(R.id.CheckersHard);
-        start.setOnClickListener(new View.OnClickListener() {
+        final Button hard = findViewById(R.id.CheckersHard);
+        hard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkersBoardManager.setOpponentType("hard");
+                oppenentType = "hard";
             }
         });
     }
@@ -121,7 +132,7 @@ public class CheckersSettingActivity extends SettingsActivity {
         int numUndos;
         String strUndos = ((EditText)findViewById(R.id.CheckersUndosInput)).getText().toString();
         if(strUndos.equals("")){
-            numUndos = 1;
+            numUndos = 0;
         }
         else {
             numUndos = Integer.parseInt(strUndos);

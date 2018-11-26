@@ -16,7 +16,7 @@ public class TwentyTileTest {
 
     @Before
     public void setup(){
-        AccountManager.activeAccount = new Account("sid", "1234");
+        AccountManager.activeAccount = new Account("twentytest", "1234");
         AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
     }
 

@@ -15,7 +15,7 @@ public class TwentyBoardManagerTest {
 
     @Before
     public void setup(){
-        AccountManager.activeAccount = new Account("sid", "1234");
+        AccountManager.activeAccount = new Account("twentytest", "1234");
         AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
         twentyBoardManager = new TwentyBoardManager(3);
     }
@@ -69,7 +69,7 @@ public class TwentyBoardManagerTest {
     }
 
     @Test
-    public void testTouchMove(){
+    public void twentytestertestTouchMove(){
         // TODO: Perhaps write this in a cleaner way.
         // Fill the board such that a tile can be shifted leftwards, and see if it does get
         // shifted leftwards after touchMove()
