@@ -40,10 +40,10 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void slidingTilesButtonListener(){
         Button slidingTitles = findViewById(R.id.button5);
-        AccountManager.activeAccount.setActiveGameName(Game.SLIDING_NAME);
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AccountManager.activeAccount.setActiveGameName(Game.SLIDING_NAME);
                 switchToStartingActivity();
             }
         });
@@ -54,10 +54,10 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void checkersButtonListener() {
         Button slidingTitles = findViewById(R.id.button2);
-        AccountManager.activeAccount.setActiveGameName(Game.CHECKERS_NAME);
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AccountManager.activeAccount.setActiveGameName(Game.CHECKERS_NAME);
                 switchToStartingActivity();
             }
         });
@@ -68,10 +68,10 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     private void twentyButtonListener() {
         Button slidingTitles = findViewById(R.id.button);
-        AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
         slidingTitles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
                 switchToStartingActivity();
             }
         });
