@@ -42,7 +42,7 @@ public class TwentySettingsActivity extends SettingsActivity {
             @Override
             public void onClick(View v) {
                 setSize();
-                setUndos();
+                updateUndos();
                 if ((size > 2) && (size < 6)){
                     switchToGame();
                 }
@@ -75,16 +75,22 @@ public class TwentySettingsActivity extends SettingsActivity {
     }
 
     /**
-     * Sets number of undos from textView.
+     * Updates the number of undos based off of the value in the textView.
+     * // TODO: These are public. Should they be private?
      */
-    public void setUndos(){
+    public void updateUndos(){
+        // Get the value from the textView, and change the number of undos for this board manager.
+        String undosFromView = ((EditText)findViewById(R.id.twentyUndosInput)).getText().toString();
+        setUndos(undosFromView);
+    }
+
+    public void setUndos(String undosFromView){
         int numUndos;
-        String strUndos = ((EditText)findViewById(R.id.twentyUndosInput)).getText().toString();
-        if (strUndos.equals("")){
+        if (undosFromView.equals("")){
             numUndos = 3;
         }
         else {
-            numUndos = Integer.parseInt(strUndos);
+            numUndos = Integer.parseInt(undosFromView);
         }
         twentyBoardManager.setMaxUndos(numUndos);
     }

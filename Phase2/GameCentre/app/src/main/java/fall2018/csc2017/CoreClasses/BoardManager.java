@@ -56,7 +56,6 @@ public abstract class BoardManager extends Observable implements Serializable, G
         GameFile newGameFile = AccountManager.activeAccount.getActiveGameFile();
         newGameFile.getGameStates().push(board);
         AccountManager.activeAccount.addGameFile(newGameFile);
-        AccountManager.activeAccount.saveAccountGameData();
     }
 
     /**

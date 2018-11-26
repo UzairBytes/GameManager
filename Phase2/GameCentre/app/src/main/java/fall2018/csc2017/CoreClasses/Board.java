@@ -10,6 +10,7 @@ import java.util.List;
 
 import Checkers.CheckersBoard;
 import Checkers.CheckersTile;
+import Twenty.TwentyTile;
 
 /**
  * The sliding tiles board.
@@ -214,6 +215,13 @@ public class Board implements Serializable, Iterable<Tile> {
         holdTile[0][1] = getTile(row2, col2);
         this.tiles[row2][col2] = holdTile[0][0];
         this.tiles[row1][col1] = holdTile[0][1];
+    }
+
+    /**
+     * Replaces the tile at row, col with the given TwentyTile. This method is used when testing.
+     */
+    public void insertTile(int row, int col, Tile tile) {
+        this.tiles[row][col] = tile;
     }
 
 }

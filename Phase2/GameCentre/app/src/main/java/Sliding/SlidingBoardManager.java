@@ -87,7 +87,7 @@ public class SlidingBoardManager extends BoardManager {
         this.gameStates = this.gameFile.getGameStates();
         this.numMoves = gameFile.getNumMoves();
         this.maxUndos = gameFile.getMaxUndos();
-        save(this.slidingBoard);
+        super.save(this.slidingBoard);
     }
 
     /**
@@ -178,6 +178,7 @@ public class SlidingBoardManager extends BoardManager {
     @SuppressWarnings("unchecked")
     public void save(SlidingBoard board) {
         super.save(board);
+        AccountManager.activeAccount.saveAccountGameData();
         this.gameFile = (SlidingGameFile)AccountManager.activeAccount.getActiveGameFile();
         this.gameStates = this.gameFile.getGameStates();
         this.slidingBoard = board;
