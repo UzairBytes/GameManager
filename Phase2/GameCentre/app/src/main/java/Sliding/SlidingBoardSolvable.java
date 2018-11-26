@@ -19,7 +19,12 @@ public class SlidingBoardSolvable {
     /**
      * size of the board.
      */
-    private int BoardSize;
+    private double boardSize;
+
+    /**
+     * column size.
+     */
+    private int size;
 
     /**
      * The number of inversions in the board.
@@ -37,21 +42,26 @@ public class SlidingBoardSolvable {
     private int column;
 
     /**
-     * ArrayList of tiles.
-     */
-    private ArrayList<Tile> tileList;
-
-    /**
      * Constructor for SlidingBoardSolvable
      *
      * @param TilesToBeChecked is a SlidingBoard.
      */
     protected SlidingBoardSolvable(Tile[][] TilesToBeChecked){
-        this.BoardSize = TilesToBeChecked.length;
+        this.boardSize = (double) TilesToBeChecked.length;
+        this.size = (int) Math.pow(this.boardSize, 0.5);
         this.inversions = 0;
         this.tiles = TilesToBeChecked;
         this.column = 0;
-        this.tileList = new ArrayList<>(this.tileList);
+    }
+
+    private ArrayList<Tile> convertArray(Tile[][] tiles){
+        ArrayList<Tile> tilesList = new ArrayList<>();
+        for (int row = 0; row < size; row++){
+            for (int col = 0; col < size; col++){
+                tilesList.add(tiles[row][col]);
+            }
+        }
+        return tilesList;
     }
 
     /**
@@ -62,6 +72,7 @@ public class SlidingBoardSolvable {
      *
      */
     private void calculateInversions(){
+        ArrayList<Tile> tileList = convertArray(tiles);
         for (int i = 0; i < tileList.size() - 1; i++){
             if (tileList.get(i).getId() != tileList.size()) {
                 for (int j = i + 1; j < tileList.size(); j++) {
@@ -89,7 +100,7 @@ public class SlidingBoardSolvable {
      * @return boolean true or false.
      */
     private boolean isBoardSizeEven(){
-        return (BoardSize % 2 == 0);
+        return (boardSize % 2 == 0);
     }
 
     /**
@@ -97,8 +108,8 @@ public class SlidingBoardSolvable {
      *
      */
     private void columnnOfBlankTile(){
-        for (int row = 0; row < BoardSize; row++) {
-            for (int col = 0; col < BoardSize; col++) {
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
                 if (tiles[row][col].getId() == tiles.length) {
                     column = col;
                 }
@@ -114,7 +125,7 @@ public class SlidingBoardSolvable {
     // TODO Implement this algorithmically. This works for board size 3-5, but it is shitty.
     private boolean isBlankTileOnOddRow(){
         columnnOfBlankTile();
-        return (BoardSize - this.column) % 2 != 0;
+        return (size - this.column) % 2 != 0;
     }
 
     /**

@@ -12,6 +12,7 @@ import java.util.List;
 import fall2018.csc2017.CoreClasses.Tile;
 import phase1.Account;
 import phase1.AccountManager;
+import phase1.Game;
 
 import static org.junit.Assert.*;
 
