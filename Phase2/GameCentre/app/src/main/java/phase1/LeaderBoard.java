@@ -1,15 +1,6 @@
 package phase1;
 
 
-import android.content.Context;
-import android.util.Log;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -47,12 +38,12 @@ public class LeaderBoard {
     /**
      * A string to indicate what kind of LeaderBoard we're dealing with
      */
-    public static final String PERSONAL = "personal";
+    public static final String PERSONAL = "personalLeaderBoard";
 
     /**
      * A string to indicate what kind of LeaderBoard we're dealing with
      */
-    public static final String GLOBAL = "global";
+    public static final String GLOBAL = "globalLeaderBoard";
 
     /**
      * Check if all games are listed in scores, and put a Key-Value pair in if not.
@@ -82,12 +73,12 @@ public class LeaderBoard {
      *
      * @param gameScore GameScore to be added
      */
-    public static void updateScores(Context context, GameScore gameScore) {
+    public static void updateScores(GameScore gameScore) {
         String[] types = {GLOBAL, PERSONAL};
         for (String type : types) {
-            loadScoresFromFile(context, type);
+            loadScoresFromFile(type);
             updateTopScores(gameScore, type);
-            saveScoresToFile(context, type);
+            saveScoresToFile(type);
         }
     }
 
@@ -129,93 +120,67 @@ public class LeaderBoard {
     /**
      * Get top scores of the chosen type of LeaderBoard for the game with gameName
      *
-     * @param context  the current context
      * @param gameName Name of the game, e.g., "Sliding Tiles"
      * @param type     GLOBAL or PERSONAL LeaderBoard
      * @return ArrayList of Object[]'s sorted from highest to lowest score
      */
-    public static ArrayList<GameScore> getTopScores(Context context, String gameName, String type) {
-        loadScoresFromFile(context, type);
+    public static ArrayList<GameScore> getTopScores(String gameName, String type) {
+        loadScoresFromFile(type);
         if (type.equals(PERSONAL)) {
             return AccountManager.activeAccount.getLeaderBoard().personalScoresMap.get(gameName);
         } else {
             return globalScoresMap.get(gameName);
         }
-
-
     }
 
 
     /**
      * Load ArrayList of GameScores for the specified type of LeaderBoard
-     * @param context the current context
+     * Note for all personal LeaderBoards and the global and for every game there will be a
+     * different file representing the top scores of that game
+     *
      * @param type GLOBAL or PERSONAL LeaderBoard
      */
     @SuppressWarnings("unchecked")
-    private static void loadScoresFromFile(Context context, String type) {
-        try {
-            String path = context.getFilesDir().getAbsolutePath();
-            String pathAndFileName;
-            if (type.equals(PERSONAL)) {
-                pathAndFileName = path + "/" + AccountManager.activeAccount.getUsername()
-                        + "/" + AccountManager.activeAccount.getActiveGameName() + SCORES_DOT_SER;
-            } else {
-                pathAndFileName = path + "/" + GLOBAL
-                        + "/" + AccountManager.activeAccount.getActiveGameName() + SCORES_DOT_SER;
-            }
-            File file = new File(pathAndFileName);
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
-            ArrayList<GameScore> listFromFile = (ArrayList<GameScore>) objectInputStream.readObject();
-            if (type.equals(PERSONAL)) {
-                validateKeys(AccountManager.activeAccount.getLeaderBoard().personalScoresMap);
-                AccountManager.activeAccount.getLeaderBoard().personalScoresMap.replace(AccountManager.activeAccount.getActiveGameName(), listFromFile);
-            } else {
-                validateKeys(globalScoresMap);
-                globalScoresMap.replace(AccountManager.activeAccount.getActiveGameName(), listFromFile);
-
-            }
-
-            objectInputStream.close();
-        } catch (IOException e) {
-            Log.e("LeaderBoardActivities", SCORES_DOT_SER + " not found.");
-        } catch (ClassNotFoundException e) {
-            Log.e("LeaderBoardActivities", SCORES_DOT_SER + " corrupted.");
+    private static void loadScoresFromFile(String type) {
+        Account activeAccount = AccountManager.activeAccount;
+        String gameName = activeAccount.getActiveGameName();
+        String fileName;
+        ArrayList<GameScore> loadedData;
+        if (type.equals(PERSONAL)) {
+            fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
+            loadedData = (ArrayList<GameScore>) Savable.loadFromFile(fileName);
+            validateKeys(AccountManager.activeAccount.getLeaderBoard().personalScoresMap);
+            AccountManager.activeAccount.getLeaderBoard().personalScoresMap.replace(AccountManager.activeAccount.getActiveGameName(), loadedData);
+        } else {
+            fileName = "/" + GLOBAL + "/" + gameName + SCORES_DOT_SER;
+            loadedData = (ArrayList<GameScore>) Savable.loadFromFile(fileName);
+            validateKeys(globalScoresMap);
+            globalScoresMap.replace(gameName, loadedData);
         }
+
     }
 
 
     /**
      * Save ArrayList of GameScores to file
-     * @param context the current context
+     * Note for all personal LeaderBoards and the global and for every game there will be a
+     * different file representing the top scores of that game
+     *
      * @param type GLOBAL or PERSONAL LeaderBoard
      */
-    private static void saveScoresToFile(Context context, String type) {
-        try {
-            String path = context.getFilesDir().getAbsolutePath();
-
-            String pathAndFileName;
-            if (type.equals(PERSONAL)) {
-                pathAndFileName = path + "/" + AccountManager.activeAccount.getUsername()
-                        + "/" + AccountManager.activeAccount.getActiveGameName() + SCORES_DOT_SER;
-            } else {
-                pathAndFileName = path + "/" + GLOBAL
-                        + "/" + AccountManager.activeAccount.getActiveGameName() + SCORES_DOT_SER;
-            }
-
-            File file = new File(pathAndFileName);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
-            Account activeAccount = AccountManager.activeAccount;
-            if (type.equals(PERSONAL)) {
-                validateKeys(activeAccount.getLeaderBoard().personalScoresMap);
-                objectOutputStream.writeObject(activeAccount.getLeaderBoard().personalScoresMap.get(activeAccount.getActiveGameName()));
-            } else {
-                validateKeys(globalScoresMap);
-                objectOutputStream.writeObject(LeaderBoard.globalScoresMap.get(activeAccount.getActiveGameName()));
-            }
-
-            objectOutputStream.close();
-        } catch (IOException e) {
-            Log.e("LeaderBoardActivities", SCORES_DOT_SER + " not found");
+    private static void saveScoresToFile(String type) {
+        Account activeAccount = AccountManager.activeAccount;
+        String gameName = activeAccount.getActiveGameName();
+        String fileName;
+        if (type.equals(PERSONAL)) {
+            fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
+            validateKeys(activeAccount.getLeaderBoard().personalScoresMap);
+            Savable.saveToFile(fileName, activeAccount.getLeaderBoard().personalScoresMap.get(gameName));
+        } else {
+            fileName = "/" + GLOBAL + "/" + gameName + SCORES_DOT_SER;
+            validateKeys(globalScoresMap);
+            Savable.saveToFile(fileName, globalScoresMap.get(gameName));
         }
     }
 }
