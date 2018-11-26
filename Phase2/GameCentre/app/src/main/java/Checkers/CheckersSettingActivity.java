@@ -44,7 +44,7 @@ public class CheckersSettingActivity extends SettingsActivity {
             public void onClick(View v) {
                 setSize();
                 setUndos();
-                if (size > 2 && size < 6) {
+                if (size > 7 && size < 13) {
                     switchToGame();
                 }
                 else {
@@ -97,7 +97,7 @@ public class CheckersSettingActivity extends SettingsActivity {
      * Displays that a size is not supported.
      */
     private void makeToastSize(){
-        Toast.makeText(this, "Please enter a size 3 to 5.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Please enter a size 8 to 12.", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -106,7 +106,7 @@ public class CheckersSettingActivity extends SettingsActivity {
     private void setSize(){
         String strSize = ((EditText)findViewById(R.id.CheckersBoardSizeInput)).getText().toString();
         if(strSize.equals("")) {
-            size = 4;
+            size = 8;
         }
         else {
             size = Integer.parseInt(strSize);
@@ -121,7 +121,7 @@ public class CheckersSettingActivity extends SettingsActivity {
         int numUndos;
         String strUndos = ((EditText)findViewById(R.id.CheckersUndosInput)).getText().toString();
         if(strUndos.equals("")){
-            numUndos = 3;
+            numUndos = 1;
         }
         else {
             numUndos = Integer.parseInt(strUndos);
