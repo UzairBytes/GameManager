@@ -29,6 +29,11 @@
         <activity android:name=".GlobalLeaderBoardActivity" />
         <activity android:name="Twenty.TwentySettingsActivity" />
         <activity android:name="Twenty.TwentyGameActivity" />
+        <activity android:name="Checkers.CheckersGameActivity" />
+        <activity android:name="Checkers.CheckersSettingActivity" />
+        <activity android:name="Checkers.CheckersMovementController" />
+
+
 
     </application>
 

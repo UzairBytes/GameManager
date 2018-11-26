@@ -56,7 +56,7 @@ public class CheckersBoardManager extends BoardManager {
                     id = "red_pawn";
                 }
                 else{
-                    id = "empty_white_tile";
+                    id = "empty_tile";
                 }
                 tiles[row][col] = new CheckersTile(id);
             }
@@ -133,6 +133,7 @@ public class CheckersBoardManager extends BoardManager {
         setChanged();
         notifyObservers();
         board.setCanTakePieces();
+        swapRedsTurn();
     }
 
     //should use an iterator
