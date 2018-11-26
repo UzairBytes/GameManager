@@ -14,6 +14,9 @@ import java.util.Observer;
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
+import phase1.Savable;
+
+import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
 
 /**
  * The game activity.
@@ -77,7 +80,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile();
+        boardManager = (SlidingBoardManager) Savable.loadFromFile(TEMP_SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_sliding_tiles_game);
 
