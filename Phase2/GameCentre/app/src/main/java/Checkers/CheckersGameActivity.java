@@ -119,7 +119,7 @@ public class CheckersGameActivity extends GameActivity implements Observer {
         for (Button b : tileButtons) {
             int row = nextPos / board.getNumCols();
             int col = nextPos % board.getNumCols();
-            b.setBackgroundResource(board.getTile(row, col).getBackground());
+            b.setBackgroundResource(board.getCheckersTile(row, col).getBackground());
             nextPos++;
         }
     }
