@@ -48,20 +48,20 @@ public class SettingsActivity extends AppCompatActivity {
 //        EditText boardSizeInput = findViewById(R.id.boardSizeInput);
 //        boardSizeInput.setText("4");
 
-        addStartButtonListener();
+//        addStartButtonListener();
     }
 
     /**
      * Switches to desired game.
      */
-    void switchToGame(){
-    }
+//    void switchToGame(){
+//    }
 
     /**
      * Activate Start button.
      */
-    void addStartButtonListener(){
-    }
+//    void addStartButtonListener(){
+//    }
 
 //    /**
 //     * Save the board manager to fileName.
