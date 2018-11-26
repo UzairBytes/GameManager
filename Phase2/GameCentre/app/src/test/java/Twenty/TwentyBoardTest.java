@@ -20,7 +20,7 @@ public class TwentyBoardTest {
 
     @Before
     public void setup(){
-        AccountManager.activeAccount = new Account("sid", "1234");
+        AccountManager.activeAccount = new Account("twentytest", "1234");
         AccountManager.activeAccount.setActiveGameName(Game.TWENTY_NAME);
         // Initialize an empty TwentyBoard, a process done when initializing a new TwentyBoardManager
         TwentyBoardManager twentyBoardManager = new TwentyBoardManager(3);
