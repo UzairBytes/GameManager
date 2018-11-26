@@ -52,7 +52,7 @@ public class CheckersBoardManager extends BoardManager {
                 else if (row < (size/2 - 1) ){
                     id = "white_pawn";
                 }
-                else if (row > (size/2 + 1) ){
+                else if (row > (size/2) ){
                     id = "red_pawn";
                 }
                 else{
