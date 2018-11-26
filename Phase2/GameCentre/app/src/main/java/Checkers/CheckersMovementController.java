@@ -25,7 +25,7 @@ public class CheckersMovementController extends MovementController {
 
             checkersBoardManager.touchMove(position);
             if (checkersBoardManager.gameComplete()){
-                LeaderBoard.updateScores(context, new GameScore(
+                LeaderBoard.updateScores(new GameScore(
                         "CheckersTile", checkersBoardManager.getGameFile().getName(),
                         AccountManager.activeAccount.getUsername(), checkersBoardManager.score()));
                 Toast.makeText(context, checkersBoardManager.getWinner() + " wins!", Toast.LENGTH_SHORT).show();

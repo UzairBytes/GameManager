@@ -28,7 +28,7 @@ public class SlidingMovementController extends MovementController {
 
             slidingBoardManager.touchMove(position);
             if (slidingBoardManager.puzzleSolved()) {
-                LeaderBoard.updateScores(context, new GameScore(
+                LeaderBoard.updateScores(new GameScore(
                         "SlidingTiles", slidingBoardManager.getGameFile().getName(),
                         AccountManager.activeAccount.getUsername(), slidingBoardManager.score()));
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
