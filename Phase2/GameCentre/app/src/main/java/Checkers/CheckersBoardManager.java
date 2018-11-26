@@ -26,6 +26,8 @@ public class CheckersBoardManager extends BoardManager {
 
     private boolean redsTurn;
 
+    private String opponentType;
+
     protected CheckersBoardManager(CheckersGameFile gameFile) {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
@@ -212,4 +214,11 @@ public class CheckersBoardManager extends BoardManager {
         this.remainingUndos = 0;
     }
 
+    void setOpponentType(String opponentType) {
+        this.opponentType = opponentType;
+    }
+
+    String getOpponentType(){
+        return this.opponentType;
+    }
 }

@@ -23,6 +23,9 @@ public class CheckersSettingActivity extends SettingsActivity {
         super.onCreate(savedInstanceState);
         Savable.saveToFile(TEMP_SAVE_FILENAME, checkersBoardManager); //TODO Might be redundant - see savable below.
         addStartButtonListener();
+        addEasyButtonListener();
+        addHardButtonListener();
+        addHumanButtonListener();
     }
 
     void switchToGame(){
@@ -47,6 +50,45 @@ public class CheckersSettingActivity extends SettingsActivity {
                 else {
                     makeToastSize();
                 }
+            }
+        });
+    }
+
+    /**
+     * Activate Human button.
+     */
+    void addHumanButtonListener(){
+        final Button start = findViewById(R.id.CheckersHuman);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkersBoardManager.setOpponentType("human");
+            }
+        });
+    }
+
+    /**
+     * Activate Easy button.
+     */
+    void addEasyButtonListener(){
+        final Button start = findViewById(R.id.CheckersEasy);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkersBoardManager.setOpponentType("easy");
+            }
+        });
+    }
+
+    /**
+     * Activate Hard button.
+     */
+    void addHardButtonListener(){
+        final Button start = findViewById(R.id.CheckersHard);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkersBoardManager.setOpponentType("hard");
             }
         });
     }
