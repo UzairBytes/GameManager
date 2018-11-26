@@ -1,10 +1,12 @@
 package Twenty;
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import fall2018.csc2017.CoreClasses.GestureDetectGridView;
 import android.view.View;
+
 
 public class TwentyGestureDetectGridView extends GestureDetectGridView implements View.OnTouchListener {
     private static final int SWIPE_MIN_DISTANCE = 100;
@@ -13,6 +15,18 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
 
     public TwentyGestureDetectGridView(Context context) {
         super(context);
+        gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener());
+        mController = new TwentyMovementController();
+    }
+
+    public TwentyGestureDetectGridView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener());
+        mController = new TwentyMovementController();
+    }
+
+    public TwentyGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener());
         mController = new TwentyMovementController();
     }
@@ -42,7 +56,7 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
     }
 
 
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+    public boolean onFling(MotionEvent e1, MotionEvent e2) {
         float distanceX = e2.getX() - e1.getX();
         float distanceY = e2.getY() - e1.getY();
         if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_MIN_DISTANCE) {
