@@ -145,7 +145,14 @@ public class SlidingBoardManager extends BoardManager {
     void touchMove(int position) {
         SlidingBoard newBoard = slidingBoard.createDeepCopy();
         this.slidingBoard = newBoard;
+        processMove(position);
+        save(newBoard);
+        setChanged();
+        notifyObservers();
+    }
 
+    // TODO: Should be private -- have public for tests
+    void processMove(int position){
         int row = position / slidingBoard.getNumRows();
         int col = position % slidingBoard.getNumCols();
         int blankId = slidingBoard.numTiles();
@@ -165,10 +172,8 @@ public class SlidingBoardManager extends BoardManager {
         } else if (right != null && right.getId() == blankId) {
             slidingBoard.swapTiles(row, col, row, col + 1);
         }
-        save(newBoard);
-        setChanged();
-        notifyObservers();
     }
+
 
     /**
      * Saves a new state of board to game.
