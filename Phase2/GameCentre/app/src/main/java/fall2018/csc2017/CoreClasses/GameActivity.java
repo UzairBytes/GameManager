@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import Sliding.SlidingBoard;
 import Sliding.SlidingBoardManager;
+import phase1.Savable;
 
 public abstract class GameActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public abstract class GameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity.TEMP_SAVE_FILENAME); //TODO Use Savable class.
     }
 
     /**

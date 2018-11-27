@@ -13,6 +13,7 @@ import java.util.Observer;
 
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
+import fall2018.csc2017.CoreClasses.GestureDetectGridView;
 import fall2018.csc2017.CoreClasses.R;
 import phase1.Savable;
 
@@ -26,7 +27,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     /**
      * The board manager.
      */
-    SlidingBoardManager boardManager; //TODO make private and add getter method
+    SlidingBoardManager slidingboardManager; //TODO make private and add getter method
 
     /**
      * The buttons to display.
@@ -55,7 +56,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager.undo();
+                slidingboardManager.undo();
             }
         });
     }
@@ -66,7 +67,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      * @param context the context
      */
     void createTileButtons(Context context) {
-        SlidingBoard board = boardManager.getBoard();
+        SlidingBoard board = slidingboardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != board.getNumRows(); row++) {
             for (int col = 0; col != board.getNumCols(); col++) {
@@ -80,15 +81,15 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boardManager = (SlidingBoardManager) Savable.loadFromFile(TEMP_SAVE_FILENAME);
+        slidingboardManager = (SlidingBoardManager) Savable.loadFromFile(TEMP_SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_sliding_tiles_game);
 
         // Add View to activity
-        gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(boardManager.slidingBoard.getNumCols());
-        gridView.setBoardManager(boardManager);
-        boardManager.addObserver(this);
+        gridView = findViewById(R.id.slidingGrid);
+        gridView.setNumColumns(slidingboardManager.slidingBoard.getNumCols());
+        gridView.setBoardManager(slidingboardManager);
+        slidingboardManager.addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -99,8 +100,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / boardManager.slidingBoard.getNumCols();
-                        columnHeight = displayHeight / boardManager.slidingBoard.getNumCols();
+                        columnWidth = displayWidth / slidingboardManager.slidingBoard.getNumCols();
+                        columnHeight = displayHeight / slidingboardManager.slidingBoard.getNumCols();
 
                         display();
                     }
@@ -116,8 +117,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
-    void updateTileButtons() {
-        SlidingBoard board = boardManager.getBoard();
+    private void updateTileButtons() {
+        SlidingBoard board = slidingboardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / board.getNumCols();
