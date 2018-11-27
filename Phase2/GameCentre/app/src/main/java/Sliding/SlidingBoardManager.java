@@ -63,9 +63,11 @@ public class SlidingBoardManager extends BoardManager {
     SlidingBoardManager(int size) {
         Tile[][] tiles = new Tile[size][size];
         final int numTiles = size * size;
+        int tileNumber = 0;
         for (int row = 0; row < size; row++){
             for (int col = 0; col < size; col++){
-                tiles[row][col] = new SlidingTile(row, col);
+                tiles[row][col] = new SlidingTile(tileNumber, numTiles);
+                tileNumber++;
             }
         }
 
