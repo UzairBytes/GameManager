@@ -72,6 +72,7 @@ public class TwentyGameActivity extends GameActivity implements Observer {
         });
 
         addUndoButtonListener();
+        twentyBoardManager.twentyBoard.generateRandomTile();
     }
 
     private void addUndoButtonListener(){

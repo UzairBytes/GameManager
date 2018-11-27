@@ -31,13 +31,13 @@ public class TwentyTile extends Tile {
         picts.add(R.drawable.twentytile_8192);
 
         // Validate preconditions
-        if((Math.log(id) / Math.log(2)) % 1 == 0){
-            setId(id);
-//            setBackground(picts.get(id));
+        if(id != 0){
+            setBackground(picts.get(id));
+            setId(2^id);
         }else{
             // Set to a blank tile otherwise.
             setId(0);
-//            setBackground(picts.get(0));
+            setBackground(picts.get(0));
         }
     }
 

@@ -34,12 +34,12 @@ public class TwentyBoard extends Board {
      *                  tile at row2, col2 will be replaced with a blank tile.
      */
     public void mergeTiles(int row1, int col1, int row2, int col2){
-        int tile1Id = this.tiles[row1][col1].getId(), tile2Id = this.tiles[row1][col1].getId();
+        int tile1Id = this.tiles[row1][col1].getId(), tile2Id = this.tiles[row2][col2].getId();
         TwentyTile mergedTile, blankTile;
         // Verify preconditions.
         if(tile1Id == tile2Id){
             // TODO: Insert a real background image
-            mergedTile =  new TwentyTile(tile1Id*tile2Id, tile1Id*tile2Id);
+            mergedTile =  new TwentyTile(tile1Id+1, tile1Id*tile2Id);
             blankTile = new TwentyTile(0, 0);
             this.tiles[row1][col1] = mergedTile;
             this.tiles[row2][col2] = blankTile;
@@ -56,7 +56,7 @@ public class TwentyBoard extends Board {
         int ranNum = (int)(Math.pow(2, ranExp));
 
         // TODO: Insert a background image instead of ranNum
-        TwentyTile randomTile = new TwentyTile(ranNum, ranNum);
+        TwentyTile randomTile = new TwentyTile(ranExp, ranNum);
 
         this.tiles[tileRow][tileCol] = randomTile;
 
