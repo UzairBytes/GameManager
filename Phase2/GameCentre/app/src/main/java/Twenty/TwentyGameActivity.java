@@ -1,9 +1,7 @@
 package Twenty;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -15,11 +13,13 @@ import java.util.Observer;
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
+import phase1.Savable;
+import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
 
 
 public class TwentyGameActivity extends GameActivity implements Observer {
 
-    TwentyBoardManager boardManager;
+    TwentyBoardManager twentyBoardManager;
 
     private TwentyGestureDetectGridView gridView;
 
@@ -33,7 +33,7 @@ public class TwentyGameActivity extends GameActivity implements Observer {
     }
 
     private void createTileButtons(Context context){
-        TwentyBoard board = boardManager.getBoard();
+        TwentyBoard board = twentyBoardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != board.getNumRows(); row++) {
             for (int col = 0; col != board.getNumCols(); col++) {
@@ -47,14 +47,14 @@ public class TwentyGameActivity extends GameActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile();
+        twentyBoardManager = (TwentyBoardManager) Savable.loadFromFile(TEMP_SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_twenty_game);
 
         gridView = findViewById(R.id.gridTwenty);
-        gridView.setNumColumns(boardManager.getSize());
-        gridView.setBoardManager(boardManager);
-        boardManager.addObserver(this);
+        gridView.setNumColumns(twentyBoardManager.getSize());
+        gridView.setBoardManager(twentyBoardManager);
+        twentyBoardManager.addObserver(this);
 
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -64,8 +64,8 @@ public class TwentyGameActivity extends GameActivity implements Observer {
                 int displayWidth = gridView.getMeasuredWidth();
                 int displayHeight = gridView.getMeasuredHeight();
 
-                columnWidth = displayWidth / boardManager.twentyBoard.getNumCols();
-                columnHeight = displayHeight / boardManager.twentyBoard.getNumCols();
+                columnWidth = displayWidth / twentyBoardManager.twentyBoard.getNumCols();
+                columnHeight = displayHeight / twentyBoardManager.twentyBoard.getNumCols();
 
                 display();
             }
@@ -79,7 +79,7 @@ public class TwentyGameActivity extends GameActivity implements Observer {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager.undo();
+                twentyBoardManager.undo();
             }
         });
     }
@@ -90,7 +90,7 @@ public class TwentyGameActivity extends GameActivity implements Observer {
     }
 
     private void updateTileButtons() {
-        TwentyBoard board = boardManager.getBoard();
+        TwentyBoard board = twentyBoardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / board.getNumCols();
