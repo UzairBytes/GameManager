@@ -72,11 +72,11 @@ public class SlidingBoardManager extends BoardManager {
         }
 
         //Checks tiles if there are in a solvable formation.
-        SlidingBoardSolvable checkSolvableBoard = new SlidingBoardSolvable(tiles);
-        while (!checkSolvableBoard.isBoardSolvable()){
-            Collections.shuffle(Arrays.asList(tiles));
-            checkSolvableBoard.setTiles(tiles);
-        }
+        //SlidingBoardSolvable checkSolvableBoard = new SlidingBoardSolvable(tiles);
+        //while (!checkSolvableBoard.isBoardSolvable()){
+            shuffleTiles(tiles);
+        //    checkSolvableBoard.setTiles(tiles);
+        //}
         // Create the board, and specify number of rows, columns
         this.slidingBoard = new SlidingBoard(tiles, size, size);
 
@@ -231,6 +231,25 @@ public class SlidingBoardManager extends BoardManager {
         this.gameFile.setRemainingUndos(0);
         this.maxUndos = maxUndoValue;
         this.remainingUndos = 0;
+    }
+
+    /**
+     * Shuffles array of tiles.
+     *
+     * @param  shuffleTiles 2D array of tiles
+     */
+    private void shuffleTiles(Tile[][] shuffleTiles){
+        for (int i = 0; i < shuffleTiles.length; i++){
+            for (int j=0; j< shuffleTiles[i].length; j++){
+                int i1 = (int) (Math.random() * shuffleTiles.length);
+                int j1 = (int) (Math.random() * shuffleTiles.length);
+
+                SlidingTile temp = (SlidingTile) shuffleTiles[i][j];
+                shuffleTiles[i][j] = shuffleTiles[i1][j1];
+                shuffleTiles[i1][j1] = temp;
+
+            }
+        }
     }
 
 }
