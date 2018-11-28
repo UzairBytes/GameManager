@@ -8,26 +8,24 @@ import fall2018.csc2017.CoreClasses.GestureDetectGridView;
 import android.view.View;
 
 
-public class TwentyGestureDetectGridView extends GestureDetectGridView implements View.OnTouchListener, GestureDetector.OnGestureListener {
+public class TwentyGestureDetectGridView extends GestureDetectGridView implements GestureDetector.OnGestureListener {
     private static final int SWIPE_MIN_DISTANCE = 100;
-    private final GestureDetector gDetector;
+    private final GestureDetector gDetector = new GestureDetector(this);
     private TwentyMovementController mController;
 
     public TwentyGestureDetectGridView(Context context) {
         super(context);
-        gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener());
         mController = new TwentyMovementController();
     }
 
     public TwentyGestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener());
         mController = new TwentyMovementController();
     }
 
     public TwentyGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener());
+
         mController = new TwentyMovementController();
     }
 
@@ -47,9 +45,13 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
         mController.processSlideMovement(this.getContext(), true, 'R');
     }
 
-    public boolean onTouch(View v, MotionEvent event) {
-        return gDetector.onTouchEvent(event);
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
+
+
 
     @Override
     public boolean onDown(MotionEvent e) {
@@ -82,39 +84,23 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_MIN_DISTANCE) {
-            if (distanceX > 0) {
-                onSwipeRight();
-            } else {
-                onSwipeLeft();
-            }
-            return true;
-
-        } else if (Math.abs(distanceY) > Math.abs(distanceX) && Math.abs(distanceY) > SWIPE_MIN_DISTANCE) {
-            if (distanceY > 0) {
-                onSwipeUp();
-            } else {
-                onSwipeDown();
-            }
-            return true;
-        }
-
         return false;
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent e){
-        return true;
+        return false;
     }
 
     @Override
-    public void onShowPress(MotionEvent e) {};
+    public void onShowPress(MotionEvent e) {}
 
     @Override
-    public void onLongPress(MotionEvent e) {};
+    public void onLongPress(MotionEvent e) {}
 
 
     public void setBoardManager(TwentyBoardManager twentyBoardManager) {
         mController.setTwentyBoardManager(twentyBoardManager);
     }
+
 }
