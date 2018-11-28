@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import Sliding.SlidingBoard;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
-import phase1.SlidingGameFile;
 
 public class TwentyBoardManager extends BoardManager {
 
