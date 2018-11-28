@@ -210,6 +210,9 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
         }
 
         void setHighLightedTile (int row, int col){
+            if (highLightedTile != null){
+                highLightedTile.dehighlight();
+            }
             CheckersTile tile = getCheckersTile(row, col);
             tile.highlight();
             highLightedTile = tile;

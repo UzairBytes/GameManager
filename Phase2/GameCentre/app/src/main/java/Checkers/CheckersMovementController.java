@@ -33,9 +33,10 @@ public class CheckersMovementController extends MovementController {
                         AccountManager.activeAccount.getUsername(), checkersBoardManager.score()));
                 Toast.makeText(context, checkersBoardManager.getWinner() + " wins!", Toast.LENGTH_SHORT).show();
             }
+            moving = false;
         }
-        else if (!moving && checkersBoardManager.isValidSelect(position)){
-              moving = true;
+        else if (checkersBoardManager.isValidSelect(position)){
+            moving = true;
         }
         else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
