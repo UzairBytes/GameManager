@@ -1,7 +1,5 @@
 package Checkers;
 
-import android.support.annotation.NonNull;
-
 import java.util.Iterator;
 
 import fall2018.csc2017.CoreClasses.Board;
@@ -150,28 +148,28 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
         if (col < 2 || row < 2) {
             return false;
         }
-        return tiles[row - 2][col - 2].getCheckersId().equals(CheckersTile.EMPTYWHITETILE);
+        return tiles[row - 2][col - 2].getCheckersId().equals(CheckersTile.EMPTY_WHITE_TILE);
     }
 
     private boolean emptyTopRight(int row, int col){
         if (col > 5 || row < 2) {
             return false;
         }
-        return tiles[row - 2][col + 2].getCheckersId().equals(CheckersTile.EMPTYWHITETILE);
+        return tiles[row - 2][col + 2].getCheckersId().equals(CheckersTile.EMPTY_WHITE_TILE);
     }
 
     private boolean emptyBottomLeft(int row, int col){
         if (col < 2 || row > 5) {
             return false;
         }
-        return tiles[row + 2][col - 2].getCheckersId().equals(CheckersTile.EMPTYWHITETILE);
+        return tiles[row + 2][col - 2].getCheckersId().equals(CheckersTile.EMPTY_WHITE_TILE);
     }
 
     private boolean emptyBottomRight(int row, int col){
         if (col > 5 || row > 5) {
             return false;
         }
-        return tiles[row + 2][col + 2].getCheckersId().equals(CheckersTile.EMPTYWHITETILE);
+        return tiles[row + 2][col + 2].getCheckersId().equals(CheckersTile.EMPTY_WHITE_TILE);
     }
 
     /**
@@ -186,21 +184,21 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
         super.swapTiles(row1, col1, row2, col2);
         //check if jumps tile to the top left
         if (row2-row1==-2 && col2-col1==-2){
-            tiles[row1-1][col1-1].changeTile(CheckersTile.EMPTYWHITETILE);
+            tiles[row1-1][col1-1].changeTile(CheckersTile.EMPTY_WHITE_TILE);
         }
         //check if jumps tile to the top right
         else if (row2-row1==-2 && col2-col1==2){
-            tiles[row1-1][col1+1].changeTile(CheckersTile.EMPTYWHITETILE);
+            tiles[row1-1][col1+1].changeTile(CheckersTile.EMPTY_WHITE_TILE);
 
         }
         //check if jumps tile to the bottom left
         else if (row2 - row1==2 && col2-col1 ==-2){
-            tiles[row1+1][col1+1].changeTile(CheckersTile.EMPTYWHITETILE);
+            tiles[row1+1][col1+1].changeTile(CheckersTile.EMPTY_WHITE_TILE);
 
         }
         //check if jumpts tile to the bottom right
         else if (row2-row1==2 && col2-col1==2){
-            tiles[row1+1][col1+1].changeTile(CheckersTile.EMPTYWHITETILE);
+            tiles[row1+1][col1+1].changeTile(CheckersTile.EMPTY_WHITE_TILE);
         }
 
         maybeMakeKing(row2,col2);
@@ -243,10 +241,10 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
      */
     private void maybeMakeKing(int row, int col){
         if (tiles[row][col].getCheckersId().contains("white") && row == getNumRows() -1){
-            tiles[row][col].changeTile(CheckersTile.REDKING);
+            tiles[row][col].changeTile(CheckersTile.RED_KING);
         }
         else if (tiles[row][col].getCheckersId().contains("white") && row == 0){
-            tiles[row][col].changeTile(CheckersTile.WHITEKING);
+            tiles[row][col].changeTile(CheckersTile.WHITE_KING);
         }
     }
 
