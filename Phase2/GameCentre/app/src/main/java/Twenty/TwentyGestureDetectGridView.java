@@ -29,11 +29,11 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
         mController = new TwentyMovementController();
     }
 
-    public void onSwipeUp(){
+    public void onSwipeUp() {
         mController.processSlideMovement(this.getContext(), false, 'U');
     }
 
-    public void onSwipeDown(){
+    public void onSwipeDown() {
         mController.processSlideMovement(this.getContext(), false, 'D');
     }
 
@@ -51,7 +51,11 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
         return super.onTouchEvent(event);
     }
 
-
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent e) {
+        super.dispatchTouchEvent(e);
+        return gDetector.onTouchEvent(e);
+    }
 
     @Override
     public boolean onDown(MotionEvent e) {
@@ -88,19 +92,20 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
     }
 
     @Override
-    public boolean onSingleTapUp(MotionEvent e){
+    public boolean onSingleTapUp(MotionEvent e) {
         return false;
     }
 
     @Override
-    public void onShowPress(MotionEvent e) {}
+    public void onShowPress(MotionEvent e) {
+    }
 
     @Override
-    public void onLongPress(MotionEvent e) {}
+    public void onLongPress(MotionEvent e) {
+    }
 
 
     public void setBoardManager(TwentyBoardManager twentyBoardManager) {
         mController.setTwentyBoardManager(twentyBoardManager);
     }
-
 }
