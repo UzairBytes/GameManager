@@ -21,6 +21,7 @@ public abstract class Savable  {
             outputStream.writeObject(dataToSave);
             outputStream.close();
         } catch (IOException e) {
+            System.out.println("Hello2");
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
@@ -36,8 +37,25 @@ public abstract class Savable  {
             ObjectInputStream inputStream = new ObjectInputStream(input);
             return inputStream.readObject();
         } catch (IOException | ClassNotFoundException error) {
+            System.out.println("Hello3");
             return error;
         }
     }
 
+    /* Load method used when there's a risk of loading before saving. */
+    @SuppressWarnings("unchecked")
+    public static Object loadAtStart(String saveFileName, Object data){
+        try {
+            File file = new File(AccountManager.contextPath  + saveFileName);
+            FileInputStream input = new FileInputStream(file);
+            ObjectInputStream inputStream = new ObjectInputStream(input);
+            return inputStream.readObject();
+        } catch (IOException e1) {
+            System.out.println("Hello!");
+            saveToFile(saveFileName, data);
+            return loadFromFile(saveFileName);
+        } catch (ClassNotFoundException e2){ // Should never happen.
+            return null;
+        }
+    }
 }
