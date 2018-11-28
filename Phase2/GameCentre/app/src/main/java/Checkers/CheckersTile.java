@@ -15,8 +15,7 @@ public class CheckersTile extends Tile {
      */
     private String id;
     /**
-
-     * Where it can take a piece
+     * Array of locations in the form [row, column] where CheckersTile can jump to take a piece
      */
     private int[][] canTakePiece;
 
@@ -25,29 +24,45 @@ public class CheckersTile extends Tile {
      */
     private HashMap<String, Integer> picts = new HashMap<>();
 
-    public static final String EMPTYWHITETILE = "empty_tile";
+    static final String EMPTY_WHITE_TILE = "empty";
 
-    static final String REDKING = "red_king";
+    static final String BLACK_TILE = "black";
 
-    static final String WHITEKING = "white_king";
+    static final String RED = "red";
+
+    static final String WHITE = "white";
+
+    static final String KING = "king";
+
+    static final String PAWN = "pawn";
+
+    static final String RED_KING = RED + KING;
+
+    static final String WHITE_KING = WHITE + KING;
+
+    static final String RED_PAWN = RED + PAWN;
+
+    static final String WHITE_PAWN = WHITE + PAWN;
+
+    static final String HIGHLIGHTED = "_highlighted";
 
     /**
-     * A checker tile with a background id
+     * A constructor for a checker tile with a background id
+     * @param id string representing the type of tile
      */
-    public CheckersTile(String id) {
+    CheckersTile(String id) {
         super();
         this.id = id;
         canTakePiece = new int[4][2];
-        picts.put("empty_tile", R.drawable.checkers_empty_white_tile);
-        picts.put("empty_black_tile", R.drawable.checkers_empty_black_tile);
-        picts.put("red_pawn", R.drawable.checkers_red_pawn);
-        picts.put("red_king", R.drawable.checkers_red_king);
-        picts.put("white_pawn", R.drawable.checkers_white_pawn);
-        picts.put("white_king", R.drawable.checkers_white_king);
-        picts.put("red_pawn_highlighted", R.drawable.checkers_red_pawn_highlighted);
-        picts.put("red_king_highlighted", R.drawable.checkers_red_king_highlighted);
-        picts.put("white_pawn_highlighted", R.drawable.checkers_white_pawn_highlighted);
-        picts.put("white_king_highlighted", R.drawable.checkers_white_king_highlighted);
+        picts.put(EMPTY_WHITE_TILE, R.drawable.checkers_empty_white_tile);
+        picts.put(BLACK_TILE, R.drawable.checkers_empty_black_tile);
+        picts.put(RED_PAWN, R.drawable.checkers_red_pawn);
+        picts.put(WHITE_PAWN, R.drawable.checkers_white_pawn);
+        picts.put(WHITE_KING, R.drawable.checkers_white_king);
+        picts.put(RED_PAWN + HIGHLIGHTED, R.drawable.checkers_red_pawn_highlighted);
+        picts.put(RED_KING + HIGHLIGHTED, R.drawable.checkers_red_king_highlighted);
+        picts.put(WHITE_PAWN + HIGHLIGHTED, R.drawable.checkers_white_pawn_highlighted);
+        picts.put(WHITE_KING + HIGHLIGHTED, R.drawable.checkers_white_king_highlighted);
         if (picts.containsKey(id)){
             setBackground(picts.get(id));}
         else
@@ -59,9 +74,9 @@ public class CheckersTile extends Tile {
 
 
     /**
-     * Sets whether a checkerTile can take a piece
+     * Sets the list of locations where a CheckerTile can jump to take a piece
      *
-     * @param canTakePiece whether a checkerTile can take a piece
+     * @param canTakePiece where a checkerTile can jump to take a piece
      */
     void setCanTakePiece(int[][] canTakePiece){
         this.canTakePiece = canTakePiece;
@@ -75,16 +90,21 @@ public class CheckersTile extends Tile {
     int[][] isCanTakePiece() {
         return canTakePiece;
     }
-    
+
+    /**
+     * Highlight the selected CheckersTile
+     */
     void highlight() {
         if (!this.id.contains("empty")) {
             this.id += "_highlighted";
             setBackground(picts.get(id));}
     }
 
-   public void dehighlight() {
-        String newId = id.replaceAll("_highlighted","");
-        id = newId;
+    /**
+     * Make the selected CheckersTile look normal again
+     */
+    void dehighlight() {
+        this.id = this.id.replaceAll("_highlighted","");
         setBackground(picts.get(id));
     }
 
@@ -93,9 +113,13 @@ public class CheckersTile extends Tile {
      *
      * @return the tile id
      */
-    public String getCheckersId(){return id;}
+    String getCheckersId(){return id;}
 
-    public void changeTile(String newId){
+    /**
+     * change the CheckersTile into a tile with newId
+     * @param newId the new type of CheckersTile
+     */
+    void changeTile(String newId){
         id = newId;
         setBackground(picts.get(id));
     }
