@@ -87,6 +87,8 @@ public class CheckersBoardManager extends BoardManager {
         String tileId = selectedTile.getCheckersId();
         if (redsTurn && tileId.contains("red") || tileId.contains("white")){
             board.setHighLightedTile(row, col);
+            setChanged();
+            notifyObservers();
             return true;
         }
         return false;
