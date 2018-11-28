@@ -12,7 +12,10 @@ public class CheckersMovementController extends MovementController {
 
     private CheckersBoardManager checkersBoardManager;
 
+    private boolean moving = false;
+
     public CheckersMovementController() {
+        moving = false;
     }
 
     public void setCheckersBoardManager(CheckersBoardManager checkersBoardManager) {
@@ -21,7 +24,7 @@ public class CheckersMovementController extends MovementController {
     }
 
     public void processTapMovement(Context context, int position) {
-        if (checkersBoardManager.isValidMove(position)) {
+        if (moving && checkersBoardManager.isValidMove(position)) {
 
             checkersBoardManager.touchMove(position);
             if (checkersBoardManager.gameComplete()){
@@ -30,7 +33,12 @@ public class CheckersMovementController extends MovementController {
                         AccountManager.activeAccount.getUsername(), checkersBoardManager.score()));
                 Toast.makeText(context, checkersBoardManager.getWinner() + " wins!", Toast.LENGTH_SHORT).show();
             }
-        } else {
+            moving = false;
+        }
+        else if (checkersBoardManager.isValidSelect(position)){
+            moving = true;
+        }
+        else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
         }
     }

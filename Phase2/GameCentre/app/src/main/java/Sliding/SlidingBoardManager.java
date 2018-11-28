@@ -67,11 +67,12 @@ public class SlidingBoardManager extends BoardManager {
         }
 
         //Checks tiles if there are in a solvable formation.
-        //SlidingBoardSolvable checkSolvableBoard = new SlidingBoardSolvable(tiles);
-        //while (!checkSolvableBoard.isBoardSolvable()){
+        shuffleTiles(tiles);
+        SlidingBoardSolvable checkSolvableBoard = new SlidingBoardSolvable(tiles);
+        while (!checkSolvableBoard.isBoardSolvable()){
             shuffleTiles(tiles);
-        //    checkSolvableBoard.setTiles(tiles);
-        //}
+            checkSolvableBoard.setTiles(tiles);
+        }
         // Create the board, and specify number of rows, columns
         this.slidingBoard = new SlidingBoard(tiles, size, size);
 
