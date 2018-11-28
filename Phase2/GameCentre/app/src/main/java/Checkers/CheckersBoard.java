@@ -14,7 +14,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
 
     private CheckersTile highLightedTile;
 
-    private int[] highLightedTilePosition;
+    private int[] highLightedTilePosition = new int[2];
 
     private int size;
 
