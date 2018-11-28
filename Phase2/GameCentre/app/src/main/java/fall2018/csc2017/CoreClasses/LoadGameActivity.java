@@ -19,7 +19,7 @@ import Sliding.SlidingTilesGameActivity;
 import phase1.AccountManager;
 import phase1.Game;
 import phase1.GameFile;
-import phase1.SlidingGameFile;
+import Sliding.SlidingGameFile;
 
 
 public class LoadGameActivity extends AppCompatActivity {

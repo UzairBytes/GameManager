@@ -38,6 +38,22 @@ public abstract class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * Returns boardmanager
+     *
+     * @Return boardmanager
+     */
+    public BoardManager getBoardManager(){
+        return boardManager;
+    }
+
+    /**
+     * set boardmanager
+     */
+    public void setBoardManager(BoardManager newBoardManager){
+        this.boardManager = newBoardManager;
+    }
+
+    /**
      * Load the board manager from the fileName in StartingActivity.
      */
     protected void loadFromFile() {
