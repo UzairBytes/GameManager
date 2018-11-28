@@ -56,7 +56,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slidingboardManager.undo();
+                slidingboardManager.undoSliding();
             }
         });
     }
@@ -87,7 +87,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
 
         // Add View to activity
         gridView = findViewById(R.id.slidingGrid);
-        gridView.setNumColumns(slidingboardManager.slidingBoard.getNumCols());
+        gridView.setNumColumns(slidingboardManager.getBoard().getNumCols());
         gridView.setBoardManager(slidingboardManager);
         slidingboardManager.addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
@@ -100,8 +100,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / slidingboardManager.slidingBoard.getNumCols();
-                        columnHeight = displayHeight / slidingboardManager.slidingBoard.getNumCols();
+                        columnWidth = displayWidth / slidingboardManager.getBoard().getNumCols();
+                        columnHeight = displayHeight / slidingboardManager.getBoard().getNumCols();
 
                         display();
                     }

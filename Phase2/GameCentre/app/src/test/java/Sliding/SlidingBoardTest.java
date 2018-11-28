@@ -78,17 +78,6 @@ public class SlidingBoardTest {
     }
 
     /**
-     * Test whether swapping two tiles makes a solved board unsolved.
-     */
-    @Test
-    public void testIsSolved() {
-        setUpSlidingBoardManager();
-        assertEquals(true, slidingBoardManager.puzzleSolved());
-        swapFirstTwoTiles();
-        assertEquals(false, slidingBoardManager.puzzleSolved());
-    }
-
-    /**
      * Test whether swapping the first two tiles works.
      */
     @Test
@@ -114,14 +103,4 @@ public class SlidingBoardTest {
         assertEquals(15, slidingBoard.getTile(3, 3).getId());
     }
 
-    /**
-     * Test whether isValidHelp works.
-     */
-    @Test
-    public void testIsValidTap() {
-        setUpSlidingBoardManager();
-        assertEquals(true, slidingBoardManager.isValidTap(11));
-        assertEquals(true, slidingBoardManager.isValidTap(14));
-        assertEquals(false, slidingBoardManager.isValidTap(10));
-    }
 }
