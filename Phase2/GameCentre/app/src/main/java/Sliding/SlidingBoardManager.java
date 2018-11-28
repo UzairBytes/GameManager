@@ -1,18 +1,13 @@
 package Sliding;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import fall2018.csc2017.CoreClasses.Tile;
 import phase1.AccountManager;
 import phase1.GameFile;
-import phase1.SlidingGameFile;
 
 import java.util.Stack;
 
@@ -252,4 +247,18 @@ public class SlidingBoardManager extends BoardManager {
         }
     }
 
+    /**
+     * Temporary undo method until under in boardmanager is abstracted properly.
+     *
+     * @return sliding board manager.
+     */
+    public void undoSliding() {
+        if (this.remainingUndos > 0) {
+            this.remainingUndos--;
+            this.gameStates.pop();
+            this.slidingBoard = this.gameStates.peek();
+            setChanged();
+            notifyObservers();
+        }
+    }
 }

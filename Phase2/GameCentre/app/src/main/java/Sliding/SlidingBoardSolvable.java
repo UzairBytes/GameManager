@@ -19,17 +19,12 @@ public class SlidingBoardSolvable {
     /**
      * size of the board.
      */
-    private double boardSize;
-
-    /**
-     * column size.
-     */
-    private int size;
+    private int boardSize;
 
     /**
      * The number of inversions in the board.
      */
-    private int inversions;
+    protected int inversions;
 
     /**
      * 2D array of tiles.
@@ -47,8 +42,7 @@ public class SlidingBoardSolvable {
      * @param TilesToBeChecked is a SlidingBoard.
      */
     protected SlidingBoardSolvable(Tile[][] TilesToBeChecked){
-        this.boardSize = (double) TilesToBeChecked.length;
-        this.size = (int) Math.pow(this.boardSize, 0.5);
+        this.boardSize = TilesToBeChecked.length;
         this.inversions = 0;
         this.tiles = TilesToBeChecked;
         this.column = 0;
@@ -56,8 +50,8 @@ public class SlidingBoardSolvable {
 
     private ArrayList<Tile> convertArray(Tile[][] tiles){
         ArrayList<Tile> tilesList = new ArrayList<>();
-        for (int row = 0; row < size; row++){
-            for (int col = 0; col < size; col++){
+        for (int row = 0; row < boardSize; row++){
+            for (int col = 0; col < boardSize; col++){
                 tilesList.add(tiles[row][col]);
             }
         }
@@ -71,14 +65,13 @@ public class SlidingBoardSolvable {
      * in a row.
      *
      */
-    private void calculateInversions(){
+    protected void calculateInversions(){
         ArrayList<Tile> tileList = convertArray(tiles);
-        for (int i = 0; i < tileList.size() - 1; i++){
-            if (tileList.get(i).getId() != tileList.size()) {
-                for (int j = i + 1; j < tileList.size(); j++) {
-                    if (tileList.get(j).getId() != tileList.size()){
-                        inversions++;
-                    }
+        for (int i = 0; i < tileList.size() - 1; i++) {
+            for (int j = i + 1; j < tileList.size(); j++) {
+                if (tileList.get(i).getId() > tileList.get(j).getId()
+                        && i != tileList.size() && j!= tileList.size()) {
+                    inversions++;
                 }
             }
         }
@@ -89,7 +82,7 @@ public class SlidingBoardSolvable {
      *
      * @return boolean true or false.
      */
-    private boolean AreInversionsEven(){
+    protected boolean areInversionsEven(){
         calculateInversions();
         return (inversions % 2 == 0);
     }
@@ -108,8 +101,8 @@ public class SlidingBoardSolvable {
      *
      */
     private void columnnOfBlankTile(){
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
                 if (tiles[row][col].getId() == tiles.length) {
                     column = col;
                 }
@@ -125,7 +118,7 @@ public class SlidingBoardSolvable {
     // TODO Implement this algorithmically. This works for board size 3-5, but it is shitty.
     private boolean isBlankTileOnOddRow(){
         columnnOfBlankTile();
-        return (size - this.column) % 2 != 0;
+        return (boardSize - this.column) % 2 != 0;
     }
 
     /**
@@ -135,12 +128,12 @@ public class SlidingBoardSolvable {
      */
     protected boolean isBoardSolvable(){
         if (!isBoardSizeEven()){
-            return AreInversionsEven();
+            return areInversionsEven();
         } else{
             if (!isBlankTileOnOddRow()){
-                return !AreInversionsEven();
+                return !areInversionsEven();
             } else{
-                return AreInversionsEven();
+                return areInversionsEven();
             }
         }
     }
@@ -152,5 +145,26 @@ public class SlidingBoardSolvable {
      */
     protected void setTiles(Tile[][] newTiles){
         this.tiles = newTiles;
+    }
+
+    /**
+     * Returns true if board is complete.
+     *
+     * @param checkBoard
+     * @return true or false
+     */
+
+    private boolean boardComplete(Tile[][] checkBoard){
+//
+//        Iterator<Tile> iter = checkBoard.iterator();
+//        int id = iter.next().getId();
+//        while (iter.hasNext()) {
+//            int nextId = iter.next().getId();
+//            if (nextId != (id + 1)) {
+//                return false;
+//            }
+//            id = nextId;
+//        }
+        return true;
     }
 }
