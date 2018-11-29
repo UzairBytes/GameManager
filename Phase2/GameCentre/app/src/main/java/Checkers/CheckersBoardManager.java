@@ -40,6 +40,8 @@ public class CheckersBoardManager extends BoardManager {
      */
     private boolean hasSlain = false;
 
+
+
     /**
      * Initialize the data of this game given a GameFile, containing a Stack of Boards
      * (each representing a specific 'game state'), and attributes telling of the game's settings.
@@ -124,6 +126,8 @@ public class CheckersBoardManager extends BoardManager {
      * @return true if and only if the move is allowed in Checkers
      */
     boolean isValidMove(int position) {
+        if (position >= board.getNumRows() *board.getNumCols()){return false;}
+        if (position < 0){return false;}
         CheckersTile highLightedTile = board.getHighLightedTile();
         String highId = highLightedTile.getCheckersId();
         int highRow = board.getHighLightedTilePosition()[0];
@@ -206,15 +210,17 @@ public class CheckersBoardManager extends BoardManager {
      * @return true if and only if the piece that has just slain can slay again!!
      */
     private boolean stillHasMoves(int sourceRow, int sourceColumn){
+
+
         if (!hasSlain){return false;}
         int[][] jumps = {{sourceRow +2, sourceColumn +2}, {sourceRow -2 , sourceColumn + 2 },
                 {sourceRow +2, sourceColumn -2},{sourceRow-2,sourceColumn-2} };
         for (int[] move:jumps){
             if (isValidMove(move[0]*board.getNumRows() + move[1])){
+                    return true;}}
 
-                return true;
-            }
-        }
+
+
         return false;
     }
 
