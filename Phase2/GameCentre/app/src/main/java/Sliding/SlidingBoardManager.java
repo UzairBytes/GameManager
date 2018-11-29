@@ -28,11 +28,6 @@ public class SlidingBoardManager extends BoardManager {
     private SlidingGameFile gameFile;
 
     /**
-     * Holds a stack of Boards, with each Board representing a specific game state.
-     */
-    private Stack<SlidingBoard> gameStates;
-
-    /**
      * Initialize the data of this game given a GameFile, containing a Stack of Boards
      * (each representing a specific 'game state'), and attributes telling of the game's settings.
      *
@@ -200,6 +195,8 @@ public class SlidingBoardManager extends BoardManager {
         if (this.remainingUndos > 0) {
             this.slidingBoard = (SlidingBoard) super.undo();
         }
+        setChanged();
+        notifyObservers();
         return this.slidingBoard;
     }
 
@@ -250,19 +247,6 @@ public class SlidingBoardManager extends BoardManager {
                 shuffleTiles[i1][j1] = temp;
 
             }
-        }
-    }
-
-    /**
-     * Temporary undo method until under in boardmanager is abstracted properly.
-     */
-    void undoSliding() {
-        if (this.remainingUndos > 0) {
-            this.remainingUndos--;
-            this.gameStates.pop();
-            this.slidingBoard = this.gameStates.peek();
-            setChanged();
-            notifyObservers();
         }
     }
 }
