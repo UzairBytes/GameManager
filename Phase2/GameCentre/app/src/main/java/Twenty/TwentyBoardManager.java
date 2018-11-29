@@ -231,8 +231,8 @@ public class TwentyBoardManager extends BoardManager {
     @Override
     public int score() {
         int finalScore = 0;
-        for (int i = 0; i < this.twentyBoard.getNumRows(); i++){
-            for (int j = 0; j < this.twentyBoard.getNumCols(); j++){
+        for (int i = 0; i < this.size; i++){
+            for (int j = 0; j < this.size; j++){
                 finalScore += this.twentyBoard.getTile(i,j).getId();
             }
         }
