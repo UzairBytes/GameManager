@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -13,6 +14,7 @@ import java.io.ObjectOutputStream;
 import Checkers.CheckersSettingActivity;
 import Sliding.SlidingSettingsActivity;
 import Twenty.TwentySettingsActivity;
+import phase1.Account;
 import phase1.AccountManager;
 import phase1.Game;
 
@@ -39,6 +41,7 @@ public class StartingActivity extends AppCompatActivity {
         addLoadButtonListener();
         addSaveButtonListener();
         addLeaderBoardListener();
+        setWelcomeText();
     }
 
     /**
@@ -103,6 +106,22 @@ public class StartingActivity extends AppCompatActivity {
                 makeToastSavedText();
             }
             });
+    }
+
+    /**
+     * Displays welcoming text and instructions for the selected game.
+     */
+    private void setWelcomeText(){
+        TextView welcomeText = findViewById(R.id.GameText);
+        if(AccountManager.activeAccount.getActiveGameName().equals(Game.SLIDING_NAME)) {
+            welcomeText.setText("Welcome to the Sliding Tiles Game! \n Arrange the numbers in ascending order to win!");
+        }
+        else if(AccountManager.activeAccount.getActiveGameName().equals(Game.CHECKERS_NAME)) {
+            welcomeText.setText("Welcome to the Checkers Game! \n Capture all your opponents pieces to win!");
+        }
+        else if(AccountManager.activeAccount.getActiveGameName().equals(Game.TWENTY_NAME)) {
+            welcomeText.setText("Welcome to the 2048 Game! \n Combine identical tiles and try to get or surpass 2048!");
+        }
     }
 
     /**
