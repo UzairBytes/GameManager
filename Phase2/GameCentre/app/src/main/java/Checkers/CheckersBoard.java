@@ -7,8 +7,6 @@ import fall2018.csc2017.CoreClasses.Board;
 public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
 
 
-    private boolean redsTurn;
-
     private CheckersTile highLightedTile;
 
     private int[] highLightedTilePosition = new int[2];
@@ -62,9 +60,8 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
         }
     }
 
-    CheckersBoard(CheckersTile[][] tiles, int size, boolean redsTurn) {
+    CheckersBoard(CheckersTile[][] tiles, int size) {
         super();
-        this.redsTurn = redsTurn;
         this.tiles = tiles;
         this.size = size;
         setNumCols(size);
@@ -87,7 +84,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
         }
 
         maybeMakeKing(row2, col2);
-        ((CheckersTile)tiles[row2][col2]).dehighlight();
+        getCheckersTile(row2, col2).dehighlight();
         highLightedTile = null;
         highLightedTilePosition = new int[2];
     }
@@ -129,10 +126,10 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
      * @param col column of the tile
      */
     private void maybeMakeKing(int row, int col) {
-        if (((CheckersTile) tiles[row][col]).getCheckersId().contains(CheckersTile.RED) && row == 0) {
-            ((CheckersTile)tiles[row][col]).changeTile(CheckersTile.RED_KING);
-        } else if (((CheckersTile) tiles[row][col]).getCheckersId().contains(CheckersTile.WHITE) && row == getNumRows() -1) {
-            ((CheckersTile) tiles[row][col]).changeTile(CheckersTile.WHITE_KING);
+        if (getCheckersTile(row, col).getCheckersId().contains(CheckersTile.RED) && row == 0) {
+            getCheckersTile(row, col).changeTile(CheckersTile.RED_KING);
+        } else if (getCheckersTile(row, col).getCheckersId().contains(CheckersTile.WHITE) && row == getNumRows() -1) {
+            getCheckersTile(row, col).changeTile(CheckersTile.WHITE_KING);
         }
     }
 
@@ -146,7 +143,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
                 copyTile[row][col] = new CheckersTile(((CheckersTile) this.tiles[row][col]).getCheckersId());
             }
         }
-        CheckersBoard copiedBoard = new CheckersBoard(copyTile, this.size, redsTurn);
+        CheckersBoard copiedBoard = new CheckersBoard(copyTile, this.size);
         copiedBoard.tiles = copyTile;
         copiedBoard.highLightedTilePosition = highLightedTilePosition;
         copiedBoard.highLightedTile = highLightedTile;

@@ -41,14 +41,13 @@ public class CheckersBoardManager extends BoardManager {
     private boolean hasSlain = false;
 
 
-
     /**
      * Initialize the data of this game given a GameFile, containing a Stack of Boards
      * (each representing a specific 'game state'), and attributes telling of the game's settings.
      *
      * @param gameFile: Represents a record of data for this game.
      */
-    protected CheckersBoardManager(CheckersGameFile gameFile) {
+    public CheckersBoardManager(CheckersGameFile gameFile) {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.remainingUndos;
@@ -84,7 +83,7 @@ public class CheckersBoardManager extends BoardManager {
             }
         }
         this.redsTurn = redsTurn;
-        this.board = new CheckersBoard(tiles, size, redsTurn);
+        this.board = new CheckersBoard(tiles, size);
 
         // Create a new GameFile, and initialize it with this shuffled board.
         CheckersGameFile gameFile = new CheckersGameFile(this.board, Instant.now().toString());
@@ -197,8 +196,8 @@ public class CheckersBoardManager extends BoardManager {
             hasSlain = false;
             swapRedsTurn();
         }
-
-//        save(newBoard);
+        super.addUndos();
+        save(newBoard);
         setChanged();
         notifyObservers();
 
@@ -210,9 +209,6 @@ public class CheckersBoardManager extends BoardManager {
      * @return true if and only if the piece that has just slain can slay again!!
      */
     private boolean stillHasMoves(int sourceRow, int sourceColumn){
-
-
-        if (!hasSlain){return false;}
         int[][] jumps = {{sourceRow +2, sourceColumn +2}, {sourceRow -2 , sourceColumn + 2 },
                 {sourceRow +2, sourceColumn -2},{sourceRow-2,sourceColumn-2} };
         for (int[] move:jumps){
@@ -230,8 +226,8 @@ public class CheckersBoardManager extends BoardManager {
         for (Tile[] row : board.tiles) {
             for (Tile tile : row) {
                 CheckersTile checkersTile = (CheckersTile) tile;
-                redWins = redWins && !checkersTile.getCheckersId().contains(checkersTile.WHITE);
-                whiteWins = whiteWins && !checkersTile.getCheckersId().contains(checkersTile.RED);
+                redWins = redWins && !checkersTile.getCheckersId().contains(CheckersTile.WHITE);
+                whiteWins = whiteWins && !checkersTile.getCheckersId().contains(CheckersTile.RED);
                 if (!redWins && !whiteWins) {
                     return false;
                 }
@@ -296,6 +292,10 @@ public class CheckersBoardManager extends BoardManager {
         if (this.remainingUndos > 0) {
             this.board = (CheckersBoard) super.undo();
         }
+        this.board.getHighLightedTile().dehighlight();
+        setChanged();
+        notifyObservers();
+        swapRedsTurn();
         return this.board;
     }
 
