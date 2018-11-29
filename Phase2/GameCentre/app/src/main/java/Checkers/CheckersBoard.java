@@ -84,7 +84,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
         }
 
         maybeMakeKing(row2, col2);
-        ((CheckersTile)tiles[row2][col2]).dehighlight();
+        getCheckersTile(row2, col2).dehighlight();
         highLightedTile = null;
         highLightedTilePosition = new int[2];
     }
@@ -126,10 +126,10 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
      * @param col column of the tile
      */
     private void maybeMakeKing(int row, int col) {
-        if (((CheckersTile) tiles[row][col]).getCheckersId().contains(CheckersTile.RED) && row == 0) {
-            ((CheckersTile)tiles[row][col]).changeTile(CheckersTile.RED_KING);
-        } else if (((CheckersTile) tiles[row][col]).getCheckersId().contains(CheckersTile.WHITE) && row == getNumRows() -1) {
-            ((CheckersTile) tiles[row][col]).changeTile(CheckersTile.WHITE_KING);
+        if (getCheckersTile(row, col).getCheckersId().contains(CheckersTile.RED) && row == 0) {
+            getCheckersTile(row, col).changeTile(CheckersTile.RED_KING);
+        } else if (getCheckersTile(row, col).getCheckersId().contains(CheckersTile.WHITE) && row == getNumRows() -1) {
+            getCheckersTile(row, col).changeTile(CheckersTile.WHITE_KING);
         }
     }
 
