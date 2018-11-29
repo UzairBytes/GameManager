@@ -14,8 +14,14 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import Checkers.CheckersBoardManager;
+import Checkers.CheckersGameActivity;
+import Checkers.CheckersGameFile;
 import Sliding.SlidingBoardManager;
 import Sliding.SlidingTilesGameActivity;
+import Twenty.TwentyBoardManager;
+import Twenty.TwentyGameActivity;
+import Twenty.TwentyGameFile;
 import phase1.Account;
 import phase1.AccountManager;
 import phase1.Game;
@@ -60,9 +66,9 @@ public class LoadGameActivity extends AppCompatActivity {
         if(gameType.equals(Game.SLIDING_NAME)){
              start = new Intent(this, SlidingTilesGameActivity.class);
         }else if(gameType.equals(Game.TWENTY_NAME)){
-            start = new Intent(this, SlidingTilesGameActivity.class);
+            start = new Intent(this, TwentyGameActivity.class);
         }else if(gameType.equals(Game.CHECKERS_NAME)){
-            start = new Intent(this, SlidingTilesGameActivity.class);
+            start = new Intent(this, CheckersGameActivity.class);
         }
         ListView listV = findViewById(R.id.savedFiles);
         int pos = listV.getCheckedItemPosition();
@@ -74,7 +80,13 @@ public class LoadGameActivity extends AppCompatActivity {
             String fileName = files.get(pos);
             acc.loadAccountGameData();
             GameFile desiredFile = AccountManager.activeAccount.getGames(gameType).get(fileName);
-            boardManager = new SlidingBoardManager((SlidingGameFile)desiredFile);
+            if(gameType.equals(Game.SLIDING_NAME)){
+                boardManager = new SlidingBoardManager((SlidingGameFile)desiredFile);
+            }else if(gameType.equals(Game.TWENTY_NAME)){
+                boardManager = new TwentyBoardManager((TwentyGameFile) desiredFile);
+            }else{
+//                boardManager = new CheckersBoardManager((CheckersGameFile) desiredFile);
+            }
             Savable.saveToFile(TEMP_SAVE_FILENAME, boardManager);
             startActivity(start);
         }
