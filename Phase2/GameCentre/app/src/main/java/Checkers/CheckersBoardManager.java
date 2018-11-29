@@ -218,9 +218,7 @@ public class CheckersBoardManager extends BoardManager {
         for (int[] move:jumps){
             if (isValidMove(move[0]*board.getNumRows() + move[1])){
                     return true;}}
-
-
-
+        board.getHighLightedTile().dehighlight();
         return false;
     }
 
