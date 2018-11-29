@@ -49,13 +49,13 @@ public class TwentyBoardManager extends BoardManager {
         TwentyGameFile gameFile = new TwentyGameFile(this.twentyBoard, Instant.now().toString());
 
         // Add this new GameFile to the current active account's list of GameFiles.
-        AccountManager.activeAccount.addGameFile(gameFile);
+//        AccountManager.activeAccount.addGameFile(gameFile);
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
         this.numMoves = gameFile.numMoves;
         this.maxUndos = gameFile.maxUndos;
         this.twentyBoard.generateRandomTile();
-        save(this.twentyBoard);
+//        save(this.twentyBoard);
     }
 
     /**
@@ -77,16 +77,16 @@ public class TwentyBoardManager extends BoardManager {
         if(dir == 'U' && isValidMove(false)){
             boardChanged = mergeTilesInDir('U');
         }else if(dir == 'D' && isValidMove(false)){
-            boardChanged = mergeTilesInDir('U');
+            boardChanged = mergeTilesInDir('D');
         }else if(dir == 'L' && isValidMove(true)){
             boardChanged = mergeTilesInDir('L');
         }else if(dir == 'R' && isValidMove(true)){
             boardChanged = mergeTilesInDir('R');
-        }else{
-            // Not a valid move, game is finished here.
         }
+
         if(boardChanged){
             this.twentyBoard.generateRandomTile();
+            super.addUndos();
         }
         System.out.println("After the move:");
         for(int i =0; i<3; i++){
@@ -111,7 +111,7 @@ public class TwentyBoardManager extends BoardManager {
         boolean boardChanged = false;
         // This algorithm must be done three times for correctness.
         // Although it is O(N^2) with NxN board, the board typically won't be greater than 5x5.
-        for(int i = 0; i<3; i++){
+        for(int i = 0; i<sqBoardSize-1; i++){
             for(int j = 0; j < sqBoardSize; j++){
                 for(int k = 0; k < sqBoardSize - 1; k++){
                     if(dir == 'U'){
@@ -223,6 +223,22 @@ public class TwentyBoardManager extends BoardManager {
 
         return this.twentyBoard;
     }
+
+    /**
+     *
+     * Returns the calculated score
+     */
+    @Override
+    public int score() {
+        int finalScore = 0;
+        for (int i = 0; i < this.twentyBoard.getNumRows(); i++){
+            for (int j = 0; j < this.twentyBoard.getNumCols(); j++){
+                finalScore += this.twentyBoard.getTile(i,j).getId();
+            }
+        }
+        return finalScore;
+    }
+
 
     public void setMaxUndos(int maxUndoValue) {
         this.gameFile.setMaxUndos(maxUndoValue);

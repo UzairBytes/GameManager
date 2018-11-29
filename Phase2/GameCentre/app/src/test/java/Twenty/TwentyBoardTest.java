@@ -36,7 +36,7 @@ public class TwentyBoardTest {
         twentyBoard.insertTile(0,1, tile2);
         twentyBoard.mergeTiles(0, 0, 0, 1);
 
-        assertEquals("twentyBoard.mergeTiles failed test 1.", 4, ((TwentyTile)(twentyBoard.getTile(0,0))).getId());
+        assertEquals("twentyBoard.mergeTiles failed test 1.", 8, ((TwentyTile)(twentyBoard.getTile(0,0))).getId());
         assertEquals("twentyBoard.mergeTiles failed test 1.", 0, ((TwentyTile)(twentyBoard.getTile(0,1))).getId());
     }
 

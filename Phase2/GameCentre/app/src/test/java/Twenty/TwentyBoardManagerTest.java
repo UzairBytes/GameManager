@@ -78,7 +78,7 @@ public class TwentyBoardManagerTest {
         tile1 = new TwentyTile(2, 2);
         twentyBoard.insertTile(0,2,tile1);
         twentyBoardManager.touchMove('L');
-        assertEquals("twentyBoard.touchMove() failed test 1.", 2, twentyBoard.getTile(0,0).getId());
+        assertEquals("twentyBoard.touchMove() failed test 1.", 4, twentyBoard.getTile(0,0).getId());
 
         // Test on a rightwards movement
         twentyBoardManager = new TwentyBoardManager(3);
@@ -86,7 +86,7 @@ public class TwentyBoardManagerTest {
         tile1 = new TwentyTile(2, 2);
         twentyBoard.insertTile(0,0,tile1);
         twentyBoardManager.touchMove('R');
-        assertEquals("twentyBoard.touchMove() failed test 2.", 2, twentyBoard.getTile(0,2).getId());
+        assertEquals("twentyBoard.touchMove() failed test 2.", 4, twentyBoard.getTile(0,2).getId());
 
         // Test on a downwards movement
         twentyBoardManager = new TwentyBoardManager(3);
@@ -94,7 +94,7 @@ public class TwentyBoardManagerTest {
         tile1 = new TwentyTile(2, 2);
         twentyBoard.insertTile(0,2,tile1);
         twentyBoardManager.touchMove('D');
-        assertEquals("twentyBoard.touchMove() failed test 3.", 2, twentyBoard.getTile(2,2).getId());
+        assertEquals("twentyBoard.touchMove() failed test 3.", 4, twentyBoard.getTile(2,2).getId());
 
         // Test on an upwards movement
         twentyBoardManager = new TwentyBoardManager(3);
@@ -102,7 +102,7 @@ public class TwentyBoardManagerTest {
         tile1 = new TwentyTile(2, 2);
         twentyBoard.insertTile(2,0,tile1);
         twentyBoardManager.touchMove('U');
-        assertEquals("twentyBoard.touchMove() failed test 4.", 2, twentyBoard.getTile(0,0).getId());
+        assertEquals("twentyBoard.touchMove() failed test 4.", 4, twentyBoard.getTile(0,0).getId());
     }
 
 
