@@ -7,6 +7,8 @@ import phase1.AccountManager;
 import phase1.Game;
 
 import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 
 public class TwentyBoardManagerTest {
 
@@ -105,6 +107,22 @@ public class TwentyBoardManagerTest {
         assertEquals("twentyBoard.touchMove() failed test 4.", 4, twentyBoard.getTile(0,0).getId());
     }
 
+    @Test
+    public void testGetSize(){
+        assertEquals("twentyBoardManager.getSize() failed test 1", 3, twentyBoardManager.getSize());
+    }
+
+    @Test
+    public void testGetBoard(){
+        TwentyBoard twentyBoard = twentyBoardManager.twentyBoard;
+        assertEquals("twentyBoardManager.getBoard() failed test 1",twentyBoard, twentyBoardManager.getBoard());
+    }
+
+    @Test public void testScore(){
+        twentyBoardManager = new TwentyBoardManager(3);
+        int score = twentyBoardManager.score();
+        assertThat("twentyBoardManager.score() failed test 1",score>=2 && score<=8);
+    }
 
 
 }
