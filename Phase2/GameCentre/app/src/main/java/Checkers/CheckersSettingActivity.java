@@ -55,7 +55,7 @@ public class CheckersSettingActivity extends SettingsActivity {
                 setSize();
                 setUndos();
                 checkersBoardManager.setOpponentType(oppenentType);
-                if (size > 7 && size < 13) {
+                if (size > 3 && size < 13 && size%2 == 0) {
                     switchToGame();
                 }
                 else {
