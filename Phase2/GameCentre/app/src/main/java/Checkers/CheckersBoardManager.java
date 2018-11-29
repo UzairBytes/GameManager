@@ -206,7 +206,7 @@ public class CheckersBoardManager extends BoardManager {
      * @return true if and only if the piece that has just slain can slay again!!
      */
     private boolean stillHasMoves(int sourceRow, int sourceColumn){
-        if (hasSlain){return false;}
+        if (!hasSlain){return false;}
         int[][] jumps = {{sourceRow +2, sourceColumn +2}, {sourceRow -2 , sourceColumn + 2 },
                 {sourceRow +2, sourceColumn -2},{sourceRow-2,sourceColumn-2} };
         for (int[] move:jumps){
@@ -251,6 +251,10 @@ public class CheckersBoardManager extends BoardManager {
 
     void swapRedsTurn() {
         redsTurn = !redsTurn;
+    }
+
+    boolean isHasSlain() {
+        return hasSlain;
     }
 
     static CheckersBoard getBoard() {
