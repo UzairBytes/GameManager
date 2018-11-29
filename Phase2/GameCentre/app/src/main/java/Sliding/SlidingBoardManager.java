@@ -27,10 +27,6 @@ public class SlidingBoardManager extends BoardManager {
      */
     private SlidingGameFile gameFile;
 
-    /**
-     * Holds a stack of Boards, with each Board representing a specific game state.
-     */
-    private Stack<SlidingBoard> gameStates;
 
     /**
      * Initialize the data of this game given a GameFile, containing a Stack of Boards

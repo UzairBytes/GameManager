@@ -63,10 +63,29 @@ public abstract class BoardManager extends Observable implements Serializable, G
      */
     public Board undo(){
         this.remainingUndos--;
+        printStack();
         this.gameStates.pop();
         Board lastBoard = this.gameStates.peek();
         setChanged();
         notifyObservers();
         return lastBoard;
+    }
+
+    // Testing method used by Sid
+    private void printStack(){
+        System.out.println("The stack:");
+        Stack<Board> rptStack = new Stack<Board>();
+        Board lastBoard = this.gameStates.pop();
+        for(int s =0; s<this.gameStates.size(); s++){
+            for(int i =0; i<3; i++){
+                System.out.println(lastBoard.getTile(i,0).id + " " +lastBoard.getTile(i,1).id + " "+lastBoard.getTile(i,2).id);
+            }
+            rptStack.push(lastBoard);
+            lastBoard = this.gameStates.pop();
+            System.out.println( " ");
+        }
+        while(!rptStack.isEmpty()){
+            this.gameStates.push(rptStack.pop());
+        }
     }
 }
