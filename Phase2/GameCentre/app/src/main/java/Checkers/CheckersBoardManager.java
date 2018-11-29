@@ -210,9 +210,6 @@ public class CheckersBoardManager extends BoardManager {
      * @return true if and only if the piece that has just slain can slay again!!
      */
     private boolean stillHasMoves(int sourceRow, int sourceColumn){
-
-
-        if (!hasSlain){return false;}
         int[][] jumps = {{sourceRow +2, sourceColumn +2}, {sourceRow -2 , sourceColumn + 2 },
                 {sourceRow +2, sourceColumn -2},{sourceRow-2,sourceColumn-2} };
         for (int[] move:jumps){
@@ -230,8 +227,8 @@ public class CheckersBoardManager extends BoardManager {
         for (Tile[] row : board.tiles) {
             for (Tile tile : row) {
                 CheckersTile checkersTile = (CheckersTile) tile;
-                redWins = redWins && !checkersTile.getCheckersId().contains(checkersTile.WHITE);
-                whiteWins = whiteWins && !checkersTile.getCheckersId().contains(checkersTile.RED);
+                redWins = redWins && !checkersTile.getCheckersId().contains(CheckersTile.WHITE);
+                whiteWins = whiteWins && !checkersTile.getCheckersId().contains(CheckersTile.RED);
                 if (!redWins && !whiteWins) {
                     return false;
                 }
