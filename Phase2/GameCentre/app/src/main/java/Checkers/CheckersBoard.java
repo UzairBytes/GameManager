@@ -7,8 +7,6 @@ import fall2018.csc2017.CoreClasses.Board;
 public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
 
 
-    private boolean redsTurn;
-
     private CheckersTile highLightedTile;
 
     private int[] highLightedTilePosition = new int[2];
@@ -62,9 +60,8 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
         }
     }
 
-    CheckersBoard(CheckersTile[][] tiles, int size, boolean redsTurn) {
+    CheckersBoard(CheckersTile[][] tiles, int size) {
         super();
-        this.redsTurn = redsTurn;
         this.tiles = tiles;
         this.size = size;
         setNumCols(size);
@@ -146,7 +143,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
                 copyTile[row][col] = new CheckersTile(((CheckersTile) this.tiles[row][col]).getCheckersId());
             }
         }
-        CheckersBoard copiedBoard = new CheckersBoard(copyTile, this.size, redsTurn);
+        CheckersBoard copiedBoard = new CheckersBoard(copyTile, this.size);
         copiedBoard.tiles = copyTile;
         copiedBoard.highLightedTilePosition = highLightedTilePosition;
         copiedBoard.highLightedTile = highLightedTile;
