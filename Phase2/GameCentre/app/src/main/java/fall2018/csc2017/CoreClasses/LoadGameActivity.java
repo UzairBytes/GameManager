@@ -85,7 +85,7 @@ public class LoadGameActivity extends AppCompatActivity {
             }else if(gameType.equals(Game.TWENTY_NAME)){
                 boardManager = new TwentyBoardManager((TwentyGameFile) desiredFile);
             }else{
-//                boardManager = new CheckersBoardManager((CheckersGameFile) desiredFile);
+            //boardManager = new CheckersBoardManager((CheckersGameFile) desiredFile);
             }
             Savable.saveToFile(TEMP_SAVE_FILENAME, boardManager);
             startActivity(start);
