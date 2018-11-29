@@ -158,7 +158,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed(){
-        Intent logIn = new Intent(this, LogInActivity.class);
-        startActivity(logIn);
+        Intent selectGame = new Intent(this, GameSelectActivity.class);
+        startActivity(selectGame);
     }
 }
