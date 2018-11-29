@@ -19,11 +19,9 @@ public class TwentyMovementController extends MovementController {
         this.twentyBoardManager = twentyBoardManager;
     }
 
-    public void processSlideMovement(Context context, boolean horizDir, Character direction) {
+    public void processSlideMovement(Context context, boolean horizDir, char direction) {
         if (twentyBoardManager.isValidMove(horizDir)) {
-
             twentyBoardManager.touchMove(direction);
-
             if (twentyBoardManager.gameComplete()) {
                 LeaderBoard.updateScores(new GameScore(
                         "Twenty", twentyBoardManager.getGameFile().getName(),

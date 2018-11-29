@@ -76,9 +76,9 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
 
         } else if (Math.abs(distanceY) > Math.abs(distanceX) && Math.abs(distanceY) > SWIPE_MIN_DISTANCE) {
             if (distanceY > 0) {
-                onSwipeUp();
-            } else {
                 onSwipeDown();
+            } else {
+                onSwipeUp();
             }
             return true;
         }

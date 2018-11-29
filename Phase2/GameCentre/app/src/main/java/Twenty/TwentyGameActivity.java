@@ -30,6 +30,8 @@ public class TwentyGameActivity extends GameActivity implements Observer {
     public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+        gridView.setLongClickable(true);
+
     }
 
     private void createTileButtons(Context context){
@@ -46,6 +48,7 @@ public class TwentyGameActivity extends GameActivity implements Observer {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("second");
         super.onCreate(savedInstanceState);
         twentyBoardManager = (TwentyBoardManager) Savable.loadFromFile(TEMP_SAVE_FILENAME);
         createTileButtons(this);
@@ -72,7 +75,6 @@ public class TwentyGameActivity extends GameActivity implements Observer {
         });
 
         addUndoButtonListener();
-        twentyBoardManager.twentyBoard.generateRandomTile();
     }
 
     private void addUndoButtonListener(){
