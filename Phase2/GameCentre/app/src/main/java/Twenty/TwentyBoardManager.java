@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import Sliding.SlidingBoard;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
@@ -33,17 +34,10 @@ public class TwentyBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(int size) {
-
-        // Initialize the board as all blank tiles.
+        
         this.size = size;
-        List<TwentyTile> tiles = new ArrayList<>();
-        final int numTiles = size * size;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new TwentyTile(0, 0));
-        }
-
         // Create the board, and specify number of rows, columns
-        this.twentyBoard = new TwentyBoard(tiles, size, size);
+        this.twentyBoard = new TwentyBoard(size, size);
 
         // Create a new GameFile, and initialize it with this blank board.
         TwentyGameFile gameFile = new TwentyGameFile(this.twentyBoard, Instant.now().toString());
@@ -65,6 +59,8 @@ public class TwentyBoardManager extends BoardManager {
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
      */
     public void touchMove(char dir){
+        TwentyBoard newBoard = twentyBoard.createDeepCopy();
+        this.twentyBoard = newBoard;
         System.out.println("Direction: " + dir);
         System.out.println("Before the move:");
         for(int i =0; i<3; i++){

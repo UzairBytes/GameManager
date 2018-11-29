@@ -3,14 +3,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import Sliding.SlidingBoard;
 import fall2018.csc2017.CoreClasses.Board;
+import fall2018.csc2017.CoreClasses.Tile;
 
 public class TwentyBoard extends Board {
 
     /**
      * Initializes the TwentyBoard with a list of tiles.
      */
-    public TwentyBoard(List<TwentyTile> tiles, int numRows, int numCols) {
+    public TwentyBoard(int numRows, int numCols) {
+        // Initialize the board as all blank tiles.
+        List<TwentyTile> tiles = new ArrayList<>();
+        final int numTiles = numRows * numCols;
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            tiles.add(new TwentyTile(0, 0));
+        }
         this.numRows = numRows;
         this.numCols = numCols;
         Iterator<TwentyTile> iter = tiles.iterator();
@@ -119,6 +127,11 @@ public class TwentyBoard extends Board {
             }
         }
         return false;
+    }
+
+    public TwentyBoard createDeepCopy() {
+        Tile[][] tiles = super.createDeepCopy().tiles;
+        return new TwentyBoard(getNumRows(), getNumCols());
     }
 
 
