@@ -196,6 +196,7 @@ public class CheckersBoardManager extends BoardManager {
             hasSlain = false;
             swapRedsTurn();
         }
+        super.addUndos();
         save(newBoard);
         setChanged();
         notifyObservers();
@@ -291,6 +292,10 @@ public class CheckersBoardManager extends BoardManager {
         if (this.remainingUndos > 0) {
             this.board = (CheckersBoard) super.undo();
         }
+        this.board.getHighLightedTile().dehighlight();
+        setChanged();
+        notifyObservers();
+        swapRedsTurn();
         return this.board;
     }
 
