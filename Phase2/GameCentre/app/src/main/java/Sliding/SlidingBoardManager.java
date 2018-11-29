@@ -38,9 +38,9 @@ public class SlidingBoardManager extends BoardManager {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.getRemainingUndos();
-        this.remainingUndos = gameFile.getMaxUndos();
+        this.maxUndos = gameFile.getMaxUndos();
         this.numMoves = gameFile.getNumMoves();
-        AccountManager.activeAccount.setActiveGameFile(gameFile);
+        AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.slidingBoard = (SlidingBoard) gameFile.getGameStates().peek();
         }
@@ -78,6 +78,7 @@ public class SlidingBoardManager extends BoardManager {
 
         // Add this new GameFile to the current active account's list of GameFiles.
         AccountManager.activeAccount.addGameFile(gameFile);
+        AccountManager.activeAccount.saveAccountGameData();
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
         this.numMoves = gameFile.getNumMoves();

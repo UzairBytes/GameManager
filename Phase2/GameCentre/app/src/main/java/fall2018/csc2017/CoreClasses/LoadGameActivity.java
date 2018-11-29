@@ -16,10 +16,12 @@ import java.util.ArrayList;
 
 import Sliding.SlidingBoardManager;
 import Sliding.SlidingTilesGameActivity;
+import phase1.Account;
 import phase1.AccountManager;
 import phase1.Game;
 import phase1.GameFile;
 import Sliding.SlidingGameFile;
+import phase1.Savable;
 
 
 public class LoadGameActivity extends AppCompatActivity {
@@ -68,11 +70,12 @@ public class LoadGameActivity extends AppCompatActivity {
             makeToastFile();
         }
         else {
+            Account acc = AccountManager.activeAccount;
             String fileName = files.get(pos);
-            AccountManager.activeAccount.loadAccountGameData();
+            acc.loadAccountGameData();
             GameFile desiredFile = AccountManager.activeAccount.getGames(gameType).get(fileName);
             boardManager = new SlidingBoardManager((SlidingGameFile)desiredFile);
-            saveToFile(TEMP_SAVE_FILENAME);
+            Savable.saveToFile(TEMP_SAVE_FILENAME, boardManager);
             startActivity(start);
         }
     }

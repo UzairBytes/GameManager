@@ -49,13 +49,13 @@ public class TwentyBoardManager extends BoardManager {
         TwentyGameFile gameFile = new TwentyGameFile(this.twentyBoard, Instant.now().toString());
 
         // Add this new GameFile to the current active account's list of GameFiles.
-        AccountManager.activeAccount.addGameFile(gameFile);
+//        AccountManager.activeAccount.addGameFile(gameFile);
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
         this.numMoves = gameFile.numMoves;
         this.maxUndos = gameFile.maxUndos;
         this.twentyBoard.generateRandomTile();
-        save(this.twentyBoard);
+//        save(this.twentyBoard);
     }
 
     /**

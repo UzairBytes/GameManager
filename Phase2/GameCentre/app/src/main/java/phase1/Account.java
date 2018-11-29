@@ -116,6 +116,7 @@ public class Account implements Serializable {
         HashMap<String, GameFile> gameFiles = this.accountGameData.get(this.activeGameName);
         gameFiles.put(gameFile.getName(), gameFile);
         this.activeGameFile = gameFile;
+        this.saveAccountGameData();
     }
 
     public String getActiveGameName(){
