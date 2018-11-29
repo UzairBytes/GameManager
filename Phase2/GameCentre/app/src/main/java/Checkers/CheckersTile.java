@@ -14,10 +14,7 @@ public class CheckersTile extends Tile {
      * Overwrite id to be a String
      */
     private String id;
-    /**
-     * Array of locations in the form [row, column] where CheckersTile can jump to take a piece
-     */
-    private int[][] canTakePiece;
+
 
     /**
      * HashMap of images
@@ -34,7 +31,7 @@ public class CheckersTile extends Tile {
 
     static final String KING = "king";
 
-    static final String PAWN = "pawn";
+    private static final String PAWN = "pawn";
 
     static final String RED_KING = RED + KING;
 
@@ -44,7 +41,7 @@ public class CheckersTile extends Tile {
 
     static final String WHITE_PAWN = WHITE + PAWN;
 
-    static final String HIGHLIGHTED = "_highlighted";
+    private static final String HIGHLIGHTED = "_highlighted";
 
     /**
      * A constructor for a checker tile with a background id
@@ -53,7 +50,6 @@ public class CheckersTile extends Tile {
     CheckersTile(String id) {
         super();
         this.id = id;
-        canTakePiece = new int[4][2];
         picts.put(EMPTY_WHITE_TILE, R.drawable.checkers_empty_white_tile);
         picts.put(BLACK_TILE, R.drawable.checkers_empty_black_tile);
         picts.put(RED_PAWN, R.drawable.checkers_red_pawn);
@@ -73,23 +69,6 @@ public class CheckersTile extends Tile {
     }
 
 
-    /**
-     * Sets the list of locations where a CheckerTile can jump to take a piece
-     *
-     * @param canTakePiece where a checkerTile can jump to take a piece
-     */
-    void setCanTakePiece(int[][] canTakePiece){
-        this.canTakePiece = canTakePiece;
-    }
-
-    /**
-     * Return the value of canTakePiece.
-     *
-     * @return canTakePiece
-     */
-    int[][] isCanTakePiece() {
-        return canTakePiece;
-    }
 
     /**
      * Highlight the selected CheckersTile
