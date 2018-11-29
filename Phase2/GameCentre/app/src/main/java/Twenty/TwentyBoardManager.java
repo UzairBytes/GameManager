@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Stack;
 
 import Sliding.SlidingBoard;
+import Sliding.SlidingGameFile;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
@@ -27,6 +28,18 @@ public class TwentyBoardManager extends BoardManager {
      */
     private int size;
 
+    @SuppressWarnings("unchecked")
+    public TwentyBoardManager(TwentyGameFile gameFile) {
+        this.gameFile = gameFile;
+        this.gameStates = gameFile.getGameStates();
+        this.remainingUndos = gameFile.getRemainingUndos();
+        this.maxUndos = gameFile.getMaxUndos();
+        this.numMoves = gameFile.getNumMoves();
+        AccountManager.activeAccount.addGameFile(gameFile);
+        if (!gameFile.getGameStates().isEmpty()) {
+            this.twentyBoard = (TwentyBoard) gameFile.getGameStates().peek();
+        }
+    }
 
     /**
      * Manage a new blank board.

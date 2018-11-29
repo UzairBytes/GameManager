@@ -6,7 +6,6 @@ import fall2018.csc2017.CoreClasses.Board;
 
 public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
 
-    CheckersTile[][] tiles;
 
     private boolean redsTurn;
 
@@ -45,7 +44,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
          */
         @Override
         public CheckersTile next() {
-            CheckersTile nextTile = tiles[nextRow][nextColumn];
+            CheckersTile nextTile = (CheckersTile) tiles[nextRow][nextColumn];
             nextColumn++;
             if (nextColumn >= tiles[0].length) {
                 nextColumn = 0;
@@ -84,11 +83,11 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
     public void swapTiles(int row1, int col1, int row2, int col2) {
         super.swapTiles(row1, col1, row2, col2);
         if (Math.abs(row1 - row2) == 2) {
-            tiles[(row1 + row2) / 2][(col1 + col2) / 2].changeTile(CheckersTile.EMPTY_WHITE_TILE);
+            ((CheckersTile)tiles[(row1 + row2) / 2][(col1 + col2) / 2]).changeTile(CheckersTile.EMPTY_WHITE_TILE);
         }
 
         maybeMakeKing(row2, col2);
-        highLightedTile.dehighlight();
+        ((CheckersTile)tiles[row2][col2]).dehighlight();
         highLightedTile = null;
         highLightedTilePosition = new int[2];
     }
@@ -120,7 +119,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
      * @return the tile at row, col
      */
     CheckersTile getCheckersTile(int row, int col) {
-        return tiles[row][col];
+        return (CheckersTile) tiles[row][col];
     }
 
     /**
@@ -130,10 +129,10 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
      * @param col column of the tile
      */
     private void maybeMakeKing(int row, int col) {
-        if (tiles[row][col].getCheckersId().contains(CheckersTile.RED) && row == getNumRows() - 1) {
-            tiles[row][col].changeTile(CheckersTile.RED_KING);
-        } else if (tiles[row][col].getCheckersId().contains(CheckersTile.WHITE) && row == 0) {
-            tiles[row][col].changeTile(CheckersTile.WHITE_KING);
+        if (((CheckersTile) tiles[row][col]).getCheckersId().contains(CheckersTile.RED) && row == 0) {
+            ((CheckersTile)tiles[row][col]).changeTile(CheckersTile.RED_KING);
+        } else if (((CheckersTile) tiles[row][col]).getCheckersId().contains(CheckersTile.WHITE) && row == getNumRows() -1) {
+            ((CheckersTile) tiles[row][col]).changeTile(CheckersTile.WHITE_KING);
         }
     }
 
@@ -144,11 +143,13 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
         CheckersTile[][] copyTile = new CheckersTile[getNumRows()][getNumCols()];
         for (int row = 0; row != getNumRows(); row++) {
             for (int col = 0; col != getNumCols(); col++) {
-                copyTile[row][col] = new CheckersTile(this.tiles[row][col].getCheckersId());
+                copyTile[row][col] = new CheckersTile(((CheckersTile) this.tiles[row][col]).getCheckersId());
             }
         }
         CheckersBoard copiedBoard = new CheckersBoard(copyTile, this.size, redsTurn);
         copiedBoard.tiles = copyTile;
+        copiedBoard.highLightedTilePosition = highLightedTilePosition;
+        copiedBoard.highLightedTile = highLightedTile;
         return copiedBoard;
     }
 }
