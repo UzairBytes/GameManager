@@ -44,7 +44,7 @@ public abstract class Savable  {
 
     /* Load method used when there's a risk of loading before saving. */
     @SuppressWarnings("unchecked")
-    public static Object loadAtStart(String saveFileName, Object data){
+    public static Object loadAtStart(String saveFileName, Object initialData){
         try {
             File file = new File(AccountManager.contextPath  + saveFileName);
             FileInputStream input = new FileInputStream(file);
@@ -52,8 +52,8 @@ public abstract class Savable  {
             return inputStream.readObject();
         } catch (IOException e1) {
             System.out.println("Hello!");
-            saveToFile(saveFileName, data);
-            return loadFromFile(saveFileName);
+            Savable.saveToFile(saveFileName, initialData);
+            return initialData;
         } catch (ClassNotFoundException e2){ // Should never happen.
             return null;
         }
