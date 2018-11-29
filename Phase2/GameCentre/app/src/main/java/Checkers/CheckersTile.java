@@ -21,6 +21,10 @@ public class CheckersTile extends Tile {
      */
     private HashMap<String, Integer> picts = new HashMap<>();
 
+    /**
+     * Strings used to denote different tile images
+     */
+
     static final String EMPTY_WHITE_TILE = "empty";
 
     static final String BLACK_TILE = "black";

@@ -34,6 +34,12 @@ public class CheckersBoardManager extends BoardManager {
      */
     private String opponentType;
 
+    /**
+     * Initialize the data of this game given a GameFile, containing a Stack of Boards
+     * (each representing a specific 'game state'), and attributes telling of the game's settings.
+     *
+     * @param gameFile: Represents a record of data for this game.
+     */
     protected CheckersBoardManager(CheckersGameFile gameFile) {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
@@ -46,6 +52,11 @@ public class CheckersBoardManager extends BoardManager {
         }
     }
 
+    /**
+     * Manage a newly set uo checker board.
+     *
+     * @param size: The desired size of the board.
+     */
     CheckersBoardManager(int size, boolean redsTurn) {
         super();
         CheckersTile[][] tiles = new CheckersTile[size][size];
@@ -146,6 +157,11 @@ public class CheckersBoardManager extends BoardManager {
                 return true;
     }
 
+    /**
+     * Moves the selected piece to a the target position. Potentially takes an opponent piece in the process.
+     *
+     * @param position: The position the selected piece is moved to.
+     */
     void touchMove(int position){
         CheckersBoard newBoard = board.createDeepCopy();
         this.board = newBoard;
@@ -166,8 +182,8 @@ public class CheckersBoardManager extends BoardManager {
         boolean whiteWins = true;
         for (CheckersTile[] row: board.tiles){
             for (CheckersTile tile: row){
-                redWins = redWins && !tile.getCheckersId().contains("white");
-                whiteWins = whiteWins && !tile.getCheckersId().contains("red");
+                redWins = redWins && !tile.getCheckersId().contains(tile.WHITE);
+                whiteWins = whiteWins && !tile.getCheckersId().contains(tile.RED);
                 if (!redWins && !whiteWins){
                     return false;
                 }
