@@ -53,6 +53,8 @@ public class SlidingBoardManager extends BoardManager {
 
     /**
      * Manage a new shuffled board.
+     *
+     * @param size: The desired size of the board.
      */
     @SuppressWarnings("unchecked")
     SlidingBoardManager(int size) {
