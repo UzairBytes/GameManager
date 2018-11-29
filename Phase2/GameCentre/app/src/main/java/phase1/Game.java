@@ -24,7 +24,7 @@ public interface Game {
     /*
      * Name of SlidingTiles -- a type of Game in this GameCenter.
      */
-    String SLIDING_NAME = "Sliding Tiles";
+    String SLIDING_NAME = "SlidingTiles"; //TODO Does the space matter?
 
     /**
      * Name of Twenty -- a type of Game in this GameCenter.

@@ -1,6 +1,14 @@
 package phase1;
 
 
+import android.util.Log;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -144,13 +152,17 @@ public class LeaderBoard {
         String fileName;
         ArrayList<GameScore> loadedData;
         if (type.equals(PERSONAL)) {
-            fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
-            loadedData = (ArrayList<GameScore>) Savable.loadFromFile(fileName);
+            //fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
+            fileName = "test.ser";
+            //TODO: Perhaps improve implementation
+            HashMap<String, ArrayList<GameScore>> newMap = new HashMap<>();
+            loadedData = (ArrayList<GameScore>) LeaderBoard.load(fileName, newMap);
             validateKey(AccountManager.activeAccount.getLeaderBoard().personalScoresMap, gameName);
             AccountManager.activeAccount.getLeaderBoard().personalScoresMap.replace(AccountManager.activeAccount.getActiveGameName(), loadedData);
         } else {
             fileName = "/" + GLOBAL + "/" + gameName + SCORES_DOT_SER;
-            loadedData = (ArrayList<GameScore>) Savable.loadFromFile(fileName);
+            HashMap<String, ArrayList<GameScore>> newMap2 = new HashMap<>();
+            loadedData = (ArrayList<GameScore>) LeaderBoard.load(fileName, newMap2);
             validateKey(globalScoresMap, gameName);
             globalScoresMap.replace(gameName, loadedData);
         }
@@ -172,11 +184,55 @@ public class LeaderBoard {
         if (type.equals(PERSONAL)) {
             fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
             validateKey(activeAccount.getLeaderBoard().personalScoresMap, gameName);
-            Savable.saveToFile(fileName, activeAccount.getLeaderBoard().personalScoresMap.get(gameName));
+            LeaderBoard.save(fileName, activeAccount.getLeaderBoard().personalScoresMap.get(gameName));
         } else {
             fileName = "/" + GLOBAL + "/" + gameName + SCORES_DOT_SER;
             validateKey(globalScoresMap, gameName);
-            Savable.saveToFile(fileName, globalScoresMap.get(gameName));
+            LeaderBoard.save(fileName, globalScoresMap.get(gameName));
+        }
+    }
+
+
+    /**
+     * Overwrite and save the <games> hashMap in a serializable file.
+     */
+    public static void save(String fileName, ArrayList<GameScore> s) {
+
+        try {
+            String path = AccountManager.contextPath;
+            File file = new File(path + fileName);
+            System.out.println("path:" + path + fileName);
+            FileOutputStream output = new FileOutputStream(file);
+            ObjectOutputStream outputStream = new ObjectOutputStream(output);
+            outputStream.writeObject(s);
+            outputStream.close();
+        } catch (IOException e) {
+            System.out.println(e);
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Retrieve the <games> hashmap from the .ser file, if it exists. If it doesn't, that means
+     * that the user has not yet made a game file. In this case, save the existing empty map of
+     * game files to the .ser file.
+     */
+    @SuppressWarnings("unchecked")
+    public static ArrayList<GameScore> load(String fileName, HashMap<String, ArrayList<GameScore>>  s){
+
+        try {
+            String path = AccountManager.contextPath;
+            File file = new File(path + fileName);
+            System.out.println("path:" + path + fileName);
+            FileInputStream input = new FileInputStream(file);
+            ObjectInputStream inputStream = new ObjectInputStream(input);
+            return ( ArrayList<GameScore>) inputStream.readObject();
+        }catch (IOException e1){
+            LeaderBoard.save(fileName, s.get(Game.SLIDING_NAME));
+            return LeaderBoard.load(fileName, s);
+        }catch (ClassNotFoundException e1 ) {
+            System.out.println(e1);
+            return null;
         }
     }
 }
