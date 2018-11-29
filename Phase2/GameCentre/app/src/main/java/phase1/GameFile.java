@@ -57,8 +57,8 @@ public abstract class GameFile<T> implements Serializable {
         this.numMoves = numMoves;
     }
 
-    public void setMaxUndos(int numMoves){
-        this.numMoves = numMoves;
+    public void setMaxUndos(int maxUndos){
+        this.maxUndos = maxUndos;
     }
 
 
