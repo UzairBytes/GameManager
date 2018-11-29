@@ -41,14 +41,13 @@ public class CheckersBoardManager extends BoardManager {
     private boolean hasSlain = false;
 
 
-
     /**
      * Initialize the data of this game given a GameFile, containing a Stack of Boards
      * (each representing a specific 'game state'), and attributes telling of the game's settings.
      *
      * @param gameFile: Represents a record of data for this game.
      */
-    protected CheckersBoardManager(CheckersGameFile gameFile) {
+    public CheckersBoardManager(CheckersGameFile gameFile) {
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.remainingUndos;
@@ -197,8 +196,7 @@ public class CheckersBoardManager extends BoardManager {
             hasSlain = false;
             swapRedsTurn();
         }
-
-//        save(newBoard);
+        save(newBoard);
         setChanged();
         notifyObservers();
 
