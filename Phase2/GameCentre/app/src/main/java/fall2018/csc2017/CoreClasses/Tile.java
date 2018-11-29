@@ -16,7 +16,7 @@ public abstract class Tile implements Comparable<Tile>, Serializable {
     /**
      * The id.
      */
-    private int id;
+    public int id;
 
     /**
      * Return the background id.

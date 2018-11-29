@@ -3,24 +3,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import Sliding.SlidingBoard;
 import fall2018.csc2017.CoreClasses.Board;
+import fall2018.csc2017.CoreClasses.Tile;
 
 public class TwentyBoard extends Board {
 
     /**
      * Initializes the TwentyBoard with a list of tiles.
      */
-    public TwentyBoard(List<TwentyTile> tiles, int numRows, int numCols) {
-        this.numRows = numRows;
-        this.numCols = numCols;
-        Iterator<TwentyTile> iter = tiles.iterator();
-        this.tiles = new TwentyTile[numRows][numCols];
-        for(int row = 0; row<numRows; row++){
-            for(int col = 0; col<numCols; col++){
-                this.tiles[row][col] = iter.next();
-            }
-        }
-
+    public TwentyBoard(Tile[][] tiles, int numRows, int numCols) {
+        super(tiles, numRows, numCols);
     }
 
 
@@ -39,7 +32,7 @@ public class TwentyBoard extends Board {
         // Verify preconditions.
         if(tile1Id == tile2Id){
             // TODO: Insert a real background image
-            mergedTile =  new TwentyTile(tile1Id+1, tile1Id*tile2Id);
+            mergedTile =  new TwentyTile((int)(Math.log(tile1Id)/Math.log(2))+1, tile1Id*tile2Id);
             blankTile = new TwentyTile(0, 0);
             this.tiles[row1][col1] = mergedTile;
             this.tiles[row2][col2] = blankTile;
@@ -119,6 +112,11 @@ public class TwentyBoard extends Board {
             }
         }
         return false;
+    }
+
+    public TwentyBoard createDeepCopy() {
+        Tile[][] tiles = super.createDeepCopy().tiles;
+        return new TwentyBoard(tiles, getNumRows(), getNumCols());
     }
 
 
