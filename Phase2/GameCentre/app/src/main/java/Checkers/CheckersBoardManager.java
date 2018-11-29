@@ -63,16 +63,13 @@ public class CheckersBoardManager extends BoardManager {
         String id;
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                if ((row + col) % 2 == 0){
+                if ((row + col) % 2 == 0) {
                     id = CheckersTile.BLACK_TILE;
-                }
-                else if (row < (size/2 - 1) ){
+                } else if (row < (size / 2 - 1)) {
                     id = CheckersTile.WHITE_PAWN;
-                }
-                else if (row > (size/2) ){
+                } else if (row > (size / 2)) {
                     id = CheckersTile.RED_PAWN;
-                }
-                else{
+                } else {
                     id = CheckersTile.EMPTY_WHITE_TILE;
                 }
                 tiles[row][col] = new CheckersTile(id);
@@ -95,14 +92,15 @@ public class CheckersBoardManager extends BoardManager {
 
     /**
      * Highlights Tile is if the selected tile belongs to the right player
+     *
      * @param position position of the tile
      */
-    boolean isValidSelect (int position){
+    boolean isValidSelect(int position) {
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         CheckersTile selectedTile = board.getCheckersTile(row, col);
         String tileId = selectedTile.getCheckersId();
-        if (redsTurn && tileId.contains("red") || tileId.contains("white")){
+        if (redsTurn && tileId.contains("red") || tileId.contains("white")) {
             board.setHighLightedTile(row, col);
             setChanged();
             notifyObservers();
@@ -113,10 +111,11 @@ public class CheckersBoardManager extends BoardManager {
 
     /**
      * Checks if the move is valid. Note in this version we don't force you to take a piece.
+     *
      * @param position position of the target tile
      * @return true if and only if the move is allowed in Checkers
      */
-    boolean isValidMove (int position){
+    boolean isValidMove(int position) {
         CheckersTile highLightedTile = board.getHighLightedTile();
         String highId = highLightedTile.getCheckersId();
         int highRow = board.getHighLightedTilePosition()[0];
@@ -124,37 +123,43 @@ public class CheckersBoardManager extends BoardManager {
         int targetRow = position / board.getNumRows();
         int targetCol = position % board.getNumCols();
         CheckersTile targetTile = board.getCheckersTile(targetRow, targetCol);
-        if (!isCorrectDirection(highId, highRow, targetRow)){return false;}
-        if (Math.abs(highRow - targetRow)==1
-                && targetTile.getCheckersId().equals(CheckersTile.EMPTY_WHITE_TILE)){
-            return Math.abs(targetCol - highCol)==1;
+        if (!isCorrectDirection(highId, highRow, targetRow)) {
+            return false;
         }
-        if (Math.abs(highRow - targetRow)==2
+        if (Math.abs(highRow - targetRow) == 1
+                && targetTile.getCheckersId().equals(CheckersTile.EMPTY_WHITE_TILE)) {
+            return Math.abs(targetCol - highCol) == 1;
+        }
+        if (Math.abs(highRow - targetRow) == 2
                 && targetTile.getCheckersId().equals(CheckersTile.EMPTY_WHITE_TILE)
-                && Math.abs(targetCol - highCol)==2){
-            CheckersTile middleTile = board.getCheckersTile((targetRow+highRow)/2,(targetCol+highRow)/2);
-            if (middleTile.getCheckersId().contains(CheckersTile.RED)){
-                return highLightedTile.getCheckersId().contains(CheckersTile.WHITE);
-            }
-            return highLightedTile.getCheckersId().contains(CheckersTile.RED);
+                && Math.abs(targetCol - highCol) == 2) {
+            CheckersTile middleTile = board.getCheckersTile((targetRow + highRow) / 2, (targetCol + highCol) / 2);
+            if (middleTile.getCheckersId().contains(CheckersTile.RED) && !redsTurn) {
+                return true;
+            } else return middleTile.getCheckersId().contains(CheckersTile.WHITE) && redsTurn;
         }
         return false;
     }
 
     /**
      * Checks if player is trying to move a Checkers piece in the right direction
-     * @param tileId id of the selected tile
+     *
+     * @param tileId    id of the selected tile
      * @param sourceRow starting row of the selected tile
      * @param targetRow destination row of the selected tile
      * @return true if the Checkers piece is moving in the right direction and false otherwise
      */
-    private boolean isCorrectDirection(String tileId, int sourceRow, int targetRow){
+    private boolean isCorrectDirection(String tileId, int sourceRow, int targetRow) {
         if (tileId.contains(CheckersTile.RED)
-                && !tileId.contains(CheckersTile.KING)){return sourceRow > targetRow;}
+                && !tileId.contains(CheckersTile.KING)) {
+            return sourceRow > targetRow;
+        }
 
         if (tileId.contains(CheckersTile.WHITE)
-                && !tileId.contains(CheckersTile.KING)){return sourceRow < targetRow;}
-                return true;
+                && !tileId.contains(CheckersTile.KING)) {
+            return sourceRow < targetRow;
+        }
+        return true;
     }
 
     /**
@@ -162,7 +167,7 @@ public class CheckersBoardManager extends BoardManager {
      *
      * @param position: The position the selected piece is moved to.
      */
-    void touchMove(int position){
+    void touchMove(int position) {
         CheckersBoard newBoard = board.createDeepCopy();
         this.board = newBoard;
         int highRow = board.getHighLightedTilePosition()[0];
@@ -170,29 +175,28 @@ public class CheckersBoardManager extends BoardManager {
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         board.swapTiles(highRow, highCol, row, col);
-        save(newBoard);
+//        save(newBoard);
         setChanged();
         notifyObservers();
         swapRedsTurn();
     }
 
     //should use an iterator
-    boolean gameComplete(){
+    boolean gameComplete() {
         boolean redWins = true;
         boolean whiteWins = true;
-        for (CheckersTile[] row: board.tiles){
-            for (CheckersTile tile: row){
+        for (CheckersTile[] row : board.tiles) {
+            for (CheckersTile tile : row) {
                 redWins = redWins && !tile.getCheckersId().contains(tile.WHITE);
                 whiteWins = whiteWins && !tile.getCheckersId().contains(tile.RED);
-                if (!redWins && !whiteWins){
+                if (!redWins && !whiteWins) {
                     return false;
                 }
             }
         }
-        if (redWins){
+        if (redWins) {
             winner = "Red";
-        }
-        else {
+        } else {
             winner = "White";
         }
         return true;
@@ -202,9 +206,13 @@ public class CheckersBoardManager extends BoardManager {
         return winner;
     }
 
-    boolean isRedsTurn(){return redsTurn;}
+    boolean isRedsTurn() {
+        return redsTurn;
+    }
 
-    void swapRedsTurn(){ redsTurn = !redsTurn;}
+    void swapRedsTurn() {
+        redsTurn = !redsTurn;
+    }
 
     static CheckersBoard getBoard() {
         return board;
@@ -237,11 +245,11 @@ public class CheckersBoardManager extends BoardManager {
      * Switches the board back one move, if the user has undos left
      */
     @Override
-    public Board undo () {
+    public Board undo() {
         if (this.remainingUndos > 0) {
             this.board = (CheckersBoard) super.undo();
         }
-            return this.board;
+        return this.board;
     }
 
     /**
@@ -259,7 +267,7 @@ public class CheckersBoardManager extends BoardManager {
         this.opponentType = opponentType;
     }
 
-    String getOpponentType(){
+    String getOpponentType() {
         return this.opponentType;
     }
 }
