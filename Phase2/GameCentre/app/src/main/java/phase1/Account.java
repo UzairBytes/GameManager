@@ -103,7 +103,6 @@ public class Account implements Serializable {
      * @return said hashMap
      */
     public HashMap<String, GameFile> getGames(String gameType) {
-        System.out.println("ran!");
         this.loadAccountGameData();
         return this.accountGameData.get(gameType);
     }
@@ -134,7 +133,6 @@ public class Account implements Serializable {
         try {
             String path = AccountManager.contextPath;
             File file = new File(path + this.saveFileName);
-            System.out.println("path:" + path + this.saveFileName);
             FileOutputStream output = new FileOutputStream(file);
             ObjectOutputStream outputStream = new ObjectOutputStream(output);
             outputStream.writeObject(this.accountGameData);
@@ -155,7 +153,6 @@ public class Account implements Serializable {
         try {
             String path = AccountManager.contextPath;
             File file = new File(path + this.saveFileName);
-            System.out.println("path:" + path + this.saveFileName);
             FileInputStream input = new FileInputStream(file);
             ObjectInputStream inputStream = new ObjectInputStream(input);
             this.accountGameData = (HashMap<String, HashMap<String, GameFile>>) inputStream.readObject();

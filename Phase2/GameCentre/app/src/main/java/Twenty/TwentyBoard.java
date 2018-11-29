@@ -39,7 +39,7 @@ public class TwentyBoard extends Board {
         // Verify preconditions.
         if(tile1Id == tile2Id){
             // TODO: Insert a real background image
-            mergedTile =  new TwentyTile(tile1Id+1, tile1Id*tile2Id);
+            mergedTile =  new TwentyTile((int)(Math.log(tile1Id)/Math.log(2))+1, tile1Id*tile2Id);
             blankTile = new TwentyTile(0, 0);
             this.tiles[row1][col1] = mergedTile;
             this.tiles[row2][col2] = blankTile;

@@ -22,11 +22,6 @@ public class TwentyBoardManager extends BoardManager {
     private TwentyGameFile gameFile;
 
     /**
-     * Holds a stack of Boards, with each Board representing a specific game state.
-     */
-    private Stack<TwentyBoard> gameStates;
-
-    /**
      * Keeps track of board size
      */
     private int size;
@@ -59,6 +54,8 @@ public class TwentyBoardManager extends BoardManager {
         this.gameStates = this.gameFile.getGameStates();
         this.numMoves = gameFile.numMoves;
         this.maxUndos = gameFile.maxUndos;
+        this.twentyBoard.generateRandomTile();
+        save(this.twentyBoard);
     }
 
     /**
@@ -68,21 +65,34 @@ public class TwentyBoardManager extends BoardManager {
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
      */
     public void touchMove(char dir){
+        System.out.println("Direction: " + dir);
+        System.out.println("Before the move:");
+        for(int i =0; i<3; i++){
+            System.out.println(this.twentyBoard.getTile(i,0).id + " " +this.twentyBoard.getTile(i,1).id + " "+this.twentyBoard.getTile(i,2).id);
+        }
+        System.out.println("During the move!");
+        boolean boardChanged = false;
         if(dir == 'U' && isValidMove(false)){
-            mergeTilesInDir('U');
-            this.twentyBoard.generateRandomTile();
+            boardChanged = mergeTilesInDir('U');
         }else if(dir == 'D' && isValidMove(false)){
-            mergeTilesInDir('D');
-            this.twentyBoard.generateRandomTile();
+            boardChanged = mergeTilesInDir('U');
         }else if(dir == 'L' && isValidMove(true)){
-            mergeTilesInDir('L');
-            this.twentyBoard.generateRandomTile();
+            boardChanged = mergeTilesInDir('L');
         }else if(dir == 'R' && isValidMove(true)){
-            mergeTilesInDir('R');
-            this.twentyBoard.generateRandomTile();
+            boardChanged = mergeTilesInDir('R');
         }else{
             // Not a valid move, game is finished here.
         }
+        if(boardChanged){
+            this.twentyBoard.generateRandomTile();
+        }
+        System.out.println("After the move:");
+        for(int i =0; i<3; i++){
+            System.out.println(this.twentyBoard.getTile(i,0).id + " " +this.twentyBoard.getTile(i,1).id + " "+this.twentyBoard.getTile(i,2).id);
+        }
+        save(this.twentyBoard);
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -92,11 +102,13 @@ public class TwentyBoardManager extends BoardManager {
      * Postconditions: The board will be altered so all tiles are moved as much as possible in
      *      the direction dir. Also all tiles of equal id will collapse into one tile.
      */
-    private void mergeTilesInDir(char dir){
+    private boolean mergeTilesInDir(char dir){
         TwentyTile tile1, tile2;
         int tile1Row = 0, tile2Row = 0, tile1Col = 0, tile2Col = 0;
         int sqBoardSize = this.twentyBoard.getNumRows();
+        boolean boardChanged = false;
         // This algorithm must be done three times for correctness.
+        // Although it is O(N^2) with NxN board, the board typically won't be greater than 5x5.
         for(int i = 0; i<3; i++){
             for(int j = 0; j < sqBoardSize; j++){
                 for(int k = 0; k < sqBoardSize - 1; k++){
@@ -123,14 +135,22 @@ public class TwentyBoardManager extends BoardManager {
                     }
                     tile1 = (TwentyTile)this.twentyBoard.getTile(tile1Row, tile1Col);
                     tile2 = (TwentyTile)this.twentyBoard.getTile(tile2Row, tile2Col);
-                    if(tile1.getId() == tile2.getId()){
-                        this.twentyBoard.mergeTiles(tile1Row, tile1Col, tile2Row, tile2Col);
-                    }else if(tile1.getId() == 0){
+
+                    if(tile1.getId() == 0){
                         this.twentyBoard.swapTiles(tile1Row, tile1Col, tile2Row, tile2Col);
+                        if(tile2.getId() != 0){
+                            boardChanged = true;
+                        }
+                        System.out.println("ran 1");
+                    } else if(tile1.getId() == tile2.getId()) {
+                        this.twentyBoard.mergeTiles(tile1Row, tile1Col, tile2Row, tile2Col);
+                        boardChanged = true;
+                        System.out.println("ran 2");
                     }
                 }
             }
         }
+        return boardChanged;
     }
 
     /* Getter for the GameFile that this board manager exists in.
@@ -178,6 +198,8 @@ public class TwentyBoardManager extends BoardManager {
         this.gameFile = (TwentyGameFile) AccountManager.activeAccount.getActiveGameFile();
         this.gameStates = this.gameFile.getGameStates();
         this.twentyBoard = board;
+
+        System.out.println("Board saved!");
     }
 
     /**
@@ -188,6 +210,13 @@ public class TwentyBoardManager extends BoardManager {
         if (this.remainingUndos > 0) {
             this.twentyBoard = (TwentyBoard) super.undo();
         }
+        System.out.println("After the undo:");
+        for(int i =0; i<3; i++){
+            System.out.println(this.twentyBoard.getTile(i,0).id + " " +this.twentyBoard.getTile(i,1).id + " "+this.twentyBoard.getTile(i,2).id);
+        }
+        setChanged();
+        notifyObservers();
+
         return this.twentyBoard;
     }
 
@@ -195,6 +224,6 @@ public class TwentyBoardManager extends BoardManager {
         this.gameFile.setMaxUndos(maxUndoValue);
         this.gameFile.setRemainingUndos(0);
         this.maxUndos = maxUndoValue;
-        this.remainingUndos = 0;
+        this.remainingUndos = maxUndoValue;
     }
 }
