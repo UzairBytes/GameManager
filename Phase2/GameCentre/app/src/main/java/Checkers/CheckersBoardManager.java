@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
+import fall2018.csc2017.CoreClasses.Tile;
 import phase1.AccountManager;
 import phase1.GameFile;
 
@@ -33,6 +34,11 @@ public class CheckersBoardManager extends BoardManager {
      * Which AI the opponent is or human if you're playing a human
      */
     private String opponentType;
+
+    /**
+     * Indicates whether a piece has been slain on the current turn yet
+     */
+    private boolean hasSlain = false;
 
     /**
      * Initialize the data of this game given a GameFile, containing a Stack of Boards
@@ -96,11 +102,13 @@ public class CheckersBoardManager extends BoardManager {
      * @param position position of the tile
      */
     boolean isValidSelect(int position) {
+        if (hasSlain){return false;} // if it has slain, you can't select anything else
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         CheckersTile selectedTile = board.getCheckersTile(row, col);
         String tileId = selectedTile.getCheckersId();
-        if (redsTurn && tileId.contains("red") || tileId.contains("white")) {
+
+        if ((redsTurn && tileId.contains("red")) || (!redsTurn && tileId.contains("white"))) {
             board.setHighLightedTile(row, col);
             setChanged();
             notifyObservers();
@@ -175,20 +183,51 @@ public class CheckersBoardManager extends BoardManager {
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         board.swapTiles(highRow, highCol, row, col);
+        if (Math.abs(highCol-col)==2){
+            board.setHighLightedTile(row, col);
+            hasSlain = true;}
+        if (hasSlain && stillHasMoves(row, col)){
+            board.setHighLightedTile(row, col);
+        }
+        else {
+            hasSlain = false;
+            swapRedsTurn();
+        }
+
 //        save(newBoard);
         setChanged();
         notifyObservers();
-        swapRedsTurn();
+
     }
+    /**
+     * Check if a piece that has just slain another can slay again!
+     * @param sourceRow row of the piece in question
+     * @param sourceColumn column of the piece in question
+     * @return true if and only if the piece that has just slain can slay again!!
+     */
+    private boolean stillHasMoves(int sourceRow, int sourceColumn){
+        if (hasSlain){return false;}
+        int[][] jumps = {{sourceRow +2, sourceColumn +2}, {sourceRow -2 , sourceColumn + 2 },
+                {sourceRow +2, sourceColumn -2},{sourceRow-2,sourceColumn-2} };
+        for (int[] move:jumps){
+            if (isValidMove(move[0]*board.getNumRows() + move[1])){
+
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     //should use an iterator
     boolean gameComplete() {
         boolean redWins = true;
         boolean whiteWins = true;
-        for (CheckersTile[] row : board.tiles) {
-            for (CheckersTile tile : row) {
-                redWins = redWins && !tile.getCheckersId().contains(tile.WHITE);
-                whiteWins = whiteWins && !tile.getCheckersId().contains(tile.RED);
+        for (Tile[] row : board.tiles) {
+            for (Tile tile : row) {
+                CheckersTile checkersTile = (CheckersTile) tile;
+                redWins = redWins && !checkersTile.getCheckersId().contains(checkersTile.WHITE);
+                whiteWins = whiteWins && !checkersTile.getCheckersId().contains(checkersTile.RED);
                 if (!redWins && !whiteWins) {
                     return false;
                 }
