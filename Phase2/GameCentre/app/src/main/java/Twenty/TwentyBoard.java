@@ -45,7 +45,7 @@ public class TwentyBoard extends Board {
         int tileRow = position[0], tileCol = position[1];
 
         // Pick a random value from (2^1, 2^2, 2^3)
-        int ranExp = (int)(Math.random() * 4 + 1);
+        int ranExp = (int)(Math.random() * 3 + 1);
         int ranNum = (int)(Math.pow(2, ranExp));
 
         // TODO: Insert a background image instead of ranNum
