@@ -41,7 +41,7 @@ public class CheckersTile extends Tile {
 
     static final String WHITE_PAWN = WHITE + PAWN;
 
-    private static final String HIGHLIGHTED = "_highlighted";
+    static final String HIGHLIGHTED = "_highlighted";
 
     /**
      * A constructor for a checker tile with a background id
@@ -53,6 +53,7 @@ public class CheckersTile extends Tile {
         picts.put(EMPTY_WHITE_TILE, R.drawable.checkers_empty_white_tile);
         picts.put(BLACK_TILE, R.drawable.checkers_empty_black_tile);
         picts.put(RED_PAWN, R.drawable.checkers_red_pawn);
+        picts.put(RED_KING, R.drawable.checkers_red_king);
         picts.put(WHITE_PAWN, R.drawable.checkers_white_pawn);
         picts.put(WHITE_KING, R.drawable.checkers_white_king);
         picts.put(RED_PAWN + HIGHLIGHTED, R.drawable.checkers_red_pawn_highlighted);
