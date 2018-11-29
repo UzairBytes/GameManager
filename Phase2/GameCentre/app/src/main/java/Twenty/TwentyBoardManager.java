@@ -34,10 +34,16 @@ public class TwentyBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(int size) {
-        
         this.size = size;
+        TwentyTile boardTiles[][] = new TwentyTile[size][size];
+        for(int i = 0; i<size; i++){
+            for(int j = 0; j<size; j++){
+                boardTiles[i][j] = new TwentyTile(0,0);
+            }
+        }
+
         // Create the board, and specify number of rows, columns
-        this.twentyBoard = new TwentyBoard(size, size);
+        this.twentyBoard = new TwentyBoard(boardTiles, size, size);
 
         // Create a new GameFile, and initialize it with this blank board.
         TwentyGameFile gameFile = new TwentyGameFile(this.twentyBoard, Instant.now().toString());

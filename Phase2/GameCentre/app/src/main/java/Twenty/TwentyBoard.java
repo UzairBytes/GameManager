@@ -12,23 +12,8 @@ public class TwentyBoard extends Board {
     /**
      * Initializes the TwentyBoard with a list of tiles.
      */
-    public TwentyBoard(int numRows, int numCols) {
-        // Initialize the board as all blank tiles.
-        List<TwentyTile> tiles = new ArrayList<>();
-        final int numTiles = numRows * numCols;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new TwentyTile(0, 0));
-        }
-        this.numRows = numRows;
-        this.numCols = numCols;
-        Iterator<TwentyTile> iter = tiles.iterator();
-        this.tiles = new TwentyTile[numRows][numCols];
-        for(int row = 0; row<numRows; row++){
-            for(int col = 0; col<numCols; col++){
-                this.tiles[row][col] = iter.next();
-            }
-        }
-
+    public TwentyBoard(Tile[][] tiles, int numRows, int numCols) {
+        super(tiles, numRows, numCols);
     }
 
 
@@ -131,7 +116,7 @@ public class TwentyBoard extends Board {
 
     public TwentyBoard createDeepCopy() {
         Tile[][] tiles = super.createDeepCopy().tiles;
-        return new TwentyBoard(getNumRows(), getNumCols());
+        return new TwentyBoard(tiles, getNumRows(), getNumCols());
     }
 
 
