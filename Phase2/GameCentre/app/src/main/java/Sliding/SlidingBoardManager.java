@@ -20,7 +20,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * The board being managed.
      */
-    protected SlidingBoard slidingBoard;
+    private SlidingBoard slidingBoard;
 
     /**
      * The SlidingGameFile holding the data for this board.
@@ -59,8 +59,8 @@ public class SlidingBoardManager extends BoardManager {
         Tile[][] tiles = new Tile[size][size];
         final int numTiles = size * size;
         int tileNumber = 0;
-        for (int row = 0; row < size; row++){
-            for (int col = 0; col < size; col++){
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
                 tiles[row][col] = new SlidingTile(tileNumber, numTiles);
                 tileNumber++;
             }
@@ -69,7 +69,7 @@ public class SlidingBoardManager extends BoardManager {
         //Checks tiles if there are in a solvable formation.
         shuffleTiles(tiles);
         SlidingBoardSolvable checkSolvableBoard = new SlidingBoardSolvable(tiles);
-        while (!checkSolvableBoard.isBoardSolvable()){
+        while (!checkSolvableBoard.isBoardSolvable()) {
             shuffleTiles(tiles);
             checkSolvableBoard.setTiles(tiles);
         }
@@ -149,14 +149,16 @@ public class SlidingBoardManager extends BoardManager {
         notifyObservers();
     }
 
-    // TODO: Should be private -- have public for tests
-    void processMove(int position){
+    /**
+     * Process move swap tiles at the position of the movement.
+     */
+    void processMove(int position) {
         int row = position / slidingBoard.getNumRows();
         int col = position % slidingBoard.getNumCols();
         int blankId = slidingBoard.numTiles();
         SlidingTile above = row == 0 ? null : (SlidingTile) slidingBoard.getTile(row - 1, col);
         SlidingTile below = row == slidingBoard.getNumRows() - 1 ? null : (SlidingTile) slidingBoard.getTile(row + 1, col);
-        SlidingTile left = col == 0 ? null : (SlidingTile)slidingBoard.getTile(row, col - 1);
+        SlidingTile left = col == 0 ? null : (SlidingTile) slidingBoard.getTile(row, col - 1);
         SlidingTile right = col == slidingBoard.getNumCols() - 1 ? null : (SlidingTile) slidingBoard.getTile(row, col + 1);
         addUndos();
         numMoves++;
@@ -182,7 +184,7 @@ public class SlidingBoardManager extends BoardManager {
     public void save(SlidingBoard board) {
         super.save(board);
         AccountManager.activeAccount.saveAccountGameData();
-        this.gameFile = (SlidingGameFile)AccountManager.activeAccount.getActiveGameFile();
+        this.gameFile = (SlidingGameFile) AccountManager.activeAccount.getActiveGameFile();
         this.gameStates = this.gameFile.getGameStates();
         this.slidingBoard = board;
     }
@@ -218,6 +220,7 @@ public class SlidingBoardManager extends BoardManager {
         return this.slidingBoard;
     }
 
+
     /**
      * @param maxUndoValue: Maximum number of undo tries for this file.
      *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
@@ -232,11 +235,11 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * Shuffles array of tiles.
      *
-     * @param  shuffleTiles 2D array of tiles
+     * @param shuffleTiles 2D array of tiles
      */
-    private void shuffleTiles(Tile[][] shuffleTiles){
-        for (int i = 0; i < shuffleTiles.length; i++){
-            for (int j=0; j< shuffleTiles[i].length; j++){
+    private void shuffleTiles(Tile[][] shuffleTiles) {
+        for (int i = 0; i < shuffleTiles.length; i++) {
+            for (int j = 0; j < shuffleTiles[i].length; j++) {
                 int i1 = (int) (Math.random() * shuffleTiles.length);
                 int j1 = (int) (Math.random() * shuffleTiles.length);
 
@@ -250,10 +253,8 @@ public class SlidingBoardManager extends BoardManager {
 
     /**
      * Temporary undo method until under in boardmanager is abstracted properly.
-     *
-     * @return sliding board manager.
      */
-    public void undoSliding() {
+    void undoSliding() {
         if (this.remainingUndos > 0) {
             this.remainingUndos--;
             this.gameStates.pop();

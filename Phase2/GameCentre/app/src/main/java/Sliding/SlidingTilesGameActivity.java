@@ -13,7 +13,6 @@ import java.util.Observer;
 
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
-import fall2018.csc2017.CoreClasses.GestureDetectGridView;
 import fall2018.csc2017.CoreClasses.R;
 import phase1.Savable;
 
@@ -23,7 +22,7 @@ import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
  * The game activity.
  */
 public class SlidingTilesGameActivity extends GameActivity implements Observer {
-    
+
     /**
      * The board manager.
      */
@@ -34,9 +33,14 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      */
     ArrayList<Button> tileButtons; //TODO make private and add getter method
 
-    // Grid View and calculated column height and width based on device size
+    /**
+     * Gridview for sliding tiles game.
+     */
     private SlidingGestureDetectGridView gridView;
 
+    /**
+     * Calculate columnWidth and columnHeight based on device size.
+     */
     private static int columnWidth, columnHeight;
 
     /**
@@ -51,7 +55,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     /**
      * Undo botton restores game to previous state.
      */
-    private void addUndoButtonListener(){
+    private void addUndoButtonListener() {
         Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +113,12 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         addUndoButtonListener();
     }
 
+    /**
+     * Updates display based on behaviour of observables like Sliding Board Manager.
+     *
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
         display();

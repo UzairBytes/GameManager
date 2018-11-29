@@ -1,30 +1,13 @@
 package Sliding;
 
-import android.app.Instrumentation;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fall2018.csc2017.CoreClasses.Tile;
-import phase1.Account;
-import phase1.AccountManager;
-import phase1.Game;
 
 import static org.junit.Assert.*;
 
 public class SlidingBoardTest {
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
 
     /**
      * size of board
@@ -33,6 +16,7 @@ public class SlidingBoardTest {
 
     /**
      * Make a set of tiles that are in order.
+     *
      * @return a set of tiles that are in order
      */
     private Tile[][] makeTiles() {
@@ -48,18 +32,10 @@ public class SlidingBoardTest {
         return newTile;
     }
 
-    /** The board manager for testing. */
-    SlidingBoardManager slidingBoardManager;
-
-    /**The sliding board for testing.*/
-    SlidingBoard slidingBoard;
-
     /**
-     * Set up a Sliding board manager.
+     * The sliding board for testing.
      */
-    private void setUpSlidingBoardManager() {
-        slidingBoardManager = new SlidingBoardManager(size);
-    }
+    private SlidingBoard slidingBoard;
 
     /**
      * Set up a correct board.
@@ -67,14 +43,6 @@ public class SlidingBoardTest {
     private void setUpCorrect() {
         Tile[][] tiles = makeTiles();
         slidingBoard = new SlidingBoard(tiles, size, size);
-    }
-
-
-    /**
-     * Shuffle a few tiles.
-     */
-    private void swapFirstTwoTiles() {
-        slidingBoard.swapTiles(0, 0, 0, 1);
     }
 
     /**
@@ -101,6 +69,26 @@ public class SlidingBoardTest {
         slidingBoard.swapTiles(3, 3, 3, 2);
         assertEquals(16, slidingBoard.getTile(3, 2).getId());
         assertEquals(15, slidingBoard.getTile(3, 3).getId());
+    }
+
+    /**
+     * Test whether deepcopy returns a new board.
+     */
+    @Test
+    public void testCreateDeepCopy() {
+        setUpCorrect();
+        SlidingBoard newBoard2 = slidingBoard.createDeepCopy();
+        assertNotSame(slidingBoard, newBoard2);
+    }
+
+    /**
+     * Test numTiles method returns the correct number of tiles.
+     */
+    @Test
+    public void testNumTiles() {
+        setUpCorrect();
+        int sumTiles = slidingBoard.numTiles();
+        assertEquals(16, sumTiles);
     }
 
 }

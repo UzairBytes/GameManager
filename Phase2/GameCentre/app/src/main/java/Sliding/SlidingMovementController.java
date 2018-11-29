@@ -13,16 +13,35 @@ import phase1.LeaderBoard;
  */
 public class SlidingMovementController extends MovementController {
 
+    /**
+     * Sliding board manager for movement controller.
+     */
     private SlidingBoardManager slidingBoardManager = null;
 
+    /**
+     * Default constructor for sliding movement controller.
+     */
     public SlidingMovementController() {
     }
 
+    /**
+     * Sets movement controller sliding board manager equal to argument slidingBoardManager.
+     *
+     * @param slidingBoardManager
+     */
     public void setSlidingBoardManager(SlidingBoardManager slidingBoardManager) {
 
         this.slidingBoardManager = slidingBoardManager;
     }
 
+    /**
+     * If position of movement is a valid tap, executes touchMove and checks
+     * to see if the puzzle has been solved or prints invalid tap if move cannot be
+     * processed.
+     *
+     * @param context  app context.
+     * @param position int.
+     */
     public void processTapMovement(Context context, int position) {
         if (slidingBoardManager.isValidTap(position)) {
 

@@ -14,12 +14,15 @@ public class SlidingGameFile extends GameFile implements Serializable {
      * @param name:         The name of this game file
      */
     @SuppressWarnings("unchecked")
-    public SlidingGameFile(Board initialBoard, String name) {
+    SlidingGameFile(Board initialBoard, String name) {
         this.gameStates.push(initialBoard);
         this.name = name;
     }
 
-    public void increaseNumMoves(){
+    /**
+     * Increments NumMoves by 1.
+     */
+    void increaseNumMoves() {
         numMoves++;
     }
 

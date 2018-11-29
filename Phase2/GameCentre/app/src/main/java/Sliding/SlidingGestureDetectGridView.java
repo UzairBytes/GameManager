@@ -17,11 +17,32 @@ import android.view.MotionEvent;
 import fall2018.csc2017.CoreClasses.GestureDetectGridView;
 
 public class SlidingGestureDetectGridView extends GestureDetectGridView {
+
+    /**
+     * Swipe distance in gesture detect gridvew.
+     */
     public static final int SWIPE_MIN_DISTANCE = 100;
+
+    /**
+     * Controls detection of gestures on gridview.
+     */
     private GestureDetector gDetector;
+
+    /**
+     * Controls movements of buttons and tiles in gridview.
+     */
     private SlidingMovementController mController;
+
     private boolean mFlingConfirmed = false;
+
+    /**
+     * x coordinate of touch movement on gridview.
+     */
     private float mTouchX;
+
+    /**
+     * y coordinate of touch movement on gridview.
+     */
     private float mTouchY;
 
     public SlidingGestureDetectGridView(Context context) {
@@ -89,11 +110,22 @@ public class SlidingGestureDetectGridView extends GestureDetectGridView {
         return super.onInterceptTouchEvent(ev);
     }
 
+    /**
+     * Return true if movement event occurs.
+     *
+     * @param ev motion event.
+     * @return true or false.
+     */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Sets board manager in movement controller.
+     *
+     * @param slidingBoardManager sliding Board manager object.
+     */
     public void setBoardManager(SlidingBoardManager slidingBoardManager) {
         mController.setSlidingBoardManager(slidingBoardManager);
     }

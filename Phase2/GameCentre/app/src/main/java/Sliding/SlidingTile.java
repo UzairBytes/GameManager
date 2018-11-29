@@ -12,8 +12,9 @@ import fall2018.csc2017.CoreClasses.Tile;
 class SlidingTile extends Tile {
     /**
      * A tile with a background id; look up and set the id.
+     *
      * @param backgroundId the id of this Tile's background
-     * @param boardSize the size of the board in which this Tile is contained in
+     * @param boardSize    the size of the board in which this Tile is contained in
      */
 
 
@@ -48,18 +49,15 @@ class SlidingTile extends Tile {
 
         setId(backgroundId + 1);
         if (boardSize == 9) {
-            if (backgroundId == 8){
+            if (backgroundId == 8) {
                 setBackground(picts.get(24));
-            }
-            else{
+            } else {
                 setBackground(picts.get(backgroundId));
             }
-        }
-        else if (boardSize == 16) {
-            if (backgroundId == 15){
+        } else if (boardSize == 16) {
+            if (backgroundId == 15) {
                 setBackground(picts.get(24));
-            }
-            else{
+            } else {
                 setBackground(picts.get(backgroundId));
             }
         } else if (boardSize == 25) {
@@ -67,11 +65,4 @@ class SlidingTile extends Tile {
         }
 
     }
-
-    /**
-     * Return the tile id.
-     *
-     * @return the tile id
-     */
-    //public int getId(){return id;}
 }
