@@ -233,7 +233,7 @@ public class TwentyBoardManager extends BoardManager {
         int finalScore = 0;
         for (int i = 0; i < this.twentyBoard.getNumRows(); i++){
             for (int j = 0; j < this.twentyBoard.getNumCols(); j++){
-                finalScore += (int) Math.pow(2,(double) this.twentyBoard.getTile(i,j).getId());
+                finalScore += this.twentyBoard.getTile(i,j).getId();
             }
         }
         return finalScore;
