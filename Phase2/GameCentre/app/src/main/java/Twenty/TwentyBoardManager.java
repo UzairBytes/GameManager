@@ -209,8 +209,10 @@ public class TwentyBoardManager extends BoardManager {
      */
     @Override
     public Board undo() {
-        if (this.remainingUndos > 0) {
+        if (this.remainingUndos > 0 && this.gameStates.size() > 1) {
             this.twentyBoard = (TwentyBoard) super.undo();
+        }else{
+            System.out.println("EmptyStackError!");
         }
         System.out.println("After the undo:");
         for(int i =0; i<3; i++){
