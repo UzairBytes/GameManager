@@ -60,7 +60,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slidingboardManager.undoSliding();
+                slidingboardManager.undo();
             }
         });
     }

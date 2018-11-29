@@ -32,12 +32,12 @@ public class TwentyTile extends Tile {
 
         // Validate preconditions
         if(id != 0){
-            setBackground(picts.get(id));
-            setId(2^id);
+            super.setBackground(picts.get(id));
+            super.setId((int)Math.pow(2, id));
         }else{
             // Set to a blank tile otherwise.
-            setId(0);
-            setBackground(picts.get(0));
+            super.setId(0);
+            super.setBackground(picts.get(0));
         }
     }
 
