@@ -84,7 +84,7 @@ public class CheckersBoardManager extends BoardManager {
             }
         }
         this.redsTurn = redsTurn;
-        this.board = new CheckersBoard(tiles, size, redsTurn);
+        this.board = new CheckersBoard(tiles, size);
 
         // Create a new GameFile, and initialize it with this shuffled board.
         CheckersGameFile gameFile = new CheckersGameFile(this.board, Instant.now().toString());
