@@ -25,25 +25,6 @@ import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
  */
 public class SlidingTilesGameActivity extends GameActivity implements Observer {
 
-    /**
-     * The board manager.
-     */
-    SlidingBoardManager slidingboardManager; //TODO make private and add getter method
-
-    /**
-     * The buttons to display.
-     */
-    ArrayList<Button> tileButtons; //TODO make private and add getter method
-
-    /**
-     * Gridview for sliding tiles game.
-     */
-    private SlidingGestureDetectGridView gridView;
-
-    /**
-     * Calculate columnWidth and columnHeight based on device size.
-     */
-    private static int columnWidth, columnHeight;
 
     /**
      * Set up the background image for each button based on the master list
@@ -62,9 +43,9 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slidingboardManager.undo();
-                AccountManager.activeAccount.setActiveGameFile(slidingboardManager.getGameFile());
-                AccountManager.activeAccount.addGameFile(slidingboardManager.getGameFile());
+                boardManager.undo();
+                AccountManager.activeAccount.setActiveGameFile(boardManager.getGameFile());
+                AccountManager.activeAccount.addGameFile(boardManager.getGameFile());
             }
         });
     }
@@ -75,7 +56,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      * @param context the context
      */
     void createTileButtons(Context context) {
-        SlidingBoard board = slidingboardManager.getBoard();
+        SlidingBoard board = boardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != board.getNumRows(); row++) {
             for (int col = 0; col != board.getNumCols(); col++) {
@@ -132,7 +113,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        SlidingBoard board = slidingboardManager.getBoard();
+        SlidingBoard board = boardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / board.getNumCols();
@@ -145,6 +126,7 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
     /**
      * Dispatch onPause() to fragments.
      */
+    //TODO: What's this for?
     @Override
     protected void onPause() {
         super.onPause();

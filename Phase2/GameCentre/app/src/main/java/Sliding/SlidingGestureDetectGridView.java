@@ -30,11 +30,6 @@ public class SlidingGestureDetectGridView extends GestureDetectGridView {
      */
     private GestureDetector gDetector;
 
-    /**
-     * Controls movements of buttons and tiles in gridview.
-     */
-    private MovementController mController;
-
     private boolean mFlingConfirmed = false;
 
     /**

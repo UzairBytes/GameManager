@@ -198,7 +198,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * Return the current board.
      */
-    SlidingBoard getBoard() {
+    public SlidingBoard getBoard() {
         return this.slidingBoard;
     }
 

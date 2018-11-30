@@ -95,11 +95,13 @@ public class BoardManager extends Observable implements Serializable, Game {
      *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
      */
     public void setMaxUndos(int maxUndoValue) {
-        gameFile.setMaxUndos(maxUndoValue);
-        gameFile.setRemainingUndos(0);
+        this.gameFile.setMaxUndos(maxUndoValue);
+        this.gameFile.setRemainingUndos(0);
     }
 
     public Board getBoard() {
         return board;
     }
+
+
 }

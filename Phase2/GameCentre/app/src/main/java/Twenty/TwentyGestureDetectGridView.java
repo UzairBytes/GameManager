@@ -12,7 +12,6 @@ import android.view.View;
 public class TwentyGestureDetectGridView extends GestureDetectGridView implements GestureDetector.OnGestureListener {
     private static final int SWIPE_MIN_DISTANCE = 100;
     private final GestureDetector gDetector = new GestureDetector(this);
-    private MovementController mController;
     private String toastMessage = "Game Over! No more moves possible!";
 
     public TwentyGestureDetectGridView(Context context) {

@@ -250,7 +250,7 @@ public class CheckersBoardManager extends BoardManager {
         return hasSlain;
     }
 
-    static CheckersBoard getBoard() {
+    public CheckersBoard getBoard() {
         return board;
     }
 
