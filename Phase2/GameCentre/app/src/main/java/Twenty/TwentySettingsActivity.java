@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import fall2018.csc2017.CoreClasses.R;
 import fall2018.csc2017.CoreClasses.SettingsActivity;
+import phase1.AccountManager;
 import phase1.Savable;
 
 public class TwentySettingsActivity extends SettingsActivity {
@@ -24,12 +25,14 @@ public class TwentySettingsActivity extends SettingsActivity {
         undosInput.setText("3");
         EditText boardSizeInput = findViewById(R.id.twentyBoardSizeInput);
         boardSizeInput.setText("4");
-        Savable.saveToFile(TEMP_SAVE_FILENAME,twentyBoardManager);
+        Savable.saveToFile(TEMP_SAVE_FILENAME, twentyBoardManager);
         addStartButtonListener();
     }
 
     public void switchToGame() {
         Intent start = new Intent(this, TwentyGameActivity.class);
+        AccountManager.activeAccount.setActiveGameFile(twentyBoardManager.getGameFile());
+        AccountManager.activeAccount.addGameFile(twentyBoardManager.getGameFile());
         Savable.saveToFile(SettingsActivity.TEMP_SAVE_FILENAME,twentyBoardManager);
         startActivity(start);
     }

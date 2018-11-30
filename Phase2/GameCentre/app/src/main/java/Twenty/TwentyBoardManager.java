@@ -110,6 +110,7 @@ public class TwentyBoardManager extends BoardManager {
         notifyObservers();
     }
 
+    @Override
     public void addUndos(){
         super.addUndos();
         this.gameFile.setRemainingUndos(this.remainingUndos);

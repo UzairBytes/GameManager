@@ -148,15 +148,14 @@ public class LeaderBoard implements Serializable {
         String fileName;
         ArrayList<GameScore> loadedData;
         if (type.equals(PERSONAL)) {
-            HashMap<String, ArrayList<GameScore>> psMap = AccountManager.activeAccount.getLeaderBoard().personalScoresMap;
-            validateKey(psMap, gameName);
-            fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
-            loadedData = (ArrayList<GameScore>) Savable.loadAtStart(fileName, newArray);
             HashMap<String, ArrayList<GameScore>> personalScoresMap = AccountManager.activeAccount.getLeaderBoard().personalScoresMap;
+            validateKey(personalScoresMap, gameName);
+            fileName = "/" + PERSONAL + "" + activeAccount.getUsername() + "" + gameName + SCORES_DOT_SER;
+            loadedData = (ArrayList<GameScore>) Savable.loadAtStart(fileName, newArray);
             validateKey(personalScoresMap, gameName);
             personalScoresMap.replace(gameName, loadedData);
         } else {
-            fileName = "/" + GLOBAL + "/" + gameName + SCORES_DOT_SER;
+            fileName = "/" + GLOBAL + "" + gameName + SCORES_DOT_SER;
             loadedData = (ArrayList<GameScore>) Savable.loadAtStart(fileName, newArray);
             validateKey(globalScoresMap, gameName);
             globalScoresMap.replace(gameName, loadedData);
@@ -175,11 +174,11 @@ public class LeaderBoard implements Serializable {
         String gameName = activeAccount.getActiveGameName();
         String fileName;
         if (type.equals(PERSONAL)) {
-            fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
+            fileName = "/" + PERSONAL + "" + activeAccount.getUsername() + "" + gameName + SCORES_DOT_SER;
             validateKey(activeAccount.getLeaderBoard().personalScoresMap, gameName);
             Savable.saveToFile(fileName, activeAccount.getLeaderBoard().personalScoresMap.get(gameName));
         } else {
-            fileName = "/" + GLOBAL + "/" + gameName + SCORES_DOT_SER;
+            fileName = "/" + GLOBAL + "" + gameName + SCORES_DOT_SER;
             validateKey(globalScoresMap, gameName);
             Savable.saveToFile(fileName, globalScoresMap.get(gameName));
         }
