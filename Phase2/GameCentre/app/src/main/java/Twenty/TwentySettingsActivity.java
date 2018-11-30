@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
 import fall2018.csc2017.CoreClasses.SettingsActivity;
 import fall2018.csc2017.CoreClasses.AccountManager;
@@ -30,7 +31,7 @@ public class TwentySettingsActivity extends SettingsActivity {
     }
 
     public void switchToGame() {
-        Intent start = new Intent(this, TwentyGameActivity.class);
+        Intent start = new Intent(this, GameActivity.class);
         AccountManager.activeAccount.setActiveGameFile(twentyBoardManager.getGameFile());
         AccountManager.activeAccount.addGameFile(twentyBoardManager.getGameFile());
         Savable.saveToFile(SettingsActivity.TEMP_SAVE_FILENAME,twentyBoardManager);

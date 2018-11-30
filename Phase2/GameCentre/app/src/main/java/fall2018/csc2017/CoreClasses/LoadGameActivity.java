@@ -58,13 +58,7 @@ public class LoadGameActivity extends AppCompatActivity {
         //TODO
         String gameType = AccountManager.activeAccount.getActiveGameName();
         Intent start = null;
-        if(gameType.equals(Game.SLIDING_NAME)){
-             start = new Intent(this, SlidingTilesGameActivity.class);
-        }else if(gameType.equals(Game.TWENTY_NAME)){
-            start = new Intent(this, TwentyGameActivity.class);
-        }else if(gameType.equals(Game.CHECKERS_NAME)){
-            start = new Intent(this, CheckersGameActivity.class);
-        }
+         start = new Intent(this, GameActivity.class);
         ListView listV = findViewById(R.id.savedFiles);
         int pos = listV.getCheckedItemPosition();
         if(pos == -1){

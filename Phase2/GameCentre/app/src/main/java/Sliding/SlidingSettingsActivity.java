@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
 import fall2018.csc2017.CoreClasses.SettingsActivity;
 import fall2018.csc2017.CoreClasses.AccountManager;
@@ -36,7 +37,7 @@ public class SlidingSettingsActivity extends SettingsActivity {
      * Saves sliding board manager to temporary file and switches to starting activity.
      */
     void switchToGame() {
-        Intent start = new Intent(this, SlidingTilesGameActivity.class);
+        Intent start = new Intent(this, GameActivity.class);
         AccountManager.activeAccount.setActiveGameFile(slidingBoardManager.getGameFile());
         AccountManager.activeAccount.addGameFile(slidingBoardManager.getGameFile());
         Savable.saveToFile(SettingsActivity.TEMP_SAVE_FILENAME, slidingBoardManager);

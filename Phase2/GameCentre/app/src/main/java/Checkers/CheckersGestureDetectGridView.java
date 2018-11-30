@@ -13,7 +13,6 @@ public class CheckersGestureDetectGridView extends GestureDetectGridView {
 
     public static final int SWIPE_MIN_DISTANCE = 100;
     private GestureDetector gDetector;
-    private CheckersMovementController mController;
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
@@ -44,7 +43,8 @@ public class CheckersGestureDetectGridView extends GestureDetectGridView {
                 int position = CheckersGestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processTapMovement(context, position);
+                // TODO: Update this toast message
+                mController.processMovement(context, "A player has won!", position);
                 return true;
             }
 
@@ -89,6 +89,6 @@ public class CheckersGestureDetectGridView extends GestureDetectGridView {
     }
 
     public void setBoardManager(CheckersBoardManager checkersBoardManager) {
-        mController.setCheckersBoardManager(checkersBoardManager);
+        mController.setBoardManager(checkersBoardManager);
     }
 }

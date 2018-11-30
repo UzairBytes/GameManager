@@ -9,30 +9,20 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
-
-import Checkers.CheckersBoardManager;
-import Sliding.SlidingBoardManager;
-import Sliding.SlidingGestureDetectGridView;
-import Twenty.TwentyBoard;
-import Twenty.TwentyBoardManager;
-import phase1.AccountManager;
-import phase1.Game;
-import phase1.Savable;
+import java.util.Observer;
 
 import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
 
 
-public class GameActivity extends AppCompatActivity {
-
+public class GameActivity extends AppCompatActivity implements Observer {
+    String activeGameName;
     int contentId;
     int viewId;
+    int viewUndoId;
 
     /**
      * The buttons to display.
@@ -60,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME); //TODO Use Savable class.
+        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
     }
 
     /**
@@ -128,10 +118,25 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         boardManager = (BoardManager)Savable.loadFromFile(TEMP_SAVE_FILENAME);
         createTileButtons(this);
-        setContentView(viewId);
-        gridView = findViewById(contentId);
+        activeGameName = AccountManager.activeAccount.getActiveGameName();
+        if(activeGameName.equals(Game.CHECKERS_NAME)){
+            viewId = R.id.CheckersGrid;
+            contentId = R.layout.activity_checkers_game;
+            viewUndoId = R.id.CheckersUndoButton;
+        }else if(activeGameName.equals(Game.TWENTY_NAME)){
+            viewId = R.id.gridTwenty;
+            contentId = R.layout.activity_twenty_game;
+            viewUndoId = R.id.undoTwentyButton;
+        }else if(activeGameName.equals(Game.SLIDING_NAME)){
+            viewId = R.id.slidingGrid;
+            contentId = R.layout.activity_sliding_tiles_game;
+            viewUndoId = R.id.undoButton;
+        }
+
+        System.out.println("The viewId:" + viewId);
+        setContentView(contentId);
+        gridView = findViewById(viewId);
         gridView.setNumColumns(boardManager.getSize());
-        String activeGameName = AccountManager.activeAccount.getActiveGameName();
         gridView.setBoardManager(boardManager);
 
         boardManager.addObserver(this);
@@ -155,7 +160,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void addUndoButtonListener(){
-        Button undoButton = findViewById(R.id.undoTwentyButton);
+        Button undoButton = findViewById(viewUndoId);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
