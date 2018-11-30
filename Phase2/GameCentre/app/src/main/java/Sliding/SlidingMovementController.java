@@ -13,10 +13,6 @@ import phase1.LeaderBoard;
  */
 public class SlidingMovementController extends MovementController {
 
-    /**
-     * Sliding board manager for movement controller.
-     */
-    private SlidingBoardManager slidingBoardManager = null;
 
     /**
      * Default constructor for sliding movement controller.
@@ -30,8 +26,7 @@ public class SlidingMovementController extends MovementController {
      * @param slidingBoardManager
      */
     public void setSlidingBoardManager(SlidingBoardManager slidingBoardManager) {
-
-        this.slidingBoardManager = slidingBoardManager;
+        this.boardManager = slidingBoardManager;
     }
 
     /**
@@ -43,17 +38,9 @@ public class SlidingMovementController extends MovementController {
      * @param position int.
      */
     public void processTapMovement(Context context, int position) {
-        if (slidingBoardManager.isValidTap(position)) {
-
-            slidingBoardManager.touchMove(position);
-            AccountManager.activeAccount.setActiveGameFile(slidingBoardManager.getGameFile());
-            AccountManager.activeAccount.addGameFile(slidingBoardManager.getGameFile());
-            if (slidingBoardManager.gameComplete()) {
-                LeaderBoard.updateScores(new GameScore(
-                        "SlidingTiles", slidingBoardManager.getGameFile().getName(),
-                        AccountManager.activeAccount.getUsername(), slidingBoardManager.score()));
-                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-            }
+        if (((SlidingBoardManager)boardManager).isValidTap(position)) {
+            ((SlidingBoardManager)boardManager).touchMove(position);
+            super.processMovement(context, "You win!");
         } else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
         }
