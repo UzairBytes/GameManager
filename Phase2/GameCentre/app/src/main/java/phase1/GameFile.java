@@ -55,6 +55,10 @@ public abstract class GameFile<T> implements Serializable {
         }
     }
 
+    public void lowerUndos(){
+        remainingUndos--;
+    }
+
     public void setMaxUndos(int maxUndos){
         this.maxUndos = maxUndos;
     }
