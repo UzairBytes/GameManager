@@ -9,11 +9,11 @@ import phase1.Game;
 import phase1.GameScore;
 import phase1.LeaderBoard;
 
-public abstract class MovementController extends AppCompatActivity {
+public class MovementController extends AppCompatActivity {
 
     protected BoardManager boardManager;
 
-    protected void processMovement(Context context, String toastMessage, int position){
+    public void processMovement(Context context, String toastMessage, int position){
         if (boardManager.isValidMove(position)) {
             performMove(context, toastMessage, position);
         } else {
@@ -21,7 +21,7 @@ public abstract class MovementController extends AppCompatActivity {
         }
     }
 
-    public void performMove(Context context, String toastMessage, int position){
+    protected void performMove(Context context, String toastMessage, int position){
         boardManager.touchMove(position);
         AccountManager.activeAccount.setActiveGameFile(boardManager.getGameFile());
         AccountManager.activeAccount.addGameFile(boardManager.getGameFile());
