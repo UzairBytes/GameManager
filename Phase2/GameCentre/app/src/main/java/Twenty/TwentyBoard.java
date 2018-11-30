@@ -12,7 +12,7 @@ public class TwentyBoard extends Board {
     /**
      * Initializes the TwentyBoard with a list of tiles.
      */
-    public TwentyBoard(Tile[][] tiles, int numRows, int numCols) {
+    TwentyBoard(Tile[][] tiles, int numRows, int numCols) {
         super(tiles, numRows, numCols);
     }
 
@@ -26,7 +26,7 @@ public class TwentyBoard extends Board {
      * Postconditions: The tile at row1, col1 will be replaced with the merged tile, and the
      *                  tile at row2, col2 will be replaced with a blank tile.
      */
-    public void mergeTiles(int row1, int col1, int row2, int col2){
+    void mergeTiles(int row1, int col1, int row2, int col2){
         int tile1Id = this.tiles[row1][col1].getId(), tile2Id = this.tiles[row2][col2].getId();
         TwentyTile mergedTile, blankTile;
         // Verify preconditions.
@@ -39,7 +39,7 @@ public class TwentyBoard extends Board {
     }
 
     /* Generate a random tile in place of an empty tile in the Board. */
-    public void generateRandomTile(){
+    void generateRandomTile(){
         int position[] = getRanEmptyPos();
         int tileRow = position[0], tileCol = position[1];
 
@@ -85,10 +85,10 @@ public class TwentyBoard extends Board {
         return emptyPositions;
     }
 
-    public boolean isCollapsable(boolean horizDir){
+     boolean isCollapsable(boolean horizDir){
         // Left to right if horizontal, and top to bottom if vertical,
         // see if there are two adjacent tiles that are of the same id.
-        int tile1Id = 0, tile2Id = 0;
+        int tile1Id, tile2Id;
         int row, col;
         for(int i = 0; i < this.numRows; i++){
             for(int j = 0; j < this.numCols - 1; j++){
