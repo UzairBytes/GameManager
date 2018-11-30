@@ -71,6 +71,10 @@ public class SlidingBoardManagerTest {
         assertTrue("slidingBoardManager.puzzleSolved() failed test 1.", slidingBoardManager.gameComplete());
         //Since no moves made, max score is 4,096.
         assertEquals("slidingBoardManager.score() failed test 2.", 4096, slidingBoardManager.score());
+        slidingBoardManager.touchMove(7);
+        assertFalse("slidingBoardManager.puzzleSolved() failed test 3.", slidingBoardManager.gameComplete());
+        assertEquals("slidingBoardManager.score() failed test 4.", 0, slidingBoardManager.score());
+        slidingBoardManager.touchMove(8);
     }
 
     /**
@@ -91,8 +95,15 @@ public class SlidingBoardManagerTest {
     @Test
     public void testTouchMove() {
         slidingBoardManager.touchMove(7);
-        Assert.assertEquals("slidingBoardManager.isValidTap() failed test 1.", 9, slidingBoardManager.getBoard().getTile(2, 1).getId());
+        assertEquals("slidingBoardManager.isValidTap() failed test 1.", 9, slidingBoardManager.getBoard().getTile(2, 1).getId());
         assertEquals("slidingBoardManager.isValidTap() failed test 2.", 8, slidingBoardManager.getBoard().getTile(2, 2).getId());
+        slidingBoardManager.touchMove(4);
+        assertEquals("slidingBoardManager.isValidTap() failed test 3.", 5, slidingBoardManager.getBoard().getTile(2, 1).getId());
+        assertEquals("slidingBoardManager.isValidTap() failed test 4.", 9, slidingBoardManager.getBoard().getTile(1, 1).getId());
+        slidingBoardManager.touchMove(7);
+        assertEquals("slidingBoardManager.isValidTap() failed test 5.", 9, slidingBoardManager.getBoard().getTile(2, 1).getId());
+        assertEquals("slidingBoardManager.isValidTap() failed test 6.", 8, slidingBoardManager.getBoard().getTile(1, 1).getId());
+
     }
 
     /**

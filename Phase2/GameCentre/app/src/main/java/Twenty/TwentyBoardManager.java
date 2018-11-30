@@ -153,7 +153,7 @@ public class TwentyBoardManager extends BoardManager {
     /* Gauges whether or not the game is complete, i.e, no more possible moves can be made. */
     @Override
     public boolean gameComplete(){
-        return !isValidMove(0) && !isValidMove(1);
+        return !isValidMove(0) && !isValidMove(1) && !isValidMove(2) && !isValidMove(3);
     }
 
     /* Checks if a swipe results in a change in this TwentyBoard
