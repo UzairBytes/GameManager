@@ -35,7 +35,7 @@ public class AccountManager{
     /**
      * Accounts in the system.
      */
-    private static HashMap<String, Account> accounts;
+    private static HashMap<String, Account> accounts = new HashMap<>();
 
     /**
      * @param accUsername: Valid account username to add to the system.
