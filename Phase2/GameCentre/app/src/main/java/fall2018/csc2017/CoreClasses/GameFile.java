@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Stack;
 
 /**
- *
  * @param <T> generic state of game file. Board in sliding tiles.
  */
 public abstract class GameFile<T> implements Serializable {
@@ -34,42 +33,63 @@ public abstract class GameFile<T> implements Serializable {
     /**
      * @return Returns the Stack of game states for this file.
      */
-    public Stack getGameStates(){
+    public Stack getGameStates() {
         return gameStates;
     }
 
     /**
      * @return The name of this Game File
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setRemainingUndos(int remainingUndos){
+    /**
+     * Sets the number of undos to the desired number
+     *
+     * @param remainingUndos Desire number of undos
+     */
+    public void setRemainingUndos(int remainingUndos) {
         this.remainingUndos = remainingUndos;
     }
 
-    public void addUndos(){
-        if (remainingUndos < maxUndos){
+    /**
+     * Raises the remaining number of undos by one if not at max.
+     */
+    public void addUndos() {
+        if (remainingUndos < maxUndos) {
             remainingUndos++;
         }
     }
 
-    public void lowerUndos(){
+    /**
+     * Lowers the remaining number of undos by one
+     */
+    public void lowerUndos() {
         remainingUndos--;
     }
 
-    public void setMaxUndos(int maxUndos){
+    /**
+     * Sets the max undos to the desired number
+     *
+     * @param maxUndos Desire max number of undos
+     */
+    public void setMaxUndos(int maxUndos) {
         this.maxUndos = maxUndos;
     }
 
-
-    public int getRemainingUndos(){
+    /**
+     * @return The number of remaining undos
+     */
+    public int getRemainingUndos() {
         return remainingUndos;
 
     }
 
-    public int getMaxUndos(){
+    /**
+     * @return The max number of Undos
+     */
+    public int getMaxUndos() {
         return this.maxUndos;
     }
 }
