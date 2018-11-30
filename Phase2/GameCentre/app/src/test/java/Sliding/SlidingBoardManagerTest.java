@@ -79,9 +79,9 @@ public class SlidingBoardManagerTest {
     @Test
     public void testIsValidMove() {
         //  Test if a valid move can be made at various position
-        assertTrue("slidingBoardManager.isValidTap() failed test 1.", slidingBoardManager.isValidTap(7));
-        assertTrue("slidingBoardManager.isValidTap() failed test 2.", slidingBoardManager.isValidTap(5));
-        assertFalse("slidingBoardManager.isValidTap() failed test 3.", slidingBoardManager.isValidTap(2));
+        assertTrue("slidingBoardManager.isValidTap() failed test 1.", slidingBoardManager.isValidMove(7));
+        assertTrue("slidingBoardManager.isValidTap() failed test 2.", slidingBoardManager.isValidMove(5));
+        assertFalse("slidingBoardManager.isValidTap() failed test 3.", slidingBoardManager.isValidMove(2));
     }
 
     /**
