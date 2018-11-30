@@ -24,12 +24,12 @@ public class CheckersGameActivity extends GameActivity implements Observer {
     /**
      * The board manager.
      */
-    CheckersBoardManager boardManager; //TODO make private and add getter method
+    CheckersBoardManager boardManager;
 
     /**
      * The buttons to display.
      */
-    ArrayList<Button> tileButtons; //TODO make private and add getter method
+    ArrayList<Button> tileButtons;
 
     // Grid View and calculated column height and width based on device size
     private CheckersGestureDetectGridView gridView;

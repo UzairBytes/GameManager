@@ -15,12 +15,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import Checkers.CheckersBoardManager;
-import Checkers.CheckersGameActivity;
 import Checkers.CheckersGameFile;
 import Sliding.SlidingBoardManager;
-import Sliding.SlidingTilesGameActivity;
 import Twenty.TwentyBoardManager;
-import Twenty.TwentyGameActivity;
 import Twenty.TwentyGameFile;
 import Sliding.SlidingGameFile;
 
@@ -55,7 +52,6 @@ public class LoadGameActivity extends AppCompatActivity {
      * Switches to StartingActivity to play sliding tiles.
      */
     private void switchToGame(){
-        //TODO
         String gameType = AccountManager.activeAccount.getActiveGameName();
         Intent start = null;
          start = new Intent(this, GameActivity.class);
