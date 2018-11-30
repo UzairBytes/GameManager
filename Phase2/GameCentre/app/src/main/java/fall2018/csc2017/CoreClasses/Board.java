@@ -3,14 +3,8 @@ package fall2018.csc2017.CoreClasses;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-
-import Checkers.CheckersBoard;
-import Checkers.CheckersTile;
-import Twenty.TwentyTile;
 
 /**
  * The sliding tiles board.
@@ -155,7 +149,7 @@ public class Board implements Serializable, Iterable<Tile> {
      *
      * @param newNumRows int
      */
-    public void setNumRows(int newNumRows) {
+    protected void setNumRows(int newNumRows) {
         this.numRows = newNumRows;
     }
 
@@ -173,7 +167,7 @@ public class Board implements Serializable, Iterable<Tile> {
      *
      * @param newNumCols int
      */
-    public void setNumCols(int newNumCols) {
+    protected void setNumCols(int newNumCols) {
         this.numCols = newNumCols;
     }
 
