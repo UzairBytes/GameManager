@@ -83,9 +83,7 @@ public class CheckersBoardManager extends BoardManager {
 
         // Create a new GameFile, and initialize it with this shuffled board.
         CheckersGameFile gameFile = new CheckersGameFile(this.board, Instant.now().toString());
-
-        // Add this new GameFile to the current active account's list of GameFiles.
-        this.gameStates = this.gameFile.getGameStates();
+        setGameFile(gameFile);
         save(this.board);
     }
 
@@ -271,12 +269,7 @@ public class CheckersBoardManager extends BoardManager {
     @SuppressWarnings("unchecked")
     public void save(CheckersBoard board) {
         super.save(board);
-//        CheckersGameFile newGameFile = (CheckersGameFile) AccountManager.activeAccount.getActiveGameFile();
-//        newGameFile.getGameStates().push(board);
-//        AccountManager.activeAccount.addGameFile(newGameFile);
-//        AccountManager.activeAccount.saveAccountGameData();
-//        this.gameFile = newGameFile;
-        this.gameStates = this.gameFile.getGameStates();
+        this.gameStates = getCheckersGameFile().getGameStates();
         this.board = board;
     }
 
