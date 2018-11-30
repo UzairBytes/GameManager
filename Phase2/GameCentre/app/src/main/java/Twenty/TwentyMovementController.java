@@ -9,27 +9,18 @@ import phase1.LeaderBoard;
 
 public class TwentyMovementController extends MovementController {
 
-    private TwentyBoardManager twentyBoardManager = null;
 
     public TwentyMovementController() {
     }
 
     public void setTwentyBoardManager(TwentyBoardManager twentyBoardManager) {
-
-        this.twentyBoardManager = twentyBoardManager;
+        this.boardManager = twentyBoardManager;
     }
 
-    public void processSlideMovement(Context context, boolean horizDir, char direction) {
-        if (twentyBoardManager.isValidMove(horizDir)) {
-            twentyBoardManager.touchMove(direction);
-            AccountManager.activeAccount.setActiveGameFile(twentyBoardManager.getGameFile());
-            AccountManager.activeAccount.addGameFile(twentyBoardManager.getGameFile());
-            if (twentyBoardManager.gameComplete()) {
-                LeaderBoard.updateScores(new GameScore(
-                        "Twenty", twentyBoardManager.getGameFile().getName(),
-                        AccountManager.activeAccount.getUsername(), twentyBoardManager.score()));
-                Toast.makeText(context, "Game Over! No more moves possible!", Toast.LENGTH_SHORT).show();
-            }
+    public void processSlideMovement(Context context, int horizDir, int direction) {
+        if (boardManager.isValidMove(horizDir)) {
+            boardManager.touchMove(direction);
+            super.processMovement(context,"Game Over! No more moves possible!");
         } else {
             Toast.makeText(context, "Invalid move!", Toast.LENGTH_SHORT).show();
         }

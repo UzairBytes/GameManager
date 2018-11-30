@@ -92,4 +92,11 @@ public class BoardManager extends Observable implements Serializable, Game {
         return lastBoard;
     }
 
+    public void touchMove(int position){
+    }
+
+    public boolean isValidMove(int position){
+        return false;
+    }
+
 }

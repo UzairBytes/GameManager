@@ -85,6 +85,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * Returns the GameFile managed by this SlidingBoardManager.
      */
+    @Override
     public GameFile getGameFile() {
         return this.gameFile;
     }
@@ -94,7 +95,8 @@ public class SlidingBoardManager extends BoardManager {
      *
      * @return whether the tiles are in row-major order
      */
-    boolean puzzleSolved() {
+    @Override
+    public boolean gameComplete() {
         Iterator<Tile> iter = slidingBoard.iterator();
         int id = iter.next().getId();
         while (iter.hasNext()) {
@@ -113,7 +115,8 @@ public class SlidingBoardManager extends BoardManager {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    boolean isValidTap(int position) {
+    @Override
+    public boolean isValidMove(int position) {
 
         int row = position / slidingBoard.getNumRows();
         int col = position % slidingBoard.getNumCols();
@@ -134,7 +137,8 @@ public class SlidingBoardManager extends BoardManager {
      *
      * @param position the position
      */
-    void touchMove(int position) {
+    @Override
+    public void touchMove(int position) {
         SlidingBoard newBoard = slidingBoard.createDeepCopy();
         this.slidingBoard = newBoard;
         processMove(position);
@@ -201,7 +205,7 @@ public class SlidingBoardManager extends BoardManager {
      */
     @Override
     public int score() {
-        if (puzzleSolved()) {
+        if (gameComplete()) {
             return (int) (Math.pow(16, slidingBoard.getNumCols()) / ((numMoves + 1) * (maxUndos + 1)));
         }
         return 0;

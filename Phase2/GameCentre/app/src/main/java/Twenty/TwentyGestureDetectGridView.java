@@ -30,19 +30,19 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
     }
 
     public void onSwipeUp() {
-        mController.processSlideMovement(this.getContext(), false, 'U');
+        mController.processSlideMovement(this.getContext(), 0, 0);
     }
 
     public void onSwipeDown() {
-        mController.processSlideMovement(this.getContext(), false, 'D');
+        mController.processSlideMovement(this.getContext(), 0, 1);
     }
 
     public void onSwipeLeft() {
-        mController.processSlideMovement(this.getContext(), true, 'L');
+        mController.processSlideMovement(this.getContext(), 1, 2);
     }
 
     public void onSwipeRight() {
-        mController.processSlideMovement(this.getContext(), true, 'R');
+        mController.processSlideMovement(this.getContext(), 1, 3);
     }
 
     @Override

@@ -123,7 +123,8 @@ public class CheckersBoardManager extends BoardManager {
      * @param position position of the target tile
      * @return true if and only if the move is allowed in Checkers
      */
-    boolean isValidMove(int position) {
+    @Override
+    public boolean isValidMove(int position) {
         if (position >= board.getNumRows() *board.getNumCols()){return false;}
         if (position < 0){return false;}
         CheckersTile highLightedTile = board.getHighLightedTile();
@@ -177,7 +178,9 @@ public class CheckersBoardManager extends BoardManager {
      *
      * @param position: The position the selected piece is moved to.
      */
-    void touchMove(int position) {
+    @Override
+    public void touchMove(int position) {
+        super.touchMove(position);
         CheckersBoard newBoard = board.createDeepCopy();
         this.board = newBoard;
         int highRow = board.getHighLightedTilePosition()[0];
@@ -219,6 +222,7 @@ public class CheckersBoardManager extends BoardManager {
 
 
     //should use an iterator
+    @Override
     public boolean gameComplete() {
         boolean redWins = true;
         boolean whiteWins = true;
@@ -262,6 +266,7 @@ public class CheckersBoardManager extends BoardManager {
     /**
      * Returns the GameFile managed by this SlidingBoardManager.
      */
+    @Override
     public GameFile getGameFile() {
         return this.gameFile;
     }
@@ -302,7 +307,7 @@ public class CheckersBoardManager extends BoardManager {
      * @param maxUndoValue: Maximum number of undo tries for this file.
      *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
      */
-    void setMaxUndos(int maxUndoValue) {
+    public void setMaxUndos(int maxUndoValue) {
         this.gameFile.setMaxUndos(maxUndoValue);
         this.gameFile.setRemainingUndos(0);
         this.maxUndos = maxUndoValue;
