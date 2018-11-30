@@ -1,4 +1,4 @@
-package phase1;
+package fall2018.csc2017.CoreClasses;
 
 import java.io.Serializable;
 import java.util.Stack;

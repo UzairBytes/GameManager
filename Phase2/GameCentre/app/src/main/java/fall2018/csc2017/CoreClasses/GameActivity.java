@@ -1,21 +1,14 @@
 package fall2018.csc2017.CoreClasses;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
-import Sliding.SlidingBoard;
-import Sliding.SlidingBoardManager;
-import phase1.Savable;
 
 public abstract class GameActivity extends AppCompatActivity {
 

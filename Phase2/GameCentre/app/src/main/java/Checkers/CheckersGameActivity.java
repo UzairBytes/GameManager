@@ -13,8 +13,8 @@ import java.util.Observer;
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
-import phase1.AccountManager;
-import phase1.Savable;
+import fall2018.csc2017.CoreClasses.AccountManager;
+import fall2018.csc2017.CoreClasses.Savable;
 
 import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
 

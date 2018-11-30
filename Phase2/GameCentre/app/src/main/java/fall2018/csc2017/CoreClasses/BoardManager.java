@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Stack;
 
-import phase1.AccountManager;
-import phase1.Game;
-import phase1.GameFile;
-
 public class BoardManager extends Observable implements Serializable, Game {
 
     /**

@@ -1,4 +1,4 @@
-package phase1;
+package fall2018.csc2017.CoreClasses;
 
 import android.util.Log;
 import java.io.File;

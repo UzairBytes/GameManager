@@ -4,10 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import fall2018.csc2017.CoreClasses.MovementController;
-import phase1.AccountManager;
-import phase1.Game;
-import phase1.GameScore;
-import phase1.LeaderBoard;
 
 public class CheckersMovementController extends MovementController {
     // TODO: Improve implementation of this, perhaps?

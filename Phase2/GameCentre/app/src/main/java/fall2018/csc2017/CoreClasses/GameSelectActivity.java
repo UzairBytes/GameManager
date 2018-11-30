@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import phase1.AccountManager;
-import phase1.Game;
-
 /**
  * The activity for select the game the user wishes to play.
  */
