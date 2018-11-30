@@ -10,6 +10,8 @@ import phase1.GameScore;
 import phase1.LeaderBoard;
 
 public class CheckersMovementController extends MovementController {
+    // TODO: Improve implementation of this, perhaps?
+    private CheckersBoardManager checkersBoardManager;
 
     private boolean moving = false;
 
@@ -18,14 +20,12 @@ public class CheckersMovementController extends MovementController {
     }
 
     public void setCheckersBoardManager(CheckersBoardManager checkersBoardManager) {
-        this.boardManager = checkersBoardManager;
+        this.checkersBoardManager = checkersBoardManager;
     }
 
     public void processTapMovement(Context context, int position) {
-        CheckersBoardManager checkersBoardManager = ((CheckersBoardManager)boardManager);
         if (moving && checkersBoardManager.isValidMove(position)) {
-            checkersBoardManager.touchMove(position);
-            super.processMovement(context, checkersBoardManager.getWinner() + " wins!");
+            super.performMove(context, checkersBoardManager.getWinner() + " wins!", position);
             if (!checkersBoardManager.isHasSlain()) {
                 moving = false;
             }
