@@ -192,15 +192,8 @@ public class TwentyBoardManager extends BoardManager {
      */
     @Override
     public Board undo() {
-        if (getTwentyGameFile().getRemainingUndos() > 0 && this.gameStates.size() > 1) {
+        if (getTwentyGameFile().getRemainingUndos() > 0) {
             this.twentyBoard = (TwentyBoard) super.undo();
-            this.gameFile.setRemainingUndos(this.gameFile.getRemainingUndos()-1);
-        }else{
-            System.out.println("EmptyStackError!");
-        }
-        System.out.println("After the undo:");
-        for(int i =0; i<3; i++){
-            System.out.println(this.twentyBoard.getTile(i,0).id + " " +this.twentyBoard.getTile(i,1).id + " "+this.twentyBoard.getTile(i,2).id);
         }
         setChanged();
         notifyObservers();

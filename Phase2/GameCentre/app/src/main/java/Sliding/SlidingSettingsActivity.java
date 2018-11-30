@@ -47,7 +47,7 @@ public class SlidingSettingsActivity extends SettingsActivity {
     /**
      * Activate Start button.
      */
-    void addStartButtonListener() {
+    public void addStartButtonListener() {
         final Button start = findViewById(R.id.SlidingStart);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
