@@ -275,9 +275,7 @@ public class SlidingBoardManager extends BoardManager {
     @Override
     public void addUndos() {
         super.addUndos();
-        if (this.remainingUndos < this.maxUndos) {
-            this.gameFile.setRemainingUndos(this.remainingUndos);
-        }
+        this.gameFile.setRemainingUndos(this.remainingUndos);
     }
 
 }
