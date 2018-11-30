@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import Sliding.SlidingBoardManager;
+import Twenty.TwentyBoardManager;
 import phase1.AccountManager;
 import phase1.Game;
 import phase1.GameScore;
@@ -32,6 +34,12 @@ public class MovementController extends AppCompatActivity {
             Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void setBoardManager(BoardManager boardManager) {
+        this.boardManager = boardManager;
+    }
+
+
 
 
 }
