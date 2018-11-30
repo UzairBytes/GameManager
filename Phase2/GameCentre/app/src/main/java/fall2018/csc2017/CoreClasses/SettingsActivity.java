@@ -3,17 +3,6 @@ package fall2018.csc2017.CoreClasses;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.EditText;
-
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
-import Checkers.CheckersBoardManager;
-import Sliding.SlidingBoardManager;
-import Twenty.TwentyBoardManager;
-import phase1.AccountManager;
-import phase1.Game;
 
 /**
  * The activity for determining settings for a new game.

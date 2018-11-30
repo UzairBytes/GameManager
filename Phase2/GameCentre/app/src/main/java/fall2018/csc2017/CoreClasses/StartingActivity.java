@@ -14,9 +14,6 @@ import java.io.ObjectOutputStream;
 import Checkers.CheckersSettingActivity;
 import Sliding.SlidingSettingsActivity;
 import Twenty.TwentySettingsActivity;
-import phase1.Account;
-import phase1.AccountManager;
-import phase1.Game;
 
 /**
  * The initial activity for the sliding puzzle tile game.

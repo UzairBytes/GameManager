@@ -2,9 +2,10 @@ package Twenty;
 
 import org.junit.Before;
 import org.junit.Test;
-import phase1.Account;
-import phase1.AccountManager;
-import phase1.Game;
+
+import fall2018.csc2017.CoreClasses.Account;
+import fall2018.csc2017.CoreClasses.AccountManager;
+import fall2018.csc2017.CoreClasses.Game;
 
 import static org.junit.Assert.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;

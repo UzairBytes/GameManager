@@ -3,7 +3,7 @@ package Sliding;
 import java.io.Serializable;
 
 import fall2018.csc2017.CoreClasses.Board;
-import phase1.GameFile;
+import fall2018.csc2017.CoreClasses.GameFile;
 
 public class SlidingGameFile extends GameFile implements Serializable {
 

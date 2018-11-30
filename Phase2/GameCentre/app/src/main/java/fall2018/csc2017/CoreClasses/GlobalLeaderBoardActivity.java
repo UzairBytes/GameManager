@@ -12,10 +12,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import phase1.AccountManager;
-import phase1.GameScore;
-import phase1.LeaderBoard;
-
 /**
  * The activity for showing all the high scores on a game.
  */

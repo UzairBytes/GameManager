@@ -1,7 +1,7 @@
 package Twenty;
 
 import fall2018.csc2017.CoreClasses.Board;
-import phase1.GameFile;
+import fall2018.csc2017.CoreClasses.GameFile;
 
 public class TwentyGameFile extends GameFile {
 

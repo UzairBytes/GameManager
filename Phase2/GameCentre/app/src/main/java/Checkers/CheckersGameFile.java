@@ -1,6 +1,6 @@
 package Checkers;
 
-import phase1.GameFile;
+import fall2018.csc2017.CoreClasses.GameFile;
 
 public class CheckersGameFile extends GameFile {
 

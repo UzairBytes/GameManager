@@ -11,10 +11,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import phase1.AccountManager;
-import phase1.GameScore;
-import phase1.LeaderBoard;
-
 /**
  * The activity for showing a user their personal high scores on a game.
  */

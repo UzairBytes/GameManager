@@ -1,14 +1,12 @@
-package phase1;
+package fall2018.csc2017.CoreClasses;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
 public class AccountTest {
-
     @Before
     public void setUp() throws Exception {
     }
@@ -17,14 +15,14 @@ public class AccountTest {
     public void testGetUsername() {
         /* Should return the username used to initialize the Account object. */
         Account testAccount = new Account("username","password");
-        assertEquals("Account.getUsername() Test 1 failed!","username", testAccount.getUsername());
+        Assert.assertEquals("Account.getUsername() Test 1 failed!","username", testAccount.getUsername());
     }
 
     @Test
     public void testGetPassword() {
         /* Should return the password used to initialize the Account object. */
         Account testAccount = new Account("username","password");
-        assertEquals("Account.getPassword() Test 1 failed!", "password",testAccount.getPassword());
+        Assert.assertEquals("Account.getPassword() Test 1 failed!", "password",testAccount.getPassword());
     }
 
     @Test
@@ -40,7 +38,7 @@ public class AccountTest {
     public void testGetActiveGameName() {
         /* Should return the ActiveGameName initialized in the Account object */
         Account testAccount = new Account("username","password");
-        assertEquals("Account.getActiveGameName() Test 1","",testAccount.getActiveGameName());
+        Assert.assertEquals("Account.getActiveGameName() Test 1","",testAccount.getActiveGameName());
     }
 
     @Test
@@ -48,7 +46,7 @@ public class AccountTest {
         /* Should return the ActiveGameName initialized in the Account object and then altered by the setActiveGameName method */
         Account testAccount = new Account("username","password");
         testAccount.setActiveGameName("TestGameName");
-        assertEquals("Account.setActiveGameName() Test 1","",testAccount.getActiveGameName());
+        Assert.assertEquals("Account.setActiveGameName() Test 1","",testAccount.getActiveGameName());
     }
 
     @Test
@@ -72,6 +70,7 @@ public class AccountTest {
     public void testGetLeaderBoard() {
         /* Should return the new leaderboard initialized by the Account object. */
         Account testAccount = new Account("username","password");
-        assertEquals("Account.getLeaderboard() Test 1 failed",new LeaderBoard(),testAccount.getLeaderBoard());
+        Assert.assertEquals("Account.getLeaderboard() Test 1 failed",new LeaderBoard(),testAccount.getLeaderBoard());
     }
+
 }

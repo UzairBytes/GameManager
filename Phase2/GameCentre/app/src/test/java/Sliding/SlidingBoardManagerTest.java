@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-import phase1.GameFile;
+import fall2018.csc2017.CoreClasses.GameFile;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -79,9 +79,9 @@ public class SlidingBoardManagerTest {
     @Test
     public void testIsValidMove() {
         //  Test if a valid move can be made at various position
-        assertTrue("slidingBoardManager.isValidTap() failed test 1.", slidingBoardManager.isValidTap(7));
-        assertTrue("slidingBoardManager.isValidTap() failed test 2.", slidingBoardManager.isValidTap(5));
-        assertFalse("slidingBoardManager.isValidTap() failed test 3.", slidingBoardManager.isValidTap(2));
+        assertTrue("slidingBoardManager.isValidTap() failed test 1.", slidingBoardManager.isValidMove(7));
+        assertTrue("slidingBoardManager.isValidTap() failed test 2.", slidingBoardManager.isValidMove(5));
+        assertFalse("slidingBoardManager.isValidTap() failed test 3.", slidingBoardManager.isValidMove(2));
     }
 
     /**
@@ -101,7 +101,7 @@ public class SlidingBoardManagerTest {
     @Test
     public void testSetMaxUndo() {
         // Tests whether set up set max undo was set to 3.
-        assertEquals(3, slidingBoardManager2.getSlidingGameFile().getMaxUndos());
+        assertEquals(3, slidingBoardManager2.getGameFile().getMaxUndos());
     }
 
     /**

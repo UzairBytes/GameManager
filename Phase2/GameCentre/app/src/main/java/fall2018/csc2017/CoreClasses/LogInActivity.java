@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import phase1.AccountManager;
+
 
 
 public class LogInActivity extends AppCompatActivity {

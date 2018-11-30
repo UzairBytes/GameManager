@@ -3,14 +3,15 @@ package Checkers;
 import android.content.Context;
 import android.widget.Toast;
 
+import fall2018.csc2017.CoreClasses.AccountManager;
+import fall2018.csc2017.CoreClasses.Game;
+import fall2018.csc2017.CoreClasses.GameScore;
+import fall2018.csc2017.CoreClasses.LeaderBoard;
 import fall2018.csc2017.CoreClasses.MovementController;
-import phase1.AccountManager;
-import phase1.Game;
-import phase1.GameScore;
-import phase1.LeaderBoard;
 
 public class CheckersMovementController extends MovementController {
     // TODO: Improve implementation of this, perhaps?
+    private CheckersBoardManager checkersBoardManager;
 
     private boolean moving = false;
 
@@ -19,19 +20,17 @@ public class CheckersMovementController extends MovementController {
     }
 
     public void setCheckersBoardManager(CheckersBoardManager checkersBoardManager) {
-        this.boardManager = checkersBoardManager;
+        this.checkersBoardManager = checkersBoardManager;
     }
 
     public void processTapMovement(Context context, int position) {
-        if (moving && this.boardManager.isValidMove(position)) {
-            LeaderBoard.updateScores(new GameScore(Game.CHECKERS_NAME,
-                    this.boardManager.getGameFile().getName(), AccountManager.activeAccount.getUsername(), ((CheckersBoardManager)boardManager).score()));
-            super.performMove(context, ((CheckersBoardManager)boardManager).getWinner() + " wins!", position);
-            if (!((CheckersBoardManager)boardManager).isHasSlain()) {
+        if (moving && checkersBoardManager.isValidMove(position)) {
+            super.performMove(context, checkersBoardManager.getWinner() + " wins!", position);
+            if (!checkersBoardManager.isHasSlain()) {
                 moving = false;
             }
         }
-        else if (((CheckersBoardManager)boardManager).isValidSelect(position)){
+        else if (checkersBoardManager.isValidSelect(position)){
             moving = true;
         }
         else {
