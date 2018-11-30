@@ -21,13 +21,11 @@ public class MovementController extends AppCompatActivity {
         AccountManager.activeAccount.setActiveGameFile(boardManager.getGameFile());
         AccountManager.activeAccount.addGameFile(boardManager.getGameFile());
         if (boardManager.gameComplete()) {
-            if (!AccountManager.activeAccount.getActiveGameName().equals(Game.CHECKERS_NAME)) {
-                LeaderBoard.updateScores(new GameScore(
-                        AccountManager.activeAccount.getActiveGameName(),
-                        boardManager.getGameFile().getName(),
-                        AccountManager.activeAccount.getUsername(),
-                        boardManager.score()));
-            }
+            LeaderBoard.updateScores(new GameScore(
+                    AccountManager.activeAccount.getActiveGameName(),
+                    boardManager.getGameFile().getName(),
+                    AccountManager.activeAccount.getUsername(),
+                    boardManager.score()));
 
             Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show();
         }

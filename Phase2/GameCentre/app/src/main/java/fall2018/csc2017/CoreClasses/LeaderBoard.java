@@ -89,9 +89,9 @@ public class LeaderBoard implements Serializable {
     private static void updateTopScores(GameScore gameScore, String type) {
         ArrayList<GameScore> scoreList;
         if (type.equals(GLOBAL)) {
-            scoreList = globalScoresMap.get(gameScore.getGameName());
+            scoreList = (ArrayList<GameScore>)globalScoresMap.get(gameScore.getGameName());
         } else {
-            scoreList = AccountManager.activeAccount.getLeaderBoard().personalScoresMap.get(gameScore.getGameName());
+            scoreList = (ArrayList<GameScore>)AccountManager.activeAccount.getLeaderBoard().personalScoresMap.get(gameScore.getGameName());
         }
 
         boolean notInserted = true;
@@ -101,13 +101,14 @@ public class LeaderBoard implements Serializable {
             notInserted = false;
         }
         int i = 0;
-        while (notInserted && i < size && i < NUM_TOP_SCORES) {
-            if (gameScore.compareTo(scoreList.get(i)) > 0) {
-                scoreList.add(i, gameScore);
-                notInserted = false;
-            }
-            i++;
-        }
+//        while (notInserted && i < size && i < NUM_TOP_SCORES) {
+//            GameScore otherScore = scoreList.get(i);
+//            if (gameScore.compareTo(otherScore) > 0) {
+//                scoreList.add(i, gameScore);
+//                notInserted = false;
+//            }
+//            i++;
+//        }
         if (size == NUM_TOP_SCORES) {
             scoreList.remove(NUM_TOP_SCORES);
         }

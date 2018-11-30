@@ -16,18 +16,15 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
 
     public TwentyGestureDetectGridView(Context context) {
         super(context);
-        mController = new TwentyMovementController();
     }
 
     public TwentyGestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mController = new TwentyMovementController();
     }
 
     public TwentyGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mController = new TwentyMovementController();
     }
 
     public void onSwipeUp() {
