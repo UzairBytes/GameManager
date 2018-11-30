@@ -189,7 +189,7 @@ public class CheckersBoardManager extends BoardManager {
             hasSlain = false;
             swapRedsTurn();
         }
-        gameFile.addUndos();
+        getCheckersGameFile().addUndos();
         save(newBoard);
         setChanged();
         notifyObservers();
