@@ -25,8 +25,6 @@ public class CheckersMovementController extends MovementController {
 
     public void processTapMovement(Context context, int position) {
         if (moving && checkersBoardManager.isValidMove(position)) {
-            LeaderBoard.updateScores(new GameScore(Game.CHECKERS_NAME,
-                    checkersBoardManager.getGameFile().getName(), AccountManager.activeAccount.getUsername(), checkersBoardManager.score()));
             super.performMove(context, checkersBoardManager.getWinner() + " wins!", position);
             if (!checkersBoardManager.isHasSlain()) {
                 moving = false;
