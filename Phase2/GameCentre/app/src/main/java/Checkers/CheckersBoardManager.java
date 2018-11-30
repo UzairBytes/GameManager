@@ -302,7 +302,7 @@ public class CheckersBoardManager extends BoardManager {
      * @param maxUndoValue: Maximum number of undo tries for this file.
      *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
      */
-    void setMaxUndos(int maxUndoValue) {
+    public void setMaxUndos(int maxUndoValue) {
         this.gameFile.setMaxUndos(maxUndoValue);
         this.gameFile.setRemainingUndos(0);
         this.maxUndos = maxUndoValue;

@@ -53,6 +53,7 @@ public class BoardManager extends Observable implements Serializable, Game {
 
     public BoardManager (int size){
         Tile[][] tiles = new Tile[size][size];
+        this.board = new Board(tiles, size, size);
     }
 
     public GameFile getGameFile() {
@@ -84,14 +85,27 @@ public class BoardManager extends Observable implements Serializable, Game {
      * Switches the gameState back one move, if the user has undos left
      */
     public Board undo(){
-        this.remainingUndos--;
-        this.gameStates.pop();
-        Board lastBoard = this.gameStates.peek();
-        setChanged();
-        notifyObservers();
-        return lastBoard;
+        if (gameFile.getRemainingUndos() > 0) {
+            gameFile.lowerUndos();
+            this.gameStates.pop();
+            Board lastBoard = this.gameStates.peek();
+            setChanged();
+            notifyObservers();
+            return lastBoard;
+        }
+        return board;
     }
 
-  
+    public void setGameFile(GameFile gameFile) {
+        this.gameFile = gameFile;
+    }
 
+    /**
+     * @param maxUndoValue: Maximum number of undo tries for this file.
+     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
+     */
+    public void setMaxUndos(int maxUndoValue) {
+        getGameFile().setMaxUndos(maxUndoValue);
+        getGameFile().setRemainingUndos(0);
+    }
 }

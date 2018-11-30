@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Checkers.CheckersGameActivity" >
+    tools:context="Checkers.CheckersGameActivity"
+    android:background="@drawable/wooden_checkers_background">
 
     <Checkers.CheckersGestureDetectGridView
         android:id="@+id/CheckersGrid"
