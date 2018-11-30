@@ -74,7 +74,9 @@ public class TwentyBoardManager extends BoardManager {
      * @param dir: character which indicated the direction of the swipe
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
      */
-    public void touchMove(char dir){
+    @Override
+    protected void touchMove(int dir){
+
         TwentyBoard newBoard = twentyBoard.createDeepCopy();
         this.twentyBoard = newBoard;
         System.out.println("Direction: " + dir);
@@ -84,14 +86,14 @@ public class TwentyBoardManager extends BoardManager {
         }
         System.out.println("During the move!");
         boolean boardChanged = false;
-        if(dir == 'U' && isValidMove(false)){
-            boardChanged = mergeTilesInDir('U');
-        }else if(dir == 'D' && isValidMove(false)){
-            boardChanged = mergeTilesInDir('D');
-        }else if(dir == 'L' && isValidMove(true)){
-            boardChanged = mergeTilesInDir('L');
-        }else if(dir == 'R' && isValidMove(true)){
-            boardChanged = mergeTilesInDir('R');
+        if(dir == 0 && isValidMove(0)){
+            boardChanged = mergeTilesInDir(0);
+        }else if(dir == 1 && isValidMove(0)){
+            boardChanged = mergeTilesInDir(1);
+        }else if(dir == 2 && isValidMove(1)){
+            boardChanged = mergeTilesInDir(2);
+        }else if(dir == 3 && isValidMove(1)){
+            boardChanged = mergeTilesInDir(3);
         }
 
         if(boardChanged){
@@ -110,12 +112,13 @@ public class TwentyBoardManager extends BoardManager {
 
     /**
      * Given a direction, move the tiles in the board in that direction as much as possible.
-     * @param dir: character which indicated the direction of the swipe
+     * @param dir: int which indicated the direction of the swipe (0 for up, 1 for down, 3 for left,
+     *           4 for right)
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
      * Postconditions: The board will be altered so all tiles are moved as much as possible in
      *      the direction dir. Also all tiles of equal id will collapse into one tile.
      */
-    private boolean mergeTilesInDir(char dir){
+    private boolean mergeTilesInDir(int dir){
         TwentyTile tile1, tile2;
         int tile1Row = 0, tile2Row = 0, tile1Col = 0, tile2Col = 0;
         int sqBoardSize = this.twentyBoard.getNumRows();
@@ -125,22 +128,22 @@ public class TwentyBoardManager extends BoardManager {
         for(int i = 0; i<sqBoardSize-1; i++){
             for(int j = 0; j < sqBoardSize; j++){
                 for(int k = 0; k < sqBoardSize - 1; k++){
-                    if(dir == 'U'){
+                    if(dir == 0){
                         tile1Row = k;
                         tile1Col = j;
                         tile2Row = k+1;
                         tile2Col = j;
-                    }else if(dir == 'D'){
+                    }else if(dir == 1){
                         tile1Row = k+1;
                         tile1Col = j;
                         tile2Row = k;
                         tile2Col = j;
-                    }else if(dir == 'L'){
+                    }else if(dir == 2){
                         tile1Row = j;
                         tile1Col = k;
                         tile2Row = j;
                         tile2Col = k+1;
-                    }else if(dir == 'R'){
+                    }else if(dir == 3){
                         tile1Row = j;
                         tile1Col = k+1;
                         tile2Row = j;
@@ -154,11 +157,9 @@ public class TwentyBoardManager extends BoardManager {
                         if(tile2.getId() != 0){
                             boardChanged = true;
                         }
-                        System.out.println("ran 1");
                     } else if(tile1.getId() == tile2.getId()) {
                         this.twentyBoard.mergeTiles(tile1Row, tile1Col, tile2Row, tile2Col);
                         boardChanged = true;
-                        System.out.println("ran 2");
                     }
                 }
             }
@@ -169,21 +170,24 @@ public class TwentyBoardManager extends BoardManager {
     /* Getter for the GameFile that this board manager exists in.
      * @return the game file this board manager exists in.
      */
+    @Override
     public TwentyGameFile getGameFile(){
         return this.gameFile;
     }
 
     /* Gauges whether or not the game is complete, i.e, no more possible moves can be made. */
+    @Override
     public boolean gameComplete(){
-        return !isValidMove(false) && !isValidMove(true);
+        return !isValidMove(0) && !isValidMove(1);
     }
 
     /* Checks if a swipe results in a change in this TwentyBoard
      * @param horizDir boolean determining if the swipe is in the horizontal direction.
      *         If not, that implies that the swipe is in the vertical direction.
      */
-    public boolean isValidMove(boolean horizDir){
-        return this.twentyBoard.isCollapsable(horizDir);
+    @Override
+    public boolean isValidMove(int horizDir){
+        return this.twentyBoard.isCollapsable(horizDir == 1);
     }
 
     /**
