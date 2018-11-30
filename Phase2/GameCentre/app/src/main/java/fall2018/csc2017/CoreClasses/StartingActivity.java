@@ -11,10 +11,6 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import Checkers.CheckersSettingActivity;
-import Sliding.SlidingSettingsActivity;
-import Twenty.TwentySettingsActivity;
-
 /**
  * The initial activity for the sliding puzzle tile game.
  */
@@ -132,18 +128,8 @@ public class StartingActivity extends AppCompatActivity {
      * Switch to the SettingsActivity view to set parameters of the game.
      */
     private void switchToSettings(){
-        if(AccountManager.activeAccount.getActiveGameName().equals(Game.SLIDING_NAME)) {
-            Intent settings = new Intent(this, SlidingSettingsActivity.class);
-            startActivity(settings);
-        }
-        else if(AccountManager.activeAccount.getActiveGameName().equals(Game.CHECKERS_NAME)){
-            Intent settings = new Intent(this, CheckersSettingActivity.class);
-            startActivity(settings);
-        }
-        else if(AccountManager.activeAccount.getActiveGameName().equals(Game.TWENTY_NAME)){
-            Intent settings = new Intent(this, TwentySettingsActivity.class);
-            startActivity(settings);
-        }
+        Intent settings = new Intent(this, SettingsActivity.class);
+        startActivity(settings);
     }
 
     /**

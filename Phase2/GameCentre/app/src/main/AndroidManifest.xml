@@ -19,7 +19,6 @@
         <activity android:name="Sliding.SlidingTilesGameActivity" />
         <activity android:name=".StartingActivity" />
         <activity android:name=".GameSelectActivity" />
-        <activity android:name="Sliding.SlidingSettingsActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".LoadGameActivity" />
         <activity
@@ -27,10 +26,8 @@
             android:label="@string/title_activity_personal_leader_board"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".GlobalLeaderBoardActivity" />
-        <activity android:name="Twenty.TwentySettingsActivity" />
         <activity android:name="Twenty.TwentyGameActivity" />
         <activity android:name="Checkers.CheckersGameActivity" />
-        <activity android:name="Checkers.CheckersSettingActivity" />
         <activity android:name="Checkers.CheckersMovementController" />
         <activity android:name=".GameActivity" />
         <activity android:name=".MovementController" />

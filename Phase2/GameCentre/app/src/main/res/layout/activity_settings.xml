@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Twenty.TwentySettingsActivity"
+    tools:context="fall2018.csc2017.CoreClasses.SettingsActivity"
     android:background="@drawable/background_image">
 
     <Button
-        android:id="@+id/TwentyStart"
+        android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/twentyUndosInput"
+        android:id="@+id/undosInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="87dp"
@@ -41,7 +41,7 @@
         android:autofillHints=""
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/TwentyStart"
+        app:layout_constraintBottom_toTopOf="@+id/start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent" />
@@ -55,13 +55,13 @@
         android:layout_marginBottom="16dp"
         android:text="@string/number_of_undos"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintBottom_toTopOf="@+id/twentyUndosInput"
+        app:layout_constraintBottom_toTopOf="@+id/undosInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/twentyBoardSizeInput"
+        android:id="@+id/boardSizeInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="85dp"
@@ -79,7 +79,7 @@
         android:layout_height="44dp"
         android:layout_marginStart="132dp"
         android:layout_marginTop="16dp"
-        android:text="Twenty settings"
+        android:text="Settings"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
