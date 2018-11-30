@@ -49,7 +49,7 @@ public class CheckersSettingActivity extends SettingsActivity {
     /**
      * Activate Start button.
      */
-    void addStartButtonListener(){
+    public void addStartButtonListener(){
         final Button start = findViewById(R.id.CheckersStart);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
