@@ -71,8 +71,9 @@ public class TwentyBoardManager extends BoardManager {
     /**
      * Checks if a move is valid, and if so moves & merges the tiles in that direction
      * as much as possible
-     * @param dir: character which indicated the direction of the swipe
-     * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
+     * @param dir: int which indicated the direction of the swipe. 0 for up, 1 for down,
+     *           2 for left, 3 for right.
+     * Preconditions: dir is an element of: {0, 1, 2, 3}
      */
     @Override
     public void touchMove(int dir){
@@ -86,13 +87,13 @@ public class TwentyBoardManager extends BoardManager {
         }
         System.out.println("During the move!");
         boolean boardChanged = false;
-        if(dir == 0 && isValidMove(0)){
+        if(dir == 0 && isValidMove(dir)){
             boardChanged = mergeTilesInDir('U');
-        }else if(dir == 1 && isValidMove(0)){
+        }else if(dir == 1 && isValidMove(dir)){
             boardChanged = mergeTilesInDir('D');
-        }else if(dir == 2 && isValidMove(1)){
+        }else if(dir == 2 && isValidMove(dir)){
             boardChanged = mergeTilesInDir('L');
-        }else if(dir == 3 && isValidMove(1)){
+        }else if(dir == 3 && isValidMove(dir)){
             boardChanged = mergeTilesInDir('R');
         }
 
@@ -181,12 +182,13 @@ public class TwentyBoardManager extends BoardManager {
     }
 
     /* Checks if a swipe results in a change in this TwentyBoard
-     * @param horizDir int determining if the swipe is in the horizontal direction -- 1 for yes,
-     *          0 for no. No implies that the swipe is in the vertical direction.
+     * @param dir: int which indicated the direction of the swipe. 0 for up, 1 for down,
+     *           2 for left, 3 for right.
+     * Preconditions: dir is an element of: {0, 1, 2, 3}
      */
     @Override
-    public boolean isValidMove(int horizDir){
-        return this.twentyBoard.isCollapsable(horizDir == 1);
+    public boolean isValidMove(int dir){
+        return this.twentyBoard.isCollapsable(dir == 2 || dir == 3);
     }
 
     /**
