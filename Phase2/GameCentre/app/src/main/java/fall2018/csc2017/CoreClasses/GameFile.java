@@ -50,7 +50,7 @@ public abstract class GameFile<T> implements Serializable {
     }
 
     public void addUndos(){
-        if (remainingUndos <= maxUndos){
+        if (remainingUndos < maxUndos){
             remainingUndos++;
         }
     }
