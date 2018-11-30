@@ -1,6 +1,5 @@
 package fall2018.csc2017.CoreClasses;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +23,7 @@ public class PersonalLeaderBoardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context context = getApplicationContext();
+
         setContentView(R.layout.activity_personal_leader_board);
 
         ArrayList<GameScore> scores = LeaderBoard.getTopScores(AccountManager.activeAccount.getActiveGameName(), LeaderBoard.PERSONAL);
