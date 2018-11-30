@@ -87,13 +87,13 @@ public class TwentyBoardManager extends BoardManager {
         System.out.println("During the move!");
         boolean boardChanged = false;
         if(dir == 0 && isValidMove(0)){
-            boardChanged = mergeTilesInDir(0);
+            boardChanged = mergeTilesInDir('U');
         }else if(dir == 1 && isValidMove(0)){
-            boardChanged = mergeTilesInDir(1);
+            boardChanged = mergeTilesInDir('D');
         }else if(dir == 2 && isValidMove(1)){
-            boardChanged = mergeTilesInDir(2);
+            boardChanged = mergeTilesInDir('L');
         }else if(dir == 3 && isValidMove(1)){
-            boardChanged = mergeTilesInDir(3);
+            boardChanged = mergeTilesInDir('R');
         }
 
         if(boardChanged){
@@ -112,13 +112,12 @@ public class TwentyBoardManager extends BoardManager {
 
     /**
      * Given a direction, move the tiles in the board in that direction as much as possible.
-     * @param dir: int which indicated the direction of the swipe (0 for up, 1 for down, 3 for left,
-     *           4 for right)
+     * @param dir: char which indicated the direction of the swipe.
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
      * Postconditions: The board will be altered so all tiles are moved as much as possible in
      *      the direction dir. Also all tiles of equal id will collapse into one tile.
      */
-    private boolean mergeTilesInDir(int dir){
+    private boolean mergeTilesInDir(char dir){
         TwentyTile tile1, tile2;
         int tile1Row = 0, tile2Row = 0, tile1Col = 0, tile2Col = 0;
         int sqBoardSize = this.twentyBoard.getNumRows();
@@ -128,22 +127,22 @@ public class TwentyBoardManager extends BoardManager {
         for(int i = 0; i<sqBoardSize-1; i++){
             for(int j = 0; j < sqBoardSize; j++){
                 for(int k = 0; k < sqBoardSize - 1; k++){
-                    if(dir == 0){
+                    if(dir == 'U'){
                         tile1Row = k;
                         tile1Col = j;
                         tile2Row = k+1;
                         tile2Col = j;
-                    }else if(dir == 1){
+                    }else if(dir == 'D'){
                         tile1Row = k+1;
                         tile1Col = j;
                         tile2Row = k;
                         tile2Col = j;
-                    }else if(dir == 2){
+                    }else if(dir == 'L'){
                         tile1Row = j;
                         tile1Col = k;
                         tile2Row = j;
                         tile2Col = k+1;
-                    }else if(dir == 3){
+                    }else if(dir == 'R'){
                         tile1Row = j;
                         tile1Col = k+1;
                         tile2Row = j;
@@ -182,8 +181,8 @@ public class TwentyBoardManager extends BoardManager {
     }
 
     /* Checks if a swipe results in a change in this TwentyBoard
-     * @param horizDir boolean determining if the swipe is in the horizontal direction.
-     *         If not, that implies that the swipe is in the vertical direction.
+     * @param horizDir int determining if the swipe is in the horizontal direction -- 1 for yes,
+     *          0 for no. No implies that the swipe is in the vertical direction.
      */
     @Override
     public boolean isValidMove(int horizDir){
