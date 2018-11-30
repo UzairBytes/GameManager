@@ -19,15 +19,31 @@ import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
 
 
 public class GameActivity extends AppCompatActivity implements Observer {
+
+    /**
+     * The name of the active game
+     */
     String activeGameName;
+
+    /**
+     * The id of the game activity xml
+     */
     int contentId;
+
+    /**
+     * The id of the gridview
+     */
     int viewId;
+
+    /**
+     * The if of the undo button
+     */
     int viewUndoId;
 
     /**
      * The buttons to display.
      */
-    protected ArrayList<Button> tileButtons; //TODO make private and add getter method
+    protected ArrayList<Button> tileButtons;
 
     /**
      * Gridview for sliding tiles game.
@@ -42,7 +58,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * The board manager.
      */
-    protected BoardManager boardManager; //TODO make private and add getter method
+    protected BoardManager boardManager;
 
     /**
      * Dispatch onPause() to fragments.
@@ -51,22 +67,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onPause() {
         super.onPause();
         saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
-    }
-
-    /**
-     * Returns boardmanager
-     *
-     * @Return boardmanager
-     */
-    public BoardManager getBoardManager(){
-        return boardManager;
-    }
-
-    /**
-     * set boardmanager
-     */
-    public void setBoardManager(BoardManager newBoardManager){
-        this.boardManager = newBoardManager;
     }
 
     /**
@@ -89,11 +89,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Override the functionality of the back button
      */
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent startingActivity = new Intent(this, StartingActivity.class);
         startActivity(startingActivity);
     }
 
+    /**
+     * Updates the girdview after changes are made
+     */
     public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
@@ -101,7 +104,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     }
 
-    private void createTileButtons(Context context){
+    /**
+     * Creates buttons for the tiles
+     *
+     * @param context Information about how the app runs on the phone
+     */
+    private void createTileButtons(Context context) {
         Board board = boardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != board.getNumRows(); row++) {
@@ -113,27 +121,30 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Commands that run to set up game activity.
+     *
+     * @param savedInstanceState A bundle containing saved information
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boardManager = (BoardManager)Savable.loadFromFile(TEMP_SAVE_FILENAME);
+        boardManager = (BoardManager) Savable.loadFromFile(TEMP_SAVE_FILENAME);
         createTileButtons(this);
         activeGameName = AccountManager.activeAccount.getActiveGameName();
-        if(activeGameName.equals(Game.CHECKERS_NAME)){
+        if (activeGameName.equals(Game.CHECKERS_NAME)) {
             viewId = R.id.CheckersGrid;
             contentId = R.layout.activity_checkers_game;
             viewUndoId = R.id.CheckersUndoButton;
-        }else if(activeGameName.equals(Game.TWENTY_NAME)){
+        } else if (activeGameName.equals(Game.TWENTY_NAME)) {
             viewId = R.id.gridTwenty;
             contentId = R.layout.activity_twenty_game;
             viewUndoId = R.id.undoTwentyButton;
-        }else if(activeGameName.equals(Game.SLIDING_NAME)){
+        } else if (activeGameName.equals(Game.SLIDING_NAME)) {
             viewId = R.id.slidingGrid;
             contentId = R.layout.activity_sliding_tiles_game;
             viewUndoId = R.id.undoButton;
         }
-
-        System.out.println("The viewId:" + viewId);
         setContentView(contentId);
         gridView = findViewById(viewId);
         gridView.setNumColumns(boardManager.getSize());
@@ -155,11 +166,13 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 display();
             }
         });
-
         addUndoButtonListener();
     }
 
-    private void addUndoButtonListener(){
+    /**
+     * Creates a listener for the undo button
+     */
+    private void addUndoButtonListener() {
         Button undoButton = findViewById(viewUndoId);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,10 +185,19 @@ public class GameActivity extends AppCompatActivity implements Observer {
         });
     }
 
+    /**
+     * Calls display
+     *
+     * @param arg The object that is updated
+     * @param o   The observable that is updated
+     */
     public void update(Observable o, Object arg) {
         display();
     }
 
+    /**
+     * Updates the tiles buttons after a move is made
+     */
     private void updateTileButtons() {
         Board board = boardManager.getBoard();
         int nextPos = 0;
