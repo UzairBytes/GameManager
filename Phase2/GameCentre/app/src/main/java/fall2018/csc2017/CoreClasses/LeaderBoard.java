@@ -109,6 +109,10 @@ class LeaderBoard implements Serializable {
             }
             i++;
         }
+
+        if (notInserted && size < NUM_TOP_SCORES){
+            scoreList.add(gameScore);
+        }
         if (size == NUM_TOP_SCORES) {
             scoreList.remove(NUM_TOP_SCORES);
         }

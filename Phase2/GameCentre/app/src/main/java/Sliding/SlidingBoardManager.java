@@ -147,7 +147,6 @@ public class SlidingBoardManager extends BoardManager {
         SlidingTile right = col == slidingBoard.getNumCols() - 1 ? null : (SlidingTile) slidingBoard.getTile(row, col + 1);
         getSlidingGameFile().addUndos();
         getSlidingGameFile().increaseNumMoves();
-        getSlidingGameFile().increaseNumMoves();
         if (below != null && below.getId() == blankId) {
             slidingBoard.swapTiles(row, col, row + 1, col);
         } else if (above != null && above.getId() == blankId) {
