@@ -46,22 +46,10 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Savable.saveToFile(TEMP_SAVE_FILENAME, boardManager);
         activeGameName = AccountManager.activeAccount.getActiveGameName();
-        if (activeGameName.equals(Game.CHECKERS_NAME)) {
-            sizeId = R.id.CheckersBoardSizeInput;
-            contentId = R.layout.activity_checkers_settings;
-            viewUndoId = R.id.CheckersUndosInput;
-            startId = R.id.CheckersStart;
-        } else if (activeGameName.equals(Game.TWENTY_NAME)) {
-            sizeId = R.id.twentyBoardSizeInput;
-            contentId = R.layout.activity_twenty_settings;
-            viewUndoId = R.id.twentyUndosInput;
-            startId = R.id.TwentyStart;
-        } else if (activeGameName.equals(Game.SLIDING_NAME)) {
-            sizeId = R.id.SlidingBoardSizeInput;
-            contentId = R.layout.activity_sliding_settings;
-            viewUndoId = R.id.SlidingUndosInput;
-            startId = R.id.SlidingStart;
-        }
+        sizeId = R.id.boardSizeInput;
+        contentId = R.layout.activity_settings;
+        viewUndoId = R.id.undosInput;
+        startId = R.id.start;
         setContentView(contentId);
         addStartButtonListener();
     }
@@ -102,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private void setSize() {
         String strSize = ((EditText) findViewById(sizeId)).getText().toString();
-        if (strSize.equals("")) { //TODO make method
+        if (strSize.equals("")) {
             size = 4;
         } else {
             size = Integer.parseInt(strSize);
