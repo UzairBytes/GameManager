@@ -30,6 +30,7 @@ public class TwentyBoardManager extends BoardManager {
 
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(TwentyGameFile gameFile) {
+        super(gameFile);
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.getRemainingUndos();
@@ -47,6 +48,7 @@ public class TwentyBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(int size) {
+        super(size);
         this.size = size;
         TwentyTile boardTiles[][] = new TwentyTile[size][size];
         for(int i = 0; i<size; i++){
@@ -99,7 +101,7 @@ public class TwentyBoardManager extends BoardManager {
 
         if(boardChanged){
             this.twentyBoard.generateRandomTile();
-            addUndos();
+            gameFile.addUndos();
         }
         System.out.println("After the move:");
         for(int i =0; i<3; i++){
@@ -110,11 +112,6 @@ public class TwentyBoardManager extends BoardManager {
         notifyObservers();
     }
 
-    @Override
-    public void addUndos(){
-        super.addUndos();
-        this.gameFile.setRemainingUndos(this.remainingUndos);
-    }
 
     /**
      * Given a direction, move the tiles in the board in that direction as much as possible.

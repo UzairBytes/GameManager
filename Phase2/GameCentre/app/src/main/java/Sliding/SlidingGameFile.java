@@ -34,7 +34,7 @@ public class SlidingGameFile extends GameFile implements Serializable {
 
 
     public int getNumMoves() {
-        return this.numMoves;
+        return numMoves;
     }
 
 }
