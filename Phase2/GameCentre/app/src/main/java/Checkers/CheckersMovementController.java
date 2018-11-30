@@ -12,7 +12,7 @@ import fall2018.csc2017.CoreClasses.MovementController;
 public class CheckersMovementController extends MovementController {
 
     /**
-     * An attribute which tells if its
+     * An attribute which tells if a tile has been selected.
      */
     private boolean moving = false;
 
@@ -21,7 +21,7 @@ public class CheckersMovementController extends MovementController {
     }
 
     /**
-     * Method checks if a move is valid or if game is over and performs the valid moves.
+     * Method checks if a move is valid or if game is over and performs the valid input move.
      * @param context
      * @param toastMessage
      * @param position

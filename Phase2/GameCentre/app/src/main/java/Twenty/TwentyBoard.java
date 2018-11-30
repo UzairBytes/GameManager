@@ -31,7 +31,6 @@ public class TwentyBoard extends Board {
         TwentyTile mergedTile, blankTile;
         // Verify preconditions.
         if(tile1Id == tile2Id){
-            // TODO: Insert a real background image
             mergedTile =  new TwentyTile((int)(Math.log(tile1Id)/Math.log(2))+1, tile1Id*tile2Id);
             blankTile = new TwentyTile(0, 0);
             this.tiles[row1][col1] = mergedTile;
@@ -48,7 +47,6 @@ public class TwentyBoard extends Board {
         int ranExp = (int)(Math.random() * 3 + 1);
         int ranNum = (int)(Math.pow(2, ranExp));
 
-        // TODO: Insert a background image instead of ranNum
         TwentyTile randomTile = new TwentyTile(ranExp, ranNum);
 
         this.tiles[tileRow][tileCol] = randomTile;
@@ -114,6 +112,10 @@ public class TwentyBoard extends Board {
         return false;
     }
 
+    /**
+     * Creates a copy of the board and all its tiles and returns it.
+     * @return TwentyBoard
+     */
     public TwentyBoard createDeepCopy() {
         Tile[][] tiles = super.createDeepCopy().tiles;
         return new TwentyBoard(tiles, getNumRows(), getNumCols());
