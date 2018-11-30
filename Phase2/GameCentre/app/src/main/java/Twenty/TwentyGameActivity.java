@@ -10,12 +10,15 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
 import phase1.Savable;
 import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
 
+import phase1.AccountManager;
+import phase1.Savable;
 
 public class TwentyGameActivity extends GameActivity implements Observer {
 
@@ -48,15 +51,20 @@ public class TwentyGameActivity extends GameActivity implements Observer {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("second");
         super.onCreate(savedInstanceState);
         twentyBoardManager = (TwentyBoardManager) Savable.loadFromFile(TEMP_SAVE_FILENAME);
-        createTileButtons(this);
-        setContentView(R.layout.activity_twenty_game);
+        System.out.println("printing board after load.");
 
+        Board board = ((TwentyBoardManager) twentyBoardManager).getBoard();
+        for(int i = 0; i< ((TwentyBoardManager) twentyBoardManager).getBoard().getNumRows(); i++){
+            System.out.println(board.getTile(i,0).id + " " +board.getTile(i,1).id + " "+board.getTile(i,2).id);
+        }
+
+        setContentView(R.layout.activity_twenty_game);
         gridView = findViewById(R.id.gridTwenty);
         gridView.setNumColumns(twentyBoardManager.getSize());
         gridView.setBoardManager(twentyBoardManager);
+        createTileButtons(this);
         twentyBoardManager.addObserver(this);
 
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -67,8 +75,8 @@ public class TwentyGameActivity extends GameActivity implements Observer {
                 int displayWidth = gridView.getMeasuredWidth();
                 int displayHeight = gridView.getMeasuredHeight();
 
-                columnWidth = displayWidth / twentyBoardManager.twentyBoard.getNumCols();
-                columnHeight = displayHeight / twentyBoardManager.twentyBoard.getNumCols();
+                columnWidth = displayWidth / twentyBoardManager.getSize();
+                columnHeight = displayHeight / twentyBoardManager.getSize();
 
                 display();
             }
@@ -83,6 +91,8 @@ public class TwentyGameActivity extends GameActivity implements Observer {
             @Override
             public void onClick(View v) {
                 twentyBoardManager.undo();
+                AccountManager.activeAccount.setActiveGameFile(twentyBoardManager.getGameFile());
+                AccountManager.activeAccount.addGameFile(twentyBoardManager.getGameFile());
             }
         });
     }

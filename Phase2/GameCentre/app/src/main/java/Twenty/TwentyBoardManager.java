@@ -38,6 +38,7 @@ public class TwentyBoardManager extends BoardManager {
         AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.twentyBoard = (TwentyBoard) gameFile.getGameStates().peek();
+            this.size = this.twentyBoard.getNumCols();
         }
     }
 
@@ -99,7 +100,6 @@ public class TwentyBoardManager extends BoardManager {
 
         if(boardChanged){
             this.twentyBoard.generateRandomTile();
-            super.addUndos();
         }
         System.out.println("After the move:");
         for(int i =0; i<3; i++){
@@ -108,6 +108,11 @@ public class TwentyBoardManager extends BoardManager {
         save(this.twentyBoard);
         setChanged();
         notifyObservers();
+    }
+
+    public void addUndos(){
+        super.addUndos();
+        this.gameFile.setRemainingUndos(this.remainingUndos);
     }
 
     /**
@@ -224,6 +229,7 @@ public class TwentyBoardManager extends BoardManager {
     public Board undo() {
         if (this.remainingUndos > 0 && this.gameStates.size() > 1) {
             this.twentyBoard = (TwentyBoard) super.undo();
+            this.gameFile.setRemainingUndos(this.gameFile.getRemainingUndos()-1);
         }else{
             System.out.println("EmptyStackError!");
         }
@@ -255,7 +261,7 @@ public class TwentyBoardManager extends BoardManager {
 
     public void setMaxUndos(int maxUndoValue) {
         this.gameFile.setMaxUndos(maxUndoValue);
-        this.gameFile.setRemainingUndos(0);
+        this.gameFile.setRemainingUndos(maxUndoValue);
         this.maxUndos = maxUndoValue;
         this.remainingUndos = maxUndoValue;
     }
