@@ -63,7 +63,6 @@ public class Account implements Serializable {
         // Set the 'save' file name based off of this username.
         this.saveFileName = "/" + this.username + ".ser";
         this.scores = new LeaderBoard();
-//        this.saveAccountGameData(); //TODO: Ensure that the implementation works without this line.
     }
 
     /**
@@ -84,7 +83,7 @@ public class Account implements Serializable {
      *
      * @return this account's username
      */
-    public String getUsername() {
+    String getUsername() {
         return this.username;
     }
 
@@ -93,7 +92,7 @@ public class Account implements Serializable {
      *
      * @return this account's password
      */
-    public String getPassword() {
+     String getPassword() {
         return this.password;
     }
 
@@ -102,7 +101,7 @@ public class Account implements Serializable {
      *
      * @return said hashMap
      */
-    public HashMap<String, GameFile> getGames(String gameType) {
+    HashMap<String, GameFile> getGames(String gameType) {
         this.loadAccountGameData();
         return this.accountGameData.get(gameType);
     }
@@ -119,10 +118,20 @@ public class Account implements Serializable {
         this.saveAccountGameData();
     }
 
+    /**
+     * Returns the name of the game currently being played
+     *
+     * @return activeGamename
+     */
     public String getActiveGameName(){
         return this.activeGameName;
     }
 
+    /**
+     * Sets the desire game name
+     *
+     * @param activeGameName The desire name of the game
+     */
     public void setActiveGameName(String activeGameName){
         this.activeGameName = activeGameName;
     }
@@ -130,7 +139,7 @@ public class Account implements Serializable {
     /**
      * Overwrite and save the <games> hashMap in a serializable file.
      */
-    public void saveAccountGameData() {
+    private void saveAccountGameData() {
         try {
             String path = AccountManager.contextPath;
             File file = new File(path + this.saveFileName);
@@ -150,7 +159,7 @@ public class Account implements Serializable {
      * game files to the .ser file.
      */
     @SuppressWarnings("unchecked")
-    public void loadAccountGameData() {
+    void loadAccountGameData() {
         try {
             String path = AccountManager.contextPath;
             File file = new File(path + this.saveFileName);
@@ -164,18 +173,11 @@ public class Account implements Serializable {
         }
     }
 
-    /*
-     * Getter for the active game file of this account.
-     * @return the current active game file of this account.
-     */
-    public GameFile getActiveGameFile(){
-        return this.activeGameFile;
-    }
 
 
-    /*
+    /**
      * Setter for the active game file of this account.
-     * @param the current active game file for this account.
+     * @param gameFile the current active game file for this account.
      */
     public void setActiveGameFile(GameFile gameFile){
         this.activeGameFile = gameFile;
