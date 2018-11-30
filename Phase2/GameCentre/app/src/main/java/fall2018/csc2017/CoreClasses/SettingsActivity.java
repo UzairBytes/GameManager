@@ -86,7 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
                         makeToastSize();
                     }
                 } else if(AccountManager.activeAccount.getActiveGameName().equals(Game.CHECKERS_NAME))
-                    if (size > 3 && size < 13){
+                    if (size > 3 && size < 13 && size%2==0){
                         boardManager = new CheckersBoardManager(size, true);
                         switchToGame();
                     } else {
@@ -100,7 +100,11 @@ public class SettingsActivity extends AppCompatActivity {
      * Displays that a size is not supported.
      */
     private void makeToastSize() {
-        Toast.makeText(this, "Please enter a valid size!.", Toast.LENGTH_SHORT).show();
+        if (AccountManager.activeAccount.getActiveGameName().equals(Game.CHECKERS_NAME)){
+            Toast.makeText(this, "Size must be even!", Toast.LENGTH_SHORT).show();
+        }
+            else {Toast.makeText(this, "Please enter a valid size!.", Toast.LENGTH_SHORT).show();}
+
     }
 
     /**
