@@ -35,12 +35,11 @@ public class SlidingBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     public SlidingBoardManager(SlidingGameFile gameFile) {
+        super(gameFile);
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
-        this.remainingUndos = gameFile.getRemainingUndos();
         this.maxUndos = gameFile.getMaxUndos();
         this.numMoves = gameFile.getNumMoves();
-        //AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.slidingBoard = (SlidingBoard) gameFile.getGameStates().peek();
         }
@@ -53,6 +52,7 @@ public class SlidingBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     SlidingBoardManager(int size) {
+        super(size);
         Tile[][] tiles = new Tile[size][size];
         final int numTiles = size * size;
         int tileNumber = 0;
@@ -75,10 +75,6 @@ public class SlidingBoardManager extends BoardManager {
 
         // Create a new GameFile, and initialize it with this shuffled board.
         SlidingGameFile gameFile = new SlidingGameFile(this.slidingBoard, Instant.now().toString());
-
-        // Add this new GameFile to the current active account's list of GameFiles.
-        //AccountManager.activeAccount.addGameFile(gameFile);
-//        AccountManager.activeAccount.saveAccountGameData();
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
         this.numMoves = gameFile.getNumMoves();
@@ -89,7 +85,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * Returns the GameFile managed by this SlidingBoardManager.
      */
-    GameFile getGameFile() {
+    public GameFile getGameFile() {
         return this.gameFile;
     }
 
@@ -158,7 +154,7 @@ public class SlidingBoardManager extends BoardManager {
         SlidingTile below = row == slidingBoard.getNumRows() - 1 ? null : (SlidingTile) slidingBoard.getTile(row + 1, col);
         SlidingTile left = col == 0 ? null : (SlidingTile) slidingBoard.getTile(row, col - 1);
         SlidingTile right = col == slidingBoard.getNumCols() - 1 ? null : (SlidingTile) slidingBoard.getTile(row, col + 1);
-        addUndos();
+        gameFile.addUndos();
         numMoves++;
         gameFile.increaseNumMoves();
         if (below != null && below.getId() == blankId) {
@@ -181,8 +177,6 @@ public class SlidingBoardManager extends BoardManager {
     @SuppressWarnings("unchecked")
     public void save(SlidingBoard board) {
         super.save(board);
-        //AccountManager.activeAccount.saveAccountGameData();
-        this.gameFile = (SlidingGameFile) AccountManager.activeAccount.getActiveGameFile();
         this.gameStates = this.gameFile.getGameStates();
         this.slidingBoard = board;
     }
@@ -193,7 +187,7 @@ public class SlidingBoardManager extends BoardManager {
     @Override
     public Board undo() {
         // TODO: Use the return value of this fn.
-        if (this.remainingUndos > 0) {
+        if (gameFile.getRemainingUndos() > 0) {
             this.slidingBoard = (SlidingBoard) super.undo();
         }
         setChanged();
@@ -229,7 +223,6 @@ public class SlidingBoardManager extends BoardManager {
         this.gameFile.setMaxUndos(maxUndoValue);
         this.gameFile.setRemainingUndos(0);
         this.maxUndos = maxUndoValue;
-        this.remainingUndos = 0;
     }
 
     /**
@@ -269,13 +262,5 @@ public class SlidingBoardManager extends BoardManager {
         return maxUndos;
     }
 
-    /**
-     * Add the number of undos to this board.
-     */
-    @Override
-    public void addUndos() {
-        super.addUndos();
-        this.gameFile.setRemainingUndos(this.remainingUndos);
-    }
 
 }

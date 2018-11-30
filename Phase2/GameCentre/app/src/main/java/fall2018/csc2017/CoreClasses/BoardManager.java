@@ -8,7 +8,7 @@ import phase1.AccountManager;
 import phase1.Game;
 import phase1.GameFile;
 
-public abstract class BoardManager extends Observable implements Serializable, Game {
+public class BoardManager extends Observable implements Serializable, Game {
 
     /**
      * Holds a stack of boards, with each Board representing a specific game state.
@@ -33,19 +33,41 @@ public abstract class BoardManager extends Observable implements Serializable, G
     protected int numMoves = 0;
 
     /**
+     * The GameFile holding the data for this board.
+     */
+    private GameFile gameFile;
+
+    /**
+     * The board being managed.
+     */
+    private Board board;
+
+    public BoardManager (GameFile gameFile){
+        this.gameFile = gameFile;
+        this.gameStates = gameFile.getGameStates();
+
+        if (!gameFile.getGameStates().isEmpty()) {
+            this.board = (Board) gameFile.getGameStates().peek();
+        }
+    }
+
+    public BoardManager (int size){
+        Tile[][] tiles = new Tile[size][size];
+    }
+
+    public GameFile getGameFile() {
+        return gameFile;
+    }
+
+    public boolean gameComplete(){
+        return false;
+    }
+
+    /**
      * Returns the score of a game.
      */
     public int score() {return 0;}
 
-    /**
-     * Add the number of undos to this board.
-     */
-    public void addUndos() {
-        if (this.remainingUndos < this.maxUndos) {
-            this.remainingUndos++;
-
-        }
-    }
 
     /**
      * Saves a new state of board to game.

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import fall2018.csc2017.CoreClasses.R;
 import fall2018.csc2017.CoreClasses.SettingsActivity;
+import phase1.AccountManager;
 import phase1.Savable;
 
 public class CheckersSettingActivity extends SettingsActivity {
@@ -40,6 +41,8 @@ public class CheckersSettingActivity extends SettingsActivity {
 
     void switchToGame(){
         Intent start = new Intent(this, CheckersGameActivity.class);
+        AccountManager.activeAccount.setActiveGameFile(checkersBoardManager.getGameFile());
+        AccountManager.activeAccount.addGameFile(checkersBoardManager.getGameFile());
         Savable.saveToFile(SettingsActivity.TEMP_SAVE_FILENAME, checkersBoardManager);
         startActivity(start);
     }

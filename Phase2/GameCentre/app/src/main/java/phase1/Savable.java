@@ -46,6 +46,7 @@ public abstract class Savable  {
     @SuppressWarnings("unchecked")
     public static Object loadAtStart(String saveFileName, Object initialData){
         try {
+            System.out.println("The path: " + AccountManager.contextPath + saveFileName);
             File file = new File(AccountManager.contextPath  + saveFileName);
             FileInputStream input = new FileInputStream(file);
             ObjectInputStream inputStream = new ObjectInputStream(input);

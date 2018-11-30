@@ -6,7 +6,6 @@ import java.util.Iterator;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import fall2018.csc2017.CoreClasses.Tile;
-import phase1.AccountManager;
 import phase1.GameFile;
 
 public class CheckersBoardManager extends BoardManager {
@@ -49,12 +48,12 @@ public class CheckersBoardManager extends BoardManager {
      * @param gameFile: Represents a record of data for this game.
      */
     public CheckersBoardManager(CheckersGameFile gameFile) {
+        super(gameFile);
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.remainingUndos;
         this.remainingUndos = gameFile.maxUndos;
-        this.numMoves = gameFile.numMoves;
-        AccountManager.activeAccount.setActiveGameFile(gameFile);
+        //AccountManager.activeAccount.setActiveGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.board = (CheckersBoard) gameFile.getGameStates().peek();
         }
@@ -66,7 +65,7 @@ public class CheckersBoardManager extends BoardManager {
      * @param size: The desired size of the board.
      */
     CheckersBoardManager(int size, boolean redsTurn) {
-        super();
+        super(size);
         CheckersTile[][] tiles = new CheckersTile[size][size];
         String id;
         for (int row = 0; row < size; row++) {
@@ -90,10 +89,9 @@ public class CheckersBoardManager extends BoardManager {
         CheckersGameFile gameFile = new CheckersGameFile(this.board, Instant.now().toString());
 
         // Add this new GameFile to the current active account's list of GameFiles.
-        AccountManager.activeAccount.addGameFile(gameFile);
+        //AccountManager.activeAccount.addGameFile(gameFile);
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
-        this.numMoves = gameFile.numMoves;
         this.maxUndos = gameFile.maxUndos;
         save(this.board);
     }
@@ -197,7 +195,7 @@ public class CheckersBoardManager extends BoardManager {
             hasSlain = false;
             swapRedsTurn();
         }
-        super.addUndos();
+        gameFile.addUndos();
         save(newBoard);
         setChanged();
         notifyObservers();
@@ -221,7 +219,7 @@ public class CheckersBoardManager extends BoardManager {
 
 
     //should use an iterator
-    boolean gameComplete() {
+    public boolean gameComplete() {
         boolean redWins = true;
         boolean whiteWins = true;
         Iterator<Tile> iter = board.iterator();
@@ -264,7 +262,7 @@ public class CheckersBoardManager extends BoardManager {
     /**
      * Returns the GameFile managed by this SlidingBoardManager.
      */
-    GameFile getGameFile() {
+    public GameFile getGameFile() {
         return this.gameFile;
     }
 
@@ -275,12 +273,13 @@ public class CheckersBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     public void save(CheckersBoard board) {
-        CheckersGameFile newGameFile = (CheckersGameFile) AccountManager.activeAccount.getActiveGameFile();
-        newGameFile.getGameStates().push(board);
-        AccountManager.activeAccount.addGameFile(newGameFile);
-        AccountManager.activeAccount.saveAccountGameData();
-        this.gameFile = newGameFile;
-        this.gameStates = newGameFile.getGameStates();
+        super.save(board);
+//        CheckersGameFile newGameFile = (CheckersGameFile) AccountManager.activeAccount.getActiveGameFile();
+//        newGameFile.getGameStates().push(board);
+//        AccountManager.activeAccount.addGameFile(newGameFile);
+//        AccountManager.activeAccount.saveAccountGameData();
+//        this.gameFile = newGameFile;
+        this.gameStates = this.gameFile.getGameStates();
         this.board = board;
     }
 

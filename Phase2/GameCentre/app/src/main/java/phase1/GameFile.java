@@ -14,10 +14,6 @@ public abstract class GameFile<T> implements Serializable {
      */
     protected int maxUndos;
 
-    /**
-     * Number of moves this user has made.
-     */
-    protected int numMoves;
 
     /**
      * Undos remaining for a set of SlidingGameFile.
@@ -53,8 +49,10 @@ public abstract class GameFile<T> implements Serializable {
         this.remainingUndos = remainingUndos;
     }
 
-    public void setNumMoves(int numMoves){
-        this.numMoves = numMoves;
+    public void addUndos(){
+        if (remainingUndos < maxUndos){
+            remainingUndos++;
+        }
     }
 
     public void setMaxUndos(int maxUndos){
@@ -65,10 +63,6 @@ public abstract class GameFile<T> implements Serializable {
     public int getRemainingUndos(){
         return this.remainingUndos;
 
-    }
-
-    public int getNumMoves(){
-        return this.numMoves;
     }
 
     public int getMaxUndos(){
