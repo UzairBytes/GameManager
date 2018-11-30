@@ -34,7 +34,6 @@ public class TwentyBoardManager extends BoardManager {
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.getRemainingUndos();
         this.maxUndos = gameFile.getMaxUndos();
-        this.numMoves = gameFile.getNumMoves();
         AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.twentyBoard = (TwentyBoard) gameFile.getGameStates().peek();
@@ -100,6 +99,7 @@ public class TwentyBoardManager extends BoardManager {
 
         if(boardChanged){
             this.twentyBoard.generateRandomTile();
+            addUndos();
         }
         System.out.println("After the move:");
         for(int i =0; i<3; i++){
@@ -110,6 +110,7 @@ public class TwentyBoardManager extends BoardManager {
         notifyObservers();
     }
 
+    @Override
     public void addUndos(){
         super.addUndos();
         this.gameFile.setRemainingUndos(this.remainingUndos);

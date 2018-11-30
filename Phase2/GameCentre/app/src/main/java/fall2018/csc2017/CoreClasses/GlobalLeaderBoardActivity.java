@@ -24,14 +24,11 @@ public class GlobalLeaderBoardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_global_leader_board);
-
         ArrayList<GameScore> scores = LeaderBoard.getTopScores(AccountManager.activeAccount.getActiveGameName(), LeaderBoard.GLOBAL);
         ListAdapter scoreAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, scores);
         ListView listV = findViewById(R.id.topScores);
         listV.setAdapter(scoreAdapter);
-
         addPersonalTopScoresButtonListener();
     }
 

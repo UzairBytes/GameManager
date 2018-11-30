@@ -7,6 +7,12 @@ import phase1.GameFile;
 
 public class SlidingGameFile extends GameFile implements Serializable {
 
+
+    /**
+     * Number of moves this user has made.
+     */
+    protected int numMoves;
+
     /**
      * Constructor called when creating a new game, with it's specified initial game state and game name.
      *
@@ -24,6 +30,11 @@ public class SlidingGameFile extends GameFile implements Serializable {
      */
     void increaseNumMoves() {
         numMoves++;
+    }
+
+
+    public int getNumMoves() {
+        return this.numMoves;
     }
 
 }

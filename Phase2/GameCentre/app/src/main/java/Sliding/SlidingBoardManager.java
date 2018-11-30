@@ -182,7 +182,7 @@ public class SlidingBoardManager extends BoardManager {
     public void save(SlidingBoard board) {
         super.save(board);
         //AccountManager.activeAccount.saveAccountGameData();
-        this.gameFile = (SlidingGameFile) AccountManager.activeAccount.getActiveGameFile();
+        //this.gameFile = (SlidingGameFile) AccountManager.activeAccount.getActiveGameFile();
         this.gameStates = this.gameFile.getGameStates();
         this.slidingBoard = board;
     }
