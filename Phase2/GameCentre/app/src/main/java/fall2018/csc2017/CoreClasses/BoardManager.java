@@ -21,8 +21,15 @@ public class BoardManager extends Observable implements Serializable, Game {
      */
     private Board board;
 
+    /**
+     * The size of the board. Refers to the length of one side (as all boards used are squares).
+     */
     private int size;
 
+    /**
+     * BoardManager constructor when called with a gameFile parameter.
+     * @param gameFile
+     */
     public BoardManager (GameFile gameFile){
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
@@ -32,16 +39,28 @@ public class BoardManager extends Observable implements Serializable, Game {
         }
     }
 
+    /**
+     * BoardManager constructor when called with a size parameter.
+     * @param size
+     */
     public BoardManager (int size){
         Tile[][] tiles = new Tile[size][size];
         this.size = size;
         board = new Board(tiles, size, size);
     }
 
+    /**
+     * Getter for the BoardManager's gameFile.
+     * @return gameFile
+     */
     public GameFile getGameFile() {
         return gameFile;
     }
 
+    /**
+     * Checks to see if the game is complete.
+     * @return boolean
+     */
     public boolean gameComplete(){
         return false;
     }
