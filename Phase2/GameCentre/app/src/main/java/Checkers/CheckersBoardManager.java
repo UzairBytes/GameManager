@@ -54,7 +54,7 @@ public class CheckersBoardManager extends BoardManager {
         this.remainingUndos = gameFile.remainingUndos;
         this.remainingUndos = gameFile.maxUndos;
         this.numMoves = gameFile.numMoves;
-        AccountManager.activeAccount.setActiveGameFile(gameFile);
+        //AccountManager.activeAccount.setActiveGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.board = (CheckersBoard) gameFile.getGameStates().peek();
         }
@@ -90,7 +90,7 @@ public class CheckersBoardManager extends BoardManager {
         CheckersGameFile gameFile = new CheckersGameFile(this.board, Instant.now().toString());
 
         // Add this new GameFile to the current active account's list of GameFiles.
-        AccountManager.activeAccount.addGameFile(gameFile);
+        //AccountManager.activeAccount.addGameFile(gameFile);
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
         this.numMoves = gameFile.numMoves;
@@ -275,12 +275,13 @@ public class CheckersBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     public void save(CheckersBoard board) {
-        CheckersGameFile newGameFile = (CheckersGameFile) AccountManager.activeAccount.getActiveGameFile();
-        newGameFile.getGameStates().push(board);
-        AccountManager.activeAccount.addGameFile(newGameFile);
-        AccountManager.activeAccount.saveAccountGameData();
-        this.gameFile = newGameFile;
-        this.gameStates = newGameFile.getGameStates();
+        super.save(board);
+//        CheckersGameFile newGameFile = (CheckersGameFile) AccountManager.activeAccount.getActiveGameFile();
+//        newGameFile.getGameStates().push(board);
+//        AccountManager.activeAccount.addGameFile(newGameFile);
+//        AccountManager.activeAccount.saveAccountGameData();
+//        this.gameFile = newGameFile;
+        this.gameStates = this.gameFile.getGameStates();
         this.board = board;
     }
 

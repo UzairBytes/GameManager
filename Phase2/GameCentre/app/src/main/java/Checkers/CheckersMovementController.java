@@ -28,6 +28,8 @@ public class CheckersMovementController extends MovementController {
         if (moving && checkersBoardManager.isValidMove(position)) {
 
             checkersBoardManager.touchMove(position);
+            AccountManager.activeAccount.setActiveGameFile(checkersBoardManager.getGameFile());
+            AccountManager.activeAccount.addGameFile(checkersBoardManager.getGameFile());
             if (checkersBoardManager.gameComplete()){
                 LeaderBoard.updateScores(new GameScore(
                         Game.CHECKERS_NAME, checkersBoardManager.getGameFile().getName(),

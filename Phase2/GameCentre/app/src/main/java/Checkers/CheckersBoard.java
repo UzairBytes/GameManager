@@ -1,8 +1,7 @@
 package Checkers;
 import fall2018.csc2017.CoreClasses.Board;
 
-public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
-
+public class CheckersBoard extends Board {
 
     private CheckersTile highLightedTile;
 

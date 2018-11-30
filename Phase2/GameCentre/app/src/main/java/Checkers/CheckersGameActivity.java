@@ -13,6 +13,7 @@ import java.util.Observer;
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
+import phase1.AccountManager;
 import phase1.Savable;
 
 import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
@@ -53,8 +54,11 @@ public class CheckersGameActivity extends GameActivity implements Observer {
             @Override
             public void onClick(View v) {
                 boardManager.undo();
+                AccountManager.activeAccount.setActiveGameFile(boardManager.getGameFile());
+                AccountManager.activeAccount.addGameFile(boardManager.getGameFile());
             }
         });
+
     }
 
     /**
