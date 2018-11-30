@@ -5,14 +5,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-import phase1.Account;
-import phase1.AccountManager;
-import phase1.Game;
 import phase1.GameFile;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public class SlidingBoardManagerTest {
@@ -23,9 +22,9 @@ public class SlidingBoardManagerTest {
     private SlidingBoardManager slidingBoardManager;
 
     /**
-     * sliding board for test.
+     * Sliding board manager generated from gamefile for test.
      */
-    private SlidingBoard slidingBoard;
+    private SlidingBoardManager slidingBoardManager2;
 
     /**
      * Set up initalizes a context path, activate account and Sliding game name
@@ -33,23 +32,23 @@ public class SlidingBoardManagerTest {
      */
     @Before
     public void setup() {
-        AccountManager.contextPath = "/data/user/0/fall2018.csc2017.slidingtiles/files";
-        AccountManager.activeAccount = new Account("slidingtest", "1234");
-        AccountManager.activeAccount.setActiveGameName(Game.SLIDING_NAME);
         slidingBoardManager = new SlidingBoardManager(3);
-        slidingBoard = slidingBoardManager.getBoard();
-        makeBoard();
+        SlidingBoard slidingBoard = slidingBoardManager.getBoard();
+        makeBoard(slidingBoard);
+        SlidingGameFile slidingGameFile = new SlidingGameFile(slidingBoard, "test");
+        slidingBoardManager2 = new SlidingBoardManager(slidingGameFile);
+        slidingBoardManager2.setMaxUndos(3);
     }
 
     /**
      * Populates board with tiles.
      */
-    private void makeBoard(){
+    private void makeBoard(SlidingBoard testBoard) {
         int numIt = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 SlidingTile tile = new SlidingTile(numIt, 9);
-                slidingBoard.insertTile(i, j, tile);
+                testBoard.insertTile(i, j, tile);
                 numIt++;
             }
         }
@@ -65,11 +64,13 @@ public class SlidingBoardManagerTest {
     }
 
     /**
-     * Test if puzzleSolved returns true when tiles are organized in order.
+     * Test if gameComplete returns true when tiles are organized in order.
      */
     @Test
-    public void testPuzzleSolved() {
-        assertTrue("slidingBoardManager.puzzleSolved() failed test 1.", slidingBoardManager.puzzleSolved());
+    public void testGameComplete() {
+        assertTrue("slidingBoardManager.puzzleSolved() failed test 1.", slidingBoardManager.gameComplete());
+        //Since no moves made, max score is 4,096.
+        assertEquals("slidingBoardManager.score() failed test 2.", 4096, slidingBoardManager.score());
     }
 
     /**
@@ -84,28 +85,45 @@ public class SlidingBoardManagerTest {
     }
 
     /**
-     * Tests helper function process move, which checks if position selected is
+     * Tests touchMove, which checks if position selected is
      * adjacent to the blank tile.
      */
     @Test
-    public void testProcessMove() {
-        slidingBoardManager.processMove(7);
-        Assert.assertEquals("slidingBoardManager.isValidTap() failed test 1.", 9, slidingBoard.getTile(2, 1).getId());
-        assertEquals("slidingBoardManager.isValidTap() failed test 2.", 8, slidingBoard.getTile(2, 2).getId());
+    public void testTouchMove() {
+        slidingBoardManager.touchMove(7);
+        Assert.assertEquals("slidingBoardManager.isValidTap() failed test 1.", 9, slidingBoardManager.getBoard().getTile(2, 1).getId());
+        assertEquals("slidingBoardManager.isValidTap() failed test 2.", 8, slidingBoardManager.getBoard().getTile(2, 2).getId());
     }
 
-//    /**
-//     * Tests undosliding method to see if previous state is returned.
-//     */
-//    @Test
-//    public void testUndoSliding(){
-//        slidingBoardManager.setMaxUndos(4);
-//        SlidingBoard originalBoard = slidingBoardManager.getBoard();
-//        slidingBoardManager.touchMove(7);
-//        SlidingBoard newBoard = slidingBoardManager.getBoard();
-//        assertNotSame(originalBoard, newBoard);
-//
-//    }
+    /**
+     * Test setMaxUndo method, which sets max undos for the board manager.
+     */
+    @Test
+    public void testSetMaxUndo() {
+        // Tests whether set up set max undo was set to 3.
+        assertEquals(3, slidingBoardManager2.getSlidingGameFile().getMaxUndos());
+    }
 
+    /**
+     * Test undo method
+     */
+    @Test
+    public void testUndo() {
+        // Make 2 moves, undo moves and compare board memory addresses.
+        SlidingBoard newBoard = slidingBoardManager2.getBoard();
+        slidingBoardManager2.touchMove(7);
+        slidingBoardManager2.getGameFile().addUndos();
+        slidingBoardManager2.touchMove(5);
+        slidingBoardManager2.getGameFile().addUndos();
+        SlidingBoard test2 = slidingBoardManager2.getBoard();
+        slidingBoardManager2.undo();
+        slidingBoardManager2.undo();
+        SlidingBoard test3 = slidingBoardManager2.getBoard();
 
+        //Case 1 - Initial board should be the same as board after making a move and undoing it.
+        assertSame(newBoard, test3);
+        //Case 2 - After making two moves, current board should not equal board after undos.
+        assertNotSame(newBoard, test2);
+
+    }
 }
