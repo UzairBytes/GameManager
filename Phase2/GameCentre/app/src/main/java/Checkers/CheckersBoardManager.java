@@ -29,10 +29,6 @@ public class CheckersBoardManager extends BoardManager {
      */
     private boolean redsTurn;
 
-    /**
-     * Which AI the opponent is or human if you're playing a human
-     */
-    private String opponentType;
 
     /**
      * Indicates whether a piece has been slain on the current turn yet
@@ -212,7 +208,10 @@ public class CheckersBoardManager extends BoardManager {
     }
 
 
-    //should use an iterator
+    /**
+     * Check if the game is complete
+     * @return true if the game is complete and false otherwise
+     */
     @Override
     public boolean gameComplete() {
         boolean redWins = true;
@@ -234,13 +233,6 @@ public class CheckersBoardManager extends BoardManager {
         return true;
     }
 
-    String getWinner() {
-        return winner;
-    }
-
-    boolean isRedsTurn() {
-        return redsTurn;
-    }
 
     void swapRedsTurn() {
         redsTurn = !redsTurn;
@@ -289,10 +281,6 @@ public class CheckersBoardManager extends BoardManager {
         return this.board;
     }
 
-
-    void setOpponentType(String opponentType) {
-        this.opponentType = opponentType;
-    }
 
 
     /**
