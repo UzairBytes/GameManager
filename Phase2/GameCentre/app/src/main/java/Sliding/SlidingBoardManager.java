@@ -80,7 +80,8 @@ public class SlidingBoardManager extends BoardManager {
      *
      * @return whether the tiles are in row-major order
      */
-    boolean puzzleSolved() {
+    @Override
+    public boolean gameComplete() {
         Iterator<Tile> iter = slidingBoard.iterator();
         int id = iter.next().getId();
         while (iter.hasNext()) {
@@ -185,7 +186,7 @@ public class SlidingBoardManager extends BoardManager {
      */
     @Override
     public int score() {
-        if (puzzleSolved()) {
+        if (gameComplete()){
             return (int) (Math.pow(16, slidingBoard.getNumCols()) / ((getSlidingGameFile().getNumMoves() + 1) * (getSlidingGameFile().getMaxUndos() + 1)));
         }
         return 0;
@@ -198,15 +199,6 @@ public class SlidingBoardManager extends BoardManager {
         return this.slidingBoard;
     }
 
-
-    /**
-     * @param maxUndoValue: Maximum number of undo tries for this file.
-     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
-     */
-    void setMaxUndos(int maxUndoValue) {
-        this.getSlidingGameFile().setMaxUndos(maxUndoValue);
-        this.getSlidingGameFile().setRemainingUndos(0);
-    }
 
     /**
      * Shuffles array of tiles.
@@ -226,9 +218,4 @@ public class SlidingBoardManager extends BoardManager {
             }
         }
     }
-
-
-
-
-
 }

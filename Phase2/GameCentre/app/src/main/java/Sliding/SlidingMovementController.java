@@ -48,7 +48,7 @@ public class SlidingMovementController extends MovementController {
             slidingBoardManager.touchMove(position);
             AccountManager.activeAccount.setActiveGameFile(slidingBoardManager.getGameFile());
             AccountManager.activeAccount.addGameFile(slidingBoardManager.getGameFile());
-            if (slidingBoardManager.puzzleSolved()) {
+            if (slidingBoardManager.gameComplete()) {
                 LeaderBoard.updateScores(new GameScore(
                         "SlidingTiles", slidingBoardManager.getGameFile().getName(),
                         AccountManager.activeAccount.getUsername(), slidingBoardManager.score()));

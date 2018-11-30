@@ -99,5 +99,13 @@ public class BoardManager extends Observable implements Serializable, Game {
     public void setGameFile(GameFile gameFile) {
         this.gameFile = gameFile;
     }
-    
+
+    /**
+     * @param maxUndoValue: Maximum number of undo tries for this file.
+     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
+     */
+    public void setMaxUndos(int maxUndoValue) {
+        getGameFile().setMaxUndos(maxUndoValue);
+        getGameFile().setRemainingUndos(0);
+    }
 }
