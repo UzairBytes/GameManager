@@ -42,7 +42,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
          */
         @Override
         public CheckersTile next() {
-            CheckersTile nextTile = (CheckersTile) tiles[nextRow][nextColumn];
+            CheckersTile nextTile = getCheckersTile(nextRow,nextColumn);
             nextColumn++;
             if (nextColumn >= tiles[0].length) {
                 nextColumn = 0;
@@ -80,7 +80,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
     public void swapTiles(int row1, int col1, int row2, int col2) {
         super.swapTiles(row1, col1, row2, col2);
         if (Math.abs(row1 - row2) == 2) {
-            ((CheckersTile)tiles[(row1 + row2) / 2][(col1 + col2) / 2]).changeTile(CheckersTile.EMPTY_WHITE_TILE);
+            getCheckersTile((row1 + row2) / 2,(col1 + col2) / 2).changeTile(CheckersTile.EMPTY_WHITE_TILE);
         }
 
         maybeMakeKing(row2, col2);
@@ -140,7 +140,7 @@ public class CheckersBoard extends Board {//implements Iterable<CheckersTile>{
         CheckersTile[][] copyTile = new CheckersTile[getNumRows()][getNumCols()];
         for (int row = 0; row != getNumRows(); row++) {
             for (int col = 0; col != getNumCols(); col++) {
-                copyTile[row][col] = new CheckersTile(((CheckersTile) this.tiles[row][col]).getCheckersId());
+                copyTile[row][col] = new CheckersTile(getCheckersTile(row, col).getCheckersId());
             }
         }
         CheckersBoard copiedBoard = new CheckersBoard(copyTile, this.size);
