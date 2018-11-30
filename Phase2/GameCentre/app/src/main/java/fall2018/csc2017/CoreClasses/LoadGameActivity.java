@@ -83,7 +83,9 @@ public class LoadGameActivity extends AppCompatActivity {
             if(gameType.equals(Game.SLIDING_NAME)){
                 boardManager = new SlidingBoardManager((SlidingGameFile)desiredFile);
             }else if(gameType.equals(Game.TWENTY_NAME)){
+                System.out.println("boardtest");
                 boardManager = new TwentyBoardManager((TwentyGameFile) desiredFile);
+                desiredFile.setRemainingUndos(boardManager.remainingUndos);
             }else{
             boardManager = new CheckersBoardManager((CheckersGameFile) desiredFile);
             }
