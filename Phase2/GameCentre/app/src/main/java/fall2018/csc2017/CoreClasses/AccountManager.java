@@ -1,6 +1,7 @@
 package fall2018.csc2017.CoreClasses;
 
 import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,9 +14,8 @@ import java.util.HashMap;
 /**
  * AccountManager class saves and retrieves accounts and sets active accounts.
  */
-public class AccountManager{
+public class AccountManager {
 
-    //TODO: Should these variables be private?
     /**
      * The application's context, which will store the location where game data will be saved.
      */
@@ -42,7 +42,7 @@ public class AccountManager{
      * @param accPassword: Valid account password to add to the system.
      *                     Preconditions: acc is not currently a user in the system.
      */
-    public static void addAccount(String accUsername, String accPassword) {
+    static void addAccount(String accUsername, String accPassword) {
         // Verify preconditions
         if (!verifyUsername(accUsername)) {
             Account newAcc = new Account(accUsername, accPassword);
@@ -66,7 +66,7 @@ public class AccountManager{
      * @param user: Username
      * @return True if the username exists in the system, false otherwise.
      */
-    public static boolean verifyUsername(String user) {
+    static boolean verifyUsername(String user) {
         return accounts.containsKey(user);
     }
 
@@ -76,7 +76,7 @@ public class AccountManager{
      * @return True if the username exists in the system, false otherwise.
      * Preconditions: Username denotes a user that does exist in the system.
      */
-    public static boolean verifyPassword(String user, String pass) {
+    static boolean verifyPassword(String user, String pass) {
         // Verify preconditions
         if (!verifyUsername(user)) {
             return false;
@@ -91,7 +91,7 @@ public class AccountManager{
      * and save it in a new .ser file.
      */
     @SuppressWarnings("unchecked")
-    public static void loadAccounts() {
+    static void loadAccounts() {
         try {
             String path = contextPath;
             File file = new File(path + SAVE_FILENAME);
@@ -134,7 +134,7 @@ public class AccountManager{
     @SuppressWarnings("unchecked")
     private static HashMap<String, Account> createAccountsCopy() {
         HashMap<String, Account> newAccounts = new HashMap<>();
-        for(Map.Entry<String, Account> pair : accounts.entrySet()) {
+        for (Map.Entry<String, Account> pair : accounts.entrySet()) {
             newAccounts.put(pair.getKey(), pair.getValue());
         }
         return newAccounts;
