@@ -100,6 +100,7 @@ public class TwentyBoardManager extends BoardManager {
 
         if(boardChanged){
             this.twentyBoard.generateRandomTile();
+            addUndos();
         }
         System.out.println("After the move:");
         for(int i =0; i<3; i++){
