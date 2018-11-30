@@ -24,7 +24,12 @@ public class CheckersMovementController extends MovementController {
     @Override
     public void processMovement(Context context, String toastMessage, int position) {
         if (moving && boardManager.isValidMove(position)) {
-            super.performMove(context, "A player wins!", position);
+            if (((CheckersBoardManager) boardManager).isRedsTurn()){
+                super.performMove(context, "Red wins!", position);}
+                else {
+                super.performMove(context, "White wins!", position);
+            }
+
             if (!((CheckersBoardManager)boardManager).isHasSlain()) {
                 moving = false;
             }

@@ -281,7 +281,7 @@ public class CheckersBoardManager extends BoardManager {
         return this.board;
     }
 
-
+    boolean isRedsTurn(){return redsTurn;}
 
     /**
      * Returns the number of pawns the winning player still has plus 5 times the number of kings
