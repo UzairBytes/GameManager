@@ -42,7 +42,7 @@ public class SlidingBoardManager extends BoardManager {
      * @param size: The desired size of the board.
      */
     @SuppressWarnings("unchecked")
-    SlidingBoardManager(int size) {
+    public SlidingBoardManager(int size) {
         super(size);
         Tile[][] tiles = new Tile[size][size];
         final int numTiles = size * size;

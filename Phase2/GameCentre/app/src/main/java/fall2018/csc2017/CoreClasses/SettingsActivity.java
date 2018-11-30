@@ -3,16 +3,24 @@ package fall2018.csc2017.CoreClasses;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import Checkers.CheckersBoardManager;
+import Sliding.SlidingBoardManager;
+import Twenty.TwentyBoardManager;
 
 /**
  * The activity for determining settings for a new game.
  */
 public class SettingsActivity extends AppCompatActivity {
 
-//    /**
-//     * The board manager.
-//     */
-//     protected BoardManager boardManager;
+    /**
+     * The board manager.
+     */
+    protected BoardManager boardManager;
 
     /**
      * A temporary save file.
@@ -24,20 +32,38 @@ public class SettingsActivity extends AppCompatActivity {
      */
     protected int size = 4;
 
+    protected String activeGameName;
+    protected int contentId;
+    protected int viewUndoId;
+    protected int startId;
+    protected int sizeId;
+
     /**
      * Shows activity_settings.xml file and starts the listener for the start button.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        saveToFile(TEMP_SAVE_FILENAME);
-//        setContentView(R.layout.activity_settings);
-//        EditText undosInput = findViewById(R.id.undosInput);
-//        undosInput.setText("3");
-//        EditText boardSizeInput = findViewById(R.id.boardSizeInput);
-//        boardSizeInput.setText("4");
-
-//        addStartButtonListener();
+        Savable.saveToFile(TEMP_SAVE_FILENAME, boardManager);
+        activeGameName = AccountManager.activeAccount.getActiveGameName();
+        if (activeGameName.equals(Game.CHECKERS_NAME)) {
+            sizeId = R.id.CheckersBoardSizeInput;
+            contentId = R.layout.activity_checkers_settings;
+            viewUndoId = R.id.CheckersUndosInput;
+            startId = R.id.CheckersStart;
+        } else if (activeGameName.equals(Game.TWENTY_NAME)) {
+            sizeId = R.id.twentyBoardSizeInput;
+            contentId = R.layout.activity_twenty_settings;
+            viewUndoId = R.id.twentyUndosInput;
+            startId = R.id.TwentyStart;
+        } else if (activeGameName.equals(Game.SLIDING_NAME)) {
+            sizeId = R.id.SlidingBoardSizeInput;
+            contentId = R.layout.activity_sliding_settings;
+            viewUndoId = R.id.SlidingUndosInput;
+            startId = R.id.SlidingStart;
+        }
+        setContentView(contentId);
+        addStartButtonListener();
     }
 
     /**
@@ -45,28 +71,77 @@ public class SettingsActivity extends AppCompatActivity {
      */
 //    void switchToGame(){
 //    }
-
     /**
      * Activate Start button.
      */
-//    void addStartButtonListener(){
-//    }
+    public void addStartButtonListener() {
+        final Button start = findViewById(startId);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSize();
+                setUndos();
+                if (size > 2 && size < 6) {
+                    switchToGame();
+                } else {
+                    makeToastSize();
+                }
+            }
+        });
+    }
 
-//    /**
-//     * Save the board manager to fileName.
-//     *
-//     * @param fileName the name of the file
-//     */
-//    public void saveToFile(String fileName) {
-//        try {
-//            ObjectOutputStream outputStream = new ObjectOutputStream(
-//                    this.openFileOutput(fileName, MODE_PRIVATE));
-//            outputStream.writeObject(boardManager);
-//            outputStream.close();
-//        } catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
-//    }
+    /**
+     * Displays that a size is not supported.
+     */
+    private void makeToastSize() {
+        Toast.makeText(this, "Please enter a size 3 to 5.", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Sets size from textView.
+     */
+    private void setSize() {
+        String strSize = ((EditText) findViewById(sizeId)).getText().toString();
+        if (strSize.equals("")) { //TODO make method
+            size = 4;
+        } else {
+            size = Integer.parseInt(strSize);
+        }
+        if (AccountManager.activeAccount.getActiveGameName().equals(Game.SLIDING_NAME)){
+            boardManager = new SlidingBoardManager(size);
+        } else if (AccountManager.activeAccount.getActiveGameName().equals(Game.TWENTY_NAME)){
+            boardManager = new TwentyBoardManager(size);
+        } else {
+            boardManager = new CheckersBoardManager(size, true);
+        }
+
+    }
+
+    /**
+     * Sets undos from textView.
+     */
+    void setUndos() {
+        int numUndos;
+        String strUndos = ((EditText) findViewById(viewUndoId)).getText().toString();
+        if (strUndos.equals("")) {
+            numUndos = 3;
+        } else {
+            numUndos = Integer.parseInt(strUndos);
+        }
+        boardManager.setMaxUndos(numUndos);
+
+    }
+
+    /**
+     * Saves sliding board manager to temporary file and switches to starting activity.
+     */
+    void switchToGame() {
+        Intent start = new Intent(this, GameActivity.class);
+        AccountManager.activeAccount.setActiveGameFile(boardManager.getGameFile());
+        AccountManager.activeAccount.addGameFile(boardManager.getGameFile());
+        Savable.saveToFile(SettingsActivity.TEMP_SAVE_FILENAME, boardManager);
+        startActivity(start);
+    }
 
     /**
      * Override the functionality of the back button
@@ -76,7 +151,6 @@ public class SettingsActivity extends AppCompatActivity {
         Intent startingActivity = new Intent(this, StartingActivity.class);
         startActivity(startingActivity);
     }
-
 
 }
 

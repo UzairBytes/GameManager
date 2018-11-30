@@ -49,7 +49,6 @@ public class CheckersBoardManager extends BoardManager {
     public CheckersBoardManager(CheckersGameFile gameFile) {
         super(gameFile);
         this.gameStates = gameFile.getGameStates();
-        //AccountManager.activeAccount.setActiveGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.board = (CheckersBoard) gameFile.getGameStates().peek();
             super.setSize(this.board.getNumCols());
@@ -61,7 +60,7 @@ public class CheckersBoardManager extends BoardManager {
      *
      * @param size: The desired size of the board.
      */
-    CheckersBoardManager(int size, boolean redsTurn) {
+    public CheckersBoardManager(int size, boolean redsTurn) {
         super(size);
         CheckersTile[][] tiles = new CheckersTile[size][size];
         String id;
@@ -293,10 +292,6 @@ public class CheckersBoardManager extends BoardManager {
 
     void setOpponentType(String opponentType) {
         this.opponentType = opponentType;
-    }
-
-    String getOpponentType() {
-        return this.opponentType;
     }
 
 
