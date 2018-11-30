@@ -29,10 +29,7 @@ public class CheckersBoardManager extends BoardManager {
      */
     private boolean redsTurn;
 
-    /**
-     * Which AI the opponent is or human if you're playing a human
-     */
-    private String opponentType;
+
 
     /**
      * Indicates whether a piece has been slain on the current turn yet
@@ -213,7 +210,10 @@ public class CheckersBoardManager extends BoardManager {
     }
 
 
-    //should use an iterator
+    /**
+     * Check if the game is complete
+     * @return true if the game is complete and false otherwise
+     */
     @Override
     public boolean gameComplete() {
         boolean redWins = true;
@@ -239,25 +239,33 @@ public class CheckersBoardManager extends BoardManager {
         return winner;
     }
 
-    boolean isRedsTurn() {
-        return redsTurn;
-    }
 
+    /**
+     * Change whose turn it is
+     */
     void swapRedsTurn() {
         redsTurn = !redsTurn;
     }
 
+    /**
+     * Check if a piece has been slain on this turn yet
+     * @return true if player has slain an enemy piece this turn and false otherwise
+     */
     boolean isHasSlain() {
         return hasSlain;
     }
 
+    /**
+     * Override to get the right type of board
+     * @return the CheckersBoard associated with this CheckersBoardManager
+     */
     @Override
     public CheckersBoard getBoard() {
         return board;
     }
 
     /**
-     * Returns the GameFile managed by this SlidingBoardManager.
+     * Returns the GameFile managed by this CheckersBoardManager.
      */
     public CheckersGameFile getCheckersGameFile() {
         return (CheckersGameFile) getGameFile();
@@ -291,13 +299,7 @@ public class CheckersBoardManager extends BoardManager {
     }
 
 
-    void setOpponentType(String opponentType) {
-        this.opponentType = opponentType;
-    }
 
-    String getOpponentType() {
-        return this.opponentType;
-    }
 
 
     /**
