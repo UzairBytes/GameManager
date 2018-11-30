@@ -1,14 +1,31 @@
 package Checkers;
 import fall2018.csc2017.CoreClasses.Board;
 
+/**
+ * A class to keep track of a CheckersBoard
+ */
 public class CheckersBoard extends Board {
 
+    /**
+     * the tile on the board which is highlighted
+     */
     private CheckersTile highLightedTile;
 
+    /**
+     * location of the highlighted tile
+     */
     private int[] highLightedTilePosition = new int[2];
 
+    /**
+     * The side length of the square board
+     */
     private int size;
 
+    /**
+     * Constructs a CheckersBoard
+     * @param tiles the tiles to put on the board in order
+     * @param size the side length of the square board
+     */
     CheckersBoard(CheckersTile[][] tiles, int size) {
         super();
         this.tiles = tiles;
@@ -38,6 +55,11 @@ public class CheckersBoard extends Board {
         highLightedTilePosition = new int[2];
     }
 
+    /**
+     * Reset the highLightedTile and its location
+     * @param row row of the new highLightedTile
+     * @param col column of the new highLightedTile
+     */
     void setHighLightedTile(int row, int col) {
         if (highLightedTile != null) {
             highLightedTile.dehighlight();
@@ -49,10 +71,18 @@ public class CheckersBoard extends Board {
         highLightedTilePosition[1] = col;
     }
 
+    /**
+     * A getter for the highLightedTile
+     * @return the highLightedTile
+     */
     CheckersTile getHighLightedTile() {
         return highLightedTile;
     }
 
+    /**
+     * A getter for the position of the highLightedTile
+     * @return the position [row, column] of the highLightedTile
+     */
     int[] getHighLightedTilePosition() {
         return highLightedTilePosition;
     }
