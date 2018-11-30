@@ -109,25 +109,30 @@ public class TwentyBoardManagerTest {
 
     @Test
     public void testGetSize(){
+        /* Test to see if the size of the board is returned correctly. */
         assertEquals("twentyBoardManager.getSize() failed test 1", 3, twentyBoardManager.getSize());
     }
 
     @Test
     public void testGetBoard(){
+        /* Test to see if the twentyBoard initialized in twentyBoardManager is called correctly with the getBoard() method. */
         TwentyBoard twentyBoard = twentyBoardManager.twentyBoard;
         assertEquals("twentyBoardManager.getBoard() failed test 1",twentyBoard, twentyBoardManager.getBoard());
     }
 
     @Test public void testScore(){
+        /* Test to see score on a blank board with a brand new randomly generated tile which can be 2, 4 , or 8 */
         twentyBoardManager = new TwentyBoardManager(3);
         int score = twentyBoardManager.score();
         assertThat("twentyBoardManager.score() failed test 1",score>=2 && score<=8);
 
+        /* Test to see score on a board with an inserted Tile with a value of 4. The min is 4 because the first tile
+         * may get replaced by the insertTile method. */
         twentyBoardManager = new TwentyBoardManager(3);
         tile1 = new TwentyTile(2, 2);
         twentyBoardManager.twentyBoard.insertTile(1,1,tile1);
         int score1 = twentyBoardManager.score();
-        assertThat("twentyBoardManager.score() failed test 2",score1>=6 && score<=12);
+        assertThat("twentyBoardManager.score() failed test 2",score1>=4 && score<=12);
     }
 
 
