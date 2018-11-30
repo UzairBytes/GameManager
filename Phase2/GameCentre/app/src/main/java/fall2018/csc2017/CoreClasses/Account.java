@@ -68,7 +68,7 @@ public class Account implements Serializable {
     /**
      * Initializes the <accountGameData> attribute in this class.
      */
-    private void initializeGameFiles(){
+    private void initializeGameFiles() {
         HashMap<String, GameFile> slidingMap = new HashMap<>();
         HashMap<String, GameFile> twentyMap = new HashMap<>();
         HashMap<String, GameFile> checkersMap = new HashMap<>();
@@ -92,7 +92,7 @@ public class Account implements Serializable {
      *
      * @return this account's password
      */
-     String getPassword() {
+    String getPassword() {
         return this.password;
     }
 
@@ -109,6 +109,7 @@ public class Account implements Serializable {
 
     /**
      * Inserts a gameFile in the current game's map of gameFiles.
+     *
      * @param gameFile: The gameFile to be inserted.
      */
     public void addGameFile(GameFile gameFile) {
@@ -123,7 +124,7 @@ public class Account implements Serializable {
      *
      * @return activeGamename
      */
-    public String getActiveGameName(){
+    public String getActiveGameName() {
         return this.activeGameName;
     }
 
@@ -132,7 +133,7 @@ public class Account implements Serializable {
      *
      * @param activeGameName The desire name of the game
      */
-    public void setActiveGameName(String activeGameName){
+    public void setActiveGameName(String activeGameName) {
         this.activeGameName = activeGameName;
     }
 
@@ -166,28 +167,29 @@ public class Account implements Serializable {
             FileInputStream input = new FileInputStream(file);
             ObjectInputStream inputStream = new ObjectInputStream(input);
             this.accountGameData = (HashMap<String, HashMap<String, GameFile>>) inputStream.readObject();
-        }catch (IOException e1){
+        } catch (IOException e1) {
             this.saveAccountGameData();
-        }catch (ClassNotFoundException e1 ) {
+        } catch (ClassNotFoundException e1) {
             System.out.println(e1);
         }
     }
 
 
-
     /**
      * Setter for the active game file of this account.
+     *
      * @param gameFile the current active game file for this account.
      */
-    public void setActiveGameFile(GameFile gameFile){
+    public void setActiveGameFile(GameFile gameFile) {
         this.activeGameFile = gameFile;
     }
 
     /**
      * A getter for leaderBoard
+     *
      * @return leaderBoard
      */
-    LeaderBoard getLeaderBoard(){
+    LeaderBoard getLeaderBoard() {
         return leaderBoard;
     }
 }
