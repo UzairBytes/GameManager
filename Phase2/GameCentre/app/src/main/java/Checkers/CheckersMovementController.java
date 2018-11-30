@@ -3,24 +3,23 @@ package Checkers;
 import android.content.Context;
 import android.widget.Toast;
 
-import fall2018.csc2017.CoreClasses.AccountManager;
-import fall2018.csc2017.CoreClasses.Game;
-import fall2018.csc2017.CoreClasses.GameScore;
-import fall2018.csc2017.CoreClasses.LeaderBoard;
+
 import fall2018.csc2017.CoreClasses.MovementController;
 
+/**
+ * A class to process movements
+ */
 public class CheckersMovementController extends MovementController {
-    // TODO: Improve implementation of this, perhaps?
 
+    /**
+     * An attribute which
+     */
     private boolean moving = false;
 
     public CheckersMovementController() {
         moving = false;
     }
 
-    public void setCheckersBoardManager(CheckersBoardManager checkersBoardManager) {
-        this.boardManager = checkersBoardManager;
-    }
 
     @Override
     public void processMovement(Context context, String toastMessage, int position) {
@@ -38,7 +37,4 @@ public class CheckersMovementController extends MovementController {
         }
     }
 
-    void setMoving(boolean moving) {
-        this.moving = moving;
-    }
 }

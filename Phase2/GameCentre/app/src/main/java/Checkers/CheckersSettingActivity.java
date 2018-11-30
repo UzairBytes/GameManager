@@ -35,9 +35,7 @@ public class CheckersSettingActivity extends SettingsActivity {
         EditText boardSizeInput = findViewById(R.id.CheckersBoardSizeInput);
         boardSizeInput.setText("8");
         addStartButtonListener();
-        addEasyButtonListener();
-        addHardButtonListener();
-        addHumanButtonListener();
+
     }
 
     void switchToGame(){
@@ -58,7 +56,6 @@ public class CheckersSettingActivity extends SettingsActivity {
             public void onClick(View v) {
                 setSize();
                 setUndos();
-                checkersBoardManager.setOpponentType(oppenentType);
                 if (size > 3 && size < 13 && size%2 == 0) {
                     switchToGame();
                 }
@@ -69,44 +66,7 @@ public class CheckersSettingActivity extends SettingsActivity {
         });
     }
 
-    /**
-     * Activate Human button.
-     */
-    void addHumanButtonListener(){
-        final Button human = findViewById(R.id.CheckersHuman);
-        human.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oppenentType = "human";
-            }
-        });
-    }
 
-    /**
-     * Activate Easy button.
-     */
-    void addEasyButtonListener(){
-        final Button easy = findViewById(R.id.CheckersEasy);
-        easy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oppenentType = "easy";
-            }
-        });
-    }
-
-    /**
-     * Activate Hard button.
-     */
-    void addHardButtonListener(){
-        final Button hard = findViewById(R.id.CheckersHard);
-        hard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oppenentType = "hard";
-            }
-        });
-    }
 
     /**
      * Displays that a size is not supported.

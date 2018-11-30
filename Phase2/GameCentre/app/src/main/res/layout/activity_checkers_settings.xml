@@ -46,20 +46,6 @@
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="296dp"
-        android:layout_height="87dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="81dp"
-        android:text="@string/opponent_type"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CheckersUndosInput" />
-
     <EditText
         android:id="@+id/CheckersBoardSizeInput"
         android:layout_width="wrap_content"
@@ -90,41 +76,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CheckersBoardSizeInput"
         app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/CheckersEasy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="17dp"
-        android:text="@string/Easy"
-        app:layout_constraintEnd_toStartOf="@+id/CheckersHard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <Button
-        android:id="@+id/CheckersHard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="15dp"
-        android:text="@string/Hard"
-        app:layout_constraintEnd_toStartOf="@+id/CheckersHuman"
-        app:layout_constraintStart_toEndOf="@+id/CheckersEasy"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <Button
-        android:id="@+id/CheckersHuman"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="59dp"
-        android:text="@string/Human"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/CheckersHard"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 </android.support.constraint.ConstraintLayout>
