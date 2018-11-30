@@ -85,7 +85,7 @@ public class LoadGameActivity extends AppCompatActivity {
             }else if(gameType.equals(Game.TWENTY_NAME)){
                 System.out.println("boardtest");
                 boardManager = new TwentyBoardManager((TwentyGameFile) desiredFile);
-                desiredFile.setRemainingUndos(boardManager.remainingUndos);
+                desiredFile.setRemainingUndos(((TwentyBoardManager) boardManager).getTwentyGameFile().getRemainingUndos());
             }else{
             boardManager = new CheckersBoardManager((CheckersGameFile) desiredFile);
             }
