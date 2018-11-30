@@ -31,7 +31,7 @@ public class CheckersBoardTest {
         addPiece(board, 4,3, CheckersTile.RED_PAWN);
     }
 
-    private void addPiece(CheckersBoard testBoard, int row, int column, String type){
+    static void addPiece(CheckersBoard testBoard, int row, int column, String type){
         testBoard.getCheckersTile(row,column).changeTile(type);
     }
     @Test
