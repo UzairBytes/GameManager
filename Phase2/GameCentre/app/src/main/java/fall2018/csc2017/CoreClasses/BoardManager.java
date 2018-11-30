@@ -95,4 +95,7 @@ public class BoardManager extends Observable implements Serializable, Game {
         gameFile.setRemainingUndos(0);
     }
 
+    public Board getBoard() {
+        return board;
+    }
 }

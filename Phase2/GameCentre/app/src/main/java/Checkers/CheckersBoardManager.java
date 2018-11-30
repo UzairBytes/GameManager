@@ -12,7 +12,7 @@ public class CheckersBoardManager extends BoardManager {
     /**
      * The board being managed.
      */
-    protected static CheckersBoard board;
+    protected CheckersBoard board;
 
     /**
      * The SlidingGameFile holding the data for this board.
@@ -250,7 +250,8 @@ public class CheckersBoardManager extends BoardManager {
         return hasSlain;
     }
 
-    static CheckersBoard getBoard() {
+    @Override
+    public CheckersBoard getBoard() {
         return board;
     }
 

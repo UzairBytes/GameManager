@@ -1,12 +1,14 @@
 package fall2018.csc2017.CoreClasses;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+
 
 
 public class LogInActivity extends AppCompatActivity {
@@ -26,20 +28,14 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        if (AccountManager.activeAccount == null){
+        if (AccountManager.activeAccount != null &&
+                !AccountManager.activeAccount.getUsername().equals("guest")){
             EditText enterUsername = findViewById(R.id.enterUsername);
-            enterUsername.setText("guest");
+            enterUsername.setText(AccountManager.activeAccount.getUsername());
             EditText enterPassword = findViewById(R.id.enterPassword);
-            enterPassword.setText("guest");
-
+            enterPassword.setText(AccountManager.activeAccount.getPassword());
         }
-        else
-            {
-                EditText enterUsername = findViewById(R.id.enterUsername);
-                enterUsername.setText(AccountManager.activeAccount.getUsername());
-                EditText enterPassword = findViewById(R.id.enterPassword);
-                enterPassword.setText(AccountManager.activeAccount.getPassword());
-            }
+
 
 
         addLogInButtonListener();

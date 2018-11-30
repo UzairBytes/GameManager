@@ -26,7 +26,6 @@ public class TwentyBoardManager extends BoardManager {
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(TwentyGameFile gameFile) {
         super(gameFile);
-        this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
         AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
@@ -52,15 +51,9 @@ public class TwentyBoardManager extends BoardManager {
 
         // Create the board, and specify number of rows, columns
         this.twentyBoard = new TwentyBoard(boardTiles, size, size);
-
-        // Create a new GameFile, and initialize it with this blank board.
-        TwentyGameFile gameFile = new TwentyGameFile(this.twentyBoard, Instant.now().toString());
-
-        // Add this new GameFile to the current active account's list of GameFiles.
-        AccountManager.activeAccount.addGameFile(gameFile);
-        this.gameFile = gameFile;
-        this.gameStates = this.gameFile.getGameStates();
         this.twentyBoard.generateRandomTile();
+        TwentyGameFile gameFile = new TwentyGameFile(this.twentyBoard, Instant.now().toString());
+        setGameFile(gameFile);
         save(this.twentyBoard);
     }
 
@@ -95,7 +88,6 @@ public class TwentyBoardManager extends BoardManager {
 
         if(boardChanged){
             this.twentyBoard.generateRandomTile();
-            gameFile.addUndos();
         }
         System.out.println("After the move:");
         for(int i =0; i<3; i++){
@@ -196,6 +188,7 @@ public class TwentyBoardManager extends BoardManager {
     /**
      * Accesses the protected Board
      */
+    @Override
     public TwentyBoard getBoard(){
         return this.twentyBoard;
     }
@@ -208,10 +201,8 @@ public class TwentyBoardManager extends BoardManager {
     @SuppressWarnings("unchecked")
     public void save(TwentyBoard board) {
         super.save(board);
-        this.gameFile = (TwentyGameFile) AccountManager.activeAccount.getActiveGameFile();
-        this.gameStates = this.gameFile.getGameStates();
+        this.gameStates = getTwentyGameFile().getGameStates();
         this.twentyBoard = board;
-
         System.out.println("Board saved!");
     }
 
