@@ -26,8 +26,8 @@ public class TwentyBoardManagerTest {
     @Test
     public void testIsValidMoveBlank(){
         //  Initialize the board as all blank tiles, and test if a valid move can be made.
-        assertEquals("twentyBoardManager.isValidMove() failed test 1.", true, twentyBoardManager.isValidMove(true));
-        assertEquals("twentyBoardManager.isValidMove() failed test 2.", true, twentyBoardManager.isValidMove(false));
+        assertEquals("twentyBoardManager.isValidMove() failed test 1.", true, twentyBoardManager.isValidMove(1));
+        assertEquals("twentyBoardManager.isValidMove() failed test 2.", true, twentyBoardManager.isValidMove(3));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class TwentyBoardManagerTest {
             twentyBoard.insertTile(row,1, tile2);
             twentyBoard.insertTile(row,2, tile3);
         }
-        assertEquals("twentyBoard.isValidMove() failed test 3.", false, twentyBoardManager.isValidMove(true));
+        assertEquals("twentyBoard.isValidMove() failed test 3.", false, twentyBoardManager.isValidMove(3));
     }
 
     @Test
@@ -122,6 +122,12 @@ public class TwentyBoardManagerTest {
         twentyBoardManager = new TwentyBoardManager(3);
         int score = twentyBoardManager.score();
         assertThat("twentyBoardManager.score() failed test 1",score>=2 && score<=8);
+
+        twentyBoardManager = new TwentyBoardManager(3);
+        tile1 = new TwentyTile(2, 2);
+        twentyBoardManager.twentyBoard.insertTile(1,1,tile1);
+        int score1 = twentyBoardManager.score();
+        assertThat("twentyBoardManager.score() failed test 2",score1>=6 && score<=12);
     }
 
 
