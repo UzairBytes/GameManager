@@ -148,14 +148,18 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     /**
-     * Displays the relevant settings title with the game-specific acceptable input range for size.
+     * Displays the relevant settings title with the game-specific acceptable input range for size as well as default values.
      */
     public void makeGameSettingsText(){
         TextView title = findViewById(R.id.textView7);
         TextView rangeSize = findViewById(R.id.textView5);
+        EditText sizeInput = findViewById(R.id.boardSizeInput);
+        sizeInput.setText("4");
+        EditText undoInput = findViewById(R.id.undosInput);
+        undoInput.setText("3");
 
         if (AccountManager.activeAccount.getActiveGameName().equals(Game.SLIDING_NAME)){
-            title.setText("Sliding Tiles Settings");
+            title.setText("SlidingTiles Settings");
             rangeSize.setText("Enter a board size from 3-5!");
         } else if (AccountManager.activeAccount.getActiveGameName().equals(Game.TWENTY_NAME)){
             title.setText("2048 Settings");
