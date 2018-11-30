@@ -14,37 +14,37 @@ public class AccountTest {
     }
 
     @Test
-    public void getUsername() {
+    public void testGetUsername() {
         /* Should return the username used to initialize the Account object. */
         Account testAccount = new Account("username","password");
         assertEquals("Account.getUsername() Test 1 failed!","username", testAccount.getUsername());
     }
 
     @Test
-    public void getPassword() {
+    public void testGetPassword() {
         /* Should return the password used to initialize the Account object. */
         Account testAccount = new Account("username","password");
         assertEquals("Account.getPassword() Test 1 failed!", "password",testAccount.getPassword());
     }
 
     @Test
-    public void getGames() {
+    public void testGetGames() {
 
     }
 
     @Test
-    public void addGameFile() {
+    public void testAddGameFile() {
     }
 
     @Test
-    public void getActiveGameName() {
+    public void testGetActiveGameName() {
         /* Should return the ActiveGameName initialized in the Account object */
         Account testAccount = new Account("username","password");
         assertEquals("Account.getActiveGameName() Test 1","",testAccount.getActiveGameName());
     }
 
     @Test
-    public void setActiveGameName() {
+    public void testSetActiveGameName() {
         /* Should return the ActiveGameName initialized in the Account object and then altered by the setActiveGameName method */
         Account testAccount = new Account("username","password");
         testAccount.setActiveGameName("TestGameName");
@@ -52,24 +52,24 @@ public class AccountTest {
     }
 
     @Test
-    public void saveAccountGameData() {
+    public void testSaveAccountGameData() {
     }
 
     @Test
-    public void loadAccountGameData() {
+    public void testLoadAccountGameData() {
     }
 
     @Test
-    public void getActiveGameFile() {
+    public void testGetActiveGameFile() {
 
     }
 
     @Test
-    public void setActiveGameFile() {
+    public void testSetActiveGameFile() {
     }
 
     @Test
-    public void getLeaderBoard() {
+    public void testGetLeaderBoard() {
         /* Should return the new leaderboard initialized by the Account object. */
         Account testAccount = new Account("username","password");
         assertEquals("Account.getLeaderboard() Test 1 failed",new LeaderBoard(),testAccount.getLeaderBoard());
