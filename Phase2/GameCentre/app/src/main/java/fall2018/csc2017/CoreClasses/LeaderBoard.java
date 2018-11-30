@@ -11,7 +11,7 @@ import java.util.HashMap;
  * Every game should call updateScores when completed.
  * Everything else here is auxiliary.
  */
-public class LeaderBoard implements Serializable {
+class LeaderBoard implements Serializable {
 
     /**
      * Number of top GameScores to store per game per account
@@ -38,12 +38,12 @@ public class LeaderBoard implements Serializable {
     /**
      * A string to indicate what kind of LeaderBoard we're dealing with
      */
-    public static final String PERSONAL = "personalLeaderBoard";
+    static final String PERSONAL = "personalLeaderBoard";
 
     /**
      * A string to indicate what kind of LeaderBoard we're dealing with
      */
-    public static final String GLOBAL = "globalLeaderBoard";
+    static final String GLOBAL = "globalLeaderBoard";
 
     /**
      * Check if all games are listed in scores, and put a Key-Value pair in if not.
@@ -57,7 +57,7 @@ public class LeaderBoard implements Serializable {
     /**
      * A constructor for LeaderBoard
      */
-    public LeaderBoard() {
+    LeaderBoard() {
         personalScoresMap = new HashMap<>();
         for (String name : Game.GAME_NAMES) {
             personalScoresMap.put(name, new ArrayList<GameScore>());
@@ -70,7 +70,7 @@ public class LeaderBoard implements Serializable {
      *
      * @param gameScore GameScore to be added
      */
-    public static void updateScores(GameScore gameScore) {
+    static void updateScores(GameScore gameScore) {
         String[] types = {GLOBAL, PERSONAL};
         for (String type : types) {
             loadScoresFromFile(type);
@@ -89,9 +89,9 @@ public class LeaderBoard implements Serializable {
     private static void updateTopScores(GameScore gameScore, String type) {
         ArrayList<GameScore> scoreList;
         if (type.equals(GLOBAL)) {
-            scoreList = (ArrayList<GameScore>)globalScoresMap.get(gameScore.getGameName());
+            scoreList = globalScoresMap.get(gameScore.getGameName());
         } else {
-            scoreList = (ArrayList<GameScore>)AccountManager.activeAccount.getLeaderBoard().personalScoresMap.get(gameScore.getGameName());
+            scoreList = AccountManager.activeAccount.getLeaderBoard().personalScoresMap.get(gameScore.getGameName());
         }
 
         boolean notInserted = true;
@@ -101,14 +101,14 @@ public class LeaderBoard implements Serializable {
             notInserted = false;
         }
         int i = 0;
-//        while (notInserted && i < size && i < NUM_TOP_SCORES) {
-//            GameScore otherScore = scoreList.get(i);
-//            if (gameScore.compareTo(otherScore) > 0) {
-//                scoreList.add(i, gameScore);
-//                notInserted = false;
-//            }
-//            i++;
-//        }
+        while (notInserted && i < size && i < NUM_TOP_SCORES) {
+            GameScore otherScore = scoreList.get(i);
+            if (gameScore.compareTo(otherScore) > 0) {
+                scoreList.add(i, gameScore);
+                notInserted = false;
+            }
+            i++;
+        }
         if (size == NUM_TOP_SCORES) {
             scoreList.remove(NUM_TOP_SCORES);
         }
@@ -122,7 +122,7 @@ public class LeaderBoard implements Serializable {
      * @param type     GLOBAL or PERSONAL LeaderBoard
      * @return ArrayList of Object[]'s sorted from highest to lowest score
      */
-    public static ArrayList<GameScore> getTopScores(String gameName, String type) {
+    static ArrayList<GameScore> getTopScores(String gameName, String type) {
         loadScoresFromFile(type);
         if (type.equals(PERSONAL)) {
             return AccountManager.activeAccount.getLeaderBoard().personalScoresMap.get(gameName);
