@@ -75,7 +75,7 @@ public class TwentyBoardManager extends BoardManager {
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
      */
     @Override
-    protected void touchMove(int dir){
+    public void touchMove(int dir){
 
         TwentyBoard newBoard = twentyBoard.createDeepCopy();
         this.twentyBoard = newBoard;

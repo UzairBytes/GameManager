@@ -124,7 +124,7 @@ public class CheckersBoardManager extends BoardManager {
      * @return true if and only if the move is allowed in Checkers
      */
     @Override
-    protected boolean isValidMove(int position) {
+    public boolean isValidMove(int position) {
         if (position >= board.getNumRows() *board.getNumCols()){return false;}
         if (position < 0){return false;}
         CheckersTile highLightedTile = board.getHighLightedTile();
@@ -179,7 +179,7 @@ public class CheckersBoardManager extends BoardManager {
      * @param position: The position the selected piece is moved to.
      */
     @Override
-    protected void touchMove(int position) {
+    public void touchMove(int position) {
         super.touchMove(position);
         CheckersBoard newBoard = board.createDeepCopy();
         this.board = newBoard;

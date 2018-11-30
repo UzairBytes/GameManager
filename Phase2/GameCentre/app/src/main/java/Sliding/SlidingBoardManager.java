@@ -116,7 +116,7 @@ public class SlidingBoardManager extends BoardManager {
      * @return whether the tile at position is surrounded by a blank tile
      */
     @Override
-    protected boolean isValidMove(int position) {
+    public boolean isValidMove(int position) {
 
         int row = position / slidingBoard.getNumRows();
         int col = position % slidingBoard.getNumCols();
@@ -138,7 +138,7 @@ public class SlidingBoardManager extends BoardManager {
      * @param position the position
      */
     @Override
-    protected void touchMove(int position) {
+    public void touchMove(int position) {
         SlidingBoard newBoard = slidingBoard.createDeepCopy();
         this.slidingBoard = newBoard;
         processMove(position);
