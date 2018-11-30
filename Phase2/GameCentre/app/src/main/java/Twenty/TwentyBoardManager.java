@@ -1,12 +1,7 @@
 package Twenty;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
-import Sliding.SlidingBoard;
-import Sliding.SlidingGameFile;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;
@@ -30,10 +25,9 @@ public class TwentyBoardManager extends BoardManager {
 
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(TwentyGameFile gameFile) {
+        super(gameFile);
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
-        this.remainingUndos = gameFile.getRemainingUndos();
-        this.maxUndos = gameFile.getMaxUndos();
         AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.twentyBoard = (TwentyBoard) gameFile.getGameStates().peek();
@@ -47,6 +41,7 @@ public class TwentyBoardManager extends BoardManager {
      */
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(int size) {
+        super(size);
         this.size = size;
         TwentyTile boardTiles[][] = new TwentyTile[size][size];
         for(int i = 0; i<size; i++){
@@ -65,8 +60,6 @@ public class TwentyBoardManager extends BoardManager {
         AccountManager.activeAccount.addGameFile(gameFile);
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
-        this.numMoves = gameFile.numMoves;
-        this.maxUndos = gameFile.maxUndos;
         this.twentyBoard.generateRandomTile();
         save(this.twentyBoard);
     }
@@ -74,10 +67,13 @@ public class TwentyBoardManager extends BoardManager {
     /**
      * Checks if a move is valid, and if so moves & merges the tiles in that direction
      * as much as possible
-     * @param dir: character which indicated the direction of the swipe
-     * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
+     * @param dir: int which indicated the direction of the swipe. 0 for up, 1 for down,
+     *           2 for left, 3 for right.
+     * Preconditions: dir is an element of: {0, 1, 2, 3}
      */
-    public void touchMove(char dir){
+    @Override
+    public void touchMove(int dir){
+
         TwentyBoard newBoard = twentyBoard.createDeepCopy();
         this.twentyBoard = newBoard;
         System.out.println("Direction: " + dir);
@@ -87,19 +83,19 @@ public class TwentyBoardManager extends BoardManager {
         }
         System.out.println("During the move!");
         boolean boardChanged = false;
-        if(dir == 'U' && isValidMove(false)){
+        if(dir == 0 && isValidMove(dir)){
             boardChanged = mergeTilesInDir('U');
-        }else if(dir == 'D' && isValidMove(false)){
+        }else if(dir == 1 && isValidMove(dir)){
             boardChanged = mergeTilesInDir('D');
-        }else if(dir == 'L' && isValidMove(true)){
+        }else if(dir == 2 && isValidMove(dir)){
             boardChanged = mergeTilesInDir('L');
-        }else if(dir == 'R' && isValidMove(true)){
+        }else if(dir == 3 && isValidMove(dir)){
             boardChanged = mergeTilesInDir('R');
         }
 
         if(boardChanged){
             this.twentyBoard.generateRandomTile();
-            addUndos();
+            gameFile.addUndos();
         }
         System.out.println("After the move:");
         for(int i =0; i<3; i++){
@@ -110,15 +106,10 @@ public class TwentyBoardManager extends BoardManager {
         notifyObservers();
     }
 
-    @Override
-    public void addUndos(){
-        super.addUndos();
-        this.gameFile.setRemainingUndos(this.remainingUndos);
-    }
 
     /**
      * Given a direction, move the tiles in the board in that direction as much as possible.
-     * @param dir: character which indicated the direction of the swipe
+     * @param dir: char which indicated the direction of the swipe.
      * Preconditions: dir is an element of: {'U', 'D', 'L', 'R'}
      * Postconditions: The board will be altered so all tiles are moved as much as possible in
      *      the direction dir. Also all tiles of equal id will collapse into one tile.
@@ -162,11 +153,9 @@ public class TwentyBoardManager extends BoardManager {
                         if(tile2.getId() != 0){
                             boardChanged = true;
                         }
-                        System.out.println("ran 1");
                     } else if(tile1.getId() == tile2.getId()) {
                         this.twentyBoard.mergeTiles(tile1Row, tile1Col, tile2Row, tile2Col);
                         boardChanged = true;
-                        System.out.println("ran 2");
                     }
                 }
             }
@@ -177,21 +166,24 @@ public class TwentyBoardManager extends BoardManager {
     /* Getter for the GameFile that this board manager exists in.
      * @return the game file this board manager exists in.
      */
-    public TwentyGameFile getGameFile(){
-        return this.gameFile;
+    public TwentyGameFile getTwentyGameFile(){
+        return (TwentyGameFile) getGameFile();
     }
 
     /* Gauges whether or not the game is complete, i.e, no more possible moves can be made. */
+    @Override
     public boolean gameComplete(){
-        return !isValidMove(false) && !isValidMove(true);
+        return !isValidMove(0) && !isValidMove(1);
     }
 
     /* Checks if a swipe results in a change in this TwentyBoard
-     * @param horizDir boolean determining if the swipe is in the horizontal direction.
-     *         If not, that implies that the swipe is in the vertical direction.
+     * @param dir: int which indicated the direction of the swipe. 0 for up, 1 for down,
+     *           2 for left, 3 for right.
+     * Preconditions: dir is an element of: {0, 1, 2, 3}
      */
-    public boolean isValidMove(boolean horizDir){
-        return this.twentyBoard.isCollapsable(horizDir);
+    @Override
+    public boolean isValidMove(int dir){
+        return this.twentyBoard.isCollapsable(dir == 2 || dir == 3);
     }
 
     /**
@@ -228,7 +220,7 @@ public class TwentyBoardManager extends BoardManager {
      */
     @Override
     public Board undo() {
-        if (this.remainingUndos > 0 && this.gameStates.size() > 1) {
+        if (getTwentyGameFile().getRemainingUndos() > 0 && this.gameStates.size() > 1) {
             this.twentyBoard = (TwentyBoard) super.undo();
             this.gameFile.setRemainingUndos(this.gameFile.getRemainingUndos()-1);
         }else{
@@ -259,11 +251,4 @@ public class TwentyBoardManager extends BoardManager {
         return finalScore;
     }
 
-
-    public void setMaxUndos(int maxUndoValue) {
-        this.gameFile.setMaxUndos(maxUndoValue);
-        this.gameFile.setRemainingUndos(maxUndoValue);
-        this.maxUndos = maxUndoValue;
-        this.remainingUndos = maxUndoValue;
-    }
 }

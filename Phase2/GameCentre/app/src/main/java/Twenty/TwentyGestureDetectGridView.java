@@ -5,44 +5,45 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import fall2018.csc2017.CoreClasses.GestureDetectGridView;
-import android.view.View;
+import fall2018.csc2017.CoreClasses.MovementController;
 
+import android.view.View;
 
 public class TwentyGestureDetectGridView extends GestureDetectGridView implements GestureDetector.OnGestureListener {
     private static final int SWIPE_MIN_DISTANCE = 100;
     private final GestureDetector gDetector = new GestureDetector(this);
-    private TwentyMovementController mController;
+    private MovementController mController;
+    private String toastMessage = "Game Over! No more moves possible!";
 
     public TwentyGestureDetectGridView(Context context) {
         super(context);
-        mController = new TwentyMovementController();
+        mController = new MovementController();
     }
 
     public TwentyGestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mController = new TwentyMovementController();
+        mController = new MovementController();
     }
 
     public TwentyGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        mController = new TwentyMovementController();
+        mController = new MovementController();
     }
 
     public void onSwipeUp() {
-        mController.processSlideMovement(this.getContext(), false, 'U');
+        mController.processMovement(this.getContext(),  toastMessage, 0);
     }
 
     public void onSwipeDown() {
-        mController.processSlideMovement(this.getContext(), false, 'D');
+        mController.processMovement(this.getContext(),  toastMessage, 1);
     }
 
     public void onSwipeLeft() {
-        mController.processSlideMovement(this.getContext(), true, 'L');
+        mController.processMovement(this.getContext(),  toastMessage, 2);
     }
 
     public void onSwipeRight() {
-        mController.processSlideMovement(this.getContext(), true, 'R');
+        mController.processMovement(this.getContext(),  toastMessage, 3);
     }
 
     @Override
@@ -104,8 +105,4 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
     public void onLongPress(MotionEvent e) {
     }
 
-
-    public void setBoardManager(TwentyBoardManager twentyBoardManager) {
-        mController.setTwentyBoardManager(twentyBoardManager);
-    }
 }

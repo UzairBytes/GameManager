@@ -8,7 +8,7 @@ import phase1.AccountManager;
 import phase1.Game;
 import phase1.GameFile;
 
-public abstract class BoardManager extends Observable implements Serializable, Game {
+public class BoardManager extends Observable implements Serializable, Game {
 
     /**
      * Holds a stack of boards, with each Board representing a specific game state.
@@ -16,36 +16,42 @@ public abstract class BoardManager extends Observable implements Serializable, G
     protected Stack<Board> gameStates;
 
     /**
-     * The number of undos the player has left.
+     * The GameFile holding the data for this board.
      */
-    // assigned a value from the save file
-    protected int remainingUndos = 0;
+    private GameFile gameFile;
 
     /**
-     * The maximum number of undos.
+     * The board being managed.
      */
-    // assigned a value from the save file
-    protected int maxUndos = 3;
+    private Board board;
 
-    /**
-     * The number of moves the player has made.
-     */
-    protected int numMoves = 0;
+    public BoardManager (GameFile gameFile){
+        this.gameFile = gameFile;
+        this.gameStates = gameFile.getGameStates();
+
+        if (!gameFile.getGameStates().isEmpty()) {
+            this.board = (Board) gameFile.getGameStates().peek();
+        }
+    }
+
+    public BoardManager (int size){
+        Tile[][] tiles = new Tile[size][size];
+        board = new Board(tiles, size, size);
+    }
+
+    public GameFile getGameFile() {
+        return gameFile;
+    }
+
+    public boolean gameComplete(){
+        return false;
+    }
 
     /**
      * Returns the score of a game.
      */
     public int score() {return 0;}
 
-    /**
-     * Add the number of undos to this board.
-     */
-    public void addUndos() {
-        if (this.remainingUndos < this.maxUndos) {
-            this.remainingUndos++;
-
-        }
-    }
 
     /**
      * Saves a new state of board to game.
@@ -55,19 +61,41 @@ public abstract class BoardManager extends Observable implements Serializable, G
     @SuppressWarnings("unchecked")
     public void save(Board board) {
         this.gameStates.push(board);
-        //AccountManager.activeAccount.addGameFile(newGameFile);
     }
 
     /**
      * Switches the gameState back one move, if the user has undos left
      */
     public Board undo(){
-        this.remainingUndos--;
-        this.gameStates.pop();
-        Board lastBoard = this.gameStates.peek();
-        setChanged();
-        notifyObservers();
-        return lastBoard;
+        if (gameFile.getRemainingUndos() >0) {
+            gameFile.lowerUndos();
+            this.gameStates.pop();
+            Board lastBoard = this.gameStates.peek();
+            setChanged();
+            notifyObservers();
+            return lastBoard;
+        }
+        return board;
+    }
+
+    public void touchMove(int position){
+    }
+
+    public boolean isValidMove(int position){
+        return false;
+    }
+
+    public void setGameFile(GameFile gameFile) {
+        this.gameFile = gameFile;
+    }
+
+    /**
+     * @param maxUndoValue: Maximum number of undo tries for this file.
+     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
+     */
+    public void setMaxUndos(int maxUndoValue) {
+        gameFile.setMaxUndos(maxUndoValue);
+        gameFile.setRemainingUndos(0);
     }
 
 }

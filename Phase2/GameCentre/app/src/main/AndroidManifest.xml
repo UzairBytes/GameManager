@@ -32,8 +32,6 @@
         <activity android:name="Checkers.CheckersGameActivity" />
         <activity android:name="Checkers.CheckersSettingActivity" />
         <activity android:name="Checkers.CheckersMovementController" />
-        <activity android:name="Twenty.TwentyMovementController" />
-
 
 
     </application>

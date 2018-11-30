@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Twenty.TwentySettingsActivity">
+    tools:context="Twenty.TwentySettingsActivity"
+    android:background="@drawable/background_image">
 
     <Button
         android:id="@+id/TwentyStart"
