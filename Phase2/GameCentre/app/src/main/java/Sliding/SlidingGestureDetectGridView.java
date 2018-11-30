@@ -14,7 +14,9 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import Twenty.TwentyBoardManager;
 import fall2018.csc2017.CoreClasses.GestureDetectGridView;
+import fall2018.csc2017.CoreClasses.MovementController;
 
 public class SlidingGestureDetectGridView extends GestureDetectGridView {
 
@@ -31,7 +33,7 @@ public class SlidingGestureDetectGridView extends GestureDetectGridView {
     /**
      * Controls movements of buttons and tiles in gridview.
      */
-    private SlidingMovementController mController;
+    private MovementController mController;
 
     private boolean mFlingConfirmed = false;
 
@@ -63,7 +65,7 @@ public class SlidingGestureDetectGridView extends GestureDetectGridView {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
 
     private void init(final Context context) {
-        mController = new SlidingMovementController();
+        mController = new MovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
             @Override
@@ -71,7 +73,7 @@ public class SlidingGestureDetectGridView extends GestureDetectGridView {
                 int position = SlidingGestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processTapMovement(context, position);
+                mController.processMovement(context, "You win!", position);
                 return true;
             }
 
@@ -121,12 +123,7 @@ public class SlidingGestureDetectGridView extends GestureDetectGridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    /**
-     * Sets board manager in movement controller.
-     *
-     * @param slidingBoardManager sliding Board manager object.
-     */
     public void setBoardManager(SlidingBoardManager slidingBoardManager) {
-        mController.setSlidingBoardManager(slidingBoardManager);
+        mController.setBoardManager(slidingBoardManager);
     }
 }

@@ -17,17 +17,18 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
 
     public TwentyGestureDetectGridView(Context context) {
         super(context);
-        mController = new MovementController();
+        mController = new TwentyMovementController();
     }
 
     public TwentyGestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mController = new MovementController();
+        mController = new TwentyMovementController();
     }
 
     public TwentyGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mController = new MovementController();
+
+        mController = new TwentyMovementController();
     }
 
     public void onSwipeUp() {
@@ -105,4 +106,7 @@ public class TwentyGestureDetectGridView extends GestureDetectGridView implement
     public void onLongPress(MotionEvent e) {
     }
 
+    public void setBoardManager(TwentyBoardManager twentyBoardManager) {
+        mController.setBoardManager(twentyBoardManager);
+    }
 }
