@@ -18,6 +18,7 @@ public class SlidingBoardManager extends BoardManager {
      */
     private SlidingBoard slidingBoard;
 
+    private int size;
     /**
      * Initialize the data of this game given a GameFile, containing a Stack of Boards
      * (each representing a specific 'game state'), and attributes telling of the game's settings.
@@ -30,6 +31,8 @@ public class SlidingBoardManager extends BoardManager {
         this.gameStates = getSlidingGameFile().getGameStates();
         if (!getSlidingGameFile().getGameStates().isEmpty()) {
             this.slidingBoard = (SlidingBoard) getSlidingGameFile().getGameStates().peek();
+            super.setSize(this.slidingBoard.getNumCols());
+
         }
     }
 

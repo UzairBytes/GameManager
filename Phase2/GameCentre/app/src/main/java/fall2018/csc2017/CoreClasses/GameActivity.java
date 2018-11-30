@@ -164,6 +164,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("Undid!");
                 boardManager.undo();
                 AccountManager.activeAccount.setActiveGameFile(boardManager.getGameFile());
                 AccountManager.activeAccount.addGameFile(boardManager.getGameFile());

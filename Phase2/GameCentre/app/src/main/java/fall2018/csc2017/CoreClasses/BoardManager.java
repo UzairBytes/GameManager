@@ -14,7 +14,7 @@ public class BoardManager extends Observable implements Serializable, Game {
     /**
      * The GameFile holding the data for this board.
      */
-    private GameFile gameFile;
+    protected GameFile gameFile;
 
     /**
      * The board being managed.
@@ -75,6 +75,10 @@ public class BoardManager extends Observable implements Serializable, Game {
             return lastBoard;
         }
         return board;
+    }
+
+    public void setSize(int size){
+        this.size = size;
     }
 
     public void touchMove(int position){

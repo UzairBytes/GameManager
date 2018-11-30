@@ -13,16 +13,6 @@ public class TwentyBoardManager extends BoardManager {
      */
     protected TwentyBoard twentyBoard;
 
-    /**
-     * The 2048 Game File holding the data for this board.
-     */
-    private TwentyGameFile gameFile;
-
-    /**
-     * Keeps track of board size
-     */
-    private int size;
-
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(TwentyGameFile gameFile) {
         super(gameFile);
@@ -30,7 +20,7 @@ public class TwentyBoardManager extends BoardManager {
         AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.twentyBoard = (TwentyBoard) gameFile.getGameStates().peek();
-            this.size = this.twentyBoard.getNumCols();
+            super.setSize(this.twentyBoard.getNumCols());
         }
     }
 
@@ -41,7 +31,6 @@ public class TwentyBoardManager extends BoardManager {
     @SuppressWarnings("unchecked")
     public TwentyBoardManager(int size) {
         super(size);
-        this.size = size;
         TwentyTile boardTiles[][] = new TwentyTile[size][size];
         for(int i = 0; i<size; i++){
             for(int j = 0; j<size; j++){
@@ -66,7 +55,6 @@ public class TwentyBoardManager extends BoardManager {
      */
     @Override
     public void touchMove(int dir){
-
         TwentyBoard newBoard = twentyBoard.createDeepCopy();
         this.twentyBoard = newBoard;
         System.out.println("Direction: " + dir);
@@ -88,6 +76,7 @@ public class TwentyBoardManager extends BoardManager {
 
         if(boardChanged){
             this.twentyBoard.generateRandomTile();
+            this.gameFile.addUndos();
         }
         System.out.println("After the move:");
         for(int i =0; i<3; i++){
@@ -97,7 +86,6 @@ public class TwentyBoardManager extends BoardManager {
         setChanged();
         notifyObservers();
     }
-
 
     /**
      * Given a direction, move the tiles in the board in that direction as much as possible.
@@ -179,13 +167,6 @@ public class TwentyBoardManager extends BoardManager {
     }
 
     /**
-     * Accesses the private value size.
-     */
-    public int getSize() {
-        return size;
-    }
-
-    /**
      * Accesses the protected Board
      */
     @Override
@@ -234,8 +215,8 @@ public class TwentyBoardManager extends BoardManager {
     @Override
     public int score() {
         int finalScore = 0;
-        for (int i = 0; i < this.size; i++){
-            for (int j = 0; j < this.size; j++){
+        for (int i = 0; i < this.getSize(); i++){
+            for (int j = 0; j < this.getSize(); j++){
                 finalScore += this.twentyBoard.getTile(i,j).getId();
             }
         }

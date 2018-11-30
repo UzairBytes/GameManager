@@ -52,6 +52,7 @@ public class CheckersBoardManager extends BoardManager {
         //AccountManager.activeAccount.setActiveGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.board = (CheckersBoard) gameFile.getGameStates().peek();
+            super.setSize(this.board.getNumCols());
         }
     }
 
