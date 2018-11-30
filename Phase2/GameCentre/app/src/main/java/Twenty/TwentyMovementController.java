@@ -17,12 +17,7 @@ public class TwentyMovementController extends MovementController {
         this.boardManager = twentyBoardManager;
     }
 
-    public void processSlideMovement(Context context, int horizDir, int direction) {
-        if (boardManager.isValidMove(horizDir)) {
-            boardManager.touchMove(direction);
-            super.processMovement(context,"Game Over! No more moves possible!");
-        } else {
-            Toast.makeText(context, "Invalid move!", Toast.LENGTH_SHORT).show();
-        }
+    public void processSlideMovement(Context context, int direction) {
+        super.processMovement(context,"Game Over! No more moves possible!", direction);
     }
 }

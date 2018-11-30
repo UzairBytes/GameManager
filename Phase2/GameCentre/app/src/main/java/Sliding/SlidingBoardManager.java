@@ -6,7 +6,6 @@ import java.util.Iterator;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import fall2018.csc2017.CoreClasses.Tile;
-import phase1.AccountManager;
 import phase1.GameFile;
 
 import java.util.Stack;
@@ -150,7 +149,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * Process move swap tiles at the position of the movement.
      */
-    void processMove(int position) {
+    private void processMove(int position) {
         int row = position / slidingBoard.getNumRows();
         int col = position % slidingBoard.getNumCols();
         int blankId = slidingBoard.numTiles();
@@ -247,24 +246,4 @@ public class SlidingBoardManager extends BoardManager {
             }
         }
     }
-
-    /**
-     * Sets Sliding Game File in board manager.
-     * @param newFile sliding game file.
-     */
-    public void setSlidingGameFile(SlidingGameFile newFile){
-        this.gameFile = newFile;
-        this.gameStates = this.gameFile.getGameStates();
-        this.slidingBoard = (SlidingBoard) this.gameFile.getGameStates().peek();
-    }
-
-    /**
-     * Returns max undos.
-     * @return int max undos.
-     */
-    public int getMaxUndo(){
-        return maxUndos;
-    }
-
-
 }

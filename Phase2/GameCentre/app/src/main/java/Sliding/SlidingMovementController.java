@@ -38,11 +38,6 @@ public class SlidingMovementController extends MovementController {
      * @param position int.
      */
     public void processTapMovement(Context context, int position) {
-        if (((SlidingBoardManager)boardManager).isValidTap(position)) {
-            ((SlidingBoardManager)boardManager).touchMove(position);
-            super.processMovement(context, "You win!");
-        } else {
-            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
-        }
+        super.processMovement(context,"Game Over! No more moves possible!", position);
     }
 }
