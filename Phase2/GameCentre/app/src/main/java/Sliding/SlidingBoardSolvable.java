@@ -117,7 +117,6 @@ public class SlidingBoardSolvable {
      *
      * @return boolean true or false.
      */
-    // TODO Implement this algorithmically. This works for board size 3-5, but it is shitty.
     private boolean isBlankTileOnOddRow() {
         positionOfBlankTile();
         if (boardSize == 3) {
