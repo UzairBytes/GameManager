@@ -1,14 +1,7 @@
 package phase1;
 
 
-import android.util.Log;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,7 +11,7 @@ import java.util.HashMap;
  * Every game should call updateScores when completed.
  * Everything else here is auxiliary.
  */
-public class LeaderBoard {
+public class LeaderBoard implements Serializable {
 
     /**
      * Number of top GameScores to store per game per account
@@ -108,7 +101,7 @@ public class LeaderBoard {
             notInserted = false;
         }
         int i = 0;
-        while (notInserted || i < size || i < NUM_TOP_SCORES) {
+        while (notInserted && i < size && i < NUM_TOP_SCORES) {
             if (gameScore.compareTo(scoreList.get(i)) > 0) {
                 scoreList.add(i, gameScore);
                 notInserted = false;
@@ -149,17 +142,22 @@ public class LeaderBoard {
     private static void loadScoresFromFile(String type) {
         Account activeAccount = AccountManager.activeAccount;
         String gameName = activeAccount.getActiveGameName();
-        HashMap<String, ArrayList<GameScore>> scoresMap = AccountManager.activeAccount.getLeaderBoard().personalScoresMap;
-        ArrayList<GameScore> newMap = new ArrayList<>();
+        validateKey(AccountManager.activeAccount.getLeaderBoard().personalScoresMap, gameName);
+        ArrayList<GameScore> newArray = AccountManager.activeAccount.getLeaderBoard().personalScoresMap.get(gameName);
+
         String fileName;
         ArrayList<GameScore> loadedData;
         if (type.equals(PERSONAL)) {
+            HashMap<String, ArrayList<GameScore>> psMap = AccountManager.activeAccount.getLeaderBoard().personalScoresMap;
+            validateKey(psMap, gameName);
             fileName = "/" + PERSONAL + "/" + activeAccount.getUsername() + "/" + gameName + SCORES_DOT_SER;
-            loadedData = (ArrayList<GameScore>) Savable.loadAtStart(fileName, newMap);
-            validateKey(scoresMap, gameName);
+            loadedData = (ArrayList<GameScore>) Savable.loadAtStart(fileName, newArray);
+            HashMap<String, ArrayList<GameScore>> personalScoresMap = AccountManager.activeAccount.getLeaderBoard().personalScoresMap;
+            validateKey(personalScoresMap, gameName);
+            personalScoresMap.replace(gameName, loadedData);
         } else {
             fileName = "/" + GLOBAL + "/" + gameName + SCORES_DOT_SER;
-            loadedData = (ArrayList<GameScore>) Savable.loadAtStart(fileName, newMap);
+            loadedData = (ArrayList<GameScore>) Savable.loadAtStart(fileName, newArray);
             validateKey(globalScoresMap, gameName);
             globalScoresMap.replace(gameName, loadedData);
         }

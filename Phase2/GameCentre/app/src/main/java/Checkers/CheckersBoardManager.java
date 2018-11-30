@@ -1,6 +1,7 @@
 package Checkers;
 
 import java.time.Instant;
+import java.util.Iterator;
 
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
@@ -223,14 +224,13 @@ public class CheckersBoardManager extends BoardManager {
     boolean gameComplete() {
         boolean redWins = true;
         boolean whiteWins = true;
-        for (Tile[] row : board.tiles) {
-            for (Tile tile : row) {
-                CheckersTile checkersTile = (CheckersTile) tile;
-                redWins = redWins && !checkersTile.getCheckersId().contains(CheckersTile.WHITE);
-                whiteWins = whiteWins && !checkersTile.getCheckersId().contains(CheckersTile.RED);
-                if (!redWins && !whiteWins) {
-                    return false;
-                }
+        Iterator<Tile> iter = board.iterator();
+        while (iter.hasNext()) {
+            CheckersTile checkersTile = (CheckersTile) iter.next();
+            redWins = redWins && !checkersTile.getCheckersId().contains(CheckersTile.WHITE);
+            whiteWins = whiteWins && !checkersTile.getCheckersId().contains(CheckersTile.RED);
+            if (!redWins && !whiteWins) {
+                return false;
             }
         }
         if (redWins) {

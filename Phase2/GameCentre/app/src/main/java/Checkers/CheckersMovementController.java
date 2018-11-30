@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import fall2018.csc2017.CoreClasses.MovementController;
 import phase1.AccountManager;
+import phase1.Game;
 import phase1.GameScore;
 import phase1.LeaderBoard;
 
@@ -29,7 +30,7 @@ public class CheckersMovementController extends MovementController {
             checkersBoardManager.touchMove(position);
             if (checkersBoardManager.gameComplete()){
                 LeaderBoard.updateScores(new GameScore(
-                        "CheckersTile", checkersBoardManager.getGameFile().getName(),
+                        Game.CHECKERS_NAME, checkersBoardManager.getGameFile().getName(),
                         AccountManager.activeAccount.getUsername(), checkersBoardManager.score()));
                 Toast.makeText(context, checkersBoardManager.getWinner() + " wins!", Toast.LENGTH_SHORT).show();
             }
