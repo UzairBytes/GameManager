@@ -1,12 +1,7 @@
 package Twenty;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
-import Sliding.SlidingBoard;
-import Sliding.SlidingGameFile;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import phase1.AccountManager;

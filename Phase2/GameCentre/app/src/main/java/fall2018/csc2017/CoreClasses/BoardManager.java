@@ -92,4 +92,6 @@ public class BoardManager extends Observable implements Serializable, Game {
         return lastBoard;
     }
 
+  
+
 }

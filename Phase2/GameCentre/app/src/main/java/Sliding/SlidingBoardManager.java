@@ -94,7 +94,8 @@ public class SlidingBoardManager extends BoardManager {
      *
      * @return whether the tiles are in row-major order
      */
-    boolean puzzleSolved() {
+    @Override
+    public boolean gameComplete() {
         Iterator<Tile> iter = slidingBoard.iterator();
         int id = iter.next().getId();
         while (iter.hasNext()) {
@@ -201,7 +202,7 @@ public class SlidingBoardManager extends BoardManager {
      */
     @Override
     public int score() {
-        if (puzzleSolved()) {
+        if (gameComplete()) {
             return (int) (Math.pow(16, slidingBoard.getNumCols()) / ((numMoves + 1) * (maxUndos + 1)));
         }
         return 0;
