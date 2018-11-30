@@ -1,7 +1,5 @@
 package fall2018.csc2017.CoreClasses;
 
-import fall2018.csc2017.CoreClasses.Board;
-
 public interface Game {
 
     /**
@@ -21,10 +19,10 @@ public interface Game {
      */
     int score();
 
-    /*
+    /**
      * Name of SlidingTiles -- a type of Game in this GameCenter.
      */
-    String SLIDING_NAME = "SlidingTiles"; //TODO Does the space matter?
+    String SLIDING_NAME = "SlidingTiles";
 
     /**
      * Name of Twenty -- a type of Game in this GameCenter.

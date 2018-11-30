@@ -36,7 +36,7 @@ public class GameScore implements Serializable, Comparable<GameScore> {
      * @param accountName      The username of whoever completed the game.
      * @param score            The score on completion of the game
      */
-    public GameScore(String gameName, String instanceGameName, String accountName, int score) {
+    GameScore(String gameName, String instanceGameName, String accountName, int score) {
         this.gameName = gameName;
         this.instanceGameName = instanceGameName;
         this.accountName = accountName;

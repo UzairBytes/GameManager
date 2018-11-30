@@ -11,13 +11,13 @@ public abstract class GameFile<T> implements Serializable {
     /**
      * Maximum number of undos for a set of SlidingGameFile.
      */
-    protected int maxUndos;
+    private int maxUndos;
 
 
     /**
      * Undos remaining for a set of SlidingGameFile.
      */
-    protected int remainingUndos;
+    private int remainingUndos;
 
 
     /**
@@ -49,7 +49,7 @@ public abstract class GameFile<T> implements Serializable {
      *
      * @param remainingUndos Desire number of undos
      */
-    public void setRemainingUndos(int remainingUndos) {
+      void setRemainingUndos(int remainingUndos) {
         this.remainingUndos = remainingUndos;
     }
 
@@ -65,7 +65,7 @@ public abstract class GameFile<T> implements Serializable {
     /**
      * Lowers the remaining number of undos by one
      */
-    public void lowerUndos() {
+     void lowerUndos() {
         remainingUndos--;
     }
 
@@ -74,7 +74,7 @@ public abstract class GameFile<T> implements Serializable {
      *
      * @param maxUndos Desire max number of undos
      */
-    public void setMaxUndos(int maxUndos) {
+     void setMaxUndos(int maxUndos) {
         this.maxUndos = maxUndos;
     }
 
