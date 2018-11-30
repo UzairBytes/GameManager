@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import Checkers.CheckersBoardManager;
@@ -51,6 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
         viewUndoId = R.id.undosInput;
         startId = R.id.start;
         setContentView(contentId);
+        makeGameSettingsText();
         addStartButtonListener();
     }
 
@@ -69,11 +71,27 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setSize();
                 setUndos();
-                if (size > 2 && size < 6) {
-                    switchToGame();
-                } else {
-                    makeToastSize();
-                }
+                if (AccountManager.activeAccount.getActiveGameName().equals(Game.SLIDING_NAME)){
+                    if (size > 2 && size < 6) {
+                        boardManager = new SlidingBoardManager(size);
+                        switchToGame();
+                    } else {
+                        makeToastSize();
+                    }
+                } else if (AccountManager.activeAccount.getActiveGameName().equals(Game.TWENTY_NAME)){
+                    if (size > 2 && size < 9) {
+                        boardManager = new TwentyBoardManager(size);
+                        switchToGame();
+                    } else {
+                        makeToastSize();
+                    }
+                } else if(AccountManager.activeAccount.getActiveGameName().equals(Game.CHECKERS_NAME))
+                    if (size > 3 && size < 13){
+                        boardManager = new CheckersBoardManager(size, true);
+                        switchToGame();
+                    } else {
+                        makeToastSize();
+                    }
             }
         });
     }
@@ -82,7 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
      * Displays that a size is not supported.
      */
     private void makeToastSize() {
-        Toast.makeText(this, "Please enter a size 3 to 5.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Please enter a valid size!.", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -95,14 +113,6 @@ public class SettingsActivity extends AppCompatActivity {
         } else {
             size = Integer.parseInt(strSize);
         }
-        if (AccountManager.activeAccount.getActiveGameName().equals(Game.SLIDING_NAME)){
-            boardManager = new SlidingBoardManager(size);
-        } else if (AccountManager.activeAccount.getActiveGameName().equals(Game.TWENTY_NAME)){
-            boardManager = new TwentyBoardManager(size);
-        } else {
-            boardManager = new CheckersBoardManager(size, true);
-        }
-
     }
 
     /**
@@ -129,6 +139,26 @@ public class SettingsActivity extends AppCompatActivity {
         AccountManager.activeAccount.addGameFile(boardManager.getGameFile());
         Savable.saveToFile(SettingsActivity.TEMP_SAVE_FILENAME, boardManager);
         startActivity(start);
+    }
+
+    /**
+     * Displays the relevant settings title with the game-specific acceptable input range for size.
+     */
+    public void makeGameSettingsText(){
+        TextView title = findViewById(R.id.textView7);
+        TextView rangeSize = findViewById(R.id.textView5);
+
+        if (AccountManager.activeAccount.getActiveGameName().equals(Game.SLIDING_NAME)){
+            title.setText("Sliding Tiles Settings");
+            rangeSize.setText("Enter a board size from 3-5!");
+        } else if (AccountManager.activeAccount.getActiveGameName().equals(Game.TWENTY_NAME)){
+            title.setText("2048 Settings");
+            rangeSize.setText("Enter a board size from 3-8!");
+        } else if (AccountManager.activeAccount.getActiveGameName().equals(Game.CHECKERS_NAME)){
+            title.setText("Checkers Settings");
+            rangeSize.setText("Enter a board size from 4-12!");
+        }
+
     }
 
     /**
