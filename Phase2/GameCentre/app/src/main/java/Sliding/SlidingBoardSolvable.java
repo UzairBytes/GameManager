@@ -74,7 +74,7 @@ public class SlidingBoardSolvable {
             for (int j = i + 1; j < tileList.size(); j++) {
                 if (tileList.get(i).getId() > tileList.get(j).getId()
                         && tileList.get(i).getId() != tileList.size()
-                        || tileList.get(j).getId() == tileList.size()) {
+                        && tileList.get(j).getId() != tileList.size()) {
                     inversions++;
                 }
             }
