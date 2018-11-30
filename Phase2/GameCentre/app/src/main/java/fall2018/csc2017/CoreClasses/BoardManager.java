@@ -43,6 +43,7 @@ public abstract class BoardManager extends Observable implements Serializable, G
     public void addUndos() {
         if (this.remainingUndos < this.maxUndos) {
             this.remainingUndos++;
+
         }
     }
 
@@ -53,9 +54,8 @@ public abstract class BoardManager extends Observable implements Serializable, G
      */
     @SuppressWarnings("unchecked")
     public void save(Board board) {
-        GameFile newGameFile = AccountManager.activeAccount.getActiveGameFile();
-        newGameFile.getGameStates().push(board);
-        AccountManager.activeAccount.addGameFile(newGameFile);
+        this.gameStates.push(board);
+        //AccountManager.activeAccount.addGameFile(newGameFile);
     }
 
     /**

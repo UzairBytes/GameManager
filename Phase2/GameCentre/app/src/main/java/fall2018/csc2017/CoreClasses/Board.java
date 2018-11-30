@@ -59,10 +59,10 @@ public class Board implements Serializable, Iterable<Tile> {
          * @return the next checkers tile on the board
          */
         @Override
-        public Tile next(){
+        public Tile next() {
             Tile nextTile = tiles[nextRow][nextColumn];
             nextColumn++;
-            if (nextColumn >= tiles[0].length){
+            if (nextColumn >= tiles[0].length) {
                 nextColumn = 0;
                 nextRow++;
             }
@@ -78,9 +78,9 @@ public class Board implements Serializable, Iterable<Tile> {
         }
     }
 
-    ///**
-    // * A board constructor which must be extended
-    // */
+    /**
+     * default board constructor.
+     */
     protected Board() {
     }
 
@@ -91,12 +91,6 @@ public class Board implements Serializable, Iterable<Tile> {
         this.numRows = rows;
         this.numCols = columns;
         this.tiles = listOfTiles;
-//        Iterator<Tile> iter = new TileIterator();
-//        for (int row = 0; row != numRows; row++) {
-//            for (int col = 0; col != numCols; col++) {
-//                this.tiles[row][col] = iter.next();
-//            }
-//        }
     }
 
     /**
@@ -113,22 +107,6 @@ public class Board implements Serializable, Iterable<Tile> {
         copiedBoard.tiles = copyTile;
         return copiedBoard;
     }
-//    /**
-//     * Returns a deep-copy of this Board.
-//     */
-//    Board createDeepCopy() {
-//        List<Tile> copiedTiles = new ArrayList<>();
-//
-//        Tile[][] copyTile = new Tile[numRows][numCols];
-//        for (int row = 0; row != numRows; row++) {
-//            for (int col = 0; col != numCols; col++) {
-//                copyTile[row][col] = this.tiles[row][col];
-//            }
-//        }
-//        Board copiedBoard = new Board(copiedTiles, numRows, numCols);
-//        copiedBoard.tiles = copyTile;
-//        return copiedBoard;
-//    }
 
 
     /**
@@ -139,15 +117,6 @@ public class Board implements Serializable, Iterable<Tile> {
     public int numTiles() {
         return numRows * numCols;
     }
-    //    Iterator<Tile> iter = this.iterator();
-    //    int cont = 0;
-    //    while (iter.hasNext()) {
-    //        iter.next();
-    //        cont += 1;
-    //    }
-    //    return cont;
-
-    //}
 
     /**
      * Return the tile at (row, col)
@@ -173,32 +142,40 @@ public class Board implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * Returns the numebr of rows in a board.
+     * Returns the number of rows in a board.
      *
      * @return rows in board.
      */
-    public int getNumRows(){return numRows;}
+    public int getNumRows() {
+        return numRows;
+    }
 
     /**
      * Sets number of rows in a board.
      *
      * @param newNumRows int
      */
-    public void setNumRows(int newNumRows){ this.numRows = newNumRows;}
+    public void setNumRows(int newNumRows) {
+        this.numRows = newNumRows;
+    }
 
     /**
      * Returns the number of columns in a board.
      *
      * @return columns in board.
      */
-    public int getNumCols(){return numCols;}
+    public int getNumCols() {
+        return numCols;
+    }
 
     /**
      * Sets number of columns in a board.
      *
      * @param newNumCols int
      */
-    public void setNumCols(int newNumCols) { this.numCols = newNumCols;}
+    public void setNumCols(int newNumCols) {
+        this.numCols = newNumCols;
+    }
 
     /**
      * Swap the tiles at (row1, col1) and (row2, col2)

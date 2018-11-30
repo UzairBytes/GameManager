@@ -14,6 +14,8 @@ import java.util.Observer;
 import fall2018.csc2017.CoreClasses.CustomAdapter;
 import fall2018.csc2017.CoreClasses.GameActivity;
 import fall2018.csc2017.CoreClasses.R;
+import fall2018.csc2017.CoreClasses.StartingActivity;
+import phase1.AccountManager;
 import phase1.Savable;
 
 import static fall2018.csc2017.CoreClasses.SettingsActivity.TEMP_SAVE_FILENAME;
@@ -61,6 +63,8 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             @Override
             public void onClick(View v) {
                 slidingboardManager.undo();
+                AccountManager.activeAccount.setActiveGameFile(slidingboardManager.getGameFile());
+                AccountManager.activeAccount.addGameFile(slidingboardManager.getGameFile());
             }
         });
     }
@@ -136,5 +140,14 @@ public class SlidingTilesGameActivity extends GameActivity implements Observer {
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }
+    }
+
+    /**
+     * Dispatch onPause() to fragments.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Savable.saveToFile(StartingActivity.TEMP_SAVE_FILENAME, slidingboardManager); //TODO Use Savable class.
     }
 }

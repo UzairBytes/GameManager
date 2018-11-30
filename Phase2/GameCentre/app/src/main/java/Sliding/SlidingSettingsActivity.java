@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import fall2018.csc2017.CoreClasses.R;
 import fall2018.csc2017.CoreClasses.SettingsActivity;
+import phase1.AccountManager;
 import phase1.Savable;
 
 public class SlidingSettingsActivity extends SettingsActivity {
@@ -36,6 +37,8 @@ public class SlidingSettingsActivity extends SettingsActivity {
      */
     void switchToGame() {
         Intent start = new Intent(this, SlidingTilesGameActivity.class);
+        AccountManager.activeAccount.setActiveGameFile(slidingBoardManager.getGameFile());
+        AccountManager.activeAccount.addGameFile(slidingBoardManager.getGameFile());
         Savable.saveToFile(SettingsActivity.TEMP_SAVE_FILENAME, slidingBoardManager);
         startActivity(start);
     }
@@ -71,12 +74,13 @@ public class SlidingSettingsActivity extends SettingsActivity {
      */
     private void setSize() {
         String strSize = ((EditText) findViewById(R.id.SlidingBoardSizeInput)).getText().toString();
-        if (strSize.equals("")) {
+        if (strSize.equals("")) { //TODO make method
             size = 4;
         } else {
             size = Integer.parseInt(strSize);
         }
         slidingBoardManager = new SlidingBoardManager(size);
+
     }
 
     /**
@@ -91,6 +95,7 @@ public class SlidingSettingsActivity extends SettingsActivity {
             numUndos = Integer.parseInt(strUndos);
         }
         slidingBoardManager.setMaxUndos(numUndos);
+
     }
 }
 

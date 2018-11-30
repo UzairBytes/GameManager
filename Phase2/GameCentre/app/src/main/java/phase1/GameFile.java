@@ -74,7 +74,4 @@ public abstract class GameFile<T> implements Serializable {
     public int getMaxUndos(){
         return this.maxUndos;
     }
-
-
-
 }

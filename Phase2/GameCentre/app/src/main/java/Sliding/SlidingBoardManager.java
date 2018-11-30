@@ -40,7 +40,7 @@ public class SlidingBoardManager extends BoardManager {
         this.remainingUndos = gameFile.getRemainingUndos();
         this.maxUndos = gameFile.getMaxUndos();
         this.numMoves = gameFile.getNumMoves();
-        AccountManager.activeAccount.addGameFile(gameFile);
+        //AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.slidingBoard = (SlidingBoard) gameFile.getGameStates().peek();
         }
@@ -77,8 +77,8 @@ public class SlidingBoardManager extends BoardManager {
         SlidingGameFile gameFile = new SlidingGameFile(this.slidingBoard, Instant.now().toString());
 
         // Add this new GameFile to the current active account's list of GameFiles.
-        AccountManager.activeAccount.addGameFile(gameFile);
-        AccountManager.activeAccount.saveAccountGameData();
+        //AccountManager.activeAccount.addGameFile(gameFile);
+//        AccountManager.activeAccount.saveAccountGameData();
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
         this.numMoves = gameFile.getNumMoves();
@@ -181,7 +181,7 @@ public class SlidingBoardManager extends BoardManager {
     @SuppressWarnings("unchecked")
     public void save(SlidingBoard board) {
         super.save(board);
-        AccountManager.activeAccount.saveAccountGameData();
+        //AccountManager.activeAccount.saveAccountGameData();
         this.gameFile = (SlidingGameFile) AccountManager.activeAccount.getActiveGameFile();
         this.gameStates = this.gameFile.getGameStates();
         this.slidingBoard = board;
@@ -250,4 +250,34 @@ public class SlidingBoardManager extends BoardManager {
             }
         }
     }
+
+    /**
+     * Sets Sliding Game File in board manager.
+     * @param newFile sliding game file.
+     */
+    public void setSlidingGameFile(SlidingGameFile newFile){
+        this.gameFile = newFile;
+        this.gameStates = this.gameFile.getGameStates();
+        this.slidingBoard = (SlidingBoard) this.gameFile.getGameStates().peek();
+    }
+
+    /**
+     * Returns max undos.
+     * @return int max undos.
+     */
+    public int getMaxUndo(){
+        return maxUndos;
+    }
+
+    /**
+     * Add the number of undos to this board.
+     */
+    @Override
+    public void addUndos() {
+        super.addUndos();
+        if (this.remainingUndos < this.maxUndos) {
+            this.gameFile.setRemainingUndos(this.remainingUndos);
+        }
+    }
+
 }
