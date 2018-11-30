@@ -12,7 +12,7 @@ import fall2018.csc2017.CoreClasses.MovementController;
 public class CheckersMovementController extends MovementController {
 
     /**
-     * An attribute which
+     * An attribute which tells if its
      */
     private boolean moving = false;
 
@@ -20,7 +20,12 @@ public class CheckersMovementController extends MovementController {
         moving = false;
     }
 
-
+    /**
+     * Method checks if a move is valid or if game is over and performs the valid moves.
+     * @param context
+     * @param toastMessage
+     * @param position
+     */
     @Override
     public void processMovement(Context context, String toastMessage, int position) {
         if (moving && boardManager.isValidMove(position)) {
