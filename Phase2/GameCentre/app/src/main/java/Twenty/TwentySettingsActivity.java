@@ -19,7 +19,6 @@ public class TwentySettingsActivity extends SettingsActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("first");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_twenty_settings);
         EditText undosInput = findViewById(R.id.twentyUndosInput);
