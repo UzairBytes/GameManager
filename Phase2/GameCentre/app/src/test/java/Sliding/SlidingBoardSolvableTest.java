@@ -50,7 +50,7 @@ public class SlidingBoardSolvableTest {
         Tile[][] newTiles = makeTiles(5);
         swapTiles(2, 3, 4, 4, newTiles);
         SlidingBoardSolvable newSolver = new SlidingBoardSolvable(newTiles);
-        assertFalse(newSolver.isBoardSolvable());
+        assertTrue(newSolver.isBoardSolvable());
 
         //Case 2 - even board size with blank tile on even row from bottom of
         //tile array and an even number of inversions.
