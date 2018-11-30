@@ -34,7 +34,6 @@ public class TwentyBoardManager extends BoardManager {
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.getRemainingUndos();
         this.maxUndos = gameFile.getMaxUndos();
-        this.numMoves = gameFile.getNumMoves();
         AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.twentyBoard = (TwentyBoard) gameFile.getGameStates().peek();

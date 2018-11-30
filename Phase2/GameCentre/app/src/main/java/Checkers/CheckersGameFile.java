@@ -10,11 +10,6 @@ public class CheckersGameFile extends GameFile {
     public int maxUndos;
 
     /**
-     * Number of moves this user has made.
-     */
-    public int numMoves;
-
-    /**
      * Undos remaining for a set of CheckersGameFile.
      */
     public int remainingUndos;
@@ -29,9 +24,5 @@ public class CheckersGameFile extends GameFile {
     public CheckersGameFile(CheckersBoard initialBoard, String name) {
         this.gameStates.push(initialBoard);
         this.name = name;
-    }
-
-    public void increaseNumMoves(){
-        numMoves++;
     }
 }

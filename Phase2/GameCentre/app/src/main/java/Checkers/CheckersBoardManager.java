@@ -6,7 +6,6 @@ import java.util.Iterator;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import fall2018.csc2017.CoreClasses.Tile;
-import phase1.AccountManager;
 import phase1.GameFile;
 
 public class CheckersBoardManager extends BoardManager {
@@ -53,7 +52,6 @@ public class CheckersBoardManager extends BoardManager {
         this.gameStates = gameFile.getGameStates();
         this.remainingUndos = gameFile.remainingUndos;
         this.remainingUndos = gameFile.maxUndos;
-        this.numMoves = gameFile.numMoves;
         //AccountManager.activeAccount.setActiveGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.board = (CheckersBoard) gameFile.getGameStates().peek();
@@ -93,7 +91,6 @@ public class CheckersBoardManager extends BoardManager {
         //AccountManager.activeAccount.addGameFile(gameFile);
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
-        this.numMoves = gameFile.numMoves;
         this.maxUndos = gameFile.maxUndos;
         save(this.board);
     }
