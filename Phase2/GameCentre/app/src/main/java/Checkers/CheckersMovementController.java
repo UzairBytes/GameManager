@@ -11,7 +11,6 @@ import fall2018.csc2017.CoreClasses.MovementController;
 
 public class CheckersMovementController extends MovementController {
     // TODO: Improve implementation of this, perhaps?
-    private CheckersBoardManager checkersBoardManager;
 
     private boolean moving = false;
 
@@ -20,17 +19,17 @@ public class CheckersMovementController extends MovementController {
     }
 
     public void setCheckersBoardManager(CheckersBoardManager checkersBoardManager) {
-        this.checkersBoardManager = checkersBoardManager;
+        this.boardManager = checkersBoardManager;
     }
 
     public void processTapMovement(Context context, int position) {
-        if (moving && checkersBoardManager.isValidMove(position)) {
-            super.performMove(context, checkersBoardManager.getWinner() + " wins!", position);
-            if (!checkersBoardManager.isHasSlain()) {
+        if (moving && boardManager.isValidMove(position)) {
+            super.performMove(context, ((CheckersBoardManager)boardManager).getWinner() + " wins!", position);
+            if (!((CheckersBoardManager)boardManager).isHasSlain()) {
                 moving = false;
             }
         }
-        else if (checkersBoardManager.isValidSelect(position)){
+        else if (((CheckersBoardManager)boardManager).isValidSelect(position)){
             moving = true;
         }
         else {

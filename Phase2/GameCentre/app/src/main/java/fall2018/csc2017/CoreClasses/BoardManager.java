@@ -21,6 +21,8 @@ public class BoardManager extends Observable implements Serializable, Game {
      */
     private Board board;
 
+    private int size;
+
     public BoardManager (GameFile gameFile){
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
@@ -32,6 +34,7 @@ public class BoardManager extends Observable implements Serializable, Game {
 
     public BoardManager (int size){
         Tile[][] tiles = new Tile[size][size];
+        this.size = size;
         board = new Board(tiles, size, size);
     }
 
@@ -91,13 +94,15 @@ public class BoardManager extends Observable implements Serializable, Game {
      *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
      */
     public void setMaxUndos(int maxUndoValue) {
-        this.gameFile.setMaxUndos(maxUndoValue);
-        this.gameFile.setRemainingUndos(0);
+        gameFile.setMaxUndos(maxUndoValue);
+        gameFile.setRemainingUndos(0);
     }
 
     public Board getBoard() {
         return board;
     }
 
-
+    public int getSize() {
+        return size;
+    }
 }
