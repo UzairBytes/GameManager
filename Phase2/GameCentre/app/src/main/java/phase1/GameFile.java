@@ -65,7 +65,7 @@ public abstract class GameFile<T> implements Serializable {
 
 
     public int getRemainingUndos(){
-        return this.remainingUndos;
+        return remainingUndos;
 
     }
 

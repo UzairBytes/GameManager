@@ -16,23 +16,6 @@ public class BoardManager extends Observable implements Serializable, Game {
     protected Stack<Board> gameStates;
 
     /**
-     * The number of undos the player has left.
-     */
-    // assigned a value from the save file
-    protected int remainingUndos = 0;
-
-    /**
-     * The maximum number of undos.
-     */
-    // assigned a value from the save file
-    protected int maxUndos = 3;
-
-    /**
-     * The number of moves the player has made.
-     */
-    protected int numMoves = 0;
-
-    /**
      * The GameFile holding the data for this board.
      */
     private GameFile gameFile;
@@ -53,6 +36,7 @@ public class BoardManager extends Observable implements Serializable, Game {
 
     public BoardManager (int size){
         Tile[][] tiles = new Tile[size][size];
+        board = new Board(tiles, size, size);
     }
 
     public GameFile getGameFile() {
@@ -77,19 +61,21 @@ public class BoardManager extends Observable implements Serializable, Game {
     @SuppressWarnings("unchecked")
     public void save(Board board) {
         this.gameStates.push(board);
-        //AccountManager.activeAccount.addGameFile(newGameFile);
     }
 
     /**
      * Switches the gameState back one move, if the user has undos left
      */
     public Board undo(){
-        this.remainingUndos--;
-        this.gameStates.pop();
-        Board lastBoard = this.gameStates.peek();
-        setChanged();
-        notifyObservers();
-        return lastBoard;
+        if (gameFile.getRemainingUndos() >0) {
+            gameFile.lowerUndos();
+            this.gameStates.pop();
+            Board lastBoard = this.gameStates.peek();
+            setChanged();
+            notifyObservers();
+            return lastBoard;
+        }
+        return board;
     }
 
     public void touchMove(int position){
@@ -97,6 +83,19 @@ public class BoardManager extends Observable implements Serializable, Game {
 
     public boolean isValidMove(int position){
         return false;
+    }
+
+    public void setGameFile(GameFile gameFile) {
+        this.gameFile = gameFile;
+    }
+
+    /**
+     * @param maxUndoValue: Maximum number of undo tries for this file.
+     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
+     */
+    public void setMaxUndos(int maxUndoValue) {
+        gameFile.setMaxUndos(maxUndoValue);
+        gameFile.setRemainingUndos(0);
     }
 
 }
