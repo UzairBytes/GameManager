@@ -28,8 +28,6 @@ public class TwentyBoardManager extends BoardManager {
         super(gameFile);
         this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
-        this.remainingUndos = gameFile.getRemainingUndos();
-        this.maxUndos = gameFile.getMaxUndos();
         AccountManager.activeAccount.addGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.twentyBoard = (TwentyBoard) gameFile.getGameStates().peek();
@@ -62,8 +60,6 @@ public class TwentyBoardManager extends BoardManager {
         AccountManager.activeAccount.addGameFile(gameFile);
         this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
-        this.numMoves = gameFile.numMoves;
-        this.maxUndos = gameFile.maxUndos;
         this.twentyBoard.generateRandomTile();
         save(this.twentyBoard);
     }
@@ -170,9 +166,8 @@ public class TwentyBoardManager extends BoardManager {
     /* Getter for the GameFile that this board manager exists in.
      * @return the game file this board manager exists in.
      */
-    @Override
-    public TwentyGameFile getGameFile(){
-        return this.gameFile;
+    public TwentyGameFile getTwentyGameFile(){
+        return (TwentyGameFile) getGameFile();
     }
 
     /* Gauges whether or not the game is complete, i.e, no more possible moves can be made. */
@@ -225,7 +220,7 @@ public class TwentyBoardManager extends BoardManager {
      */
     @Override
     public Board undo() {
-        if (this.remainingUndos > 0 && this.gameStates.size() > 1) {
+        if (getTwentyGameFile().getRemainingUndos() > 0 && this.gameStates.size() > 1) {
             this.twentyBoard = (TwentyBoard) super.undo();
             this.gameFile.setRemainingUndos(this.gameFile.getRemainingUndos()-1);
         }else{
@@ -256,11 +251,4 @@ public class TwentyBoardManager extends BoardManager {
         return finalScore;
     }
 
-
-    public void setMaxUndos(int maxUndoValue) {
-        this.gameFile.setMaxUndos(maxUndoValue);
-        this.gameFile.setRemainingUndos(maxUndoValue);
-        this.maxUndos = maxUndoValue;
-        this.remainingUndos = maxUndoValue;
-    }
 }

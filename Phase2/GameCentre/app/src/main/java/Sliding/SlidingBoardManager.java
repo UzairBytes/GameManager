@@ -6,9 +6,6 @@ import java.util.Iterator;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import fall2018.csc2017.CoreClasses.Tile;
-import phase1.GameFile;
-
-import java.util.Stack;
 
 
 /**
@@ -22,11 +19,6 @@ public class SlidingBoardManager extends BoardManager {
     private SlidingBoard slidingBoard;
 
     /**
-     * The SlidingGameFile holding the data for this board.
-     */
-    private SlidingGameFile gameFile;
-
-    /**
      * Initialize the data of this game given a GameFile, containing a Stack of Boards
      * (each representing a specific 'game state'), and attributes telling of the game's settings.
      *
@@ -35,12 +27,9 @@ public class SlidingBoardManager extends BoardManager {
     @SuppressWarnings("unchecked")
     public SlidingBoardManager(SlidingGameFile gameFile) {
         super(gameFile);
-        this.gameFile = gameFile;
-        this.gameStates = gameFile.getGameStates();
-        this.maxUndos = gameFile.getMaxUndos();
-        this.numMoves = gameFile.getNumMoves();
-        if (!gameFile.getGameStates().isEmpty()) {
-            this.slidingBoard = (SlidingBoard) gameFile.getGameStates().peek();
+        this.gameStates = getSlidingGameFile().getGameStates();
+        if (!getSlidingGameFile().getGameStates().isEmpty()) {
+            this.slidingBoard = (SlidingBoard) getSlidingGameFile().getGameStates().peek();
         }
     }
 
@@ -74,19 +63,15 @@ public class SlidingBoardManager extends BoardManager {
 
         // Create a new GameFile, and initialize it with this shuffled board.
         SlidingGameFile gameFile = new SlidingGameFile(this.slidingBoard, Instant.now().toString());
-        this.gameFile = gameFile;
-        this.gameStates = this.gameFile.getGameStates();
-        this.numMoves = gameFile.getNumMoves();
-        this.maxUndos = gameFile.getMaxUndos();
+        setGameFile(gameFile);
         super.save(this.slidingBoard);
     }
 
     /**
      * Returns the GameFile managed by this SlidingBoardManager.
      */
-    @Override
-    public GameFile getGameFile() {
-        return this.gameFile;
+    public SlidingGameFile getSlidingGameFile() {
+        return (SlidingGameFile) getGameFile();
     }
 
     /**
@@ -149,7 +134,7 @@ public class SlidingBoardManager extends BoardManager {
     /**
      * Process move swap tiles at the position of the movement.
      */
-    private void processMove(int position) {
+    void processMove(int position) {
         int row = position / slidingBoard.getNumRows();
         int col = position % slidingBoard.getNumCols();
         int blankId = slidingBoard.numTiles();
@@ -157,9 +142,9 @@ public class SlidingBoardManager extends BoardManager {
         SlidingTile below = row == slidingBoard.getNumRows() - 1 ? null : (SlidingTile) slidingBoard.getTile(row + 1, col);
         SlidingTile left = col == 0 ? null : (SlidingTile) slidingBoard.getTile(row, col - 1);
         SlidingTile right = col == slidingBoard.getNumCols() - 1 ? null : (SlidingTile) slidingBoard.getTile(row, col + 1);
-        gameFile.addUndos();
-        numMoves++;
-        gameFile.increaseNumMoves();
+        getSlidingGameFile().addUndos();
+        getSlidingGameFile().increaseNumMoves();
+        getSlidingGameFile().increaseNumMoves();
         if (below != null && below.getId() == blankId) {
             slidingBoard.swapTiles(row, col, row + 1, col);
         } else if (above != null && above.getId() == blankId) {
@@ -180,7 +165,7 @@ public class SlidingBoardManager extends BoardManager {
     @SuppressWarnings("unchecked")
     public void save(SlidingBoard board) {
         super.save(board);
-        this.gameStates = this.gameFile.getGameStates();
+        this.gameStates = getSlidingGameFile().getGameStates();
         this.slidingBoard = board;
     }
 
@@ -190,7 +175,7 @@ public class SlidingBoardManager extends BoardManager {
     @Override
     public Board undo() {
         // TODO: Use the return value of this fn.
-        if (gameFile.getRemainingUndos() > 0) {
+        if (getSlidingGameFile().getRemainingUndos() > 0) {
             this.slidingBoard = (SlidingBoard) super.undo();
         }
         setChanged();
@@ -205,7 +190,7 @@ public class SlidingBoardManager extends BoardManager {
     @Override
     public int score() {
         if (gameComplete()) {
-            return (int) (Math.pow(16, slidingBoard.getNumCols()) / ((numMoves + 1) * (maxUndos + 1)));
+            return (int) (Math.pow(16, slidingBoard.getNumCols()) / ((getSlidingGameFile().getNumMoves() + 1) * (getSlidingGameFile().getMaxUndos() + 1)));
         }
         return 0;
     }
@@ -217,16 +202,6 @@ public class SlidingBoardManager extends BoardManager {
         return this.slidingBoard;
     }
 
-
-    /**
-     * @param maxUndoValue: Maximum number of undo tries for this file.
-     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
-     */
-    void setMaxUndos(int maxUndoValue) {
-        this.gameFile.setMaxUndos(maxUndoValue);
-        this.gameFile.setRemainingUndos(0);
-        this.maxUndos = maxUndoValue;
-    }
 
     /**
      * Shuffles array of tiles.
@@ -246,4 +221,5 @@ public class SlidingBoardManager extends BoardManager {
             }
         }
     }
+
 }

@@ -6,7 +6,6 @@ import java.util.Iterator;
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
 import fall2018.csc2017.CoreClasses.Tile;
-import phase1.GameFile;
 
 public class CheckersBoardManager extends BoardManager {
 
@@ -49,10 +48,7 @@ public class CheckersBoardManager extends BoardManager {
      */
     public CheckersBoardManager(CheckersGameFile gameFile) {
         super(gameFile);
-        this.gameFile = gameFile;
         this.gameStates = gameFile.getGameStates();
-        this.remainingUndos = gameFile.remainingUndos;
-        this.remainingUndos = gameFile.maxUndos;
         //AccountManager.activeAccount.setActiveGameFile(gameFile);
         if (!gameFile.getGameStates().isEmpty()) {
             this.board = (CheckersBoard) gameFile.getGameStates().peek();
@@ -89,10 +85,7 @@ public class CheckersBoardManager extends BoardManager {
         CheckersGameFile gameFile = new CheckersGameFile(this.board, Instant.now().toString());
 
         // Add this new GameFile to the current active account's list of GameFiles.
-        //AccountManager.activeAccount.addGameFile(gameFile);
-        this.gameFile = gameFile;
         this.gameStates = this.gameFile.getGameStates();
-        this.maxUndos = gameFile.maxUndos;
         save(this.board);
     }
 
@@ -266,9 +259,8 @@ public class CheckersBoardManager extends BoardManager {
     /**
      * Returns the GameFile managed by this SlidingBoardManager.
      */
-    @Override
-    public GameFile getGameFile() {
-        return this.gameFile;
+    public CheckersGameFile getCheckersGameFile() {
+        return (CheckersGameFile) getGameFile();
     }
 
     /**
@@ -293,7 +285,7 @@ public class CheckersBoardManager extends BoardManager {
      */
     @Override
     public Board undo() {
-        if (this.remainingUndos > 0) {
+        if (getCheckersGameFile().getRemainingUndos() > 0) {
             this.board = (CheckersBoard) super.undo();
         }
         this.board.getHighLightedTile().dehighlight();
@@ -303,16 +295,6 @@ public class CheckersBoardManager extends BoardManager {
         return this.board;
     }
 
-    /**
-     * @param maxUndoValue: Maximum number of undo tries for this file.
-     *                      Also initializes the number of undo's this file currently has (denoted by <remainingUndos>)
-     */
-    public void setMaxUndos(int maxUndoValue) {
-        this.gameFile.setMaxUndos(maxUndoValue);
-        this.gameFile.setRemainingUndos(0);
-        this.maxUndos = maxUndoValue;
-        this.remainingUndos = 0;
-    }
 
     void setOpponentType(String opponentType) {
         this.opponentType = opponentType;
