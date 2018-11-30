@@ -272,13 +272,15 @@ public class CheckersBoardManager extends BoardManager {
     @Override
     public Board undo() {
         if (getCheckersGameFile().getRemainingUndos() > 0) {
-            this.board = (CheckersBoard) super.undo();
+            board = (CheckersBoard) super.undo();
+            if (board.getHighLightedTile() != null) {
+                board.getHighLightedTile().dehighlight();
+            }
         }
-        this.board.getHighLightedTile().dehighlight();
         setChanged();
         notifyObservers();
         swapRedsTurn();
-        return this.board;
+        return board;
     }
 
     boolean isRedsTurn(){return redsTurn;}
