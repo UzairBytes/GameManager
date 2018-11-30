@@ -4,9 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import fall2018.csc2017.CoreClasses.MovementController;
-import phase1.AccountManager;
-import phase1.GameScore;
-import phase1.LeaderBoard;
+
 
 /**
  * Controls the movement of tiles, and notifies the user of the results.

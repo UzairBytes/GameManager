@@ -6,9 +6,6 @@ import android.widget.Toast;
 
 import Sliding.SlidingBoardManager;
 import Twenty.TwentyBoardManager;
-import phase1.AccountManager;
-import phase1.GameScore;
-import phase1.LeaderBoard;
 
 public class MovementController extends AppCompatActivity {
 

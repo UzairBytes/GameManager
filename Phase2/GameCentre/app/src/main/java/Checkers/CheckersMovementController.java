@@ -3,6 +3,10 @@ package Checkers;
 import android.content.Context;
 import android.widget.Toast;
 
+import fall2018.csc2017.CoreClasses.AccountManager;
+import fall2018.csc2017.CoreClasses.Game;
+import fall2018.csc2017.CoreClasses.GameScore;
+import fall2018.csc2017.CoreClasses.LeaderBoard;
 import fall2018.csc2017.CoreClasses.MovementController;
 
 public class CheckersMovementController extends MovementController {
