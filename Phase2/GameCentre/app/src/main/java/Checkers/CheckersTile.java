@@ -35,7 +35,7 @@ public class CheckersTile extends Tile {
 
     static final String KING = "king";
 
-    private static final String PAWN = "pawn";
+    static final String PAWN = "pawn";
 
     static final String RED_KING = RED + KING;
 

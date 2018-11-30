@@ -303,4 +303,22 @@ public class CheckersBoardManager extends BoardManager {
     String getOpponentType() {
         return this.opponentType;
     }
+
+
+    /**
+     * Returns the number of pawns the winning player still has plus 5 times the number of kings
+     * Returns zero if game is not complete
+     */
+    @Override
+    public int score() {
+        if (!gameComplete()){return 0;}
+        int output = 0;
+        Iterator<Tile> iter = board.iterator();
+        while (iter.hasNext()) {
+            CheckersTile checkersTile = (CheckersTile) iter.next();
+            if (checkersTile.getCheckersId().contains(CheckersTile.PAWN)){output++;}
+            else if (checkersTile.getCheckersId().contains(CheckersTile.KING)){output += 5;}
+            }
+        return output;
+    }
 }
