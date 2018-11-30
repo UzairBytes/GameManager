@@ -4,7 +4,7 @@ import java.time.Instant;
 
 import fall2018.csc2017.CoreClasses.Board;
 import fall2018.csc2017.CoreClasses.BoardManager;
-import phase1.AccountManager;
+import fall2018.csc2017.CoreClasses.AccountManager;
 
 public class TwentyBoardManager extends BoardManager {
 
