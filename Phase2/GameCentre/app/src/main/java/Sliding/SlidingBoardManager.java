@@ -64,7 +64,7 @@ public class SlidingBoardManager extends BoardManager {
         // Create a new GameFile, and initialize it with this shuffled board.
         SlidingGameFile gameFile = new SlidingGameFile(this.slidingBoard, Instant.now().toString());
         setGameFile(gameFile);
-        super.save(this.slidingBoard);
+        save(this.slidingBoard);
     }
 
     /**

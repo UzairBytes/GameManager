@@ -60,7 +60,7 @@ public class BoardManager extends Observable implements Serializable, Game {
      */
     @SuppressWarnings("unchecked")
     public void save(Board board) {
-        this.gameStates.push(board);
+        gameStates.push(board);
     }
 
     /**
@@ -87,6 +87,7 @@ public class BoardManager extends Observable implements Serializable, Game {
 
     public void setGameFile(GameFile gameFile) {
         this.gameFile = gameFile;
+        this.gameStates = gameFile.getGameStates();
     }
 
     /**
