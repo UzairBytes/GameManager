@@ -1,4 +1,4 @@
-# Team 0543
+# Team 0622
 
 ## Contact information
 * Joshua Cerniglia, josh.cerniglia@gmail.com, 1-603-489-8996
@@ -27,6 +27,15 @@
 * Connect all individual contributions - November 2, 2018
 * Test and debug app - November 3-4, 2018
 * Work on bonuses - November 5, 2018
+
+## Credits
+Josh - worked on checkers game play including checkers board manager, board and tile.
+Uzair - worked on twenty views and activities classes.
+Julian - worked on checkers game play including checkers board manager and leaderboard classes.
+Jonathan - worked on sliding tiles inheritance and board solvable class for sliding.
+Sid - worked on twenty game play including twenty board manager, board and tile.
+* All team members worked on debugging code, creating unit tests and cleaning up code.
+
 
 
 
